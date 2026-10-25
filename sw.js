@@ -1,5 +1,5 @@
 // eLearning — service worker: guarda a app em cache para abrir sem internet.
-const CACHE = 'elearning-v56';
+const CACHE = 'elearning-v58';
 const ASSETS = ['./', './index.html', './manifest.webmanifest',
   './icon-192.png', './icon-512.png', './icon-maskable-192.png', './icon-maskable-512.png', './apple-touch-icon.png', './favicon-32.png', './favicon-48.png'];
 

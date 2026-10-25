@@ -7,6 +7,7 @@
 <title>PDFView</title>
 <meta name="description" content="Biblioteca de PDF por tópicos, com leitor em ecrã inteiro. Funciona offline.">
 <link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect x='12' y='12' width='488' height='488' rx='136' fill='%23181a16' stroke='%23ff7a1f' stroke-width='16'/><g transform='translate%28256 256%29 scale%2811%29 translate%28-12 -12.6%29' fill='none' stroke='%23e7e8e2' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5V19c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5Z'/><path d='M12 6v13.5'/></g></svg>">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
@@ -86407,7 +86408,7 @@ const pdfjsBuild = 'ce8716743';
   function layout(){
     // cada página cabe inteira no ecrã (largura e altura), sem cortes
     const W=availW(), ch=$('pages').clientHeight, H=Math.max(100, ch-12), pin=$('pagesIn');
-    const fitW = r => Math.round(Math.min(W, H/r)*R.zoom);
+    const fitW = r => R.scroll ? Math.round(Math.min(W, Math.round(ch*1.25))*R.zoom) : Math.round(Math.min(W, H/r)*R.zoom);
     let maxw=0;
     R.pages.forEach(pg=>{ const pw=fitW(pg.ratio); maxw=Math.max(maxw,pw); pg.el.style.width=pw+'px'; pg.el.style.height=Math.round(pw*pg.ratio)+'px'; if(pg.done && pg.doneW!==pw) pg.done=false; });
     pin.style.width=Math.max(maxw, W)+'px';
@@ -86459,7 +86460,7 @@ const pdfjsBuild = 'ce8716743';
     if(R.book && R.book!==b){ R.book.page=R.cur||R.book.page; S.store.saveBook(R.book).catch(()=>{}); }
     if(R.doc){ R.doc.destroy(); R.doc=null; }
     R.pages=[];
-    R.book=b; R.zoom=1; R.cur=0; R.bg=null;
+    R.book=b; R.zoom=1; R.cur=0; R.bg=null; R.scroll=false;
     const L=currentList(), ix=L.indexOf(b);
     $('rPrev').disabled = ix<=0; $('rNext').disabled = ix<0 || ix>=L.length-1;
     $('pages').scrollTop=0;
@@ -86469,6 +86470,8 @@ const pdfjsBuild = 'ce8716743';
       if(R.book!==b){ doc.destroy(); return; }
       R.doc=doc;
       const p1=await doc.getPage(1), v=p1.getViewport({scale:1}); R.ratio=v.height/v.width;
+      // PDF vertical abre em modo scroll (páginas à largura, scroll contínuo); horizontal fica página a página
+      R.scroll = R.ratio > 1.05;
       if(!b.pages){ b.pages=doc.numPages; }
       R.pages=[];
       const frag=document.createDocumentFragment();
@@ -86554,7 +86557,7 @@ const pdfjsBuild = 'ce8716743';
   // roda do rato: cada movimento muda exatamente uma página (para cima = anterior, para baixo = seguinte)
   let wAcc=0, wLast=0, wT;
   $('pages').addEventListener('wheel', e=>{
-    if($('reader').hidden || e.ctrlKey) return;
+    if($('reader').hidden || e.ctrlKey || R.scroll) return;
     e.preventDefault();
     const dy = e.deltaMode===1 ? e.deltaY*40 : (e.deltaMode===2 ? e.deltaY*800 : e.deltaY);
     clearTimeout(wT); wT=setTimeout(()=>{ wAcc=0; },180);
