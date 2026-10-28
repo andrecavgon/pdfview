@@ -1,0 +1,42 @@
+# VPS com Docker: app + Caddy (HTTPS automático via Let's Encrypt).
+# Uso: copiar .env.example para .env, preencher, depois `docker compose up -d --build`.
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    environment:
+      PORT: "3000"
+      DATA_DIR: /data
+      AGENT_API_KEY: ${AGENT_API_KEY:?defina AGENT_API_KEY no .env}
+      BINANCE_BASE: ${BINANCE_BASE:-https://data-api.binance.vision}
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:-}
+      TELEGRAM_CHAT_ID: ${TELEGRAM_CHAT_ID:-}
+      NTFY_TOPIC: ${NTFY_TOPIC:-}
+      NTFY_SERVER: ${NTFY_SERVER:-}
+      NTFY_TOKEN: ${NTFY_TOKEN:-}
+      OPPORTUNITY_RULES: ${OPPORTUNITY_RULES:-}
+      OPPORTUNITY_COOLDOWN_H: ${OPPORTUNITY_COOLDOWN_H:-24}
+    volumes:
+      - mkt_data:/data
+    expose:
+      - "3000"          # só acessível pelo Caddy, não pela internet
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: ${DOMAIN:?defina DOMAIN no .env}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data       # certificados (persistir evita limites do Let's Encrypt)
+      - caddy_config:/config
+
+volumes:
+  mkt_data:
+  caddy_data:
+  caddy_config:

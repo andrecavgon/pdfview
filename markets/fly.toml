@@ -1,0 +1,26 @@
+# Fly.io — uma única máquina sempre ligada (SQLite não suporta várias instâncias).
+app = "CHANGE-ME-markets"        # nome único: `fly launch --no-deploy` preenche isto
+primary_region = "fra"           # Europa: a Binance bloqueia IPs dos EUA
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PORT = "3000"
+  DATA_DIR = "/data"
+  BINANCE_BASE = "https://data-api.binance.vision"
+
+[mounts]
+  source = "mkt_data"
+  destination = "/data"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = "off"     # o vigilante tem de correr 24/7
+  auto_start_machines = false
+  min_machines_running = 1
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"

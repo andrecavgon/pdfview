@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Markets Terminal</title>
+<meta name="description" content="Terminal de mercados: bolsa e crypto, gráficos, scanner, alertas e API para agentes 24/7.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232962ff'/%3E%3Cpath d='M6 22l6-8 5 4 9-11' stroke='white' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="demo-banner" hidden>MODO DEMO — dados simulados, não usar para decisões</div>
+<header class="top">
+  <div class="brand"><span class="logo">▲</span><b>Markets</b></div>
+  <button id="search-btn" class="search-btn" aria-label="Pesquisar símbolo"><span>🔍</span><span class="hide-sm">Pesquisar</span><kbd>Ctrl K</kbd></button>
+  <div class="sep"></div>
+  <div id="tf" class="seg" role="group" aria-label="Timeframe"></div>
+  <div class="seg" id="ctype" role="group" aria-label="Tipo de gráfico">
+    <button data-t="candle" class="on" title="Velas">🕯</button><button data-t="line" title="Linha">📈</button><button data-t="area" title="Área">▨</button>
+  </div>
+  <div class="menu"><button id="ind-btn" class="btn">ƒx Indicadores</button><div id="ind-menu" class="pop" hidden></div></div>
+  <div class="grow"></div>
+  <span id="live" class="pill">…</span>
+</header>
+<main class="layout">
+  <section class="chart-col">
+    <div class="sym-head">
+      <div><h1 id="sym-title">—</h1><div id="sym-sub" class="muted"></div></div>
+      <div class="px"><span id="px">—</span><span id="chg" class="chg"></span></div>
+      <div id="legend" class="legend muted"></div>
+    </div>
+    <div id="chart" class="chart"></div>
+    <div id="chart-msg" class="chart-msg" hidden></div>
+  </section>
+  <aside class="side">
+    <nav class="tabs" role="tablist" id="tabs">
+      <button data-tab="watch" class="on" role="tab">Watchlist</button><button data-tab="scan" role="tab">Scanner</button>
+      <button data-tab="over" role="tab">Mercado</button><button data-tab="news" role="tab">Notícias</button><button data-tab="agents" role="tab">Agentes</button>
+    </nav>
+    <div id="panel" class="panel"></div>
+  </aside>
+</main>
+<div id="palette" class="overlay" hidden>
+  <div class="dialog" role="dialog" aria-label="Pesquisa de símbolos">
+    <input id="q" type="text" placeholder="Pesquisar ação, ETF, índice, FX ou crypto… (ex.: AAPL, bitcoin, EURUSD)" autocomplete="off" spellcheck="false">
+    <div id="filters" class="filters"></div>
+    <ul id="results" role="listbox"></ul>
+    <div class="hint muted">↑↓ navegar · Enter abrir · Shift+Enter adicionar à watchlist · Esc fechar</div>
+  </div>
+</div>
+<script type="module" src="app.js"></script>
+</body>
+</html>
