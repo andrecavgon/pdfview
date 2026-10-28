@@ -54,6 +54,14 @@ O vigilante só corre enquanto o processo estiver vivo, por isso hospede-o num s
 (VPS, Fly.io, Railway, Render *paid*): `docker build -t markets . && docker run -p 3000:3000 -v mkt:/data -e AGENT_API_KEY=… markets`.
 Ponha atrás de HTTPS (Caddy/Cloudflare).
 
+### VPS com Docker Compose + Caddy (HTTPS automático)
+
+1. Compre um VPS (Ubuntu, 1 GB chega) **na Europa** e aponte um registo DNS `A` do seu domínio para o IP.
+2. Instale Docker: `curl -fsSL https://get.docker.com | sh`
+3. `git clone … && cd pdfview/markets && cp .env.example .env` e preencha `DOMAIN` e `AGENT_API_KEY` (`openssl rand -hex 24`).
+4. `docker compose up -d --build` — o Caddy obtém o certificado sozinho (portas 80 e 443 abertas).
+5. Logs: `docker compose logs -f app`. Atualizar: `git pull && docker compose up -d --build`.
+
 ## Limitações conhecidas (honestas)
 
 - **Yahoo Finance é não oficial**: sem SLA e com atraso de ~15 min em algumas bolsas. Para dados profissionais, implementar a mesma interface

@@ -1,0 +1,20 @@
+{$DOMAIN} {
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options nosniff
+		Referrer-Policy no-referrer
+	}
+
+	# SSE (/api/stream, /agent/v1/events): sem compressão nem buffering.
+	@sse path /api/stream /agent/v1/events
+	handle @sse {
+		reverse_proxy app:3000 {
+			flush_interval -1
+		}
+	}
+
+	handle {
+		encode zstd gzip
+		reverse_proxy app:3000
+	}
+}
