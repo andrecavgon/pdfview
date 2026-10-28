@@ -37,6 +37,20 @@ Ligar o Claude Code por MCP: `claude mcp add --transport http markets http://loc
 Ferramentas: `search_symbols`, `get_quote`, `get_candles`, `get_indicators`, `scan_market`, `market_overview`,
 `get_news`, `create_alert`, `list_alerts`, `delete_alert`, `get_events`. Os ids levam prefixo do fornecedor (`BINANCE:BTCUSDT`, `YAHOO:AAPL`).
 
+## Avisos de oportunidades
+
+O vigilante analisa o universo a cada 5 min e avisa-o (push no telemóvel + evento `opportunity` para os agentes) quando deteta:
+
+| Regra | Condição |
+|---|---|
+| `oversold_uptrend` | RSI ≤ 35 com preço acima da SMA200 |
+| `macd_bull_cross` | MACD cruza para cima com preço acima da SMA50 |
+| `near_high_momentum` | a ≤2% do máximo de 52s, tendência de alta, RSI 55–75 |
+| `abnormal_move` | variação 24h ≥ 2,5× a volatilidade diária (ATR) |
+
+Cada par (ativo, regra) avisa no máx. 1×/24 h e há no máx. 5 pushes por ciclo. Canais: **ntfy** (`NTFY_TOPIC`, mais simples) e/ou **Telegram**
+(`TELEGRAM_BOT_TOKEN` + `TELEGRAM_CHAT_ID`). Os alertas definidos por si (`create_alert`) usam os mesmos canais. Os sinais são técnicos e ruidosos — não são aconselhamento financeiro.
+
 ## Configuração
 
 | Variável | Default | |
@@ -44,6 +58,8 @@ Ferramentas: `search_symbols`, `get_quote`, `get_candles`, `get_indicators`, `sc
 | `PORT` | 3000 | |
 | `DATA_MODE` | live | `demo` = dados simulados (a UI mostra faixa de aviso) |
 | `AGENT_API_KEY` | — | Bearer token da API de agentes e do MCP |
+| `NTFY_TOPIC`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` | — | canais de notificação (ver acima) |
+| `OPPORTUNITY_RULES`, `OPPORTUNITY_COOLDOWN_H` | todas, 24 | |
 | `DATA_DIR` | ./data | SQLite (snapshots, alertas, eventos) — montar volume persistente |
 | `BINANCE_BASE` | api.binance.com | `https://data-api.binance.vision` se a região bloquear |
 | `WATCH_INTERVAL_MS` / `SNAPSHOT_INTERVAL_MS` | 60 s / 5 min | |

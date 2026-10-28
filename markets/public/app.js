@@ -211,6 +211,7 @@ async function renderPanel() {
       h('h3', {}, 'Vigilante 24/7'),
       h('div', {}, st ? `${st.watcher.symbols} ativos monitorizados · ${st.watcher.cycles} ciclos · último: ${st.watcher.lastRun ? new Date(st.watcher.lastRun).toLocaleTimeString() : '—'}` : '…'),
       st?.watcher.lastError ? h('div', { class: 'down' }, 'Último erro: ' + st.watcher.lastError) : '',
+      h('div', { class: st?.watcher.notifyChannels?.length ? 'up' : 'muted' }, st?.watcher.notifyChannels?.length ? `Avisos push: ${st.watcher.notifyChannels.join(', ')}` : 'Avisos push desligados (defina NTFY_TOPIC ou Telegram)'),
       h('div', { class: st?.agentAuth ? 'up' : 'down' }, st?.agentAuth ? 'Autenticação de agentes ativa' : '⚠ AGENT_API_KEY não definida: API de agentes aberta'),
       h('h3', {}, 'MCP (Claude e outros agentes)'), h('pre', {}, `${o}/mcp`), h('div', { class: 'muted' }, 'Ferramentas: search_symbols, get_quote, get_candles, get_indicators, scan_market, market_overview, get_news, create_alert, list_alerts, delete_alert, get_events'),
       h('h3', {}, 'REST'), h('pre', {}, ex),

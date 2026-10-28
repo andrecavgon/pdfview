@@ -9,6 +9,13 @@ services:
       DATA_DIR: /data
       AGENT_API_KEY: ${AGENT_API_KEY:?defina AGENT_API_KEY no .env}
       BINANCE_BASE: ${BINANCE_BASE:-https://data-api.binance.vision}
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:-}
+      TELEGRAM_CHAT_ID: ${TELEGRAM_CHAT_ID:-}
+      NTFY_TOPIC: ${NTFY_TOPIC:-}
+      NTFY_SERVER: ${NTFY_SERVER:-}
+      NTFY_TOKEN: ${NTFY_TOKEN:-}
+      OPPORTUNITY_RULES: ${OPPORTUNITY_RULES:-}
+      OPPORTUNITY_COOLDOWN_H: ${OPPORTUNITY_COOLDOWN_H:-24}
     volumes:
       - mkt_data:/data
     expose:

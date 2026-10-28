@@ -108,10 +108,11 @@ export const tools = {
     run: ({ alertId }) => ({ deleted: Number(db.prepare('DELETE FROM alerts WHERE id=?').run(alertId).changes) }),
   },
   get_events: {
-    description: 'Eventos recentes (alertas disparados, sinais do vigilante). Use since_id para ler incrementalmente.',
-    input: { type: 'object', properties: { since_id: { type: 'integer', default: 0 }, limit: { type: 'integer', default: 50 } } },
-    run: ({ since_id = 0, limit = 50 } = {}) =>
-      db.prepare('SELECT * FROM events WHERE id > ? ORDER BY id ASC LIMIT ?').all(since_id, Math.min(limit, 500)).map((e) => ({ ...e, data: JSON.parse(e.data) })),
+    description: 'Eventos recentes: alertas disparados e oportunidades detetadas pelo vigilante (kind=opportunity). Use since_id para ler incrementalmente.',
+    input: { type: 'object', properties: { since_id: { type: 'integer', default: 0 }, limit: { type: 'integer', default: 50 }, kind: { type: 'string', enum: ['alert', 'opportunity'] } } },
+    run: ({ since_id = 0, limit = 50, kind } = {}) =>
+      db.prepare(`SELECT * FROM events WHERE id > ? ${kind ? 'AND kind = ?' : ''} ORDER BY id ASC LIMIT ?`)
+        .all(since_id, ...(kind ? [kind] : []), Math.min(limit, 500)).map((e) => ({ ...e, data: JSON.parse(e.data) })),
   },
 };
 

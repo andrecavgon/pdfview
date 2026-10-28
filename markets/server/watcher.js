@@ -4,6 +4,8 @@ import { UNIVERSE } from './providers/demo.js';
 import { summarize } from '../shared/indicators.mjs';
 import { db, upsertSnapshot, addEvent } from './store.js';
 import { bus } from './bus.js';
+import { detect, ruleNames } from './opportunities.js';
+import { notify, channels } from './notify.js';
 
 const LIVE_UNIVERSE = [
   ...['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'XRPUSDT', 'ADAUSDT', 'DOGEUSDT', 'AVAXUSDT', 'LINKUSDT', 'DOTUSDT', 'TRXUSDT', 'LTCUSDT']
@@ -16,13 +18,16 @@ const LIVE_UNIVERSE = [
 export const universe = () => (P.MODE === 'demo'
   ? UNIVERSE.map(([s, n, t]) => ['DEMO:' + s, n, t]) : LIVE_UNIVERSE);
 
+const RULES_ON = (process.env.OPPORTUNITY_RULES ? process.env.OPPORTUNITY_RULES.split(',').map((x) => x.trim()) : ruleNames).filter((r) => ruleNames.includes(r));
+const COOLDOWN = (+process.env.OPPORTUNITY_COOLDOWN_H || 24) * 3600_000;
+const MAX_PER_CYCLE = 5;
 const INTERVAL = +process.env.WATCH_INTERVAL_MS || 60_000;
 const SNAP_EVERY = +process.env.SNAPSHOT_INTERVAL_MS || 5 * 60_000;
 let lastSnap = 0, running = false;
-export const status = { cycles: 0, lastRun: 0, lastError: null, symbols: 0 };
+export const status = { notifyChannels: channels(), opportunityRules: RULES_ON, cycles: 0, lastRun: 0, lastError: null, symbols: 0 };
 
 async function refreshSnapshots() {
-  const u = universe();
+  const u = universe(), found = [];
   const qs = new Map((await P.quotes(u.map((x) => x[0]))).map((q) => [q.id, q]));
   // Concorrência limitada para respeitar rate limits.
   const queue = [...u];
@@ -35,10 +40,34 @@ async function refreshSnapshots() {
         const q = qs.get(id);
         upsertSnapshot.run(id, id.split(':')[1], name, type, Date.now(), q?.price ?? s.price, q?.changePct ?? s.ret1d, s.rsi14, s.trend,
           s.ret7d, s.ret30d, s.atrPct, s.distFromHigh52wPct, JSON.stringify(s));
+        for (const o of detect(s, q, RULES_ON)) found.push({ id, name, price: q?.price ?? s.price, ...o });
       } catch (e) { status.lastError = `${id}: ${e.message}`; }
     }
   }));
   status.symbols = db.prepare('SELECT COUNT(*) n FROM snapshots').get().n;
+  await publishOpportunities(found);
+}
+
+// Regista e notifica cada (ativo, regra) no máx. 1x por COOLDOWN; no máx. MAX_PER_CYCLE avisos por ciclo
+// (o resto fica registado como evento, sem push) para um primeiro arranque não inundar o telemóvel.
+async function publishOpportunities(found) {
+  const seen = db.prepare('SELECT ts FROM notified WHERE key=?'), mark = db.prepare('INSERT OR REPLACE INTO notified (key,ts) VALUES (?,?)');
+  const fresh = found.filter((o) => !((seen.get(`${o.id}|${o.rule}`)?.ts ?? 0) > Date.now() - COOLDOWN));
+  let pushed = 0;
+  for (const o of fresh) {
+    mark.run(`${o.id}|${o.rule}`, Date.now());
+    const msg = `${o.name} (${o.id.split(':')[1]}) — ${o.label}. ${o.why}`;
+    const ev = addEvent('opportunity', o.id, msg, { rule: o.rule, price: o.price });
+    bus.emit('event', ev);
+    if (channels().length && pushed < MAX_PER_CYCLE) {
+      pushed++;
+      const errs = await notify(`📈 ${o.name}: ${o.label}`, `${o.why}
+Preço: ${o.price}
+
+Sinal técnico automático, não é aconselhamento financeiro.`);
+      if (errs.length) addEvent('notify_error', o.id, errs.join('; '));
+    }
+  }
 }
 
 const test = (cond, v, q, rsi) => ({
@@ -62,6 +91,7 @@ async function evalAlerts() {
     const msg = `${a.symbol_id} ${a.cond} ${a.value} (preço ${q.price}, 24h ${q.changePct.toFixed(2)}%${rsi != null ? `, RSI ${rsi}` : ''})${a.note ? ' — ' + a.note : ''}`;
     const ev = addEvent('alert', a.symbol_id, msg, { alertId: a.id, price: q.price, changePct: q.changePct, rsi });
     bus.emit('event', ev);
+    if (channels().length) notify(`🔔 Alerta ${a.symbol_id.split(':')[1]}`, msg).then((errs) => errs.length && addEvent('notify_error', a.symbol_id, errs.join('; ')));
     if (a.webhook) {
       fetch(a.webhook, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(ev), signal: AbortSignal.timeout(8000) })
         .catch((e) => addEvent('webhook_error', a.symbol_id, e.message));
@@ -69,11 +99,11 @@ async function evalAlerts() {
   }
 }
 
-export async function tick() {
+export async function tick(force = false) {
   if (running) return;
   running = true;
   try {
-    if (Date.now() - lastSnap >= SNAP_EVERY || status.symbols === 0) { await refreshSnapshots(); lastSnap = Date.now(); }
+    if (force || Date.now() - lastSnap >= SNAP_EVERY || status.symbols === 0) { await refreshSnapshots(); lastSnap = Date.now(); }
     await evalAlerts();
     status.lastError = status.lastError && Date.now() - status.lastRun < 5 * INTERVAL ? status.lastError : null;
   } catch (e) { status.lastError = e.message; } finally { status.cycles++; status.lastRun = Date.now(); running = false; }

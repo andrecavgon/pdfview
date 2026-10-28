@@ -19,6 +19,7 @@ db.exec(`
   CREATE TABLE IF NOT EXISTS events (
     id INTEGER PRIMARY KEY AUTOINCREMENT, ts INTEGER, kind TEXT, symbol_id TEXT, message TEXT, data TEXT
   );
+  CREATE TABLE IF NOT EXISTS notified (key TEXT PRIMARY KEY, ts INTEGER);
   CREATE INDEX IF NOT EXISTS ev_ts ON events(ts);
 `);
 
