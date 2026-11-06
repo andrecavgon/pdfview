@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Obras com Evidência – Build &amp; Design</title>
 <meta name="description" content="Trabalhar connosco é ter uma Área de Cliente. Acompanhe a sua obra em tempo real, com planeamento, progresso e total transparência.">
-<meta name="theme-color" content="#2a5495" id="themeColor">
+<meta name="theme-color" content="#8f4326" id="themeColor">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
@@ -19,8 +19,13 @@
    ========================================================================== */
 :root {
   /* ---------- primitivos ---------- */
-  --terra-600: oklch(0.50 0.116 41);
-  --terra-700: oklch(0.43 0.104 41);
+  --terra-600: oklch(0.47 0.112 41);   /* terracota (30%) */
+  --terra-700: oklch(0.40 0.100 41);
+  --army-600: #4b5a3a;       /* verde tropa (10%) */
+  --army-700: #3a472d;
+  --stone-grey-300: #d8d5ce; /* cinza pedra (60%): fundo */
+  --stone-grey-400: #cbc7be; /* cinza pedra mais escuro: secções alternadas */
+  --stone-grey-500: #b7b2a7; /* bordas */
 
   --stone-white: #f4f1ec;   /* branco-pedra: fundo geral */
   --sand-200: #e8e2d8;      /* areia: secções alternadas */
@@ -41,7 +46,7 @@
   --red-600: #b3322f;
   --logo-red: #d3191f;
   --sand-300: #d9c3a5;
-  --gold-600: #77593a;
+  --gold-600: #523b21;
 
   --slate-900: #1c2733;
   --slate-500: #5b6571;
@@ -59,37 +64,37 @@
 
   /* ---------- semânticos ---------- */
   /* ação (botões principais, separador ativo) */
-  --color-action: var(--terra-600);
-  --color-action-hover: var(--terra-700);
+  --color-action: var(--army-600);
+  --color-action-hover: var(--army-700);
   --color-on-action: var(--white);
 
   /* navegação (menus, separadores ativos): azul petróleo original */
-  --color-nav-accent: var(--graphite-500);
-  --color-nav-accent-hover: var(--graphite-600);
-  --color-cta: var(--graphite-500);                /* botões da página inicial: Área de Cliente e Pedir Orçamento */
-  --color-cta-hover: var(--graphite-600);
+  --color-nav-accent: var(--terra-600);
+  --color-nav-accent-hover: var(--terra-700);
+  --color-cta: var(--army-600);                /* botões da página inicial: Área de Cliente e Pedir Orçamento */
+  --color-cta-hover: var(--army-700);
   --shadow-nav: 0 4px 14px color-mix(in srgb, var(--ink-900) 25%, transparent);
 
   /* marca / estrutura */
-  --color-brand: var(--graphite-500);        /* títulos, barra lateral */
-  --color-brand-2: var(--graphite-500);      /* estado "em execução", topo do gradiente */
+  --color-brand: var(--terra-600);        /* títulos, barra lateral */
+  --color-brand-2: var(--terra-600);      /* estado "em execução", topo do gradiente */
   --color-on-brand: var(--white);
-  --color-link: var(--graphite-500);
-  --color-focus: var(--graphite-500);
+  --color-link: var(--terra-600);
+  --color-focus: var(--terra-600);
   --color-accent: var(--gold-600);
   --color-accent-soft: var(--sand-300);
   --color-logo: var(--logo-red);
 
   /* superfícies e texto */
-  --color-bg: var(--stone-white);                /* fundo geral (60%) */
+  --color-bg: var(--stone-grey-300);                /* fundo geral (60%) */
   --color-surface: var(--white);                 /* cartões e formulários */
   --color-surface-raised: var(--white);
-  --color-surface-alt: var(--sand-200);          /* superfície 2: secções alternadas */
-  --color-border: var(--cream-300);
+  --color-surface-alt: var(--stone-grey-400);          /* superfície 2: secções alternadas */
+  --color-border: var(--stone-grey-500);
   --color-text: var(--ink-900);
-  --color-text-muted: var(--slate-500);
+  --color-text-muted: #444c56;
   --color-text-on-dark: var(--white);
-  --color-text-soft: #3b4654;
+  --color-text-soft: #333b46;
   --color-on-brand-muted: #e6e6e3;
   --color-shadow-ink: var(--black);
   --color-bg-inverse: var(--ink-900);            /* rodapé */
@@ -978,7 +983,6 @@ form.f{display:grid;gap:14px}
 @media(max-width:560px){.logo-img,.hdr .logo-img,.top-logo .logo-img{height:76px}}
 @media(max-width:360px){.logo-img,.hdr .logo-img,.top-logo .logo-img{height:66px}}
 /* telemóvel com dark mode do browser: azul da marca passa a cinzento */
-html.fd{--graphite-500:#4a4a48;--graphite-600:#3a3a38}
 
 </style>
 </head>
