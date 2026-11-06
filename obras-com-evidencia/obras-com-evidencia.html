@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#8f4326" id="themeColor">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ==========================================================================
    Design tokens — duas camadas
@@ -138,8 +138,8 @@
   --ph-m1: var(--stone-15); --ph-m2: var(--stone-16);
 
   /* tipografia e forma */
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-sans: 'Jost', system-ui, sans-serif;
+  --font-serif: 'Manrope', system-ui, sans-serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
   --radius: 12px;
 }
 
@@ -932,13 +932,13 @@ form.f{display:grid;gap:14px}
 
 /* telemóvel: botões e barras com o mesmo tamanho em PT e EN */
 @media(max-width:560px){
-  #loginBtn{min-width:105px;justify-content:center;text-align:center}
+  #loginBtn{min-width:118px;justify-content:center;text-align:center}
   .float-cta{width:165px;justify-content:center;text-align:center}
-  .hero .btn{min-width:162px;justify-content:center}
+  .hero .btn{min-width:179px;justify-content:center}
   .top-r .lang,.hdr-r .lang{min-width:48px;justify-content:center}
   .mock{min-height:547px}
 }
-@media(max-width:360px){#loginBtn{min-width:93px}}
+@media(max-width:360px){#loginBtn{min-width:105px}}
 
 /* "Pedir orçamento" e chatbot: mais baixos, mesma largura */
 .float-cta{height:42px;padding:0 28px;display:inline-flex;align-items:center;justify-content:center;font-size:1.15rem;line-height:1}

@@ -787,13 +787,13 @@ form.f{display:grid;gap:14px}
 
 /* telemóvel: botões e barras com o mesmo tamanho em PT e EN */
 @media(max-width:560px){
-  #loginBtn{min-width:105px;justify-content:center;text-align:center}
+  #loginBtn{min-width:118px;justify-content:center;text-align:center}
   .float-cta{width:165px;justify-content:center;text-align:center}
-  .hero .btn{min-width:162px;justify-content:center}
+  .hero .btn{min-width:179px;justify-content:center}
   .top-r .lang,.hdr-r .lang{min-width:48px;justify-content:center}
   .mock{min-height:547px}
 }
-@media(max-width:360px){#loginBtn{min-width:93px}}
+@media(max-width:360px){#loginBtn{min-width:105px}}
 
 /* "Pedir orçamento" e chatbot: mais baixos, mesma largura */
 .float-cta{height:42px;padding:0 28px;display:inline-flex;align-items:center;justify-content:center;font-size:1.15rem;line-height:1}

@@ -126,7 +126,7 @@
   --ph-m1: var(--stone-15); --ph-m2: var(--stone-16);
 
   /* tipografia e forma */
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-sans: 'Jost', system-ui, sans-serif;
+  --font-serif: 'Manrope', system-ui, sans-serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
   --radius: 12px;
 }
