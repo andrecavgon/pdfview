@@ -379,3 +379,7 @@ form.f{display:grid;gap:14px}
 /* botão do menu (cabeçalho): azul petróleo */
 .hdr .btn{background:var(--color-nav-accent);color:var(--color-on-brand);box-shadow:var(--shadow-nav)}
 .hdr .btn:hover{background:var(--color-nav-accent-hover)}
+
+/* botões de destaque da página inicial: azul do dashboard */
+.hero .btn,.float-cta{background:var(--color-cta);color:var(--color-on-brand);box-shadow:var(--shadow-nav)}
+.hero .btn:hover,.float-cta:hover{background:var(--color-cta-hover)}
