@@ -424,3 +424,9 @@ form.f{display:grid;gap:14px}
 .side .logo{display:block;text-align:center;padding:10px 12px;margin:0 0 18px}
 .side .logo svg{height:74px;margin:0 auto}
 .ftr svg{height:80px}
+
+/* logotipo maior (texto secundário legível) */
+.logo svg{height:72px}
+.side .logo svg{height:88px}
+.ftr svg{height:104px}
+@media(max-width:560px){.logo svg{height:60px}}

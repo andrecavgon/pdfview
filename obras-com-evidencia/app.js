@@ -19,12 +19,12 @@ let testiTimer;
 const stopTimers = () => { clearInterval(testiTimer); clearInterval(ST.timer); };
 
 // ---------- logótipo ----------
-const logo = () => `<svg viewBox="0 0 330 120" role="img" aria-label="Obras com Evidência — Build & Design">
-<text x="6" y="24" font-family="Jost,sans-serif" font-size="16" letter-spacing="3" style="fill:var(--color-logo-sub)">obras com</text>
-<polyline class="roof" points="-15,15 0,0 15,15" transform="translate(88 37)" fill="none" style="stroke:var(--color-logo-roof)" stroke-width="5" stroke-linecap="square"/>
-<text class="wm" data-i="4" data-fs="46" x="4" y="84" font-family="Jost,sans-serif" font-weight="500" font-size="46" letter-spacing="2.5" style="fill:var(--color-logo-ink)">EVIDENCIA</text>
-<rect x="6" y="97" width="312" height="1.5" style="fill:var(--color-logo-ink)" opacity=".2"/>
-<text x="6" y="115" font-family="Jost,sans-serif" font-size="11.5" letter-spacing="6.5" style="fill:var(--color-logo-desc)">BUILD &amp; DESIGN</text></svg>`;
+const logo = () => `<svg viewBox="0 0 330 142" role="img" aria-label="Obras com Evidência — Build & Design">
+<text x="5" y="31" font-family="Jost,sans-serif" font-weight="500" font-size="27" letter-spacing="1.5" style="fill:var(--color-logo-sub)">Obras com</text>
+<polyline class="roof" points="-15,15 0,0 15,15" transform="translate(131 43)" fill="none" style="stroke:var(--color-logo-roof)" stroke-width="5" stroke-linecap="square"/>
+<text class="wm" data-i="4" data-fs="46" x="4" y="100" font-family="Jost,sans-serif" font-weight="500" font-size="46" letter-spacing="2.5" style="fill:var(--color-logo-ink)">EVIDENCIA</text>
+<rect x="6" y="110" width="312" height="1.5" style="fill:var(--color-logo-ink)" opacity=".25"/>
+<text x="5" y="136" font-family="Jost,sans-serif" font-weight="500" font-size="22" letter-spacing="5.4" style="fill:var(--color-logo-desc)">BUILD &amp; DESIGN</text></svg>`;
 // o telhado fica centrado sobre o "E" (substitui o circunflexo), medido com a fonte já carregada
 function fixLogos() {
   $$('svg text.wm').forEach(t => { const r = t.parentNode.querySelector('polyline.roof'); if (!r) return;
