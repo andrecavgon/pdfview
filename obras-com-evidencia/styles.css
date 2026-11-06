@@ -413,3 +413,7 @@ form.f{display:grid;gap:14px}
 .bot-f button{background:var(--color-cta);color:var(--color-on-brand);border-radius:8px;padding:0 14px}
 @media(max-width:560px){.float-cta{right:84px;bottom:14px}.bot-fab{right:14px;bottom:14px;width:52px;height:52px}.bot-panel{right:8px;left:8px;width:auto;max-width:none;bottom:78px}}
 @media (prefers-reduced-motion:reduce){.bot-m.typing i,.bot-panel.open{animation:none}}
+
+/* botão "Entrar" (e restantes botões de diálogos): azul do dashboard */
+.modal .box .btn:not(.ghost):not(.danger){background:var(--color-cta);color:var(--color-on-brand);box-shadow:var(--shadow-nav)}
+.modal .box .btn:not(.ghost):not(.danger):hover{background:var(--color-cta-hover)}
