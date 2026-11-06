@@ -30,6 +30,8 @@
   --red-500: #c8202a;
   --red-600: #b3322f;
   --logo-red: #d3191f;
+  --terra-300: #e08a63;     /* terracota clara: telhado do logotipo sobre azul */
+  --mist-200: #cfd8e3;
   --sand-300: #d9c3a5;
   --gold-600: #77593a;
 
@@ -69,6 +71,11 @@
   --color-accent: var(--gold-600);
   --color-accent-soft: var(--sand-300);
   --color-logo: var(--logo-red);
+  --color-logo-plate: var(--petrol-500);       /* fundo azul do logotipo */
+  --color-logo-ink: var(--white);
+  --color-logo-sub: var(--mist-200);
+  --color-logo-roof: var(--terra-300);
+  --color-logo-desc: var(--sand-300);
 
   /* superfícies e texto */
   --color-bg: var(--stone-white);                /* fundo geral (60%) */
