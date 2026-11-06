@@ -383,3 +383,33 @@ form.f{display:grid;gap:14px}
 /* botões de destaque da página inicial: azul do dashboard */
 .hero .btn,.float-cta{background:var(--color-cta);color:var(--color-on-brand);box-shadow:var(--shadow-nav)}
 .hero .btn:hover,.float-cta:hover{background:var(--color-cta-hover)}
+
+/* ---- chatbot (canto inferior direito) ---- */
+.float-cta{right:96px}
+.bot-fab{position:fixed;right:28px;bottom:28px;z-index:70;width:56px;height:56px;border-radius:50%;background:var(--color-cta);color:var(--color-on-brand);font-size:1.4rem;box-shadow:var(--shadow-nav);transition:.2s;display:grid;place-items:center}
+.bot-fab:hover{background:var(--color-cta-hover);transform:translateY(-2px)}
+.bot-fab:focus-visible,.bot-panel button:focus-visible,.bot-f input:focus-visible{outline:3px solid var(--color-focus);outline-offset:2px}
+.bot-panel{position:fixed;right:28px;bottom:96px;z-index:70;width:360px;max-width:calc(100vw - 32px);height:520px;max-height:calc(100vh - 130px);background:var(--color-surface);border:1px solid var(--color-border);border-radius:16px;box-shadow:var(--shadow-lg);display:none;flex-direction:column;overflow:hidden;color:var(--color-text)}
+.bot-panel.open{display:flex;animation:fade .25s}
+.bot-panel header{display:flex;align-items:center;gap:12px;padding:14px 16px;background:linear-gradient(180deg,var(--color-brand-2),var(--color-brand));color:var(--color-on-brand)}
+.bot-panel header b{display:block;font-family:var(--font-serif);font-size:1.25rem;font-weight:500;line-height:1.1}
+.bot-panel header small{color:var(--color-on-brand-muted);font-size:.78rem}
+.bot-panel header #botX{margin-left:auto;color:var(--color-on-brand);font-size:1.1rem;padding:4px 8px}
+.bot-av{width:38px;height:38px;border-radius:50%;background:var(--color-on-brand);color:var(--color-brand);display:grid;place-items:center;font-family:var(--font-serif);font-size:1.3rem;flex:none}
+.bot-msgs{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--color-bg)}
+.bot-m{max-width:86%;padding:10px 14px;border-radius:14px;font-size:.93rem;line-height:1.45;background:var(--color-surface);box-shadow:0 1px 3px color-mix(in srgb, var(--color-shadow-ink) 8%, transparent);display:grid;gap:8px;justify-items:start}
+.bot-m.user{align-self:flex-end;background:var(--color-info-bg)}
+.bot-act{background:var(--color-cta);color:var(--color-on-brand);border-radius:8px;padding:7px 12px;font-size:.84rem}
+.bot-act:hover{background:var(--color-cta-hover)}
+.bot-m.typing{display:flex;gap:4px;padding:14px}
+.bot-m.typing i{width:7px;height:7px;border-radius:50%;background:var(--color-text-muted);animation:botdot 1s infinite}
+.bot-m.typing i:nth-child(2){animation-delay:.15s}.bot-m.typing i:nth-child(3){animation-delay:.3s}
+@keyframes botdot{0%,60%,100%{opacity:.3;transform:none}30%{opacity:1;transform:translateY(-3px)}}
+.bot-chips{display:flex;gap:6px;flex-wrap:wrap;padding:8px 12px;border-top:1px solid var(--color-border);background:var(--color-surface)}
+.bot-chips button{border:1px solid var(--color-border);border-radius:999px;padding:5px 11px;font-size:.8rem;color:var(--color-brand);background:var(--color-surface)}
+.bot-chips button:hover{background:var(--color-surface-alt)}
+.bot-f{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--color-border);background:var(--color-surface)}
+.bot-f input{flex:1;min-width:0;border:1px solid var(--color-border);border-radius:8px;padding:9px 12px;background:var(--color-bg);outline:none;font-size:.93rem}
+.bot-f button{background:var(--color-cta);color:var(--color-on-brand);border-radius:8px;padding:0 14px}
+@media(max-width:560px){.float-cta{right:84px;bottom:14px}.bot-fab{right:14px;bottom:14px;width:52px;height:52px}.bot-panel{right:8px;left:8px;width:auto;max-width:none;bottom:78px}}
+@media (prefers-reduced-motion:reduce){.bot-m.typing i,.bot-panel.open{animation:none}}

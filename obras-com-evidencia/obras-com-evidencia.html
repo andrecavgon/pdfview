@@ -526,6 +526,36 @@ form.f{display:grid;gap:14px}
 .hero .btn,.float-cta{background:var(--color-cta);color:var(--color-on-brand);box-shadow:var(--shadow-nav)}
 .hero .btn:hover,.float-cta:hover{background:var(--color-cta-hover)}
 
+/* ---- chatbot (canto inferior direito) ---- */
+.float-cta{right:96px}
+.bot-fab{position:fixed;right:28px;bottom:28px;z-index:70;width:56px;height:56px;border-radius:50%;background:var(--color-cta);color:var(--color-on-brand);font-size:1.4rem;box-shadow:var(--shadow-nav);transition:.2s;display:grid;place-items:center}
+.bot-fab:hover{background:var(--color-cta-hover);transform:translateY(-2px)}
+.bot-fab:focus-visible,.bot-panel button:focus-visible,.bot-f input:focus-visible{outline:3px solid var(--color-focus);outline-offset:2px}
+.bot-panel{position:fixed;right:28px;bottom:96px;z-index:70;width:360px;max-width:calc(100vw - 32px);height:520px;max-height:calc(100vh - 130px);background:var(--color-surface);border:1px solid var(--color-border);border-radius:16px;box-shadow:var(--shadow-lg);display:none;flex-direction:column;overflow:hidden;color:var(--color-text)}
+.bot-panel.open{display:flex;animation:fade .25s}
+.bot-panel header{display:flex;align-items:center;gap:12px;padding:14px 16px;background:linear-gradient(180deg,var(--color-brand-2),var(--color-brand));color:var(--color-on-brand)}
+.bot-panel header b{display:block;font-family:var(--font-serif);font-size:1.25rem;font-weight:500;line-height:1.1}
+.bot-panel header small{color:var(--color-on-brand-muted);font-size:.78rem}
+.bot-panel header #botX{margin-left:auto;color:var(--color-on-brand);font-size:1.1rem;padding:4px 8px}
+.bot-av{width:38px;height:38px;border-radius:50%;background:var(--color-on-brand);color:var(--color-brand);display:grid;place-items:center;font-family:var(--font-serif);font-size:1.3rem;flex:none}
+.bot-msgs{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--color-bg)}
+.bot-m{max-width:86%;padding:10px 14px;border-radius:14px;font-size:.93rem;line-height:1.45;background:var(--color-surface);box-shadow:0 1px 3px color-mix(in srgb, var(--color-shadow-ink) 8%, transparent);display:grid;gap:8px;justify-items:start}
+.bot-m.user{align-self:flex-end;background:var(--color-info-bg)}
+.bot-act{background:var(--color-cta);color:var(--color-on-brand);border-radius:8px;padding:7px 12px;font-size:.84rem}
+.bot-act:hover{background:var(--color-cta-hover)}
+.bot-m.typing{display:flex;gap:4px;padding:14px}
+.bot-m.typing i{width:7px;height:7px;border-radius:50%;background:var(--color-text-muted);animation:botdot 1s infinite}
+.bot-m.typing i:nth-child(2){animation-delay:.15s}.bot-m.typing i:nth-child(3){animation-delay:.3s}
+@keyframes botdot{0%,60%,100%{opacity:.3;transform:none}30%{opacity:1;transform:translateY(-3px)}}
+.bot-chips{display:flex;gap:6px;flex-wrap:wrap;padding:8px 12px;border-top:1px solid var(--color-border);background:var(--color-surface)}
+.bot-chips button{border:1px solid var(--color-border);border-radius:999px;padding:5px 11px;font-size:.8rem;color:var(--color-brand);background:var(--color-surface)}
+.bot-chips button:hover{background:var(--color-surface-alt)}
+.bot-f{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--color-border);background:var(--color-surface)}
+.bot-f input{flex:1;min-width:0;border:1px solid var(--color-border);border-radius:8px;padding:9px 12px;background:var(--color-bg);outline:none;font-size:.93rem}
+.bot-f button{background:var(--color-cta);color:var(--color-on-brand);border-radius:8px;padding:0 14px}
+@media(max-width:560px){.float-cta{right:84px;bottom:14px}.bot-fab{right:14px;bottom:14px;width:52px;height:52px}.bot-panel{right:8px;left:8px;width:auto;max-width:none;bottom:78px}}
+@media (prefers-reduced-motion:reduce){.bot-m.typing i,.bot-panel.open{animation:none}}
+
 </style>
 </head>
 <body>
@@ -537,7 +567,9 @@ form.f{display:grid;gap:14px}
    Enquanto estiver vazio, o site corre em MODO DEMONSTRAÇÃO (dados em memória). */
 window.OCE_CONFIG = {
   SUPABASE_URL: '',       // ex.: 'https://abcdxyz.supabase.co'
-  SUPABASE_ANON_KEY: ''   // chave "anon public" (segura no browser; a proteção é feita pelo RLS)
+  SUPABASE_ANON_KEY: '',  // chave "anon public" (segura no browser; a proteção é feita pelo RLS)
+  CHATBOT_URL: ''         // opcional: endpoint seu (POST {message,history,lang} → {reply}) que liga a um modelo de IA.
+                          // Vazio = assistente de perguntas frequentes integrado. Nunca ponha chaves de IA neste ficheiro.
 };
 
 </script>
@@ -548,6 +580,15 @@ window.I18N = {
     loading:'A carregar…', login_err:'Não foi possível entrar:', demo_banner:'Modo demonstração — os dados não são guardados.', staff_enter:'Entrar como equipa',
     week_sec:'Atualização desta semana', all_sec:'Todas as fotografias', req_title:'Solicitar alteração / novo pedido', req_ph:'Descreva a alteração ou o novo pedido…', send_b:'Enviar', cancel:'Cancelar', err:'Erro:', no_photos:'Ainda sem fotografias.', no_items:'Sem itens.',
     before:'Antes', after:'Depois', ba_need:'São necessárias pelo menos duas fotografias para comparar.', acc_needed:'Confirme que aceita o acréscimo.',
+    bot_title:'Assistente Evidência', bot_sub:'Responde em segundos', bot_open:'Abrir chat', bot_close:'Fechar chat', bot_ph:'Escreva a sua pergunta…', bot_send:'Enviar', bot_typing:'A escrever…',
+    bot_hi:'Olá! Sou o assistente da Obras com Evidência. Em que posso ajudar?',
+    bot_c1:'Serviços', bot_c2:'Pedir orçamento', bot_c3:'Área de Cliente', bot_c4:'Contactos',
+    bot_r_serv:'Fazemos remodelações integrais, design e interiores, e gestão e fiscalização de obra, tudo chave-na-mão: das demolições aos acabamentos.',
+    bot_r_quote:'Pode pedir um orçamento sem compromisso. Indique-nos o tipo de obra e a localização no formulário de contacto e respondemos brevemente.',
+    bot_r_client:'Trabalhar connosco é ter uma Área de Cliente privada: cronograma, progresso por especialidade, fotografias, materiais com teto de PVP, financeiro e chat com o responsável de obra. O acesso é individual.',
+    bot_r_contact:'Pode falar connosco por geral@obrascomevidencia.com ou +351 000 000 000. Também pode usar o formulário de contacto.',
+    bot_r_default:'Não tenho a certeza de ter percebido. Posso falar-lhe dos serviços, do orçamento, da Área de Cliente ou dos contactos. Se preferir, deixe o seu pedido no formulário.',
+    bot_a_contact:'Ir para o formulário', bot_a_login:'Entrar na Área de Cliente',
     nav_about:'Sobre Nós', nav_services:'Os Nossos Serviços', nav_projects:'Projetos', nav_contact:'Contactos', client:'Área de Cliente',
     hero1:'Trabalhar connosco é ter uma Área de Cliente.', hero2:'Acompanhe a sua obra em tempo real, com planeamento, progresso e total transparência.',
     testi:'Opiniões dos Clientes', quote:'Pedir Orçamento',
@@ -598,6 +639,15 @@ window.I18N = {
     loading:'Loading…', login_err:'Could not sign in:', demo_banner:'Demo mode — data is not saved.', staff_enter:'Sign in as staff',
     week_sec:"This week's update", all_sec:'All photos', req_title:'Request change / new order', req_ph:'Describe the change or new order…', send_b:'Send', cancel:'Cancel', err:'Error:', no_photos:'No photos yet.', no_items:'No items.',
     before:'Before', after:'After', ba_need:'At least two photos are needed to compare.', acc_needed:'Please confirm you accept the extra cost.',
+    bot_title:'Evidência Assistant', bot_sub:'Replies in seconds', bot_open:'Open chat', bot_close:'Close chat', bot_ph:'Type your question…', bot_send:'Send', bot_typing:'Typing…',
+    bot_hi:'Hello! I am the Obras com Evidência assistant. How can I help?',
+    bot_c1:'Services', bot_c2:'Request a quote', bot_c3:'Client Area', bot_c4:'Contact',
+    bot_r_serv:'We do full renovations, design and interiors, and site management and supervision, all turnkey: from demolition to finishes.',
+    bot_r_quote:'You can request a no-obligation quote. Tell us the type of work and location in the contact form and we will reply shortly.',
+    bot_r_client:'Working with us means a private Client Area: schedule, progress by trade, photos, materials with a price ceiling, financials and chat with the site manager. Access is individual.',
+    bot_r_contact:'You can reach us at geral@obrascomevidencia.com or +351 000 000 000. You can also use the contact form.',
+    bot_r_default:'I am not sure I understood. I can tell you about our services, quotes, the Client Area or contact details. If you prefer, leave your request in the form.',
+    bot_a_contact:'Go to the form', bot_a_login:'Sign in to the Client Area',
     nav_about:'About Us', nav_services:'Our Services', nav_projects:'Projects', nav_contact:'Contact', client:'Client Area',
     hero1:'Working with us means having a Client Area.', hero2:'Follow your project in real time, with scheduling, progress and total transparency.',
     testi:'Client Reviews', quote:'Request a Quote',
@@ -1008,7 +1058,7 @@ function renderPublic() {
     <form class="f" id="quoteForm"><label>${t('name')}<input required name="n"></label><label>${t('email')}<input required type="email" name="e"></label><label>${t('phone')}<input name="p"></label><label>${t('msg')}<textarea rows="4" name="m"></textarea></label><button class="btn" style="justify-self:start">${t('send')}</button></form></div></section>
 
   <footer class="ftr"><div class="wrap">${logo(true)}<div>${t('footer')}</div></div></footer>
-  <a class="btn float-cta" href="#contact">${t('quote')}</a>`;
+  <a class="btn float-cta" href="#contact">${t('quote')}</a><div id="bot"></div>`;
   $$('.lang button').forEach(b => b.onclick = () => setLang(b.dataset.l));
   $('#loginBtn').onclick = enterArea; $$('[data-login]').forEach(b => b.onclick = enterArea);
   $('#quoteForm').onsubmit = e => { e.preventDefault(); e.target.reset(); toast(t('sent')); };
@@ -1024,6 +1074,7 @@ function renderPublic() {
   const auto = () => { clearInterval(testiTimer); testiTimer = setInterval(() => ($('#slide') ? show(ST.testi + 1) : clearInterval(testiTimer)), 6000); };
   $('#tPrev').onclick = () => { show(ST.testi - 1); auto(); }; $('#tNext').onclick = () => { show(ST.testi + 1); auto(); };
   show(ST.testi); auto();
+  botMount();
 }
 function enterArea() { const u = DB.user(); if (u) location.hash = homeFor(u); else openLogin(); }
 function openLogin() {
@@ -1041,6 +1092,55 @@ function openLogin() {
   };
   if (demo) $('#asStaff', m).onclick = () => { f.u.value = 'equipa@demo.pt'; f.requestSubmit(); };
 }
+
+
+/* ===================== CHATBOT (canto inferior direito) ===================== */
+const BOT_RULES = [ // ordem importa: a primeira que corresponder responde
+  ['quote', /or[cç]ament|pre[cç]o|quanto|custa|quote|price|cost|budget|estimate/i, 'contact'],
+  ['client', /cliente|login|acesso|portal|client|access|sign.?in|dashboard/i, 'login'],
+  ['serv', /servi[cç]|remodel|reabilit|design|interior|obra|renov|service|works?/i, null],
+  ['contact', /contact|telefone|telem|email|morada|falar|ligar|phone|address|reach|call/i, 'contact']
+];
+ST.bot = ST.bot || { open: false, msgs: [], busy: false };
+function botReply(text) {
+  for (const [k, re, act] of BOT_RULES) if (re.test(text)) return { text: t('bot_r_' + k), act };
+  return { text: /^(ol[aá]|bom|boa|oi|hello|hi|hey)\b/i.test(text.trim()) ? t('bot_hi') : t('bot_r_default'), act: null };
+}
+async function botAnswer(text) {
+  const url = (window.OCE_CONFIG || {}).CHATBOT_URL;
+  if (url) { // endpoint próprio (IA no servidor); em falha, cai nas respostas integradas
+    try {
+      const r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: text, history: ST.bot.msgs.slice(-10), lang }) });
+      if (r.ok) { const d = await r.json(); if (d && d.reply) return { text: String(d.reply), act: null }; }
+    } catch (e) { /* usa respostas integradas */ }
+  }
+  return botReply(text);
+}
+function botDraw() {
+  const b = ST.bot, root = $('#bot'); if (!root) return;
+  const msgs = b.msgs.length ? b.msgs : [{ role: 'bot', text: t('bot_hi') }];
+  root.innerHTML = `
+  <button class="bot-fab" id="botFab" aria-label="${b.open ? t('bot_close') : t('bot_open')}" aria-expanded="${b.open}" aria-controls="botPanel">${b.open ? '✕' : '💬'}</button>
+  <section class="bot-panel ${b.open ? 'open' : ''}" id="botPanel" role="dialog" aria-label="${t('bot_title')}" ${b.open ? '' : 'hidden'}>
+    <header><div class="bot-av" aria-hidden="true">E</div><div><b>${t('bot_title')}</b><small>${t('bot_sub')}</small></div><button id="botX" aria-label="${t('bot_close')}">✕</button></header>
+    <div class="bot-msgs" id="botMsgs" aria-live="polite">${msgs.map(m => `<div class="bot-m ${m.role}">${esc(m.text)}${m.act ? `<button class="bot-act" data-act="${m.act}">${t(m.act === 'login' ? 'bot_a_login' : 'bot_a_contact')}</button>` : ''}</div>`).join('')}${b.busy ? `<div class="bot-m bot typing" aria-label="${t('bot_typing')}"><i></i><i></i><i></i></div>` : ''}</div>
+    <div class="bot-chips">${[['bot_c1', 'serv'], ['bot_c2', 'quote'], ['bot_c3', 'client'], ['bot_c4', 'contact']].map(([k, q]) => `<button data-q="${q}">${t(k)}</button>`).join('')}</div>
+    <form class="bot-f" id="botF"><input id="botI" type="text" placeholder="${t('bot_ph')}" autocomplete="off" maxlength="300" aria-label="${t('bot_ph')}"><button aria-label="${t('bot_send')}">➤</button></form>
+  </section>`;
+  const box = $('#botMsgs'); box.scrollTop = box.scrollHeight;
+  const toggle = o => { b.open = o; botDraw(); if (o) $('#botI').focus(); };
+  $('#botFab').onclick = () => toggle(!b.open); $('#botX').onclick = () => toggle(false);
+  $('#botPanel').onkeydown = e => { if (e.key === 'Escape') toggle(false); };
+  const send = async text => {
+    if (!text || b.busy) return; b.msgs = (b.msgs.length ? b.msgs : [{ role: 'bot', text: t('bot_hi') }]).concat({ role: 'user', text }); b.busy = true; botDraw(); $('#botI').focus();
+    const [ans] = await Promise.all([botAnswer(text), new Promise(r => setTimeout(r, 550))]);
+    b.busy = false; b.msgs.push({ role: 'bot', text: ans.text, act: ans.act }); botDraw(); $('#botI').focus();
+  };
+  $('#botF').onsubmit = e => { e.preventDefault(); const v = $('#botI').value.trim(); if (v) send(v); };
+  $$('.bot-chips button').forEach(c => c.onclick = () => send({ serv: t('bot_c1'), quote: t('bot_c2'), client: t('bot_c3'), contact: t('bot_c4') }[c.dataset.q]));
+  $$('.bot-act').forEach(a => a.onclick = () => { if (a.dataset.act === 'login') { toggle(false); openLogin(); } else { toggle(false); const el = document.getElementById('contact'); el && el.scrollIntoView({ behavior: 'smooth' }); } });
+}
+function botMount() { botDraw(); }
 
 /* ===================== ÁREA DE CLIENTE ===================== */
 const MENU = [['dashboard', 'm_dashboard', '⌂'], ['plan', 'm_plan', '▤'], ['prog', 'm_prog', '◔'], ['photos', 'm_photos', '▣'], ['mat', 'm_mat', '▦'], ['fin', 'm_fin', '€'], ['comm', 'm_comm', '✉'], ['docs', 'm_docs', '❏'], ['data', 'm_data', '☰']];

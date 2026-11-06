@@ -115,7 +115,7 @@ function renderPublic() {
     <form class="f" id="quoteForm"><label>${t('name')}<input required name="n"></label><label>${t('email')}<input required type="email" name="e"></label><label>${t('phone')}<input name="p"></label><label>${t('msg')}<textarea rows="4" name="m"></textarea></label><button class="btn" style="justify-self:start">${t('send')}</button></form></div></section>
 
   <footer class="ftr"><div class="wrap">${logo(true)}<div>${t('footer')}</div></div></footer>
-  <a class="btn float-cta" href="#contact">${t('quote')}</a>`;
+  <a class="btn float-cta" href="#contact">${t('quote')}</a><div id="bot"></div>`;
   $$('.lang button').forEach(b => b.onclick = () => setLang(b.dataset.l));
   $('#loginBtn').onclick = enterArea; $$('[data-login]').forEach(b => b.onclick = enterArea);
   $('#quoteForm').onsubmit = e => { e.preventDefault(); e.target.reset(); toast(t('sent')); };
@@ -131,6 +131,7 @@ function renderPublic() {
   const auto = () => { clearInterval(testiTimer); testiTimer = setInterval(() => ($('#slide') ? show(ST.testi + 1) : clearInterval(testiTimer)), 6000); };
   $('#tPrev').onclick = () => { show(ST.testi - 1); auto(); }; $('#tNext').onclick = () => { show(ST.testi + 1); auto(); };
   show(ST.testi); auto();
+  botMount();
 }
 function enterArea() { const u = DB.user(); if (u) location.hash = homeFor(u); else openLogin(); }
 function openLogin() {
@@ -148,6 +149,55 @@ function openLogin() {
   };
   if (demo) $('#asStaff', m).onclick = () => { f.u.value = 'equipa@demo.pt'; f.requestSubmit(); };
 }
+
+
+/* ===================== CHATBOT (canto inferior direito) ===================== */
+const BOT_RULES = [ // ordem importa: a primeira que corresponder responde
+  ['quote', /or[cç]ament|pre[cç]o|quanto|custa|quote|price|cost|budget|estimate/i, 'contact'],
+  ['client', /cliente|login|acesso|portal|client|access|sign.?in|dashboard/i, 'login'],
+  ['serv', /servi[cç]|remodel|reabilit|design|interior|obra|renov|service|works?/i, null],
+  ['contact', /contact|telefone|telem|email|morada|falar|ligar|phone|address|reach|call/i, 'contact']
+];
+ST.bot = ST.bot || { open: false, msgs: [], busy: false };
+function botReply(text) {
+  for (const [k, re, act] of BOT_RULES) if (re.test(text)) return { text: t('bot_r_' + k), act };
+  return { text: /^(ol[aá]|bom|boa|oi|hello|hi|hey)\b/i.test(text.trim()) ? t('bot_hi') : t('bot_r_default'), act: null };
+}
+async function botAnswer(text) {
+  const url = (window.OCE_CONFIG || {}).CHATBOT_URL;
+  if (url) { // endpoint próprio (IA no servidor); em falha, cai nas respostas integradas
+    try {
+      const r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: text, history: ST.bot.msgs.slice(-10), lang }) });
+      if (r.ok) { const d = await r.json(); if (d && d.reply) return { text: String(d.reply), act: null }; }
+    } catch (e) { /* usa respostas integradas */ }
+  }
+  return botReply(text);
+}
+function botDraw() {
+  const b = ST.bot, root = $('#bot'); if (!root) return;
+  const msgs = b.msgs.length ? b.msgs : [{ role: 'bot', text: t('bot_hi') }];
+  root.innerHTML = `
+  <button class="bot-fab" id="botFab" aria-label="${b.open ? t('bot_close') : t('bot_open')}" aria-expanded="${b.open}" aria-controls="botPanel">${b.open ? '✕' : '💬'}</button>
+  <section class="bot-panel ${b.open ? 'open' : ''}" id="botPanel" role="dialog" aria-label="${t('bot_title')}" ${b.open ? '' : 'hidden'}>
+    <header><div class="bot-av" aria-hidden="true">E</div><div><b>${t('bot_title')}</b><small>${t('bot_sub')}</small></div><button id="botX" aria-label="${t('bot_close')}">✕</button></header>
+    <div class="bot-msgs" id="botMsgs" aria-live="polite">${msgs.map(m => `<div class="bot-m ${m.role}">${esc(m.text)}${m.act ? `<button class="bot-act" data-act="${m.act}">${t(m.act === 'login' ? 'bot_a_login' : 'bot_a_contact')}</button>` : ''}</div>`).join('')}${b.busy ? `<div class="bot-m bot typing" aria-label="${t('bot_typing')}"><i></i><i></i><i></i></div>` : ''}</div>
+    <div class="bot-chips">${[['bot_c1', 'serv'], ['bot_c2', 'quote'], ['bot_c3', 'client'], ['bot_c4', 'contact']].map(([k, q]) => `<button data-q="${q}">${t(k)}</button>`).join('')}</div>
+    <form class="bot-f" id="botF"><input id="botI" type="text" placeholder="${t('bot_ph')}" autocomplete="off" maxlength="300" aria-label="${t('bot_ph')}"><button aria-label="${t('bot_send')}">➤</button></form>
+  </section>`;
+  const box = $('#botMsgs'); box.scrollTop = box.scrollHeight;
+  const toggle = o => { b.open = o; botDraw(); if (o) $('#botI').focus(); };
+  $('#botFab').onclick = () => toggle(!b.open); $('#botX').onclick = () => toggle(false);
+  $('#botPanel').onkeydown = e => { if (e.key === 'Escape') toggle(false); };
+  const send = async text => {
+    if (!text || b.busy) return; b.msgs = (b.msgs.length ? b.msgs : [{ role: 'bot', text: t('bot_hi') }]).concat({ role: 'user', text }); b.busy = true; botDraw(); $('#botI').focus();
+    const [ans] = await Promise.all([botAnswer(text), new Promise(r => setTimeout(r, 550))]);
+    b.busy = false; b.msgs.push({ role: 'bot', text: ans.text, act: ans.act }); botDraw(); $('#botI').focus();
+  };
+  $('#botF').onsubmit = e => { e.preventDefault(); const v = $('#botI').value.trim(); if (v) send(v); };
+  $$('.bot-chips button').forEach(c => c.onclick = () => send({ serv: t('bot_c1'), quote: t('bot_c2'), client: t('bot_c3'), contact: t('bot_c4') }[c.dataset.q]));
+  $$('.bot-act').forEach(a => a.onclick = () => { if (a.dataset.act === 'login') { toggle(false); openLogin(); } else { toggle(false); const el = document.getElementById('contact'); el && el.scrollIntoView({ behavior: 'smooth' }); } });
+}
+function botMount() { botDraw(); }
 
 /* ===================== ÁREA DE CLIENTE ===================== */
 const MENU = [['dashboard', 'm_dashboard', '⌂'], ['plan', 'm_plan', '▤'], ['prog', 'm_prog', '◔'], ['photos', 'm_photos', '▣'], ['mat', 'm_mat', '▦'], ['fin', 'm_fin', '€'], ['comm', 'm_comm', '✉'], ['docs', 'm_docs', '❏'], ['data', 'm_data', '☰']];
