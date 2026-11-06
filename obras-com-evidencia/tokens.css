@@ -28,10 +28,11 @@
   --red-600: #b3322f;
   --logo-red: #d3191f;
   --sand-300: #d9c3a5;
+  --sand-100: #f3e6d2;
   --gold-600: #8c6f4e;
 
   --slate-900: #1c2733;
-  --slate-500: #6b7480;
+  --slate-500: #5b6571;
 
   --stone-1: #a9a49a; --stone-2: #6f6b64;   /* tons de obra para marcadores de fotografia */
   --stone-3: #b8b2a6; --stone-4: #7c8a93;
@@ -41,37 +42,44 @@
   --stone-11: #9db0c2; --stone-12: #5d7791;
   --stone-13: #a8b8aa; --stone-14: #5c7a6a;
   --stone-15: #d9d3c9; --stone-16: #aaa397;
-  --stone-17: #c4c4c4; --stone-18: #555555;
-  --stone-19: #6a5a44;
+  --stone-17: #c4c4c4; --stone-18: #3a3a3a;
+  --stone-19: #4a3e2c;
 
   /* ---------- semânticos ---------- */
   /* ação (botões principais, separador ativo) */
-  --color-action: var(--terra-600);
-  --color-action-hover: var(--terra-700);
-  --color-on-action: var(--white);
+  --color-action: var(--cream-50);              /* sobre terracota o botão inverte */
+  --color-action-hover: var(--cream-100);
+  --color-on-action: var(--terra-700);
 
   /* marca / estrutura */
   --color-brand: var(--petrol-500);        /* títulos, barra lateral */
   --color-brand-2: var(--petrol-400);      /* estado "em execução", topo do gradiente */
   --color-on-brand: var(--white);
-  --color-link: var(--petrol-300);
-  --color-focus: var(--petrol-300);
-  --color-accent: var(--gold-600);
+  --color-link: var(--cream-100);
+  --color-focus: var(--cream-50);
+  --color-accent: var(--sand-100);
   --color-accent-soft: var(--sand-300);
   --color-logo: var(--logo-red);
 
   /* superfícies e texto */
-  --color-bg: var(--cream-50);
+  --color-bg: var(--terra-600);                 /* fundo do site */
+  --color-surface-soft: var(--cream-50);
   --color-surface: var(--warm-white);
   --color-surface-raised: var(--white);
   --color-surface-alt: var(--cream-100);
-  --color-border: var(--cream-300);
-  --color-text: var(--slate-900);
-  --color-text-muted: var(--slate-500);
+  /* texto e traços sobre o fundo terracota (contexto por omissão) */
+  --color-border: color-mix(in srgb, var(--cream-50) 30%, transparent);
+  --color-text: var(--cream-50);
+  --color-text-muted: color-mix(in srgb, var(--cream-50) 84%, var(--terra-600));
+  --color-heading: var(--cream-50);
+  --color-ghost-bg: color-mix(in srgb, var(--cream-50) 14%, transparent);
+  --color-text-ink: var(--slate-900);           /* texto dentro de campos de formulário (sempre escuro) */
+  --color-sidebar-top: var(--petrol-400);
+  --color-sidebar-bottom: var(--petrol-500);
   --color-text-on-dark: var(--white);
-  --color-text-soft: #3b4654;
+  --color-text-soft: color-mix(in srgb, var(--cream-50) 93%, var(--terra-600));
   --color-on-brand-muted: #e4ecf5;
-  --color-bg-end: #f6efe9;
+  --color-bg-end: var(--terra-700);              /* fim do gradiente / secções alternadas */
   --color-shadow-ink: var(--black);
   --color-footer-bg: #181818;
   --color-footer-text: #cfc4b4;
@@ -116,4 +124,26 @@
   --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-sans: 'Jost', system-ui, sans-serif;
   --radius: 12px;
+}
+
+/* ==========================================================================
+   Contexto CLARO: cartões, painéis, modais e campos mantêm superfície clara,
+   por isso voltam a usar texto escuro e a cor de ação terracota.
+   (Sobre o fundo terracota, os mesmos tokens resolvem para tons claros.)
+   ========================================================================== */
+.card, .pillar, .proj, .slide, .mock, .modal .box, .panel, .photo, .stat, .kpis, .room,
+.doc, .pcard, .f.row-card, .chat, .warnbox, .g-tip, .seg, .sel, .arrow, .stbar a, .logo {
+  --color-text: var(--slate-900);
+  --color-text-muted: var(--slate-500);
+  --color-text-soft: #3b4654;
+  --color-border: var(--cream-300);
+  --color-heading: var(--petrol-500);
+  --color-link: var(--petrol-300);
+  --color-focus: var(--petrol-300);
+  --color-accent: var(--gold-600);
+  --color-action: var(--terra-600);
+  --color-action-hover: var(--terra-700);
+  --color-on-action: var(--white);
+  --color-ghost-bg: var(--warm-white);
+  color: var(--color-text);
 }

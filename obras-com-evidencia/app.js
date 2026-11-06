@@ -451,7 +451,12 @@ function bindStaff() {
 }
 
 /* ===================== arranque ===================== */
+function syncThemeColor() { // theme-color do browser segue o token --color-bg
+  try { const c = document.createElement('canvas').getContext('2d'); c.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--color-bg').trim(); c.fillRect(0, 0, 1, 1);
+    const [r, g, b] = c.getImageData(0, 0, 1, 1).data; $('#themeColor').content = '#' + [r, g, b].map(v => v.toString(16).padStart(2, '0')).join(''); } catch (e) {}
+}
 (async function boot() {
+  syncThemeColor();
   $('#app').innerHTML = `<p style="padding:60px;text-align:center;font-family:var(--font-serif);font-size:1.4rem">${t('loading')}</p>`;
   try { await DB.init(); } catch (e) { toast(e.message); }
   route();
