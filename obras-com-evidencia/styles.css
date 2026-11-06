@@ -865,3 +865,10 @@ form.f{display:grid;gap:14px}
 .hdr .btn,.hero .btn{border-radius:999px}
 .hdr .btn{background:var(--color-cta);color:var(--color-text-on-dark)}
 .hdr .btn:hover{background:var(--color-cta-hover)}
+/* "Pedir Orçamento": mesma distância do texto às extremidades que o botão "Área de Cliente" */
+.float-cta{width:auto;padding:0 14px}
+@media(max-width:980px){.float-cta{padding:0 12px}}
+@media(max-width:560px){.float-cta{width:auto;padding:0 10px}}
+@media(max-width:360px){.float-cta{padding:0 8px}}
+@media(max-width:560px){.float-cta{min-width:125px}}
+@media(max-width:360px){.float-cta{min-width:121px}}
