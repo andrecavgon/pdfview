@@ -855,3 +855,4 @@ form.f{display:grid;gap:14px}
 /* "Pedir orçamento": letra mais pequena, banner com o mesmo tamanho */
 .float-cta{width:201px;padding:0 16px;font-size:.98rem;white-space:nowrap}
 @media(max-width:560px){.float-cta{width:165px;padding:0 12px;font-size:.86rem}}
+.hdr,.topbar{border-bottom:1px solid color-mix(in srgb, var(--color-on-header) 14%, transparent)}

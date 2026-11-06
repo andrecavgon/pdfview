@@ -148,7 +148,7 @@ function renderPublic() {
   document.documentElement.lang = lang === 'pt' ? 'pt-PT' : 'en';
   $('#app').innerHTML = `${banner()}
   <header class="hdr"><div class="wrap">
-    <a class="logo" href="#/" aria-label="Obras com Evidência">${logo(true)}</a>
+    <a class="logo" href="#/" aria-label="Obras com Evidência">${logo()}</a>
     <nav class="nav" id="nav"><a href="#about">${t('nav_about')}</a><a href="#services">${t('nav_services')}</a><a href="#projects">${t('nav_projects')}</a><a href="#contact">${t('nav_contact')}</a></nav>
     <div class="hdr-r"><div class="lang"><button data-l="pt" class="${lang === 'pt' ? 'on' : ''}">PT</button>|<button data-l="en" class="${lang === 'en' ? 'on' : ''}">EN</button></div>
       <button class="btn sm" id="loginBtn" style="font-family:var(--font-serif);font-size:1.05rem">${t('client')}</button><button class="burger" id="burger" aria-label="Menu">${ico('menu', 24)}</button></div></div></header>
@@ -398,7 +398,7 @@ function renderClient() {
   $('#app').innerHTML = `${banner()}<div class="ca"><aside class="side${ST.dock ? ' open' : ''}" id="side"><a class="logo" href="#/">${logo()}</a>
     <nav class="menu"><button class="dock-toggle" id="dockT" aria-label="Menu" aria-expanded="${ST.dock}"><span class="t-closed">${ico('menu')}</span><span class="t-open">${ico('x')}</span></button>${MENU.map(([k, l, ic]) => `<a href="#/area/${k}" class="${k === page ? 'on' : ''}"><span class="i">${ico(ic)}</span><span class="lbl">${t(l)}</span></a>`).join('')}
       <div class="user"><div class="avatar">${esc(ini)}</div><span class="uname">${esc(first(ST.user.name))}<br>${esc(ST.user.name.split(' ').slice(1).join(' '))}</span><button id="logout" aria-label="${t('logout')}">${ico('logout')}<span class="lbl">${t('logout')}</span></button></div></nav></aside>
-    <main class="main"><div class="topbar"><div style="display:flex;align-items:center"><button class="mburger" id="mb" aria-label="Menu">${ico('menu', 24)}</button><a class="top-logo" href="#/">${logo(true)}</a><div class="top-title"><b>Obras com Evidência</b><small>${t('client')}</small></div><div class="tabs"><span class="on">Dashboard</span><span>${t('clients_tab')}</span>${ST.projects.length > 1 ? `<select id="pSel" class="sel" style="margin-left:16px">${ST.projects.map(p => `<option value="${p.id}" ${p.id === ST.pid ? 'selected' : ''}>${esc(tx(p.name))}</option>`).join('')}</select>` : ''}</div></div>
+    <main class="main"><div class="topbar"><div style="display:flex;align-items:center"><button class="mburger" id="mb" aria-label="Menu">${ico('menu', 24)}</button><a class="top-logo" href="#/">${logo()}</a><div class="top-title"><b>Obras com Evidência</b><small>${t('client')}</small></div><div class="tabs"><span class="on">Dashboard</span><span>${t('clients_tab')}</span>${ST.projects.length > 1 ? `<select id="pSel" class="sel" style="margin-left:16px">${ST.projects.map(p => `<option value="${p.id}" ${p.id === ST.pid ? 'selected' : ''}>${esc(tx(p.name))}</option>`).join('')}</select>` : ''}</div></div>
       <div class="top-r"><div class="lang"><button data-l="pt" class="${lang === 'pt' ? 'on' : ''}">PT</button>/<button data-l="en" class="${lang === 'en' ? 'on' : ''}">EN</button></div><div class="avatar">${esc(ini)}</div></div></div>
       <div class="view${anim}">${PAGES[page](B)}</div></main></div>`;
   $('#logout').onclick = async () => { await DB.signOut(); ST.B = null; location.hash = '#/'; route(); };
@@ -486,7 +486,7 @@ function staffShell(inner, active) {
   return `${banner()}<div class="ca st"><aside class="side${ST.dock ? ' open' : ''}" id="side"><a class="logo" href="#/">${logo()}</a><nav class="menu"><button class="dock-toggle" id="dockT" aria-label="Menu" aria-expanded="${ST.dock}"><span class="t-closed">${ico('menu')}</span><span class="t-open">${ico('x')}</span></button>
     <a href="#/gestao" class="${active !== 'nova' ? 'on' : ''}"><span class="i">${ico('grid')}</span><span class="lbl">Obras</span></a><a href="#/gestao/nova" class="${active === 'nova' ? 'on' : ''}"><span class="i">${ico('plus')}</span><span class="lbl">Nova obra / cliente</span></a>
     <div class="user"><div class="avatar">${esc(ini)}</div><span class="uname">Equipa<br>técnica</span><button id="logout" aria-label="Sair">${ico('logout')}<span class="lbl">Sair</span></button></div></nav></aside>
-    <main class="main"><div class="topbar"><div style="display:flex;align-items:center"><button class="mburger" id="mb">${ico('menu', 24)}</button><a class="top-logo" href="#/">${logo(true)}</a><div class="top-title"><b>Obras com Evidência</b><small>Painel da equipa</small></div><div class="tabs"><span class="on">Painel da equipa</span></div></div><div class="top-r"><span class="tag">${esc(ST.user.name)}</span></div></div><div class="view${anim}">${inner}</div></main></div>`;
+    <main class="main"><div class="topbar"><div style="display:flex;align-items:center"><button class="mburger" id="mb">${ico('menu', 24)}</button><a class="top-logo" href="#/">${logo()}</a><div class="top-title"><b>Obras com Evidência</b><small>Painel da equipa</small></div><div class="tabs"><span class="on">Painel da equipa</span></div></div><div class="top-r"><span class="tag">${esc(ST.user.name)}</span></div></div><div class="view${anim}">${inner}</div></main></div>`;
 }
 function staffRender(a) {
   document.documentElement.lang = 'pt-PT';

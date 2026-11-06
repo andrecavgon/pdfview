@@ -90,9 +90,9 @@
   --color-footer-text: #cfc4b4;
 
   /* cabeçalho */
-  --color-header-bg: var(--charcoal-700);
-  --color-on-header: var(--white);
-  --color-on-header-muted: #c9c9c4;
+  --color-header-bg: #e9e1d6;
+  --color-on-header: var(--ink-900);
+  --color-on-header-muted: #4f5660;
 
   /* estados */
   --color-success: var(--green-500);
