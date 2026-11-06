@@ -417,3 +417,11 @@ form.f{display:grid;gap:14px}
 /* botão "Entrar" (e restantes botões de diálogos): azul do dashboard */
 .modal .box .btn:not(.ghost):not(.danger){background:var(--color-cta);color:var(--color-on-brand);box-shadow:var(--shadow-nav)}
 .modal .box .btn:not(.ghost):not(.danger):hover{background:var(--color-cta-hover)}
+
+/* logotipo (imagem com fundo azul próprio) */
+.logo{display:inline-block;line-height:0;border-radius:12px;overflow:hidden;box-shadow:var(--shadow-sm)}
+.logo-img{height:72px;width:auto;display:block}
+.side .logo{display:block;margin:0 0 18px;padding:0}
+.side .logo-img{height:auto;width:100%}
+.ftr .logo-img{height:96px;width:auto;margin:0 auto 14px;border-radius:12px}
+@media(max-width:560px){.logo-img{height:56px}}
