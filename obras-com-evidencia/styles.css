@@ -898,3 +898,12 @@ form.f{display:grid;gap:14px}
   .side:not(.open) .menu .user button{padding:0;justify-content:center}
   .side:not(.open) .menu .user .avatar{width:30px;height:30px}
 }
+/* página inicial: título e frase em cima, exemplo ao meio, botão por baixo; exemplo mais curto */
+.hero .wrap>:first-child{display:contents}
+.hero .wrap h1{order:0;text-align:center;max-width:900px;margin-bottom:0}
+.hero .wrap p{order:1;text-align:center;margin-bottom:0}
+.hero .wrap>.mock{order:2}
+.hero .wrap .btn{order:3}
+.hero .wrap{gap:28px}
+.mock,.mock:not(x){min-height:0!important}
+.mk-body{padding-bottom:6px}
