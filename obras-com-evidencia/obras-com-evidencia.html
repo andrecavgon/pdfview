@@ -952,6 +952,14 @@ form.f{display:grid;gap:14px}
 /* textos que eram azuis agora a preto; links continuam identificáveis */
 .link{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
 
+/* exemplo da Área de Cliente (página principal): nítido, sem desfoque nem transformações 3D */
+.mock,.mock *{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;filter:none!important}
+.mock{transform:none!important;transition:none;will-change:auto}
+.mock:hover{transform:none!important}
+.mk-top{background:var(--color-bg)}
+.mk-side{background:var(--color-brand)}
+.mock-card,.mock-card:hover{transform:none;transition:none}
+
 </style>
 </head>
 <body>
