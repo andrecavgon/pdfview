@@ -155,9 +155,9 @@ function renderPublic() {
   <section class="hero"><div class="wrap">
     <div><h1>${t('hero1')}</h1><p>${t('hero2')}</p><button class="btn" data-login>${t('client')}</button></div>
     <div class="mock" aria-hidden="true">
-      <div class="mk-top"><div class="mk-brand"><img src="${LOGO_SRC}" alt=""><span><b>Obras com Evidência</b><small>${t('client').toUpperCase()}</small></span></div><div class="mk-tabs"><u>Dashboard</u><span>${t('clients_tab')}</span></div><i class="mk-av">C</i></div>
+      <div class="mk-top"><div class="mk-brand"><img src="${LOGO_SRC}" alt=""><span><b>Obras com Evidência</b><small>${t('client').toUpperCase()}</small></span></div><div class="mk-tabs"><u>Dashboard</u><span>${t('clients_tab')}</span></div><i class="mk-av">${ico('user', 12)}</i></div>
       <div class="mk-body">
-        <div class="mk-side">${MENU.map(([k, l, ic], i) => `<span class="${i === 0 ? 'on' : ''}">${ico(ic)}<em>${t(l)}</em></span>`).join('')}<div class="mk-user"><i class="mk-av">C</i><em>${t('mock_user')}</em></div><span class="mk-out">${ico('logout')}<em>${t('logout')}</em></span></div>
+        <div class="mk-side">${MENU.map(([k, l, ic], i) => `<span class="${i === 0 ? 'on' : ''}">${ico(ic)}<em>${t(l)}</em></span>`).join('')}<div class="mk-user"><i class="mk-av">${ico('user', 12)}</i><em>${t('mock_user')}</em></div><span class="mk-out">${ico('logout')}<em>${t('logout')}</em></span></div>
         <div class="mk-main">
           <h4>${t('mock_hi')}</h4><small>${t('obra')}</small><div class="mk-st"><i></i>${t('running')} · 45%</div>
           <div class="mk-grid">
@@ -396,9 +396,9 @@ function renderClient() {
   const anim = ST.lastView !== page ? ' enter' : ''; ST.lastView = page;   // animação só quando a página muda
   $('#app').innerHTML = `${banner()}<div class="ca"><aside class="side${ST.dock ? ' open' : ''}" id="side"><a class="logo" href="#/">${logo()}</a>
     <nav class="menu"><button class="dock-toggle" id="dockT" aria-label="Menu" aria-expanded="${ST.dock}"><span class="t-closed">${ico('menu')}</span><span class="t-open">${ico('x')}</span></button>${MENU.map(([k, l, ic]) => `<a href="#/area/${k}" class="${k === page ? 'on' : ''}"><span class="i">${ico(ic)}</span><span class="lbl">${t(l)}</span></a>`).join('')}
-      <div class="user"><div class="avatar">${esc(ini)}</div><span class="uname">${esc(first(ST.user.name))}<br>${esc(ST.user.name.split(' ').slice(1).join(' '))}</span><button id="logout" aria-label="${t('logout')}">${ico('logout')}<span class="lbl">${t('logout')}</span></button></div></nav></aside>
+      <div class="user"><div class="avatar">${ico('user', 20)}</div><span class="uname">${esc(first(ST.user.name))}<br>${esc(ST.user.name.split(' ').slice(1).join(' '))}</span><button id="logout" aria-label="${t('logout')}">${ico('logout')}<span class="lbl">${t('logout')}</span></button></div></nav></aside>
     <main class="main"><div class="topbar"><div style="display:flex;align-items:center"><button class="mburger" id="mb" aria-label="Menu">${ico('menu', 24)}</button><a class="top-logo" href="#/">${logo()}</a><div class="top-title"><b>Obras com Evidência</b><small>${t('client')}</small></div><div class="tabs"><span class="on">Dashboard</span><span>${t('clients_tab')}</span>${ST.projects.length > 1 ? `<select id="pSel" class="sel" style="margin-left:16px">${ST.projects.map(p => `<option value="${p.id}" ${p.id === ST.pid ? 'selected' : ''}>${esc(tx(p.name))}</option>`).join('')}</select>` : ''}</div></div>
-      <div class="top-r"><div class="lang"><button data-l="pt" class="${lang === 'pt' ? 'on' : ''}">PT</button>/<button data-l="en" class="${lang === 'en' ? 'on' : ''}">EN</button></div><div class="avatar">${esc(ini)}</div></div></div>
+      <div class="top-r"><div class="lang"><button data-l="pt" class="${lang === 'pt' ? 'on' : ''}">PT</button>/<button data-l="en" class="${lang === 'en' ? 'on' : ''}">EN</button></div><div class="avatar">${ico('user', 20)}</div></div></div>
       <div class="view${anim}">${PAGES[page](B)}</div></main></div>`;
   $('#logout').onclick = async () => { await DB.signOut(); ST.B = null; location.hash = '#/'; route(); };
   $$('.lang button').forEach(b => b.onclick = () => setLang(b.dataset.l));
@@ -484,7 +484,7 @@ function staffShell(inner, active) {
   const vk = active + '/' + ST.tab, anim = ST.lastStaff !== vk ? ' enter' : ''; ST.lastStaff = vk;
   return `${banner()}<div class="ca st"><aside class="side${ST.dock ? ' open' : ''}" id="side"><a class="logo" href="#/">${logo()}</a><nav class="menu"><button class="dock-toggle" id="dockT" aria-label="Menu" aria-expanded="${ST.dock}"><span class="t-closed">${ico('menu')}</span><span class="t-open">${ico('x')}</span></button>
     <a href="#/gestao" class="${active !== 'nova' ? 'on' : ''}"><span class="i">${ico('grid')}</span><span class="lbl">Obras</span></a><a href="#/gestao/nova" class="${active === 'nova' ? 'on' : ''}"><span class="i">${ico('plus')}</span><span class="lbl">Nova obra / cliente</span></a>
-    <div class="user"><div class="avatar">${esc(ini)}</div><span class="uname">Equipa<br>técnica</span><button id="logout" aria-label="Sair">${ico('logout')}<span class="lbl">Sair</span></button></div></nav></aside>
+    <div class="user"><div class="avatar">${ico('user', 20)}</div><span class="uname">Equipa<br>técnica</span><button id="logout" aria-label="Sair">${ico('logout')}<span class="lbl">Sair</span></button></div></nav></aside>
     <main class="main"><div class="topbar"><div style="display:flex;align-items:center"><button class="mburger" id="mb">${ico('menu', 24)}</button><a class="top-logo" href="#/">${logo()}</a><div class="top-title"><b>Obras com Evidência</b><small>Painel da equipa</small></div><div class="tabs"><span class="on">Painel da equipa</span></div></div><div class="top-r"><span class="tag">${esc(ST.user.name)}</span></div></div><div class="view${anim}">${inner}</div></main></div>`;
 }
 function staffRender(a) {

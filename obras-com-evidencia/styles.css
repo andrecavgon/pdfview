@@ -887,3 +887,14 @@ form.f{display:grid;gap:14px}
 @media(max-width:980px){.float-cta{padding:0 20px}}
 @media(max-width:560px){.float-cta{padding:0 16px;min-width:137px}}
 @media(max-width:360px){.float-cta{padding:0 14px;min-width:133px}}
+/* ícone de utilizador (minimalista) no lugar das iniciais */
+.avatar .svg-i,.mk-av .svg-i{width:55%;height:55%;vertical-align:0;stroke-width:1.8}
+/* telemóvel: dock recolhida mais estreita */
+@media(max-width:560px){
+  .side:not(.open){width:46px}
+  .side:not(.open) .menu{padding:6px 3px}
+  .side:not(.open) .menu a{padding:6px 0;justify-content:center;border-radius:20px}
+  .side:not(.open) .dock-toggle{width:36px;height:36px;margin:0 auto 4px}
+  .side:not(.open) .menu .user button{padding:0;justify-content:center}
+  .side:not(.open) .menu .user .avatar{width:30px;height:30px}
+}
