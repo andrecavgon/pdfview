@@ -20,10 +20,10 @@
   --white: #ffffff;
   --black: #000000;
 
-  --orange-400: #f5a04f;    /* mais claro: topo de gradientes */
-  --orange-500: #ed8121;    /* LARANJA DO LOGÓTIPO (medido no telhado) */
-  --orange-600: #d46d0c;    /* hover */
-  --orange-800: #9c4700;    /* texto sobre fundo claro (contraste >= 4,9:1) */
+  --petrol-300: #3d6a98;
+  --petrol-400: #2c5078;
+  --petrol-500: #1f3a5a;
+  --petrol-900: #141e2d;
 
   --green-500: #4a7c6a;
   --green-700: #2f5446;
@@ -54,19 +54,18 @@
   --color-on-action: var(--white);
 
   /* navegação (menus, separadores ativos): azul petróleo original */
-  --color-nav-accent: var(--orange-500);
-  --color-nav-accent-hover: var(--orange-600);
-  --color-cta: var(--orange-500);                /* botões da página inicial: Área de Cliente e Pedir Orçamento */
-  --color-cta-hover: var(--orange-600);
-  --shadow-nav: 0 4px 14px color-mix(in srgb, var(--orange-600) 35%, transparent);
+  --color-nav-accent: var(--petrol-500);
+  --color-nav-accent-hover: var(--petrol-400);
+  --color-cta: var(--petrol-500);                /* botões da página inicial: Área de Cliente e Pedir Orçamento */
+  --color-cta-hover: var(--petrol-400);
+  --shadow-nav: 0 4px 14px color-mix(in srgb, var(--petrol-500) 25%, transparent);
 
   /* marca / estrutura */
-  --color-brand: var(--orange-500);        /* fundos: barra lateral, barras, botões */
-  --color-heading: var(--orange-800);      /* títulos e texto de destaque */
-  --color-brand-2: var(--orange-400);      /* topo do gradiente, estado "em execução" */
-  --color-on-brand: var(--ink-900);   /* texto sobre o laranja (contraste 6,4:1) */
-  --color-link: var(--orange-800);
-  --color-focus: var(--orange-600);
+  --color-brand: var(--petrol-500);        /* títulos, barra lateral */
+  --color-brand-2: var(--petrol-400);      /* estado "em execução", topo do gradiente */
+  --color-on-brand: var(--white);
+  --color-link: var(--petrol-300);
+  --color-focus: var(--petrol-300);
   --color-accent: var(--gold-600);
   --color-accent-soft: var(--sand-300);
   --color-logo: var(--logo-red);
@@ -81,7 +80,7 @@
   --color-text-muted: var(--slate-500);
   --color-text-on-dark: var(--white);
   --color-text-soft: #3b4654;
-  --color-on-brand-muted: color-mix(in srgb, var(--ink-900) 82%, transparent);
+  --color-on-brand-muted: #e4ecf5;
   --color-shadow-ink: var(--black);
   --color-bg-inverse: var(--ink-900);            /* rodapé */
   --color-footer-bg: var(--color-bg-inverse);
@@ -96,7 +95,7 @@
   --color-warning-bg: #fff4d6;
   --color-warning-text: #6b5a1e;
   --color-warning-border: #ecdca4;
-  --color-info-bg: #fdecd8;
+  --color-info-bg: #e5edf6;
   --color-success-bg: #e2efe9;
 
   /* barras do cronograma */
@@ -105,11 +104,11 @@
   --color-gantt-plan-text: var(--stone-19);
 
   /* sombras e sobreposições */
-  --color-overlay: color-mix(in srgb, var(--ink-900) 55%, transparent);
-  --color-shadow: color-mix(in srgb, var(--ink-900) 12%, transparent);
-  --shadow-sm: 0 4px 16px color-mix(in srgb, var(--ink-900) 6%, transparent);
+  --color-overlay: color-mix(in srgb, var(--petrol-900) 55%, transparent);
+  --color-shadow: color-mix(in srgb, var(--petrol-500) 12%, transparent);
+  --shadow-sm: 0 4px 16px color-mix(in srgb, var(--petrol-500) 6%, transparent);
   --shadow-md: 0 10px 30px var(--color-shadow);
-  --shadow-lg: 0 30px 60px color-mix(in srgb, var(--ink-900) 22%, transparent);
+  --shadow-lg: 0 30px 60px color-mix(in srgb, var(--petrol-500) 22%, transparent);
   --shadow-cta: 0 10px 28px color-mix(in srgb, var(--terra-700) 40%, transparent);
   --shadow-action: 0 4px 14px color-mix(in srgb, var(--terra-700) 28%, transparent);
 
