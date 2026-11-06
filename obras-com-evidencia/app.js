@@ -20,7 +20,7 @@ const stopTimers = () => { clearInterval(testiTimer); clearInterval(ST.timer); }
 
 // ---------- logótipo ----------
 const LOGO_SRC = 'logo.webp';
-const logo = () => `<img class="logo-img" src="${LOGO_SRC}" width="900" height="677" alt="Obras com Evidência">`;
+const logo = () => `<img class="logo-img" src="${LOGO_SRC}" width="900" height="684" alt="Obras com Evidência">`;
 
 // ---------- ícones (SVG de linha, minimalistas e coerentes) ----------
 const ICONS = {
@@ -127,6 +127,12 @@ async function route() {
   if (h) requestAnimationFrame(() => { const el = document.getElementById(h); el && el.scrollIntoView(); });
 }
 window.addEventListener('hashchange', route);
+document.addEventListener('click', e => {
+  const l = e.target.closest('a.logo, a.top-logo, .ftr .logo-img'); if (!l) return;
+  e.preventDefault();
+  if (location.hash === '#/' || location.hash === '' || location.hash === '#') { route(); window.scrollTo(0, 0); }
+  else { location.hash = '#/'; window.scrollTo(0, 0); }
+});
 function setLang(l) { lang = l; try { localStorage.setItem('oce-lang', l); } catch (e) {} const h = location.hash; if (h.startsWith('#/area')) renderClient(); else route(); }
 const banner = () => (DB.live ? '' : `<div class="banner">${t('demo_banner')}</div>`);
 const homeFor = u => (u.role === 'staff' ? '#/gestao' : '#/area/dashboard');
