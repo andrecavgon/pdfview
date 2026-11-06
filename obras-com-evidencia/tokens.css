@@ -91,8 +91,8 @@
 
   /* cabeçalho */
   --color-header-bg: #e9e1d6;
-  --color-on-header: var(--ink-900);
-  --color-on-header-muted: #4f5660;
+  --color-on-header: var(--bordeaux-600);
+  --color-on-header-muted: #6d4f55;
 
   /* estados */
   --color-success: var(--green-500);
@@ -131,7 +131,7 @@
   --ph-m1: var(--stone-15); --ph-m2: var(--stone-16);
 
   /* tipografia e forma */
-  --font-serif: 'Manrope', system-ui, sans-serif;
+  --font-serif: 'Outfit', system-ui, sans-serif;
   --font-sans: 'Inter', system-ui, sans-serif;
   --radius: 12px;
 }
