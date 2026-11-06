@@ -443,3 +443,9 @@ form.f{display:grid;gap:14px}
 .side .logo-img{height:auto;width:100%}
 .ftr .logo-img{height:120px}
 @media(max-width:560px){.logo-img{height:64px}}
+
+/* logotipo em maiúsculas, sem tijolos, com "BUILD & DESIGN" maior */
+.logo-img{height:88px}
+.side .logo-img{height:auto;width:100%}
+.ftr .logo-img{height:132px}
+@media(max-width:560px){.logo-img{height:68px}}
