@@ -850,6 +850,38 @@ form.f{display:grid;gap:14px}
 /* "Sair" igual aos restantes itens quando a barra está aberta */
 @media(min-width:981px){.side.open .menu .user button,.side.open .menu .user button .lbl{font-family:var(--font-sans);font-size:.9rem;font-weight:500;color:var(--color-on-brand);text-decoration:none}}
 
+/* telemóvel: logótipo maior (tudo por igual) e barra de cima compacta numa só linha */
+@media(max-width:560px){
+  .hdr .wrap{height:100px;gap:10px}
+  .hdr .logo-img{height:84px}
+  .top-logo .logo-img{height:84px}
+  .topbar{height:96px;padding:0 10px 0 12px;flex-wrap:nowrap;gap:8px}
+  .topbar>div:first-child{flex:1 1 auto;min-width:0}
+  .top-r{flex:none;gap:8px;flex-wrap:nowrap}
+  .top-r .lang{font-size:.72rem;gap:3px;white-space:nowrap}
+  .top-r .avatar{width:32px;height:32px;font-size:.78rem}
+  .banner{font-size:.72rem;padding:3px 8px}
+  .side{top:128px;max-height:calc(100vh - 140px)}.menu{max-height:calc(100vh - 140px)}
+}
+@media(max-width:360px){
+  .top-logo .logo-img,.hdr .logo-img{height:72px}
+  .topbar{height:84px}
+  .top-r .lang{font-size:.66rem}
+  .side{top:116px;max-height:calc(100vh - 128px)}.menu{max-height:calc(100vh - 128px)}
+}
+
+@media(max-width:560px){
+  #loginBtn{white-space:nowrap;font-size:.86rem!important;padding:7px 10px}
+  .hdr-r{gap:8px;flex-wrap:nowrap}
+  .hdr-r .lang{font-size:.72rem;gap:3px}
+  .burger{width:32px;height:36px;font-size:1.4rem}
+}
+@media(max-width:360px){
+  #loginBtn{font-size:.78rem!important;padding:6px 8px}
+  .hdr-r{gap:5px}
+  .hdr .wrap{padding:0 12px}
+}
+
 </style>
 </head>
 <body>
