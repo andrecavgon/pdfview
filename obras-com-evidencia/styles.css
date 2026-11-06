@@ -838,3 +838,11 @@ form.f{display:grid;gap:14px}
 @media(max-width:560px){.logo-img,.hdr .logo-img,.top-logo .logo-img{height:76px}}
 @media(max-width:360px){.logo-img,.hdr .logo-img,.top-logo .logo-img{height:66px}}
 /* telemóvel com dark mode do browser: azul da marca passa a cinzento */
+/* cabeçalho público: cinza escuro com texto claro */
+.hdr{background:var(--color-header-bg);border-bottom-color:transparent}
+.hdr.sc{border-color:color-mix(in srgb, var(--color-on-header) 14%, transparent)}
+.hdr .nav a,.hdr .burger,.hdr .lang button.on{color:var(--color-on-header)}
+.hdr .lang button{color:var(--color-on-header-muted)}
+.hdr .lang{color:var(--color-on-header-muted)}
+.hdr .nav a:hover{color:var(--color-on-header);border-color:var(--color-on-header)}
+@media(max-width:980px){.nav.open{background:var(--color-header-bg);border-bottom-color:color-mix(in srgb, var(--color-on-header) 14%, transparent)}}

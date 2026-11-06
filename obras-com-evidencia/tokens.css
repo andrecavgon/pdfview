@@ -15,6 +15,7 @@
   --stone-grey-400: #cbc7be; /* cinza pedra mais escuro: secções alternadas */
   --stone-grey-500: #b7b2a7; /* bordas */
 
+  --charcoal-700: #3a3a38;  /* cinza escuro (cabeçalho) */
   --stone-white: #f4f1ec;   /* branco-pedra: fundo geral */
   --sand-200: #e8e2d8;      /* areia: secções alternadas */
   --ink-900: #1c1a17;       /* quase-preto quente: texto e rodapé */
@@ -88,6 +89,11 @@
   --color-bg-inverse: var(--ink-900);            /* rodapé */
   --color-footer-bg: var(--color-bg-inverse);
   --color-footer-text: #cfc4b4;
+
+  /* cabeçalho */
+  --color-header-bg: var(--charcoal-700);
+  --color-on-header: var(--white);
+  --color-on-header-muted: #c9c9c4;
 
   /* estados */
   --color-success: var(--green-500);

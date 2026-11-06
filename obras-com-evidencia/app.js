@@ -23,7 +23,7 @@ const LOGO_SRC = 'logo.webp';
 const LOGO_DARK = 'logo-dark.webp';
 const FORCED_DARK = (() => { try { return matchMedia('(prefers-color-scheme: dark)').matches && matchMedia('(max-width:560px)').matches && !!navigator.userAgentData && navigator.userAgentData.brands.some(b => /Chrom/i.test(b.brand)); } catch (e) { return false; } })();
 if (FORCED_DARK) document.documentElement.classList.add('fd');
-const logo = () => `<img class="logo-img" src="${FORCED_DARK ? LOGO_DARK : LOGO_SRC}" width="900" height="684" alt="Obras com Evidência">`;
+const logo = (onDark) => `<img class="logo-img" src="${FORCED_DARK || onDark ? LOGO_DARK : LOGO_SRC}" width="900" height="684" alt="Obras com Evidência">`;
 
 // ---------- ícones (SVG de linha, minimalistas e coerentes) ----------
 const ICONS = {
@@ -148,7 +148,7 @@ function renderPublic() {
   document.documentElement.lang = lang === 'pt' ? 'pt-PT' : 'en';
   $('#app').innerHTML = `${banner()}
   <header class="hdr"><div class="wrap">
-    <a class="logo" href="#/" aria-label="Obras com Evidência">${logo()}</a>
+    <a class="logo" href="#/" aria-label="Obras com Evidência">${logo(true)}</a>
     <nav class="nav" id="nav"><a href="#about">${t('nav_about')}</a><a href="#services">${t('nav_services')}</a><a href="#projects">${t('nav_projects')}</a><a href="#contact">${t('nav_contact')}</a></nav>
     <div class="hdr-r"><div class="lang"><button data-l="pt" class="${lang === 'pt' ? 'on' : ''}">PT</button>|<button data-l="en" class="${lang === 'en' ? 'on' : ''}">EN</button></div>
       <button class="btn sm" id="loginBtn" style="font-family:var(--font-serif);font-size:1.05rem">${t('client')}</button><button class="burger" id="burger" aria-label="Menu">${ico('menu', 24)}</button></div></div></header>
