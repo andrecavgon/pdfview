@@ -452,3 +452,24 @@ form.f{display:grid;gap:14px}
 /* rodapé escuro: o logotipo (letras pretas) assenta numa placa clara */
 .ftr .logo-img{height:150px;width:auto;margin:0 auto 14px;background:var(--color-bg);padding:14px 22px;border-radius:14px}
 @media(max-width:560px){.logo-img{height:68px}}
+
+/* ícones SVG de linha */
+.svg-i{width:1.2em;height:1.2em;flex:none;display:inline-block;vertical-align:-.22em}
+.menu a .i{display:inline-grid;place-items:center;width:22px;opacity:.95}
+.menu a .i .svg-i{width:20px;height:20px;vertical-align:0}
+.upd .ic .svg-i{width:15px;height:15px;vertical-align:0}
+.btn .svg-i{width:1.05em;height:1.05em}
+.ico .svg-i{width:22px;height:22px;vertical-align:0}
+.burger .svg-i,.mburger .svg-i{width:26px;height:26px;vertical-align:0}
+.bot-fab .svg-i{width:24px;height:24px;vertical-align:0}
+.bot-f button .svg-i,.cm button .svg-i,.composer .btn .svg-i{width:18px;height:18px;vertical-align:0}
+.composer .att{display:inline-grid;place-items:center}
+.composer .att .svg-i{width:20px;height:20px;vertical-align:0}
+.contact ul li{display:flex;align-items:center;gap:10px}
+.photo .im .c{display:inline-flex;align-items:center;gap:4px}
+.room>button .svg-i{vertical-align:-.3em}
+.warnbox>div:first-child{display:flex;align-items:center;gap:8px}
+.msg .att{display:inline-flex;align-items:center;gap:6px}
+
+/* ficheiros: o rótulo (PDF, DOCX…) é um quadrado fixo, não estica */
+.doc .ic{flex:none;width:44px;height:50px}
