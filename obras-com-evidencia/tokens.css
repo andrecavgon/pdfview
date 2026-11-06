@@ -53,6 +53,11 @@
   --color-action-hover: var(--terra-700);
   --color-on-action: var(--white);
 
+  /* navegação (menus, separadores ativos): azul petróleo original */
+  --color-nav-accent: var(--petrol-500);
+  --color-nav-accent-hover: var(--petrol-400);
+  --shadow-nav: 0 4px 14px color-mix(in srgb, var(--petrol-500) 25%, transparent);
+
   /* marca / estrutura */
   --color-brand: var(--petrol-500);        /* títulos, barra lateral */
   --color-brand-2: var(--petrol-400);      /* estado "em execução", topo do gradiente */
