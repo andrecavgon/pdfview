@@ -20,8 +20,8 @@
   --white: #ffffff;
   --black: #000000;
 
-  --graphite-500: #3a3a38;  /* cinzento do fundo do chat (substitui todo o azul) */
-  --graphite-600: #2b2b29;  /* hover */
+  --graphite-500: #2a5495;  /* azul do logótipo (substitui o cinzento) */
+  --graphite-600: #1f4079;  /* hover */
 
   --green-500: #4a7c6a;
   --green-700: #2f5446;
