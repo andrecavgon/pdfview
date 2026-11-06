@@ -20,7 +20,7 @@ const stopTimers = () => { clearInterval(testiTimer); clearInterval(ST.timer); }
 
 // ---------- logótipo ----------
 const LOGO_SRC = 'logo.webp';
-const logo = () => `<img class="logo-img" src="${LOGO_SRC}" width="900" height="565" alt="Obras com Evidência">`;
+const logo = () => `<img class="logo-img" src="${LOGO_SRC}" width="900" height="518" alt="Obras com Evidência">`;
 
 // ---------- ícones (SVG de linha, minimalistas e coerentes) ----------
 const ICONS = {
@@ -52,6 +52,37 @@ const ICONS = {
   logout: '<path d="M9 4.5H6.5A2.5 2.5 0 0 0 4 7v10a2.5 2.5 0 0 0 2.5 2.5H9"/><path d="M15 8l4 4-4 4M19 12H9"/>'
 };
 const ico = (n, s) => `<svg class="svg-i" viewBox="0 0 24 24"${s ? ` width="${s}" height="${s}"` : ''} fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${ICONS[n] || ''}</svg>`;
+
+// textos de demonstração em PT → EN (dados reais do Supabase mantêm-se como foram escritos)
+const DEMO_EN = {
+  'Moradia em Cascais': 'Villa in Cascais',
+  'Demolição concluída.': 'Demolition completed.',
+  'Trabalhos em execução conforme planeado.': 'Work in progress as planned.',
+  'Trabalhos em andamento conforme planeado.': 'Work in progress as planned.',
+  'Podem confirmar a altura do rodapé aqui?': 'Can you confirm the skirting board height here?',
+  'Sr. Álvaro': 'Mr. Álvaro',
+  'Cozinha': 'Kitchen',
+  'Sala': 'Living room',
+  'Quarto': 'Bedroom',
+  'Casas de Banho': 'Bathrooms',
+  'Azulejo – Parede': 'Tile – Wall',
+  'Mosaico Hidráulico – Chão': 'Hydraulic Mosaic – Floor',
+  'Soalho Sala': 'Living Room Flooring',
+  'Roupeiros Quarto': 'Bedroom Wardrobes',
+  'Tampo WC – Mármore': 'WC Countertop – Marble',
+  'Sanita suspensa': 'Wall-hung toilet',
+  'Isolamento acústico adicional': 'Additional acoustic insulation',
+  'Mais tomadas e pontos de luz': 'More sockets and light points',
+  'Fornecimento e instalação de novo móvel de casa de banho': 'Supply and installation of new bathroom vanity unit',
+  'Reforço estrutural da parede entre sala e cozinha': 'Structural reinforcement of the wall between living room and kitchen',
+  'Fatura 011': 'Invoice 011',
+  'Fatura 017': 'Invoice 017',
+  'Direção de Obra': 'Site Management',
+  'Boa tarde Sr. Álvaro, temos mais uma atualização fotográfica pronta: capturámos o progresso das redes elétricas.': 'Good afternoon Mr. Álvaro, we have another photo update ready: we captured the progress of the electrical networks.',
+  'Boa tarde João, as fotos ficaram ótimas, obrigado.': 'Good afternoon João, the photos look great, thank you.',
+  'Se precisar de alguma informação adicional, estou ao dispor.': 'If you need any further information, I am at your disposal.',
+};
+const tx = s => (lang === 'en' && s && DEMO_EN[s]) || s;
 
 // ---------- modal genérico ----------
 function modal(html, wide) {
@@ -116,11 +147,11 @@ function renderPublic() {
   <section class="hero"><div class="wrap">
     <div><h1>${t('hero1')}</h1><p>${t('hero2')}</p><button class="btn" data-login>${t('client')}</button></div>
     <div class="mock" aria-hidden="true">
-      <div class="mk-top"><div class="mk-brand"><img src="${LOGO_SRC}" alt=""><span><b>Obras com Evidência</b><small>${t('client').toUpperCase()}</small></span></div><div class="mk-tabs"><u>Dashboard</u><span>${t('clients_tab')}</span></div><i class="mk-av">AF</i></div>
+      <div class="mk-top"><div class="mk-brand"><img src="${LOGO_SRC}" alt=""><span><b>Obras com Evidência</b><small>${t('client').toUpperCase()}</small></span></div><div class="mk-tabs"><u>Dashboard</u><span>${t('clients_tab')}</span></div><i class="mk-av">C</i></div>
       <div class="mk-body">
-        <div class="mk-side">${MENU.slice(0, 7).map(([k, l, ic], i) => `<span class="${i === 0 ? 'on' : ''}">${ico(ic)}<em>${t(l)}</em></span>`).join('')}</div>
+        <div class="mk-side">${MENU.map(([k, l, ic], i) => `<span class="${i === 0 ? 'on' : ''}">${ico(ic)}<em>${t(l)}</em></span>`).join('')}<div class="mk-user"><i class="mk-av">C</i><em>${t('mock_user')}</em></div><span class="mk-out">${ico('logout')}<em>${t('logout')}</em></span></div>
         <div class="mk-main">
-          <h4>${t('welcome')}</h4><small>${t('obra')}</small><div class="mk-st"><i></i>${t('running')} · 45%</div>
+          <h4>${t('mock_hi')}</h4><small>${t('obra')}</small><div class="mk-st"><i></i>${t('running')} · 45%</div>
           <div class="mk-grid">
             <div class="mock-card"><b>${t('prog_obra')}</b><div class="mini-bar big"><b style="width:45%"></b></div><div class="row"><span>${t('next')}</span><span>${t('ph_cov')}</span></div></div>
             <div class="mock-card"><b>${t('last_upd')}</b><div class="row"><span>${ico('image', 12)} ${t('u1')}</span><span>${t('today')}</span></div><div class="row"><span>${ico('calendar', 12)} ${t('u2')}</span><span>${t('yest')}</span></div></div>
@@ -254,7 +285,7 @@ const PAGES = {
   dashboard(B) {
     const P = B.project, cur = B.phases.find(p => p.status === 'running'), nxt = B.phases.find(p => p.status === 'planned'), g = gPct(B);
     const upd = B.updates.slice(0, 5).map(u => `<li><span class="ic">${ico(u.kind === 'photos' ? 'image' : u.kind === 'schedule' ? 'calendar' : u.kind === 'addendum' ? 'check' : 'bell')}</span>${esc(u.kind === 'photos' ? t('u1') : u.kind === 'schedule' ? t('u2') : u.kind === 'addendum' ? t('u3') : u.text)}<em>${rel(u.at)}</em></li>`).join('');
-    return `<div class="page-h"><div><h1 style="font-size:2rem">${lang === 'pt' ? 'Bem-vindo, Sr. ' : 'Welcome, Mr. '}${esc(ST.user.name)}</h1><h1 style="font-size:2rem;margin-top:4px">${esc(P.name)}</h1><div class="status"><span class="dot"></span>${stLbl(P.status)} · ${g}%</div></div>
+    return `<div class="page-h"><div><h1 style="font-size:2rem">${lang === 'pt' ? 'Bem-vindo, Sr. ' : 'Welcome, Mr. '}${esc(ST.user.name)}</h1><h1 style="font-size:2rem;margin-top:4px">${esc(tx(P.name))}</h1><div class="status"><span class="dot"></span>${stLbl(P.status)} · ${g}%</div></div>
       <button class="btn ghost" id="contactBtn">${ico('user')} ${t('send_contact')}</button></div>
     <div class="cols"><div class="stack">
       <div class="panel"><h3>${t('prog_obra')}</h3><div class="pbar"><div class="bar"><b style="width:${g}%"></b></div><div class="big">${g}%</div></div>
@@ -282,13 +313,13 @@ const PAGES = {
   prog(B) {
     return `${head(t('prog_t'), t('prog_s'))}<div class="pg">${B.phases.map((p, i) => `<div class="panel sp ${i === 0 ? 'full' : ''}"><header><h3>${esc(phName(p))}</h3>${p.status === 'planned' ? `<span class="tag">${t('planned')}</span>` : `<span class="pc">${p.pct}%</span>`}</header>
       <div class="bar ${p.pct === 100 ? 'g' : p.status === 'planned' ? 's' : ''}"><b style="width:${p.pct}%"></b></div>
-      <div class="row"><span>${esc(p.note || (p.status === 'planned' ? t('d_next') : ''))}</span>${p.validated ? `<span class="ok">${t('approved')}</span>` : ''}</div>
+      <div class="row"><span>${esc(tx(p.note) || (p.status === 'planned' ? t('d_next') : ''))}</span>${p.validated ? `<span class="ok">${t('approved')}</span>` : ''}</div>
       <a class="link" href="#/area/plan">${t('check_detail')} ›</a></div>`).join('')}</div>${noteH()}`;
   },
   photos(B) {
     const kinds = [['all', t('all')], ...B.phases.map(p => [p.id, phName(p)])];
     const counts = B.phases.map(p => [p, B.photos.filter(x => x.phaseId === p.id).length]).filter(([, n]) => n);
-    return `${head(t('ph_t'), t('ph_s').replace('Cascais', B.project.name), `<button class="btn ghost" id="baBtn">${t('ba')}</button>`)}
+    return `${head(t('ph_t'), t('ph_s').replace('Cascais', tx(B.project.name)), `<button class="btn ghost" id="baBtn">${t('ba')}</button>`)}
     <div class="filters"><div class="seg" id="pf">${kinds.map(([k, l]) => `<button data-k="${k}" class="${ST.pf === k ? 'on' : ''}">${esc(l)}</button>`).join('')}</div>
       <select class="sel" id="ps"><option value="recent" ${ST.ps === 'recent' ? 'selected' : ''}>${t('recent')}</option><option value="old" ${ST.ps === 'old' ? 'selected' : ''}>${t('oldest')}</option></select></div>
     <div class="stats">${counts.map(([p, n]) => `<div class="stat" data-k="${p.id}"><h4>${esc(phName(p))}</h4><span>${n} ${t('photos')}</span></div>`).join('')}</div><div id="pgrid"></div>`;
@@ -299,26 +330,26 @@ const PAGES = {
     const hist = B.materials.filter(m => m.status === 'approved' || m.decided).sort((a, b) => (b.decided || '').localeCompare(a.decided || ''));
     const f = (m, v) => (m.unit === 'm2' ? `€${v}/m²` : eur(v));
     return `${head(t('mat_t'), t('mat_s'))}<div class="mtabs" id="mt">${Object.entries(cats).map(([k, l]) => `<button data-k="${k}" class="${ST.matTab === k ? 'on' : ''}">${l}</button>`).join('')}</div>
-    <div class="mat-cols"><div>${rooms.map(r => `<div class="room"><button>${esc(r)} <span>${ico('chev', 18)}</span></button>${items.filter(m => (m.room || '—') === r).map(matRow).join('')}</div>`).join('') || `<p class="tag">${t('no_items')}</p>`}</div>
-    <div class="panel"><h3>${t('hist_dec')}</h3><ul class="hist">${hist.map(m => { const r = m.real ?? m.budget, d = r - m.budget; return `<li><div>${esc(m.name)}<small>${dmy(m.decided)}</small></div><div class="${d > 0 ? 'over' : 'good'}">${f(m, r)}${d > 0 ? `<small class="over">+ ${f(m, d)}</small>` : ''}</div></li>`; }).join('') || `<li>${t('no_items')}</li>`}</ul>
+    <div class="mat-cols"><div>${rooms.map(r => `<div class="room"><button>${esc(tx(r))} <span>${ico('chev', 18)}</span></button>${items.filter(m => (m.room || '—') === r).map(matRow).join('')}</div>`).join('') || `<p class="tag">${t('no_items')}</p>`}</div>
+    <div class="panel"><h3>${t('hist_dec')}</h3><ul class="hist">${hist.map(m => { const r = m.real ?? m.budget, d = r - m.budget; return `<li><div>${esc(tx(m.name))}<small>${dmy(m.decided)}</small></div><div class="${d > 0 ? 'over' : 'good'}">${f(m, r)}${d > 0 ? `<small class="over">+ ${f(m, d)}</small>` : ''}</div></li>`; }).join('') || `<li>${t('no_items')}</li>`}</ul>
     <div class="rule"><span>❌ ${t('r1')}</span><span>❌ ${t('r2')}</span><span>✅ ${t('r3')}</span></div></div></div>`;
   },
   fin(B) {
     const base = B.project.base, add = B.addenda.filter(a => a.status === 'approved').reduce((s, a) => s + a.amount, 0), tot = base + add, paid = B.payments.filter(p => p.status === 'paid').reduce((s, p) => s + p.amount, 0);
-    return `${head(t('fin_t'), t('fin_s').replace('Cascais', B.project.name))}
+    return `${head(t('fin_t'), t('fin_s').replace('Cascais', tx(B.project.name)))}
     <div class="kpis"><div class="kpi"><b>${eur(base)}</b><small>${t('k1')}</small></div><div class="kpi"><b style="color:var(--color-text-muted)">${eur(add)}</b><small>${t('k2')}</small></div><div class="kpi"><b>${eur(tot)}</b><small>${t('k3')}</small></div><div class="kpi g"><b>${eur(paid)}</b><small>${t('k4')}</small></div><div class="kpi"><b>${eur(tot - paid)}</b><small>${t('k5')}</small></div></div>
     <div class="panel"><div><h3 style="margin:0">${t('base')}</h3><small class="tag">${t('base_s')}</small></div><table class="tbl"><tr><td>${t('base')}</td><td class="r">${eur(base)}</td><td class="r"><span class="ok">${t('approved')}</span></td></tr></table></div>
     <div class="sec-h"><h3>${t('add_t')}</h3><button class="btn ghost" id="reqBtn">${t('req')}</button></div>
-    <div class="panel"><table class="tbl">${B.addenda.map(a => `<tr><td>▸ ${esc(a.desc)}</td><td class="tag">${dmy(a.date)}</td><td class="r">${eur(a.amount)}</td><td class="r">${a.status === 'approved' ? `<span class="ok">${t('approvedF')}</span>` : `<span class="tag">${lang === 'pt' ? 'Pendente' : 'Pending'}</span>`}</td></tr>`).join('') || `<tr><td>${t('no_items')}</td></tr>`}</table></div>
+    <div class="panel"><table class="tbl">${B.addenda.map(a => `<tr><td>▸ ${esc(tx(a.desc))}</td><td class="tag">${dmy(a.date)}</td><td class="r">${eur(a.amount)}</td><td class="r">${a.status === 'approved' ? `<span class="ok">${t('approvedF')}</span>` : `<span class="tag">${lang === 'pt' ? 'Pendente' : 'Pending'}</span>`}</td></tr>`).join('') || `<tr><td>${t('no_items')}</td></tr>`}</table></div>
     <div class="sec-h"><h3>${t('hist_f')}</h3></div>
-    <div class="panel"><table class="tbl">${B.payments.map(p => `<tr><td>${esc(p.label)}</td><td class="tag">${dmy(p.date)}</td><td class="r">${eur(p.amount)}</td><td class="r">${p.status === 'paid' ? `<span class="ok">${t('paid')}</span>` : `<span class="tag">${lang === 'pt' ? 'Em aberto' : 'Open'}</span>`}</td></tr>`).join('')}
+    <div class="panel"><table class="tbl">${B.payments.map(p => `<tr><td>${esc(tx(p.label))}</td><td class="tag">${dmy(p.date)}</td><td class="r">${eur(p.amount)}</td><td class="r">${p.status === 'paid' ? `<span class="ok">${t('paid')}</span>` : `<span class="tag">${lang === 'pt' ? 'Em aberto' : 'Open'}</span>`}</td></tr>`).join('')}
       <tr><td>${t('init_b')}</td><td class="tag">${dmy(B.project.start)}</td><td class="r">${eur(base)}</td><td class="r tag">${ico('doc', 16)} ${t('contract_ok')}</td></tr></table></div>`;
   },
   comm(B) {
     const P = B.project, days = {};
     B.messages.forEach(m => { const d = m.at.slice(0, 10); days[d] = (days[d] || 0) + 1; });
     const ini = (P.mgrName || 'R').split(' ').filter(w => /^[A-ZÁÉÍÓÚ]/.test(w)).slice(-2).map(w => w[0]).join('') || 'R';
-    return `${head(t('comm_t'), t('comm_s'))}<div class="chat"><div class="chat-m"><div class="chat-h"><div class="avatar">${esc(ini)}</div><div><b>${esc(P.mgrName || '—')}</b> – <span class="tag">${esc(P.mgrRole || t('role'))}</span><small><span class="dot"></span>${t('online')}</small></div></div>
+    return `${head(t('comm_t'), t('comm_s'))}<div class="chat"><div class="chat-m"><div class="chat-h"><div class="avatar">${esc(ini)}</div><div><b>${esc(tx(P.mgrName) || '—')}</b> – <span class="tag">${esc(tx(P.mgrRole) || t('role'))}</span><small><span class="dot"></span>${t('online')}</small></div></div>
       <div class="msgs" id="msgs">${B.messages.map(chatMsg).join('')}</div>
       <form class="composer" id="cf"><label class="att" title="+"><input type="file" id="cfile" hidden>${ico('clip', 18)}</label><input type="text" id="ci" placeholder="${t('compose')}" autocomplete="off"><button class="btn sm">${ico('send', 18)}</button></form></div>
       <aside class="chat-s"><h3>${t('conv')}</h3><ul>${Object.entries(days).sort().reverse().map(([d, n]) => `<li><div>${dmy(d)}<small>${n} ${t('msgs')}</small></div></li>`).join('')}</ul></aside></div>`;
@@ -328,21 +359,21 @@ const PAGES = {
   },
   data(B) {
     const P = B.project;
-    return `${head(t('data_t'), t('data_s'))}<div class="panel"><dl class="dl"><div><dt>${t('cli')}</dt><dd>${esc(P.clientName || ST.user.name)}</dd><dt>${t('addr')}</dt><dd>${esc(P.address || '—')}</dd><dt>${t('typ')}</dt><dd>${esc(P.name)}</dd></div>
-      <div><dt>${t('resp')}</dt><dd>${esc(P.mgrName || '—')}</dd><dt>${t('area')}</dt><dd>${esc(P.area || '—')}</dd><dt>${t('stt')}</dt><dd>${stLbl(P.status)} · ${gPct(B)}%</dd></div>
+    return `${head(t('data_t'), t('data_s'))}<div class="panel"><dl class="dl"><div><dt>${t('cli')}</dt><dd>${esc(P.clientName || ST.user.name)}</dd><dt>${t('addr')}</dt><dd>${esc(tx(P.address) || '—')}</dd><dt>${t('typ')}</dt><dd>${esc(tx(P.name))}</dd></div>
+      <div><dt>${t('resp')}</dt><dd>${esc(tx(P.mgrName) || '—')}</dd><dt>${t('area')}</dt><dd>${esc(P.area || '—')}</dd><dt>${t('stt')}</dt><dd>${stLbl(P.status)} · ${gPct(B)}%</dd></div>
       <div><dt>${t('start')}</dt><dd>${dmy(P.start)}</dd><dt>${t('end')}</dt><dd>${dmy(P.end)}</dd></div></dl></div>`;
   }
 };
 function chatMsg(m) {
   const mine = ST.user && (ST.user.role === 'staff' ? m.staff : !m.staff);
   const hm = new Date(m.at).toLocaleTimeString(loc(), { hour: '2-digit', minute: '2-digit' });
-  return `<div class="msg ${mine ? 'me' : ''}"><span class="nm">${esc(m.name || '')}</span>${esc(m.body || '')}${m.att ? `<br><a class="att" href="${esc(m.att.url || '#')}" target="_blank" rel="noopener">${ico('clip', 18)} ${esc(m.att.name)}</a>` : ''}<time>${hm}</time></div>`;
+  return `<div class="msg ${mine ? 'me' : ''}"><span class="nm">${esc(tx(m.name) || '')}</span>${esc(tx(m.body) || '')}${m.att ? `<br><a class="att" href="${esc(m.att.url || '#')}" target="_blank" rel="noopener">${ico('clip', 18)} ${esc(m.att.name)}</a>` : ''}<time>${hm}</time></div>`;
 }
 function matRow(m) {
   const real = m.real ?? m.budget, diff = real - m.budget, over = diff > 0, ok = m.status === 'approved', f = v => (m.unit === 'm2' ? `€${v}/m²` : eur(v));
   const stl = ok ? `<span class="state ap">✓ ${t('approved')}</span>` : m.status === 'selected' ? `<span class="state sel">${t('selected')}</span>` : `<span class="state">${t('analysis')}</span>`;
   const acc = !!accepted[m.id];
-  return `<div class="mat"><div class="sw2"></div><div class="bd"><div class="tt">${esc(m.name)}${stl}</div>
+  return `<div class="mat"><div class="sw2"></div><div class="bd"><div class="tt">${esc(tx(m.name))}${stl}</div>
     <div class="pv"><span>${t('pvp_b')} <b>${f(m.budget)}</b></span><span>${t('pvp_r')} <b class="${over ? 'over' : ''}">${f(real)}</b></span>${over ? `<span class="balance over">+ ${f(diff)} ${t('over')}</span>` : `<span class="balance good">✓ ${t('within')}</span>`}</div>
     ${!ok && over ? `<div class="warnbox"><div>${ico('alert', 18)} ${t('exceeds')}</div><label><input type="checkbox" data-acc="${m.id}" ${acc ? 'checked' : ''}> ${t('accept')} <b class="over">+${f(diff)}</b> ${t('above')}</label><button class="btn sm" style="justify-self:end" data-ok="${m.id}" ${acc ? '' : 'disabled'}>${t('confirm')}</button></div>` : ''}
     ${!ok && !over ? `<div style="text-align:right"><button class="btn sm" data-ok="${m.id}">${t('confirm')}</button></div>` : ''}</div></div>`;
@@ -358,7 +389,7 @@ function renderClient() {
   $('#app').innerHTML = `${banner()}<div class="ca"><aside class="side${ST.dock ? ' open' : ''}" id="side"><a class="logo" href="#/">${logo()}</a>
     <nav class="menu"><button class="dock-toggle" id="dockT" aria-label="Menu" aria-expanded="${ST.dock}"><span class="t-closed">${ico('menu')}</span><span class="t-open">${ico('x')}</span></button>${MENU.map(([k, l, ic]) => `<a href="#/area/${k}" class="${k === page ? 'on' : ''}"><span class="i">${ico(ic)}</span><span class="lbl">${t(l)}</span></a>`).join('')}
       <div class="user"><div class="avatar">${esc(ini)}</div><span class="uname">${esc(first(ST.user.name))}<br>${esc(ST.user.name.split(' ').slice(1).join(' '))}</span><button id="logout" aria-label="${t('logout')}">${ico('logout')}<span class="lbl">${t('logout')}</span></button></div></nav></aside>
-    <main class="main"><div class="topbar"><div style="display:flex;align-items:center"><button class="mburger" id="mb" aria-label="Menu">${ico('menu', 24)}</button><a class="top-logo" href="#/">${logo()}</a><div class="top-title"><b>Obras com Evidência</b><small>${t('client')}</small></div><div class="tabs"><span class="on">Dashboard</span><span>${t('clients_tab')}</span>${ST.projects.length > 1 ? `<select id="pSel" class="sel" style="margin-left:16px">${ST.projects.map(p => `<option value="${p.id}" ${p.id === ST.pid ? 'selected' : ''}>${esc(p.name)}</option>`).join('')}</select>` : ''}</div></div>
+    <main class="main"><div class="topbar"><div style="display:flex;align-items:center"><button class="mburger" id="mb" aria-label="Menu">${ico('menu', 24)}</button><a class="top-logo" href="#/">${logo()}</a><div class="top-title"><b>Obras com Evidência</b><small>${t('client')}</small></div><div class="tabs"><span class="on">Dashboard</span><span>${t('clients_tab')}</span>${ST.projects.length > 1 ? `<select id="pSel" class="sel" style="margin-left:16px">${ST.projects.map(p => `<option value="${p.id}" ${p.id === ST.pid ? 'selected' : ''}>${esc(tx(p.name))}</option>`).join('')}</select>` : ''}</div></div>
       <div class="top-r"><div class="lang"><button data-l="pt" class="${lang === 'pt' ? 'on' : ''}">PT</button>/<button data-l="en" class="${lang === 'en' ? 'on' : ''}">EN</button></div><div class="avatar">${esc(ini)}</div></div></div>
       <div class="view${anim}">${PAGES[page](B)}</div></main></div>`;
   $('#logout').onclick = async () => { await DB.signOut(); ST.B = null; location.hash = '#/'; route(); };
@@ -391,7 +422,7 @@ const BIND = {
       const wk = U.addDays(U.today(), -7), recent = L.filter(p => p.date >= wk), rest = L.filter(p => p.date < wk);
       const card = p => { const ph = B.phases.find(x => x.id === p.phaseId);
         return `<div class="photo"><div class="im ${p.cls || ''}">${p.url ? `<img loading="lazy" src="${esc(p.url)}" alt="">` : ''}<span class="c">${ico('chat', 14)} ${p.comments.length}</span></div><div class="b"><div class="cap"><span>${esc(ph ? phName(ph) : '')}</span><span class="tag">${dm(p.date)}</span></div>${p.caption ? `<div class="tag">${esc(p.caption)}</div>` : ''}
-        <ul class="cl">${p.comments.map(c => `<li><b>${esc(c.author)}:</b> ${esc(c.body)}</li>`).join('')}</ul><form class="cm" data-id="${p.id}"><input placeholder="${t('add_cm')}" aria-label="${t('add_cm')}"><button>${ico('send', 18)}</button></form></div></div>`; };
+        <ul class="cl">${p.comments.map(c => `<li><b>${esc(tx(c.author))}:</b> ${esc(tx(c.body))}</li>`).join('')}</ul><form class="cm" data-id="${p.id}"><input placeholder="${t('add_cm')}" aria-label="${t('add_cm')}"><button>${ico('send', 18)}</button></form></div></div>`; };
       const sec = (title, arr) => (arr.length ? `<h3 style="font-size:1.5rem;margin:6px 0 14px">${title}</h3><div class="ph-grid" style="margin-bottom:26px">${arr.map(card).join('')}</div>` : '');
       $('#pgrid').innerHTML = (sec(t('week_sec'), recent) + sec(t('all_sec'), rest)) || `<p class="tag">${t('no_photos')}</p>`;
       $$('.cm').forEach(f => f.onsubmit = async e => { e.preventDefault(); const v = f.firstElementChild.value.trim(); if (!v) return;
