@@ -444,8 +444,11 @@ form.f{display:grid;gap:14px}
 .ftr .logo-img{height:120px}
 @media(max-width:560px){.logo-img{height:64px}}
 
-/* logotipo em maiúsculas, sem tijolos, com "BUILD & DESIGN" maior */
+/* logotipo transparente, letras pretas */
+.logo{box-shadow:none;border-radius:0;overflow:visible}
 .logo-img{height:88px}
-.side .logo-img{height:auto;width:100%}
-.ftr .logo-img{height:132px}
+.side .logo{margin:0 0 14px;text-align:center}
+.side .logo-img{height:auto;width:78%;margin:0 auto}
+/* rodapé escuro: o logotipo (letras pretas) assenta numa placa clara */
+.ftr .logo-img{height:150px;width:auto;margin:0 auto 14px;background:var(--color-bg);padding:14px 22px;border-radius:14px}
 @media(max-width:560px){.logo-img{height:68px}}
