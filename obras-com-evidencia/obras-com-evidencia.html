@@ -6,7 +6,6 @@
 <title>Obras com Evidência – Build &amp; Design</title>
 <meta name="description" content="Trabalhar connosco é ter uma Área de Cliente. Acompanhe a sua obra em tempo real, com planeamento, progresso e total transparência.">
 <meta name="theme-color" content="#1f3a5a" id="themeColor">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f3a5a'/%3E%3Cpolyline points='14,26 32,10 50,26' fill='none' stroke='%23e08a63' stroke-width='6' stroke-linecap='square'/%3E%3Ctext x='32' y='54' text-anchor='middle' font-family='Jost,Arial,sans-serif' font-weight='600' font-size='30' fill='%23fff'%3EE%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
@@ -43,8 +42,6 @@
   --red-500: #c8202a;
   --red-600: #b3322f;
   --logo-red: #d3191f;
-  --terra-300: #e08a63;     /* terracota clara: telhado do logotipo sobre azul */
-  --mist-200: #cfd8e3;
   --sand-300: #d9c3a5;
   --gold-600: #77593a;
 
@@ -84,11 +81,6 @@
   --color-accent: var(--gold-600);
   --color-accent-soft: var(--sand-300);
   --color-logo: var(--logo-red);
-  --color-logo-plate: var(--petrol-500);       /* fundo azul do logotipo */
-  --color-logo-ink: var(--white);
-  --color-logo-sub: var(--mist-200);
-  --color-logo-roof: var(--terra-300);
-  --color-logo-desc: var(--sand-300);
 
   /* superfícies e texto */
   --color-bg: var(--stone-white);                /* fundo geral (60%) */
@@ -568,19 +560,6 @@ form.f{display:grid;gap:14px}
 .modal .box .btn:not(.ghost):not(.danger){background:var(--color-cta);color:var(--color-on-brand);box-shadow:var(--shadow-nav)}
 .modal .box .btn:not(.ghost):not(.danger):hover{background:var(--color-cta-hover)}
 
-/* logotipo sobre fundo azul */
-.logo{display:inline-block;background:var(--color-logo-plate);border-radius:14px;padding:6px 14px}
-.logo svg{height:60px}
-.side .logo{display:block;text-align:center;padding:10px 12px;margin:0 0 18px}
-.side .logo svg{height:74px;margin:0 auto}
-.ftr svg{height:80px}
-
-/* logotipo maior (texto secundário legível) */
-.logo svg{height:72px}
-.side .logo svg{height:88px}
-.ftr svg{height:104px}
-@media(max-width:560px){.logo svg{height:60px}}
-
 </style>
 </head>
 <body>
@@ -987,25 +966,13 @@ let testiTimer;
 const stopTimers = () => { clearInterval(testiTimer); clearInterval(ST.timer); };
 
 // ---------- logótipo ----------
-const logo = () => `<svg viewBox="0 0 330 142" role="img" aria-label="Obras com Evidência — Build & Design">
-<text class="sub" x="135" y="31" text-anchor="middle" font-family="Jost,sans-serif" font-weight="500" font-size="24" letter-spacing="6" style="fill:var(--color-logo-ink)">OBRAS COM</text>
-<polyline class="roof" points="-15,15 0,0 15,15" transform="translate(131 43)" fill="none" style="stroke:var(--color-logo-roof)" stroke-width="5" stroke-linecap="square"/>
-<text class="wm" data-i="4" data-fs="46" x="4" y="100" font-family="Jost,sans-serif" font-weight="500" font-size="46" letter-spacing="2.5" style="fill:var(--color-logo-ink)">EVIDENCIA</text>
-<rect x="6" y="110" width="312" height="1.5" style="fill:var(--color-logo-ink)" opacity=".25"/>
-<text x="5" y="136" font-family="Jost,sans-serif" font-weight="500" font-size="22" letter-spacing="5.4" style="fill:var(--color-logo-desc)">BUILD &amp; DESIGN</text></svg>`;
-// o telhado fica centrado sobre o "E" (substitui o circunflexo), medido com a fonte já carregada
-function fixLogos() {
-  $$('svg text.wm').forEach(t => { const svg = t.parentNode, r = svg.querySelector('polyline.roof'); if (!r) return;
-    try {
-      const fs = +t.dataset.fs, n = t.getNumberOfChars(), a = t.getExtentOfChar(0), z = t.getExtentOfChar(n - 1), e = t.getExtentOfChar(+t.dataset.i);
-      if (!e.width) return;
-      r.setAttribute('transform', `translate(${e.x + e.width / 2} ${+t.getAttribute('y') - fs * 0.7 - 25})`); // telhado sobre o "E"
-      const s = svg.querySelector('text.sub'); if (s) s.setAttribute('x', (a.x + z.x + z.width) / 2 + 3); // "OBRAS COM" centrado com EVIDENCIA (+meio espaçamento final)
-    } catch (err) { /* mantém a posição por omissão */ } });
-}
-new MutationObserver(() => requestAnimationFrame(fixLogos)).observe(document.getElementById('app'), { childList: true });
-if (document.fonts) { document.fonts.ready.then(fixLogos); document.fonts.addEventListener('loadingdone', fixLogos); }
-addEventListener('load', () => { fixLogos(); setTimeout(fixLogos, 600); });
+const logo = (dark = false) => { const c = dark ? 'var(--color-text-on-dark)' : 'var(--color-text)'; return `<svg viewBox="0 0 330 190" role="img" aria-label="Obras com Evidência — Build & Design">
+<polygon points="115,14 215,14 318,70 250,70" style="fill:var(--color-logo)"/><polyline points="12,72 113,14" style="stroke:var(--color-logo)" stroke-width="3" fill="none"/>
+<g style="fill:${c}" font-family="Jost,sans-serif" text-anchor="middle">
+<line x1="10" y1="92" x2="52" y2="92" style="stroke:${c}" stroke-width="1.5"/><line x1="208" y1="92" x2="320" y2="92" style="stroke:${c}" stroke-width="1.5"/>
+<text x="130" y="102" font-size="34" font-weight="300">Obras com</text><text x="165" y="152" font-size="50" font-weight="300" letter-spacing="1">EVIDÊNCIA</text>
+<line x1="10" y1="172" x2="48" y2="172" style="stroke:${c}" stroke-width="1.5"/><line x1="290" y1="172" x2="320" y2="172" style="stroke:${c}" stroke-width="1.5"/>
+<text x="168" y="178" font-size="12" letter-spacing="6" style="fill:var(--color-accent)">BUILD &amp; DESIGN</text></g></svg>`; };
 
 // ---------- modal genérico ----------
 function modal(html, wide) {
@@ -1094,7 +1061,7 @@ function renderPublic() {
     <ul><li>✉ geral@obrascomevidencia.com</li><li>☎ +351 000 000 000</li><li>⌖ Lisboa, Portugal</li><li>🌐 www.obrascomevidencia.com</li></ul></div>
     <form class="f" id="quoteForm"><label>${t('name')}<input required name="n"></label><label>${t('email')}<input required type="email" name="e"></label><label>${t('phone')}<input name="p"></label><label>${t('msg')}<textarea rows="4" name="m"></textarea></label><button class="btn" style="justify-self:start">${t('send')}</button></form></div></section>
 
-  <footer class="ftr"><div class="wrap">${logo()}<div>${t('footer')}</div></div></footer>
+  <footer class="ftr"><div class="wrap">${logo(true)}<div>${t('footer')}</div></div></footer>
   <a class="btn float-cta" href="#contact">${t('quote')}</a><div id="bot"></div>`;
   $$('.lang button').forEach(b => b.onclick = () => setLang(b.dataset.l));
   $('#loginBtn').onclick = enterArea; $$('[data-login]').forEach(b => b.onclick = enterArea);

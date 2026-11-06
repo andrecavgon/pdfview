@@ -417,16 +417,3 @@ form.f{display:grid;gap:14px}
 /* botão "Entrar" (e restantes botões de diálogos): azul do dashboard */
 .modal .box .btn:not(.ghost):not(.danger){background:var(--color-cta);color:var(--color-on-brand);box-shadow:var(--shadow-nav)}
 .modal .box .btn:not(.ghost):not(.danger):hover{background:var(--color-cta-hover)}
-
-/* logotipo sobre fundo azul */
-.logo{display:inline-block;background:var(--color-logo-plate);border-radius:14px;padding:6px 14px}
-.logo svg{height:60px}
-.side .logo{display:block;text-align:center;padding:10px 12px;margin:0 0 18px}
-.side .logo svg{height:74px;margin:0 auto}
-.ftr svg{height:80px}
-
-/* logotipo maior (texto secundário legível) */
-.logo svg{height:72px}
-.side .logo svg{height:88px}
-.ftr svg{height:104px}
-@media(max-width:560px){.logo svg{height:60px}}
