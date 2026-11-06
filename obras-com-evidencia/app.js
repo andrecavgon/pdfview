@@ -14,13 +14,13 @@ const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '
 const dm = s => (s ? s.slice(8, 10) + '/' + s.slice(5, 7) : '—');
 const dmy = s => (s ? s.slice(8, 10) + '/' + s.slice(5, 7) + '/' + s.slice(0, 4) : '—');
 function toast(m) { const e = $('#toast'); e.textContent = m; e.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => e.classList.remove('on'), 3000); }
-const ST = { user: null, projects: [], pid: null, B: null, page: 'dashboard', tab: 'fases', matTab: 'rev', pf: 'all', ps: 'recent', timer: null, testi: 0 };
+const ST = { dock: true, user: null, projects: [], pid: null, B: null, page: 'dashboard', tab: 'fases', matTab: 'rev', pf: 'all', ps: 'recent', timer: null, testi: 0 };
 let testiTimer;
 const stopTimers = () => { clearInterval(testiTimer); clearInterval(ST.timer); };
 
 // ---------- logótipo ----------
 const LOGO_SRC = 'logo.webp';
-const logo = () => `<img class="logo-img" src="${LOGO_SRC}" width="900" height="614" alt="Obras com Evidência">`;
+const logo = () => `<img class="logo-img" src="${LOGO_SRC}" width="900" height="618" alt="Obras com Evidência">`;
 
 // ---------- ícones (SVG de linha, minimalistas e coerentes) ----------
 const ICONS = {
@@ -170,7 +170,7 @@ function openLogin() {
   const f = $('#loginForm', m);
   f.onsubmit = async e => {
     e.preventDefault(); $('#lerr', m).textContent = '';
-    try { const u = await DB.signIn(f.u.value.trim(), f.p.value); m.close(); const h = homeFor(u); if (location.hash === h) route(); else location.hash = h; }
+    try { const u = await DB.signIn(f.u.value.trim(), f.p.value); ST.dock = true; m.close(); const h = homeFor(u); if (location.hash === h) route(); else location.hash = h; }
     catch (er) { $('#lerr', m).textContent = t('login_err') + ' ' + (er.message || ''); }
   };
   if (demo) $('#asStaff', m).onclick = () => { f.u.value = 'equipa@demo.pt'; f.requestSubmit(); };
@@ -345,8 +345,8 @@ function renderClient() {
   if (!B) { $('#app').innerHTML = `${banner()}<p style="padding:60px;text-align:center">${t('no_items')} <a class="link" href="#/">←</a></p>`; return; }
   const ini = ST.user.name.split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
   const anim = ST.lastView !== page ? ' enter' : ''; ST.lastView = page;   // animação só quando a página muda
-  $('#app').innerHTML = `${banner()}<div class="ca"><aside class="side" id="side"><a class="logo" href="#/">${logo()}</a>
-    <nav class="menu"><button class="dock-toggle" id="dockT" aria-label="Menu" aria-expanded="false"><span class="t-closed">${ico('menu')}</span><span class="t-open">${ico('x')}</span></button>${MENU.map(([k, l, ic]) => `<a href="#/area/${k}" class="${k === page ? 'on' : ''}"><span class="i">${ico(ic)}</span><span class="lbl">${t(l)}</span></a>`).join('')}
+  $('#app').innerHTML = `${banner()}<div class="ca"><aside class="side${ST.dock ? ' open' : ''}" id="side"><a class="logo" href="#/">${logo()}</a>
+    <nav class="menu"><button class="dock-toggle" id="dockT" aria-label="Menu" aria-expanded="${ST.dock}"><span class="t-closed">${ico('menu')}</span><span class="t-open">${ico('x')}</span></button>${MENU.map(([k, l, ic]) => `<a href="#/area/${k}" class="${k === page ? 'on' : ''}"><span class="i">${ico(ic)}</span><span class="lbl">${t(l)}</span></a>`).join('')}
       <div class="user"><div class="avatar">${esc(ini)}</div><span class="uname">${esc(first(ST.user.name))}<br>${esc(ST.user.name.split(' ').slice(1).join(' '))}</span><button id="logout" aria-label="${t('logout')}">${ico('logout')}<span class="lbl">${t('logout')}</span></button></div></nav></aside>
     <main class="main"><div class="topbar"><div style="display:flex;align-items:center"><button class="mburger" id="mb" aria-label="Menu">${ico('menu', 24)}</button><a class="top-logo" href="#/">${logo()}</a><div class="top-title"><b>Obras com Evidência</b><small>${t('client')}</small></div><div class="tabs"><span class="on">Dashboard</span><span>${t('clients_tab')}</span>${ST.projects.length > 1 ? `<select id="pSel" class="sel" style="margin-left:16px">${ST.projects.map(p => `<option value="${p.id}" ${p.id === ST.pid ? 'selected' : ''}>${esc(p.name)}</option>`).join('')}</select>` : ''}</div></div>
       <div class="top-r"><div class="lang"><button data-l="pt" class="${lang === 'pt' ? 'on' : ''}">PT</button>/<button data-l="en" class="${lang === 'en' ? 'on' : ''}">EN</button></div><div class="avatar">${esc(ini)}</div></div></div>
@@ -354,10 +354,10 @@ function renderClient() {
   $('#logout').onclick = async () => { await DB.signOut(); ST.B = null; location.hash = '#/'; route(); };
   $$('.lang button').forEach(b => b.onclick = () => setLang(b.dataset.l));
   $('#mb').onclick = () => $('#side').classList.toggle('open');
-  $$('.menu a').forEach(a => a.addEventListener('click', () => $('#side').classList.remove('open')));
-  const dt = $('#dockT'), sd = $('#side'), setDock = o => { sd.classList.toggle('open', o); dt.setAttribute('aria-expanded', o); };
-  dt.onclick = e => { e.stopPropagation(); setDock(!sd.classList.contains('open')); };
-  $('.main').addEventListener('click', () => setDock(false));
+  { const dt = $('#dockT'), sd = $('#side'), mob = () => matchMedia('(max-width:980px)').matches, setDock = o => { ST.dock = o; sd.classList.toggle('open', o); dt.setAttribute('aria-expanded', o); };
+    dt.onclick = e => { e.stopPropagation(); setDock(!sd.classList.contains('open')); };
+    $('.main').addEventListener('click', () => { if (mob()) setDock(false); });            // no telemóvel, tocar fora fecha
+    $$('.menu a').forEach(a => a.addEventListener('click', () => { if (mob()) setDock(false); })); }
   const ps = $('#pSel'); if (ps) ps.onchange = async () => { ST.pid = ps.value; ST.B = await DB.loadBundle(ST.pid); renderClient(); };
   const dk = $('.menu'), da = $('.menu a.on'); /* dockScroll */ if (dk && da) dk.scrollTop = da.offsetTop - dk.clientHeight / 2 + da.offsetHeight / 2;
   (BIND[page] || (() => {}))(B); scrollTo(0, 0);
@@ -433,7 +433,7 @@ async function staffRoute(parts) {
 function staffShell(inner, active) {
   const ini = ST.user.name.split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
   const vk = active + '/' + ST.tab, anim = ST.lastStaff !== vk ? ' enter' : ''; ST.lastStaff = vk;
-  return `${banner()}<div class="ca st"><aside class="side" id="side"><a class="logo" href="#/">${logo()}</a><nav class="menu"><button class="dock-toggle" id="dockT" aria-label="Menu" aria-expanded="false"><span class="t-closed">${ico('menu')}</span><span class="t-open">${ico('x')}</span></button>
+  return `${banner()}<div class="ca st"><aside class="side${ST.dock ? ' open' : ''}" id="side"><a class="logo" href="#/">${logo()}</a><nav class="menu"><button class="dock-toggle" id="dockT" aria-label="Menu" aria-expanded="${ST.dock}"><span class="t-closed">${ico('menu')}</span><span class="t-open">${ico('x')}</span></button>
     <a href="#/gestao" class="${active !== 'nova' ? 'on' : ''}"><span class="i">${ico('grid')}</span><span class="lbl">Obras</span></a><a href="#/gestao/nova" class="${active === 'nova' ? 'on' : ''}"><span class="i">${ico('plus')}</span><span class="lbl">Nova obra / cliente</span></a>
     <div class="user"><div class="avatar">${esc(ini)}</div><span class="uname">Equipa<br>técnica</span><button id="logout" aria-label="Sair">${ico('logout')}<span class="lbl">Sair</span></button></div></nav></aside>
     <main class="main"><div class="topbar"><div style="display:flex;align-items:center"><button class="mburger" id="mb">${ico('menu', 24)}</button><a class="top-logo" href="#/">${logo()}</a><div class="top-title"><b>Obras com Evidência</b><small>Painel da equipa</small></div><div class="tabs"><span class="on">Painel da equipa</span></div></div><div class="top-r"><span class="tag">${esc(ST.user.name)}</span></div></div><div class="view${anim}">${inner}</div></main></div>`;
@@ -451,9 +451,9 @@ function staffRender(a) {
   $('#app').innerHTML = staffShell(inner, a);
   $('#logout').onclick = async () => { await DB.signOut(); location.hash = '#/'; route(); };
   $('#mb').onclick = () => $('#side').classList.toggle('open');
-  { const dt = $('#dockT'), sd = $('#side'), setDock = o => { sd.classList.toggle('open', o); dt.setAttribute('aria-expanded', o); };
+  { const dt = $('#dockT'), sd = $('#side'), mob = () => matchMedia('(max-width:980px)').matches, setDock = o => { ST.dock = o; sd.classList.toggle('open', o); dt.setAttribute('aria-expanded', o); };
     dt.onclick = e => { e.stopPropagation(); setDock(!sd.classList.contains('open')); };
-    $('.main').addEventListener('click', () => setDock(false)); $$('.menu a').forEach(a => a.addEventListener('click', () => setDock(false))); }
+    $('.main').addEventListener('click', () => { if (mob()) setDock(false); }); $$('.menu a').forEach(a => a.addEventListener('click', () => { if (mob()) setDock(false); })); }
   bindStaff();
 }
 function staffProject() {
