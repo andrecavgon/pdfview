@@ -20,7 +20,8 @@ const stopTimers = () => { clearInterval(testiTimer); clearInterval(ST.timer); }
 
 // ---------- logótipo ----------
 const LOGO_SRC = 'logo.webp';
-const logo = () => `<img class="logo-img" src="${LOGO_SRC}" width="900" height="684" alt="Obras com Evidência">`;
+const LOGO_DARK = 'logo-dark.webp';
+const logo = () => `<picture><source media="(prefers-color-scheme: dark) and (max-width:560px)" srcset="${LOGO_DARK}"><img class="logo-img" src="${LOGO_SRC}" width="900" height="684" alt="Obras com Evidência"></picture>`;
 
 // ---------- ícones (SVG de linha, minimalistas e coerentes) ----------
 const ICONS = {
