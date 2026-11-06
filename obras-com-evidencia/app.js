@@ -115,13 +115,23 @@ function renderPublic() {
 
   <section class="hero"><div class="wrap">
     <div><h1>${t('hero1')}</h1><p>${t('hero2')}</p><button class="btn" data-login>${t('client')}</button></div>
-    <div class="mock" aria-hidden="true"><div class="mock-side"><b style="font-family:var(--font-serif);font-size:.95rem;padding:4px 8px 12px">EVIDÊNCIA</b><i class="on">Dashboard</i><i>${t('m_plan')}</i><i>${t('m_prog')}</i><i>${t('m_photos')}</i><i>${t('m_mat')}</i><i>${t('m_fin')}</i><i>${t('m_comm')}</i></div>
-      <div class="mock-main"><small>${t('welcome')}</small><h4>${t('obra')}</h4><small>● ${t('running')} · 45%</small>
-        <div class="mock-card"><b style="font-family:var(--font-serif);font-size:1rem">${t('sched')}</b>
-          <div class="row"><span>${t('ph_dem')}</span><span>100%</span></div><div class="mini-bar"><b style="width:100%"></b></div>
-          <div class="row"><span>${t('ph_str')}</span><span>80%</span></div><div class="mini-bar"><b style="width:80%"></b></div>
-          <div class="row"><span>${t('ph_net')}</span><span>45%</span></div><div class="mini-bar"><b style="width:45%"></b></div></div>
-        <div class="mock-card"><b style="font-family:var(--font-serif);font-size:1rem">${t('m_photos')}</b><div style="display:flex;gap:6px;margin-top:8px"><i class="tile ph-a"></i><i class="tile ph-b"></i><i class="tile ph-c"></i></div></div></div></div>
+    <div class="mock" aria-hidden="true">
+      <div class="mk-top"><div class="mk-brand"><img src="${LOGO_SRC}" alt=""><span><b>Obras com Evidência</b><small>${t('client').toUpperCase()}</small></span></div><div class="mk-tabs"><u>Dashboard</u><span>${t('clients_tab')}</span></div><i class="mk-av">AF</i></div>
+      <div class="mk-body">
+        <div class="mk-side">${MENU.slice(0, 7).map(([k, l, ic], i) => `<span class="${i === 0 ? 'on' : ''}">${ico(ic)}<em>${t(l)}</em></span>`).join('')}</div>
+        <div class="mk-main">
+          <h4>${t('welcome')}</h4><small>${t('obra')}</small><div class="mk-st"><i></i>${t('running')} · 45%</div>
+          <div class="mk-grid">
+            <div class="mock-card"><b>${t('prog_obra')}</b><div class="mini-bar big"><b style="width:45%"></b></div><div class="row"><span>${t('next')}</span><span>${t('ph_cov')}</span></div></div>
+            <div class="mock-card"><b>${t('last_upd')}</b><div class="row"><span>${ico('image', 12)} ${t('u1')}</span><span>${t('today')}</span></div><div class="row"><span>${ico('calendar', 12)} ${t('u2')}</span><span>${t('yest')}</span></div></div>
+          </div>
+          <div class="mock-card"><b>${t('sched')}</b>
+            <div class="row"><span>${t('ph_dem')}</span><span>100%</span></div><div class="mini-bar"><b style="width:100%"></b></div>
+            <div class="row"><span>${t('ph_str')}</span><span>80%</span></div><div class="mini-bar"><b style="width:80%"></b></div>
+            <div class="row"><span>${t('ph_net')}</span><span>45%</span></div><div class="mini-bar"><b style="width:45%"></b></div></div>
+        </div>
+      </div>
+    </div>
   </div></section>
 
   <section class="sec testi" id="testimonials"><div class="wrap"><h2>${t('testi')}</h2><div style="height:30px"></div>
