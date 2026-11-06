@@ -156,7 +156,7 @@ function renderPublic() {
   <section class="hero"><div class="wrap">
     <div><h1>${t('hero1')}</h1><p>${t('hero2')}</p><button class="btn" data-login>${t('client')}</button></div>
     <div class="mock" aria-hidden="true">
-      <div class="mk-top"><div class="mk-brand"><img src="${LOGO_DARK}" alt=""><span><b>Obras com Evidência</b><small>${t('client').toUpperCase()}</small></span></div><div class="mk-tabs"><u>Dashboard</u><span>${t('clients_tab')}</span></div><i class="mk-av">C</i></div>
+      <div class="mk-top"><div class="mk-brand"><img src="${LOGO_SRC}" alt=""><span><b>Obras com Evidência</b><small>${t('client').toUpperCase()}</small></span></div><div class="mk-tabs"><u>Dashboard</u><span>${t('clients_tab')}</span></div><i class="mk-av">C</i></div>
       <div class="mk-body">
         <div class="mk-side">${MENU.map(([k, l, ic], i) => `<span class="${i === 0 ? 'on' : ''}">${ico(ic)}<em>${t(l)}</em></span>`).join('')}<div class="mk-user"><i class="mk-av">C</i><em>${t('mock_user')}</em></div><span class="mk-out">${ico('logout')}<em>${t('logout')}</em></span></div>
         <div class="mk-main">
