@@ -492,3 +492,59 @@ form.f{display:grid;gap:14px}
   .menu .user span{font-size:.95rem}
   .menu .user button{margin-left:0;flex-basis:100%;text-align:left;padding-left:42px}
 }
+
+/* dock de vidro: barra lateral transparente só com ícones (interatividade do vídeo) */
+/* rótulos: em ecrã pequeno (menu que abre por cima) aparecem em linha, como texto normal */
+.menu a .lbl{display:inline}
+.menu .user button{display:inline-flex;align-items:center;gap:6px}
+.top-logo{display:none}
+.view.enter{animation:viewIn .6s cubic-bezier(.2,.7,.2,1) both}
+@keyframes viewIn{from{opacity:0;filter:blur(10px);transform:translateY(10px)}to{opacity:1;filter:blur(0);transform:none}}
+
+@media(min-width:981px){
+  /* fundo discreto para o vidro ter o que desfocar */
+  .ca{grid-template-columns:96px 1fr;background:
+        radial-gradient(760px 460px at 4% 26%, color-mix(in srgb, var(--color-accent-soft) 38%, transparent), transparent 70%),
+        radial-gradient(900px 520px at 96% 92%, color-mix(in srgb, var(--color-surface-alt) 90%, transparent), transparent 70%),
+        var(--color-bg)}
+  .side{position:fixed;left:18px;top:50%;transform:translateY(-50%);width:62px;height:auto;max-height:calc(100vh - 28px);padding:0;background:none;z-index:40;display:block}
+  .main{grid-column:2;min-width:0}
+  .side .logo{display:none}
+  .top-logo{display:flex;align-items:center;margin-right:26px}
+  .top-logo .logo-img{height:54px;width:auto}
+  .menu{display:flex;flex-direction:column;align-items:center;gap:6px;flex:none;overflow:visible;padding:10px 9px;border-radius:32px;
+        background:color-mix(in srgb, var(--color-brand) 70%, transparent);
+        -webkit-backdrop-filter:blur(18px) saturate(1.6);backdrop-filter:blur(18px) saturate(1.6);
+        border:1px solid color-mix(in srgb, var(--color-on-brand) 22%, transparent);
+        box-shadow:0 14px 44px color-mix(in srgb, var(--color-shadow-ink) 24%, transparent), inset 0 1px 0 color-mix(in srgb, var(--color-on-brand) 28%, transparent)}
+  .menu a{position:relative;width:44px;height:44px;padding:0;gap:0;justify-content:center;border-radius:50%;font-size:1rem;
+          transition:transform .22s cubic-bezier(.2,.7,.2,1), background .2s, color .2s}
+  .menu a .i{width:auto;opacity:1}
+  .menu a .i .svg-i{width:20px;height:20px}
+  .menu a:hover{background:color-mix(in srgb, var(--color-on-brand) 24%, transparent);transform:scale(1.12);color:var(--color-on-brand)}
+  .menu a.on{background:var(--color-on-brand);color:var(--color-brand);transform:none}
+  .menu a:focus-visible,.menu .user button:focus-visible{outline:2px solid var(--color-on-brand);outline-offset:2px}
+  /* rótulo (tooltip) à direita do ícone, como no vídeo */
+  .menu .lbl{position:absolute;left:calc(100% + 16px);top:50%;transform:translate(-6px,-50%);opacity:0;pointer-events:none;white-space:nowrap;
+             font-family:var(--font-sans);font-size:.8rem;font-weight:500;letter-spacing:.01em;color:var(--color-on-brand);
+             padding:6px 11px;border-radius:9px;background:color-mix(in srgb, var(--color-shadow-ink) 82%, transparent);
+             -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:opacity .18s, transform .18s cubic-bezier(.2,.7,.2,1)}
+  .menu a:hover .lbl,.menu a:focus-visible .lbl,.menu .user button:hover .lbl,.menu .user button:focus-visible .lbl{opacity:1;transform:translate(0,-50%)}
+  .menu .user{margin:6px 0 0;padding:10px 0 0;flex-direction:column;flex-wrap:nowrap;gap:6px;align-items:center;border-top:1px solid color-mix(in srgb, var(--color-on-brand) 22%, transparent)}
+  .menu .user .uname{display:none}
+  .menu .user .avatar{width:36px;height:36px;font-size:.82rem;border:0;background:color-mix(in srgb, var(--color-shadow-ink) 45%, transparent);color:var(--color-on-brand)}
+  .menu .user button{position:relative;margin:0;padding:0;width:44px;height:44px;flex-basis:auto;justify-content:center;border-radius:50%;text-decoration:none;color:var(--color-on-brand-muted);transition:transform .22s cubic-bezier(.2,.7,.2,1), background .2s}
+  .menu .user button:hover{background:color-mix(in srgb, var(--color-on-brand) 24%, transparent);transform:scale(1.12);color:var(--color-on-brand)}
+  .menu .user button .svg-i{width:19px;height:19px}
+}
+
+/* cartões que levantam ao passar o rato (whileHover y:-5 do vídeo) */
+@media (hover:hover){
+  .panel,.photo,.stat,.pcard,.doc,.card,.proj,.pillar,.kpis{transition:transform .28s cubic-bezier(.2,.7,.2,1), box-shadow .28s, border-color .2s}
+  .panel:hover,.photo:hover,.stat:hover,.pcard:hover,.doc:hover,.card:hover,.proj:hover,.pillar:hover,.kpis:hover{transform:translateY(-5px);box-shadow:var(--shadow-md)}
+}
+@media (prefers-reduced-motion:reduce){
+  .view.enter{animation:none}
+  .menu a,.menu .user button,.menu .lbl,.panel,.photo,.stat,.pcard,.doc,.card,.proj,.pillar,.kpis{transition:none}
+  .menu a:hover,.menu .user button:hover,.panel:hover,.photo:hover,.stat:hover,.pcard:hover,.doc:hover,.card:hover,.proj:hover,.pillar:hover,.kpis:hover{transform:none}
+}
