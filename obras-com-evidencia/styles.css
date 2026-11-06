@@ -831,3 +831,9 @@ form.f{display:grid;gap:14px}
   .mk-main h4{font-size:.9rem}.mk-main small{font-size:.8rem}
 }
 @media(max-width:340px){.mk-side{width:86px}.mk-side span{gap:4px;padding:5px 5px;font-size:.47rem}.mk-user{font-size:.47rem}}
+
+/* logótipo do site ~10% mais pequeno */
+.logo-img,.top-logo .logo-img{height:80px}
+.ftr .logo-img{height:136px}
+@media(max-width:560px){.logo-img,.hdr .logo-img,.top-logo .logo-img{height:76px}}
+@media(max-width:360px){.logo-img,.hdr .logo-img,.top-logo .logo-img{height:66px}}
