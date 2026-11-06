@@ -356,7 +356,7 @@ function renderClient() {
   $('#mb').onclick = () => $('#side').classList.toggle('open');
   $$('.menu a').forEach(a => a.addEventListener('click', () => $('#side').classList.remove('open')));
   const ps = $('#pSel'); if (ps) ps.onchange = async () => { ST.pid = ps.value; ST.B = await DB.loadBundle(ST.pid); renderClient(); };
-  const dk = $('.menu'), da = $('.menu a.on'); /* dockScroll */ if (dk && da) dk.scrollLeft = da.offsetLeft - dk.clientWidth / 2 + da.offsetWidth / 2;
+  const dk = $('.menu'), da = $('.menu a.on'); /* dockScroll */ if (dk && da) dk.scrollTop = da.offsetTop - dk.clientHeight / 2 + da.offsetHeight / 2;
   (BIND[page] || (() => {}))(B); scrollTo(0, 0);
 }
 const reload = async () => { ST.B = await DB.loadBundle(ST.pid); renderClient(); };
