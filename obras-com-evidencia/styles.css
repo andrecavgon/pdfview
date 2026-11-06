@@ -837,12 +837,3 @@ form.f{display:grid;gap:14px}
 .ftr .logo-img{height:136px}
 @media(max-width:560px){.logo-img,.hdr .logo-img,.top-logo .logo-img{height:76px}}
 @media(max-width:360px){.logo-img,.hdr .logo-img,.top-logo .logo-img{height:66px}}
-
-/* telemóvel + modo escuro: barras de topo escuras para o logo branco/amarelo se ler */
-@media (prefers-color-scheme: dark) and (max-width:560px){
-  .hdr,.topbar{background:color-mix(in srgb, var(--color-bg-inverse) 94%, transparent);border-color:transparent}
-  .hdr.sc{border-color:color-mix(in srgb, var(--color-text-on-dark) 14%, transparent)}
-  .topbar{color:var(--color-text-on-dark)}
-  .topbar h1,.topbar h2,.topbar .muted,.topbar small,.topbar b,.topbar span{color:inherit}
-  .hdr .lang,.hdr .lang button,.burger,.mburger{color:var(--color-text-on-dark)}
-}
