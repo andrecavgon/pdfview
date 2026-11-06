@@ -7,13 +7,13 @@
    ========================================================================== */
 :root {
   /* ---------- primitivos ---------- */
-  --petrol-600: #1d5666;     /* azul petróleo (30%) */
-  --petrol-700: #154150;
+  --petrol-600: #18343f;     /* azul petróleo (30%) */
+  --petrol-700: #10252d;
   --bordeaux-600: #6b1e2e;   /* bordô (10%) */
   --bordeaux-700: #51161f;
-  --cream-bg: #fbf7ee;       /* branco creme (60%): fundo */
-  --cream-alt: #f1ead9;      /* creme mais escuro: secções alternadas */
-  --cream-line: #ddd4bf;     /* bordas */
+  --cream-bg: #e9e1d6;       /* marfim (60%): fundo */
+  --cream-alt: #ddd3c5;      /* creme mais escuro: secções alternadas */
+  --cream-line: #c8bdab;     /* bordas */
   --charcoal-700: #3a3a38;  /* cinza escuro (cabeçalho) */
   --stone-white: #f4f1ec;   /* branco-pedra: fundo geral */
   --sand-200: #e8e2d8;      /* areia: secções alternadas */
