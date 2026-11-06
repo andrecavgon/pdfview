@@ -20,7 +20,7 @@ const stopTimers = () => { clearInterval(testiTimer); clearInterval(ST.timer); }
 
 // ---------- logótipo ----------
 const LOGO_SRC = 'logo.webp';
-const logo = () => `<img class="logo-img" src="${LOGO_SRC}" width="900" height="592" alt="Obras com Evidência">`;
+const logo = () => `<img class="logo-img" src="${LOGO_SRC}" width="900" height="629" alt="Obras com Evidência">`;
 
 // ---------- modal genérico ----------
 function modal(html, wide) {
