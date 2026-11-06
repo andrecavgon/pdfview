@@ -425,3 +425,21 @@ form.f{display:grid;gap:14px}
 .side .logo-img{height:auto;width:100%}
 .ftr .logo-img{height:96px;width:auto;margin:0 auto 14px;border-radius:12px}
 @media(max-width:560px){.logo-img{height:56px}}
+
+/* logotipo sem tijolos, com "BUILD & DESIGN" (proporção ~1,86:1) */
+.logo-img{height:84px}
+.side .logo-img{height:auto;width:100%}
+.ftr .logo-img{height:120px}
+@media(max-width:560px){.logo-img{height:64px}}
+
+/* logotipo sem tijolos, com "BUILD & DESIGN" (proporção ~1,86:1) */
+.logo-img{height:84px}
+.side .logo-img{height:auto;width:100%}
+.ftr .logo-img{height:120px}
+@media(max-width:560px){.logo-img{height:64px}}
+
+/* logotipo sem tijolos, com "BUILD & DESIGN" (proporção ~1,86:1) */
+.logo-img{height:84px}
+.side .logo-img{height:auto;width:100%}
+.ftr .logo-img{height:120px}
+@media(max-width:560px){.logo-img{height:64px}}
