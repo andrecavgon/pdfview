@@ -852,3 +852,6 @@ form.f{display:grid;gap:14px}
 .topbar .top-title b,.topbar .tabs span.on,.topbar .lang button.on,.topbar .mburger{color:var(--color-on-header)}
 .topbar .top-title small,.topbar .tabs span,.topbar .lang button,.topbar .lang,.topbar .tag{color:var(--color-on-header-muted)}
 .topbar .tabs span.on{border-color:var(--color-on-header)}
+/* "Pedir orçamento": letra mais pequena, banner com o mesmo tamanho */
+.float-cta{width:201px;padding:0 16px;font-size:.98rem;white-space:nowrap}
+@media(max-width:560px){.float-cta{width:165px;padding:0 12px;font-size:.86rem}}
