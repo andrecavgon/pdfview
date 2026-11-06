@@ -907,3 +907,6 @@ form.f{display:grid;gap:14px}
 .hero .wrap{gap:28px}
 .mock,.mock:not(x){min-height:0!important}
 .mk-body{padding-bottom:6px}
+/* menos espaço por cima do título da página inicial */
+.hero{padding-top:22px}
+@media(max-width:560px){.hero{padding-top:16px}}

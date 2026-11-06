@@ -135,7 +135,7 @@ document.addEventListener('click', e => {
   if (location.hash === '#/' || location.hash === '' || location.hash === '#') { route(); window.scrollTo(0, 0); }
   else { location.hash = '#/'; window.scrollTo(0, 0); }
 });
-function setLang(l) { lang = l; try { localStorage.setItem('oce-lang', l); } catch (e) {} const h = location.hash; if (h.startsWith('#/area')) renderClient(); else route(); }
+function setLang(l) { lang = l; try { localStorage.setItem('oce-lang', l); } catch (e) {} const y = window.scrollY; const h = location.hash; Promise.resolve(h.startsWith('#/area') ? renderClient() : route()).then(() => { window.scrollTo(0, y); requestAnimationFrame(() => window.scrollTo(0, y)); }); }
 const banner = () => (DB.live ? '' : `<div class="banner">${t('demo_banner')}</div>`);
 const homeFor = u => (u.role === 'staff' ? '#/gestao' : '#/area/dashboard');
 

@@ -1057,6 +1057,9 @@ form.f{display:grid;gap:14px}
 .hero .wrap{gap:28px}
 .mock,.mock:not(x){min-height:0!important}
 .mk-body{padding-bottom:6px}
+/* menos espaço por cima do título da página inicial */
+.hero{padding-top:22px}
+@media(max-width:560px){.hero{padding-top:16px}}
 
 </style>
 </head>
@@ -1582,7 +1585,7 @@ document.addEventListener('click', e => {
   if (location.hash === '#/' || location.hash === '' || location.hash === '#') { route(); window.scrollTo(0, 0); }
   else { location.hash = '#/'; window.scrollTo(0, 0); }
 });
-function setLang(l) { lang = l; try { localStorage.setItem('oce-lang', l); } catch (e) {} const h = location.hash; if (h.startsWith('#/area')) renderClient(); else route(); }
+function setLang(l) { lang = l; try { localStorage.setItem('oce-lang', l); } catch (e) {} const y = window.scrollY; const h = location.hash; Promise.resolve(h.startsWith('#/area') ? renderClient() : route()).then(() => { window.scrollTo(0, y); requestAnimationFrame(() => window.scrollTo(0, y)); }); }
 const banner = () => (DB.live ? '' : `<div class="banner">${t('demo_banner')}</div>`);
 const homeFor = u => (u.role === 'staff' ? '#/gestao' : '#/area/dashboard');
 
