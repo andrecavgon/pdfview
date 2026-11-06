@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Obras com Evidência – Build &amp; Design</title>
 <meta name="description" content="Trabalhar connosco é ter uma Área de Cliente. Acompanhe a sua obra em tempo real, com planeamento, progresso e total transparência.">
-<meta name="theme-color" content="#8f4326" id="themeColor">
+<meta name="theme-color" content="#1d5666" id="themeColor">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -19,14 +19,13 @@
    ========================================================================== */
 :root {
   /* ---------- primitivos ---------- */
-  --terra-600: oklch(0.47 0.112 41);   /* terracota (30%) */
-  --terra-700: oklch(0.40 0.100 41);
-  --army-600: #4b5a3a;       /* verde tropa (10%) */
-  --army-700: #3a472d;
-  --stone-grey-300: #d8d5ce; /* cinza pedra (60%): fundo */
-  --stone-grey-400: #cbc7be; /* cinza pedra mais escuro: secções alternadas */
-  --stone-grey-500: #b7b2a7; /* bordas */
-
+  --petrol-600: #1d5666;     /* azul petróleo (30%) */
+  --petrol-700: #154150;
+  --bordeaux-600: #6b1e2e;   /* bordô (10%) */
+  --bordeaux-700: #51161f;
+  --cream-bg: #fbf7ee;       /* branco creme (60%): fundo */
+  --cream-alt: #f1ead9;      /* creme mais escuro: secções alternadas */
+  --cream-line: #ddd4bf;     /* bordas */
   --charcoal-700: #3a3a38;  /* cinza escuro (cabeçalho) */
   --stone-white: #f4f1ec;   /* branco-pedra: fundo geral */
   --sand-200: #e8e2d8;      /* areia: secções alternadas */
@@ -65,33 +64,33 @@
 
   /* ---------- semânticos ---------- */
   /* ação (botões principais, separador ativo) */
-  --color-action: var(--army-600);
-  --color-action-hover: var(--army-700);
+  --color-action: var(--bordeaux-600);
+  --color-action-hover: var(--bordeaux-700);
   --color-on-action: var(--white);
 
   /* navegação (menus, separadores ativos): azul petróleo original */
-  --color-nav-accent: var(--terra-600);
-  --color-nav-accent-hover: var(--terra-700);
-  --color-cta: var(--army-600);                /* botões da página inicial: Área de Cliente e Pedir Orçamento */
-  --color-cta-hover: var(--army-700);
+  --color-nav-accent: var(--petrol-600);
+  --color-nav-accent-hover: var(--petrol-700);
+  --color-cta: var(--bordeaux-600);                /* botões da página inicial: Área de Cliente e Pedir Orçamento */
+  --color-cta-hover: var(--bordeaux-700);
   --shadow-nav: 0 4px 14px color-mix(in srgb, var(--ink-900) 25%, transparent);
 
   /* marca / estrutura */
-  --color-brand: var(--terra-600);        /* títulos, barra lateral */
-  --color-brand-2: var(--terra-600);      /* estado "em execução", topo do gradiente */
+  --color-brand: var(--petrol-600);        /* títulos, barra lateral */
+  --color-brand-2: var(--petrol-600);      /* estado "em execução", topo do gradiente */
   --color-on-brand: var(--white);
-  --color-link: var(--terra-600);
-  --color-focus: var(--terra-600);
+  --color-link: var(--petrol-600);
+  --color-focus: var(--petrol-600);
   --color-accent: var(--gold-600);
   --color-accent-soft: var(--sand-300);
   --color-logo: var(--logo-red);
 
   /* superfícies e texto */
-  --color-bg: var(--stone-grey-300);                /* fundo geral (60%) */
+  --color-bg: var(--cream-bg);                /* fundo geral (60%) */
   --color-surface: var(--white);                 /* cartões e formulários */
   --color-surface-raised: var(--white);
-  --color-surface-alt: var(--stone-grey-400);          /* superfície 2: secções alternadas */
-  --color-border: var(--stone-grey-500);
+  --color-surface-alt: var(--cream-alt);          /* superfície 2: secções alternadas */
+  --color-border: var(--cream-line);
   --color-text: var(--ink-900);
   --color-text-muted: #444c56;
   --color-text-on-dark: var(--white);
@@ -130,8 +129,8 @@
   --shadow-sm: 0 4px 16px color-mix(in srgb, var(--ink-900) 6%, transparent);
   --shadow-md: 0 10px 30px var(--color-shadow);
   --shadow-lg: 0 30px 60px color-mix(in srgb, var(--ink-900) 22%, transparent);
-  --shadow-cta: 0 10px 28px color-mix(in srgb, var(--terra-700) 40%, transparent);
-  --shadow-action: 0 4px 14px color-mix(in srgb, var(--terra-700) 28%, transparent);
+  --shadow-cta: 0 10px 28px color-mix(in srgb, var(--petrol-700) 40%, transparent);
+  --shadow-action: 0 4px 14px color-mix(in srgb, var(--petrol-700) 28%, transparent);
 
   /* marcadores de fotografia (pares de gradiente) */
   --ph-a1: var(--stone-1); --ph-a2: var(--stone-2);
