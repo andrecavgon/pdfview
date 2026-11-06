@@ -20,15 +20,20 @@ const stopTimers = () => { clearInterval(testiTimer); clearInterval(ST.timer); }
 
 // ---------- logótipo ----------
 const logo = () => `<svg viewBox="0 0 330 142" role="img" aria-label="Obras com Evidência — Build & Design">
-<text x="5" y="31" font-family="Jost,sans-serif" font-weight="500" font-size="27" letter-spacing="1.5" style="fill:var(--color-logo-sub)">Obras com</text>
+<text class="sub" x="135" y="31" text-anchor="middle" font-family="Jost,sans-serif" font-weight="500" font-size="24" letter-spacing="6" style="fill:var(--color-logo-ink)">OBRAS COM</text>
 <polyline class="roof" points="-15,15 0,0 15,15" transform="translate(131 43)" fill="none" style="stroke:var(--color-logo-roof)" stroke-width="5" stroke-linecap="square"/>
 <text class="wm" data-i="4" data-fs="46" x="4" y="100" font-family="Jost,sans-serif" font-weight="500" font-size="46" letter-spacing="2.5" style="fill:var(--color-logo-ink)">EVIDENCIA</text>
 <rect x="6" y="110" width="312" height="1.5" style="fill:var(--color-logo-ink)" opacity=".25"/>
 <text x="5" y="136" font-family="Jost,sans-serif" font-weight="500" font-size="22" letter-spacing="5.4" style="fill:var(--color-logo-desc)">BUILD &amp; DESIGN</text></svg>`;
 // o telhado fica centrado sobre o "E" (substitui o circunflexo), medido com a fonte já carregada
 function fixLogos() {
-  $$('svg text.wm').forEach(t => { const r = t.parentNode.querySelector('polyline.roof'); if (!r) return;
-    try { const fs = +t.dataset.fs, e = t.getExtentOfChar(+t.dataset.i); if (!e.width) return; r.setAttribute('transform', `translate(${e.x + e.width / 2} ${+t.getAttribute('y') - fs * 0.7 - 25})`); } catch (err) { /* mantém a posição por omissão */ } });
+  $$('svg text.wm').forEach(t => { const svg = t.parentNode, r = svg.querySelector('polyline.roof'); if (!r) return;
+    try {
+      const fs = +t.dataset.fs, n = t.getNumberOfChars(), a = t.getExtentOfChar(0), z = t.getExtentOfChar(n - 1), e = t.getExtentOfChar(+t.dataset.i);
+      if (!e.width) return;
+      r.setAttribute('transform', `translate(${e.x + e.width / 2} ${+t.getAttribute('y') - fs * 0.7 - 25})`); // telhado sobre o "E"
+      const s = svg.querySelector('text.sub'); if (s) s.setAttribute('x', (a.x + z.x + z.width) / 2 + 3); // "OBRAS COM" centrado com EVIDENCIA (+meio espaçamento final)
+    } catch (err) { /* mantém a posição por omissão */ } });
 }
 new MutationObserver(() => requestAnimationFrame(fixLogos)).observe(document.getElementById('app'), { childList: true });
 if (document.fonts) { document.fonts.ready.then(fixLogos); document.fonts.addEventListener('loadingdone', fixLogos); }
