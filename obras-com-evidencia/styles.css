@@ -674,3 +674,11 @@ form.f{display:grid;gap:14px}
   .top-title b{font-family:var(--font-serif);font-weight:500;font-size:1.25rem;color:var(--color-heading)}
   .top-title small{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--color-text-muted)}
 }
+
+/* área de cliente: logótipo e título com o mesmo tamanho da página principal */
+.top-logo .logo-img{height:88px;width:auto}
+.topbar{height:104px}
+.top-title b{font-size:1.5rem}
+.top-title small{font-size:.78rem}
+@media(max-width:980px){.side{top:144px;max-height:calc(100vh - 156px)} .menu{max-height:calc(100vh - 156px)}}
+@media(max-width:560px){.top-logo .logo-img{height:68px}.topbar{height:84px}.side{top:128px;max-height:calc(100vh - 140px)}.menu{max-height:calc(100vh - 140px)}}
