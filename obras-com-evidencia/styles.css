@@ -837,3 +837,5 @@ form.f{display:grid;gap:14px}
 .ftr .logo-img{height:136px}
 @media(max-width:560px){.logo-img,.hdr .logo-img,.top-logo .logo-img{height:76px}}
 @media(max-width:360px){.logo-img,.hdr .logo-img,.top-logo .logo-img{height:66px}}
+/* telemóvel com dark mode do browser: azul da marca passa a cinzento */
+html.fd{--graphite-500:#4a4a48;--graphite-600:#3a3a38}
