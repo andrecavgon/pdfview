@@ -846,3 +846,9 @@ form.f{display:grid;gap:14px}
 .hdr .lang{color:var(--color-on-header-muted)}
 .hdr .nav a:hover{color:var(--color-on-header);border-color:var(--color-on-header)}
 @media(max-width:980px){.nav.open{background:var(--color-header-bg);border-bottom-color:color-mix(in srgb, var(--color-on-header) 14%, transparent)}}
+/* área de cliente / equipa: barra de topo em cinza escuro, como o cabeçalho público */
+.topbar{background:var(--color-header-bg);border-bottom-color:transparent;color:var(--color-on-header)}
+.topbar .top-title{border-right-color:color-mix(in srgb, var(--color-on-header) 22%, transparent)}
+.topbar .top-title b,.topbar .tabs span.on,.topbar .lang button.on,.topbar .mburger{color:var(--color-on-header)}
+.topbar .top-title small,.topbar .tabs span,.topbar .lang button,.topbar .lang,.topbar .tag{color:var(--color-on-header-muted)}
+.topbar .tabs span.on{border-color:var(--color-on-header)}
