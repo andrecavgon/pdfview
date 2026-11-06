@@ -21,11 +21,16 @@
   /* ---------- primitivos ---------- */
   --petrol-600: #18343f;     /* azul petróleo (30%) */
   --petrol-700: #10252d;
-  --bordeaux-600: #6b1e2e;   /* bordô (10%) */
-  --bordeaux-700: #51161f;
-  --cream-bg: #e9e1d6;       /* marfim (60%): fundo */
-  --cream-alt: #ddd3c5;      /* creme mais escuro: secções alternadas */
-  --cream-line: #c8bdab;     /* bordas */
+  --bordeaux-600: #8a2a3c;   /* bordô (10%) */
+  --bordeaux-700: #6b1e2e;
+  --ivory: #e9e1d6;          /* marfim */
+  --petrol-bg: #18343f;      /* petróleo: fundo (60%) */
+  --petrol-surface: #1f4352;
+  --petrol-alt: #122b35;
+  --petrol-line: #36565f;
+  --cream-bg: #18343f;
+  --cream-alt: #122b35;      /* creme mais escuro: secções alternadas */
+  --cream-line: #36565f;     /* bordas */
   --charcoal-700: #3a3a38;  /* cinza escuro (cabeçalho) */
   --stone-white: #f4f1ec;   /* branco-pedra: fundo geral */
   --sand-200: #e8e2d8;      /* areia: secções alternadas */
@@ -46,7 +51,7 @@
   --red-600: #b3322f;
   --logo-red: #d3191f;
   --sand-300: #d9c3a5;
-  --gold-600: #523b21;
+  --gold-600: #c9ad82;
 
   --slate-900: #1c2733;
   --slate-500: #5b6571;
@@ -69,32 +74,32 @@
   --color-on-action: var(--white);
 
   /* navegação (menus, separadores ativos): azul petróleo original */
-  --color-nav-accent: var(--petrol-600);
-  --color-nav-accent-hover: var(--petrol-700);
+  --color-nav-accent: var(--ivory);
+  --color-nav-accent-hover: #f6f1e8;
   --color-cta: var(--bordeaux-600);                /* botões da página inicial: Área de Cliente e Pedir Orçamento */
   --color-cta-hover: var(--bordeaux-700);
   --shadow-nav: 0 4px 14px color-mix(in srgb, var(--ink-900) 25%, transparent);
 
   /* marca / estrutura */
-  --color-brand: var(--petrol-600);        /* títulos, barra lateral */
-  --color-brand-2: var(--petrol-600);      /* estado "em execução", topo do gradiente */
-  --color-on-brand: var(--white);
-  --color-link: var(--petrol-600);
-  --color-focus: var(--petrol-600);
+  --color-brand: var(--ivory);        /* títulos, barra lateral */
+  --color-brand-2: var(--ivory);      /* estado "em execução", topo do gradiente */
+  --color-on-brand: var(--petrol-bg);
+  --color-link: var(--ivory);
+  --color-focus: var(--ivory);
   --color-accent: var(--gold-600);
   --color-accent-soft: var(--sand-300);
   --color-logo: var(--logo-red);
 
   /* superfícies e texto */
   --color-bg: var(--cream-bg);                /* fundo geral (60%) */
-  --color-surface: var(--white);                 /* cartões e formulários */
-  --color-surface-raised: var(--white);
+  --color-surface: var(--petrol-surface);                 /* cartões e formulários */
+  --color-surface-raised: var(--petrol-surface);
   --color-surface-alt: var(--cream-alt);          /* superfície 2: secções alternadas */
   --color-border: var(--cream-line);
-  --color-text: var(--ink-900);
-  --color-text-muted: #444c56;
+  --color-text: var(--ivory);
+  --color-text-muted: #b9bfba;
   --color-text-on-dark: var(--white);
-  --color-text-soft: #333b46;
+  --color-text-soft: #d3cdc0;
   --color-on-brand-muted: #e6e6e3;
   --color-shadow-ink: var(--black);
   --color-bg-inverse: var(--ink-900);            /* rodapé */
@@ -107,16 +112,16 @@
   --color-on-header-muted: #c9c9c4;
 
   /* estados */
-  --color-success: var(--green-500);
-  --color-success-strong: var(--green-700);
-  --color-danger: var(--red-600);
-  --color-danger-bg: #fdf3f2;
-  --color-danger-border: #f0d2d0;
+  --color-success: #6fb59a;
+  --color-success-strong: #9fd8bf;
+  --color-danger: #f2909a;
+  --color-danger-bg: #43222b;
+  --color-danger-border: #6e3844;
   --color-warning-bg: #fff4d6;
   --color-warning-text: #6b5a1e;
   --color-warning-border: #ecdca4;
-  --color-info-bg: #ececea;
-  --color-success-bg: #e2efe9;
+  --color-info-bg: #2b5060;
+  --color-success-bg: #1f4a44;
 
   /* barras do cronograma */
   --color-gantt-done: var(--stone-17);
@@ -1005,6 +1010,11 @@ form.f{display:grid;gap:14px}
 /* "Pedir orçamento": letra mais pequena, banner com o mesmo tamanho */
 .float-cta{width:201px;padding:0 16px;font-size:.98rem;white-space:nowrap}
 @media(max-width:560px){.float-cta{width:165px;padding:0 12px;font-size:.86rem}}
+/* tema petróleo/marfim: botões bordô com texto claro; avatares legíveis */
+.hero .btn,.float-cta,.bot-fab,#loginBtn.btn.cta{color:var(--color-text-on-dark)}
+.menu .user .avatar,.mk-user .mk-av{background:color-mix(in srgb, var(--color-shadow-ink) 62%, transparent);color:var(--color-text-on-dark)}
+.btn{color:var(--color-text-on-dark)}
+.modal .box .btn:not(.ghost):not(.danger){color:var(--color-text-on-dark)}
 
 </style>
 </head>
@@ -1551,7 +1561,7 @@ function renderPublic() {
   <section class="hero"><div class="wrap">
     <div><h1>${t('hero1')}</h1><p>${t('hero2')}</p><button class="btn" data-login>${t('client')}</button></div>
     <div class="mock" aria-hidden="true">
-      <div class="mk-top"><div class="mk-brand"><img src="${LOGO_SRC}" alt=""><span><b>Obras com Evidência</b><small>${t('client').toUpperCase()}</small></span></div><div class="mk-tabs"><u>Dashboard</u><span>${t('clients_tab')}</span></div><i class="mk-av">C</i></div>
+      <div class="mk-top"><div class="mk-brand"><img src="${LOGO_DARK}" alt=""><span><b>Obras com Evidência</b><small>${t('client').toUpperCase()}</small></span></div><div class="mk-tabs"><u>Dashboard</u><span>${t('clients_tab')}</span></div><i class="mk-av">C</i></div>
       <div class="mk-body">
         <div class="mk-side">${MENU.map(([k, l, ic], i) => `<span class="${i === 0 ? 'on' : ''}">${ico(ic)}<em>${t(l)}</em></span>`).join('')}<div class="mk-user"><i class="mk-av">C</i><em>${t('mock_user')}</em></div><span class="mk-out">${ico('logout')}<em>${t('logout')}</em></span></div>
         <div class="mk-main">

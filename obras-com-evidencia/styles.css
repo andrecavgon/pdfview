@@ -855,3 +855,8 @@ form.f{display:grid;gap:14px}
 /* "Pedir orçamento": letra mais pequena, banner com o mesmo tamanho */
 .float-cta{width:201px;padding:0 16px;font-size:.98rem;white-space:nowrap}
 @media(max-width:560px){.float-cta{width:165px;padding:0 12px;font-size:.86rem}}
+/* tema petróleo/marfim: botões bordô com texto claro; avatares legíveis */
+.hero .btn,.float-cta,.bot-fab,#loginBtn.btn.cta{color:var(--color-text-on-dark)}
+.menu .user .avatar,.mk-user .mk-av{background:color-mix(in srgb, var(--color-shadow-ink) 62%, transparent);color:var(--color-text-on-dark)}
+.btn{color:var(--color-text-on-dark)}
+.modal .box .btn:not(.ghost):not(.danger){color:var(--color-text-on-dark)}
