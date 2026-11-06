@@ -19,13 +19,13 @@ let testiTimer;
 const stopTimers = () => { clearInterval(testiTimer); clearInterval(ST.timer); };
 
 // ---------- logótipo ----------
-const logo = (dark = false) => { const c = dark ? '#fff' : '#1c2733'; return `<svg viewBox="0 0 330 190" role="img" aria-label="Obras com Evidência — Build & Design">
-<polygon points="115,14 215,14 318,70 250,70" fill="#d3191f"/><polyline points="12,72 113,14" stroke="#d3191f" stroke-width="3" fill="none"/>
-<g fill="${c}" font-family="Jost,sans-serif" text-anchor="middle">
-<line x1="10" y1="92" x2="52" y2="92" stroke="${c}" stroke-width="1.5"/><line x1="208" y1="92" x2="320" y2="92" stroke="${c}" stroke-width="1.5"/>
+const logo = (dark = false) => { const c = dark ? 'var(--color-text-on-dark)' : 'var(--color-text)'; return `<svg viewBox="0 0 330 190" role="img" aria-label="Obras com Evidência — Build & Design">
+<polygon points="115,14 215,14 318,70 250,70" style="fill:var(--color-logo)"/><polyline points="12,72 113,14" style="stroke:var(--color-logo)" stroke-width="3" fill="none"/>
+<g style="fill:${c}" font-family="Jost,sans-serif" text-anchor="middle">
+<line x1="10" y1="92" x2="52" y2="92" style="stroke:${c}" stroke-width="1.5"/><line x1="208" y1="92" x2="320" y2="92" style="stroke:${c}" stroke-width="1.5"/>
 <text x="130" y="102" font-size="34" font-weight="300">Obras com</text><text x="165" y="152" font-size="50" font-weight="300" letter-spacing="1">EVIDÊNCIA</text>
-<line x1="10" y1="172" x2="48" y2="172" stroke="${c}" stroke-width="1.5"/><line x1="290" y1="172" x2="320" y2="172" stroke="${c}" stroke-width="1.5"/>
-<text x="168" y="178" font-size="12" letter-spacing="6" fill="#8c6f4e">BUILD &amp; DESIGN</text></g></svg>`; };
+<line x1="10" y1="172" x2="48" y2="172" style="stroke:${c}" stroke-width="1.5"/><line x1="290" y1="172" x2="320" y2="172" style="stroke:${c}" stroke-width="1.5"/>
+<text x="168" y="178" font-size="12" letter-spacing="6" style="fill:var(--color-accent)">BUILD &amp; DESIGN</text></g></svg>`; };
 
 // ---------- modal genérico ----------
 function modal(html, wide) {
@@ -85,17 +85,17 @@ function renderPublic() {
     <a class="logo" href="#/" aria-label="Obras com Evidência">${logo()}</a>
     <nav class="nav" id="nav"><a href="#about">${t('nav_about')}</a><a href="#services">${t('nav_services')}</a><a href="#projects">${t('nav_projects')}</a><a href="#contact">${t('nav_contact')}</a></nav>
     <div class="hdr-r"><div class="lang"><button data-l="pt" class="${lang === 'pt' ? 'on' : ''}">PT</button>|<button data-l="en" class="${lang === 'en' ? 'on' : ''}">EN</button></div>
-      <button class="btn sm" id="loginBtn" style="font-family:var(--serif);font-size:1.05rem">${t('client')}</button><button class="burger" id="burger" aria-label="Menu">☰</button></div></div></header>
+      <button class="btn sm" id="loginBtn" style="font-family:var(--font-serif);font-size:1.05rem">${t('client')}</button><button class="burger" id="burger" aria-label="Menu">☰</button></div></div></header>
 
   <section class="hero"><div class="wrap">
     <div><h1>${t('hero1')}</h1><p>${t('hero2')}</p><button class="btn" data-login>${t('client')}</button></div>
-    <div class="mock" aria-hidden="true"><div class="mock-side"><b style="font-family:var(--serif);font-size:.95rem;padding:4px 8px 12px">EVIDÊNCIA</b><i class="on">Dashboard</i><i>${t('m_plan')}</i><i>${t('m_prog')}</i><i>${t('m_photos')}</i><i>${t('m_mat')}</i><i>${t('m_fin')}</i><i>${t('m_comm')}</i></div>
+    <div class="mock" aria-hidden="true"><div class="mock-side"><b style="font-family:var(--font-serif);font-size:.95rem;padding:4px 8px 12px">EVIDÊNCIA</b><i class="on">Dashboard</i><i>${t('m_plan')}</i><i>${t('m_prog')}</i><i>${t('m_photos')}</i><i>${t('m_mat')}</i><i>${t('m_fin')}</i><i>${t('m_comm')}</i></div>
       <div class="mock-main"><small>${t('welcome')}</small><h4>${t('obra')}</h4><small>● ${t('running')} · 45%</small>
-        <div class="mock-card"><b style="font-family:var(--serif);font-size:1rem">${t('sched')}</b>
+        <div class="mock-card"><b style="font-family:var(--font-serif);font-size:1rem">${t('sched')}</b>
           <div class="row"><span>${t('ph_dem')}</span><span>100%</span></div><div class="mini-bar"><b style="width:100%"></b></div>
           <div class="row"><span>${t('ph_str')}</span><span>80%</span></div><div class="mini-bar"><b style="width:80%"></b></div>
           <div class="row"><span>${t('ph_net')}</span><span>45%</span></div><div class="mini-bar"><b style="width:45%"></b></div></div>
-        <div class="mock-card"><b style="font-family:var(--serif);font-size:1rem">${t('m_photos')}</b><div style="display:flex;gap:6px;margin-top:8px"><i style="flex:1;height:54px;border-radius:5px;background:linear-gradient(135deg,#a9a49a,#6f6b64)"></i><i style="flex:1;height:54px;border-radius:5px;background:linear-gradient(135deg,#b8b2a6,#7c8a93)"></i><i style="flex:1;height:54px;border-radius:5px;background:linear-gradient(135deg,#c2b8a8,#8a7a66)"></i></div></div></div></div>
+        <div class="mock-card"><b style="font-family:var(--font-serif);font-size:1rem">${t('m_photos')}</b><div style="display:flex;gap:6px;margin-top:8px"><i class="tile ph-a"></i><i class="tile ph-b"></i><i class="tile ph-c"></i></div></div></div></div>
   </div></section>
 
   <section class="sec testi" id="testimonials"><div class="wrap"><h2>${t('testi')}</h2><div style="height:30px"></div>
@@ -110,7 +110,7 @@ function renderPublic() {
   <section class="sec alt" id="projects"><div class="wrap"><span class="eyebrow">${t('nav_projects')}</span><h2>${t('proj_t')}</h2><p class="lead">${t('proj_l')}</p>
     <div class="grid3">${[['Moradia em Cascais', 'Cascais · 2024'], ['Apartamento Chiado', 'Lisboa · 2023'], ['Villa Comporta', 'Comporta · 2023']].map(p => `<div class="proj"><div class="img"></div><div class="t"><h3>${p[0]}</h3><span>${p[1]}</span></div></div>`).join('')}</div></div></section>
 
-  <section class="sec" id="contact"><div class="wrap contact"><div><span class="eyebrow" style="text-align:left">${t('nav_contact')}</span><h2>${t('cont_t')}</h2><p style="color:var(--muted);font-weight:300;font-size:1.1rem">${t('cont_l')}</p>
+  <section class="sec" id="contact"><div class="wrap contact"><div><span class="eyebrow" style="text-align:left">${t('nav_contact')}</span><h2>${t('cont_t')}</h2><p style="color:var(--color-text-muted);font-weight:300;font-size:1.1rem">${t('cont_l')}</p>
     <ul><li>✉ geral@obrascomevidencia.com</li><li>☎ +351 000 000 000</li><li>⌖ Lisboa, Portugal</li><li>🌐 www.obrascomevidencia.com</li></ul></div>
     <form class="f" id="quoteForm"><label>${t('name')}<input required name="n"></label><label>${t('email')}<input required type="email" name="e"></label><label>${t('phone')}<input name="p"></label><label>${t('msg')}<textarea rows="4" name="m"></textarea></label><button class="btn" style="justify-self:start">${t('send')}</button></form></div></section>
 
@@ -186,8 +186,8 @@ const PAGES = {
     for (let n = 0; n < 36; n++) { const ds = `${y}-${String(mo + 1).padStart(2, '0')}-01`; if (ds > e0) break; months.push([pos(ds), new Date(y, mo, 1).toLocaleDateString(loc(), { month: 'short' })]); mo++; if (mo > 11) { mo = 0; y++; } }
     const td = U.today(), showToday = td >= s0 && td <= e0;
     return `${head(t('plan_t'), t('plan_s'), `<div class="meta"><div>${t('start')}: <b>${dmy(P.start)}</b></div><div>${t('end')}: <b>${dmy(P.end)}</b></div><div>${t('state')}: ${stLbl(P.status)}</div></div>`)}
-    <div class="panel"><div class="legend"><span><i class="sw" style="background:var(--green)"></i>${t('done')}</span><span><i class="sw" style="background:var(--petrol-2)"></i>${t('running')}</span><span><i class="sw" style="background:var(--sand)"></i>${t('planned')}</span></div>
-    <div class="gantt"><div class="g-in" id="gantt"><div class="g-head"><div></div><div class="g-scale" style="display:block;position:relative;height:26px;border:0">${months.map(([p, l]) => `<span style="position:absolute;left:${p}%;border:0;border-left:1px dashed var(--line)">${l}</span>`).join('')}</div></div>
+    <div class="panel"><div class="legend"><span><i class="sw" style="background:var(--color-success)"></i>${t('done')}</span><span><i class="sw" style="background:var(--color-brand-2)"></i>${t('running')}</span><span><i class="sw" style="background:var(--color-accent-soft)"></i>${t('planned')}</span></div>
+    <div class="gantt"><div class="g-in" id="gantt"><div class="g-head"><div></div><div class="g-scale" style="display:block;position:relative;height:26px;border:0">${months.map(([p, l]) => `<span style="position:absolute;left:${p}%;border:0;border-left:1px dashed var(--color-border)">${l}</span>`).join('')}</div></div>
       ${ph.map((p, i) => { const bs = p.as || p.ps, be = p.ae || p.pe; const L = bs ? pos(bs) : 0, W = bs && be ? Math.max(pos(be) - L, 2) : 0; const cls = p.status === 'done' ? 'done' : p.status === 'running' ? 'run' : 'plan';
         return `<div class="g-row"><div class="n"><span class="chk ${p.status === 'done' ? 'done' : p.status === 'running' ? 'run' : ''}">${p.status === 'done' ? '✓' : p.status === 'running' ? '●' : ''}</span>${esc(phName(p))}</div>
         <div class="g-track" style="background:none">${W ? `<div class="g-bar ${cls}" data-i="${i}" tabindex="0" style="left:${L}%;width:${W}%">${dm(bs)} – ${dm(be)}</div>` : ''}${p.pct ? `<span class="g-pct" style="left:${Math.min(L + W + 1, 92)}%">${p.pct}%</span>` : ''}${showToday ? `<div class="g-today" style="left:${pos(td)}%" title="${t('today_l')}"></div>` : ''}</div></div>`; }).join('')}
@@ -220,7 +220,7 @@ const PAGES = {
   fin(B) {
     const base = B.project.base, add = B.addenda.filter(a => a.status === 'approved').reduce((s, a) => s + a.amount, 0), tot = base + add, paid = B.payments.filter(p => p.status === 'paid').reduce((s, p) => s + p.amount, 0);
     return `${head(t('fin_t'), t('fin_s').replace('Cascais', B.project.name))}
-    <div class="kpis"><div class="kpi"><b>${eur(base)}</b><small>${t('k1')}</small></div><div class="kpi"><b style="color:var(--muted)">${eur(add)}</b><small>${t('k2')}</small></div><div class="kpi"><b>${eur(tot)}</b><small>${t('k3')}</small></div><div class="kpi g"><b>${eur(paid)}</b><small>${t('k4')}</small></div><div class="kpi"><b>${eur(tot - paid)}</b><small>${t('k5')}</small></div></div>
+    <div class="kpis"><div class="kpi"><b>${eur(base)}</b><small>${t('k1')}</small></div><div class="kpi"><b style="color:var(--color-text-muted)">${eur(add)}</b><small>${t('k2')}</small></div><div class="kpi"><b>${eur(tot)}</b><small>${t('k3')}</small></div><div class="kpi g"><b>${eur(paid)}</b><small>${t('k4')}</small></div><div class="kpi"><b>${eur(tot - paid)}</b><small>${t('k5')}</small></div></div>
     <div class="panel"><div><h3 style="margin:0">${t('base')}</h3><small class="tag">${t('base_s')}</small></div><table class="tbl"><tr><td>${t('base')}</td><td class="r">${eur(base)}</td><td class="r"><span class="ok">${t('approved')}</span></td></tr></table></div>
     <div class="sec-h"><h3>${t('add_t')}</h3><button class="btn ghost" id="reqBtn">${t('req')}</button></div>
     <div class="panel"><table class="tbl">${B.addenda.map(a => `<tr><td>▸ ${esc(a.desc)}</td><td class="tag">${dmy(a.date)}</td><td class="r">${eur(a.amount)}</td><td class="r">${a.status === 'approved' ? `<span class="ok">${t('approvedF')}</span>` : `<span class="tag">${lang === 'pt' ? 'Pendente' : 'Pending'}</span>`}</td></tr>`).join('') || `<tr><td>${t('no_items')}</td></tr>`}</table></div>
@@ -289,7 +289,7 @@ const BIND = {
     const tip = $('#gtip'), box = $('#gantt');
     $$('.g-bar', box).forEach(b => {
       const p = B.phases[+b.dataset.i];
-      const show = () => { tip.innerHTML = `<div><span>${t('expected')}:</span><b>${dm(p.ps)} – ${dm(p.pe)}</b></div><div><span>${t('actual')}:</span><b>${p.as ? dm(p.as) : '—'} – ${p.ae ? dm(p.ae) : '—'}</b></div><div><span>${stLbl(p.status)}:</span><b>${p.pct}%</b></div>${p.note ? `<div style="color:var(--muted)">${esc(p.note)}</div>` : ''}`;
+      const show = () => { tip.innerHTML = `<div><span>${t('expected')}:</span><b>${dm(p.ps)} – ${dm(p.pe)}</b></div><div><span>${t('actual')}:</span><b>${p.as ? dm(p.as) : '—'} – ${p.ae ? dm(p.ae) : '—'}</b></div><div><span>${stLbl(p.status)}:</span><b>${p.pct}%</b></div>${p.note ? `<div style="color:var(--color-text-muted)">${esc(p.note)}</div>` : ''}`;
         const r = b.getBoundingClientRect(), br = box.getBoundingClientRect(); tip.style.display = 'block'; tip.style.left = Math.max(0, Math.min(r.left - br.left + 20, br.width - 230)) + 'px'; tip.style.top = (r.bottom - br.top + 6) + 'px'; };
       b.onmouseenter = b.onfocus = show; b.onmouseleave = b.onblur = () => (tip.style.display = 'none');
     });
@@ -452,7 +452,7 @@ function bindStaff() {
 
 /* ===================== arranque ===================== */
 (async function boot() {
-  $('#app').innerHTML = `<p style="padding:60px;text-align:center;font-family:var(--serif);font-size:1.4rem">${t('loading')}</p>`;
+  $('#app').innerHTML = `<p style="padding:60px;text-align:center;font-family:var(--font-serif);font-size:1.4rem">${t('loading')}</p>`;
   try { await DB.init(); } catch (e) { toast(e.message); }
   route();
 })();

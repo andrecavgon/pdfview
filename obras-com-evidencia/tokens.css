@@ -1,0 +1,119 @@
+/* ==========================================================================
+   Design tokens — duas camadas
+   1) PRIMITIVOS: a paleta bruta. Só são referenciados AQUI, nesta ficheiro.
+   2) SEMÂNTICOS: o que cada cor "faz". O site (styles.css, app.js) usa apenas
+      estes — nunca um primitivo nem um valor hexadecimal direto.
+   Para mudar a marca, altere os primitivos ou o mapeamento semântico abaixo.
+   ========================================================================== */
+:root {
+  /* ---------- primitivos ---------- */
+  --terra-600: oklch(0.50 0.116 41);
+  --terra-700: oklch(0.43 0.104 41);
+
+  --cream-50: #f7f2ee;
+  --cream-100: #efe6dc;
+  --cream-300: #e6dcd0;
+  --warm-white: #fffdfc;
+  --white: #ffffff;
+  --black: #000000;
+
+  --petrol-300: #3d6a98;
+  --petrol-400: #2c5078;
+  --petrol-500: #1f3a5a;
+  --petrol-900: #141e2d;
+
+  --green-500: #4a7c6a;
+  --green-700: #2f5446;
+  --red-500: #c8202a;
+  --red-600: #b3322f;
+  --logo-red: #d3191f;
+  --sand-300: #d9c3a5;
+  --gold-600: #8c6f4e;
+
+  --slate-900: #1c2733;
+  --slate-500: #6b7480;
+
+  --stone-1: #a9a49a; --stone-2: #6f6b64;   /* tons de obra para marcadores de fotografia */
+  --stone-3: #b8b2a6; --stone-4: #7c8a93;
+  --stone-5: #c2b8a8; --stone-6: #8a7a66;
+  --stone-7: #9fa7a0; --stone-8: #5f6f68;
+  --stone-9: #c9b9a3; --stone-10: #8d8a82;
+  --stone-11: #9db0c2; --stone-12: #5d7791;
+  --stone-13: #a8b8aa; --stone-14: #5c7a6a;
+  --stone-15: #d9d3c9; --stone-16: #aaa397;
+  --stone-17: #c4c4c4; --stone-18: #555555;
+  --stone-19: #6a5a44;
+
+  /* ---------- semânticos ---------- */
+  /* ação (botões principais, separador ativo) */
+  --color-action: var(--terra-600);
+  --color-action-hover: var(--terra-700);
+  --color-on-action: var(--white);
+
+  /* marca / estrutura */
+  --color-brand: var(--petrol-500);        /* títulos, barra lateral */
+  --color-brand-2: var(--petrol-400);      /* estado "em execução", topo do gradiente */
+  --color-on-brand: var(--white);
+  --color-link: var(--petrol-300);
+  --color-focus: var(--petrol-300);
+  --color-accent: var(--gold-600);
+  --color-accent-soft: var(--sand-300);
+  --color-logo: var(--logo-red);
+
+  /* superfícies e texto */
+  --color-bg: var(--cream-50);
+  --color-surface: var(--warm-white);
+  --color-surface-raised: var(--white);
+  --color-surface-alt: var(--cream-100);
+  --color-border: var(--cream-300);
+  --color-text: var(--slate-900);
+  --color-text-muted: var(--slate-500);
+  --color-text-on-dark: var(--white);
+  --color-text-soft: #3b4654;
+  --color-on-brand-muted: #e4ecf5;
+  --color-bg-end: #f6efe9;
+  --color-shadow-ink: var(--black);
+  --color-footer-bg: #181818;
+  --color-footer-text: #cfc4b4;
+
+  /* estados */
+  --color-success: var(--green-500);
+  --color-success-strong: var(--green-700);
+  --color-danger: var(--red-600);
+  --color-danger-bg: #fdf3f2;
+  --color-danger-border: #f0d2d0;
+  --color-warning-bg: #fff4d6;
+  --color-warning-text: #6b5a1e;
+  --color-warning-border: #ecdca4;
+  --color-info-bg: #e5edf6;
+  --color-success-bg: #e2efe9;
+
+  /* barras do cronograma */
+  --color-gantt-done: var(--stone-17);
+  --color-gantt-done-text: var(--stone-18);
+  --color-gantt-plan-text: var(--stone-19);
+
+  /* sombras e sobreposições */
+  --color-overlay: color-mix(in srgb, var(--petrol-900) 55%, transparent);
+  --color-shadow: color-mix(in srgb, var(--petrol-500) 12%, transparent);
+  --shadow-sm: 0 4px 16px color-mix(in srgb, var(--petrol-500) 6%, transparent);
+  --shadow-md: 0 10px 30px var(--color-shadow);
+  --shadow-lg: 0 30px 60px color-mix(in srgb, var(--petrol-500) 22%, transparent);
+  --shadow-cta: 0 10px 28px color-mix(in srgb, var(--terra-700) 40%, transparent);
+  --shadow-action: 0 4px 14px color-mix(in srgb, var(--terra-700) 28%, transparent);
+
+  /* marcadores de fotografia (pares de gradiente) */
+  --ph-a1: var(--stone-1); --ph-a2: var(--stone-2);
+  --ph-b1: var(--stone-3); --ph-b2: var(--stone-4);
+  --ph-c1: var(--stone-5); --ph-c2: var(--stone-6);
+  --ph-d1: var(--stone-7); --ph-d2: var(--stone-8);
+  --ph-p1: var(--stone-9); --ph-p2: var(--stone-10);
+  --ph-p3: var(--stone-11); --ph-p4: var(--stone-12);
+  --ph-p5: var(--stone-13); --ph-p6: var(--stone-14);
+  --ph-m1: var(--stone-15); --ph-m2: var(--stone-16);
+
+  /* tipografia e forma */
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Jost', system-ui, sans-serif;
+  --radius: 12px;
+}

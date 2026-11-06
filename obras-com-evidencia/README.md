@@ -35,3 +35,11 @@ A segurança é imposta pela base de dados (RLS), não pelo código do site: mes
 
 ## Publicar
 É um site estático: basta alojar a pasta (GitHub Pages, Netlify, Vercel, …). A chave `anon` é pública por desenho.
+
+## Design tokens
+`tokens.css` tem duas camadas:
+- **Primitivos** (`--terra-600`, `--petrol-500`, `--cream-50`…): a paleta bruta. Só aparecem nesse ficheiro.
+- **Semânticos** (`--color-action`, `--color-brand`, `--color-text`, `--color-surface`…): o que cada cor *faz*. O `styles.css` e o `app.js` usam **apenas** estes — nunca um primitivo nem um hex direto.
+
+Cor de ação (botões principais, separador ativo, CTA): `--color-action: var(--terra-600)` e `--color-action-hover: var(--terra-700)`.
+Para re-tematizar, altere os primitivos ou o mapeamento semântico em `tokens.css`; nada mais precisa de mudar.
