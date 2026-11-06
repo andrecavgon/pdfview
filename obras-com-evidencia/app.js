@@ -22,8 +22,7 @@ const stopTimers = () => { clearInterval(testiTimer); clearInterval(ST.timer); }
 const LOGO_SRC = 'logo.webp';
 const LOGO_DARK = 'logo-dark.webp';
 const FORCED_DARK = (() => { try { return matchMedia('(prefers-color-scheme: dark)').matches && matchMedia('(max-width:560px)').matches && !!navigator.userAgentData && navigator.userAgentData.brands.some(b => /Chrom/i.test(b.brand)); } catch (e) { return false; } })();
-if (FORCED_DARK) document.documentElement.classList.add('fd');
-const logo = (onDark) => `<img class="logo-img" src="${FORCED_DARK || onDark ? LOGO_DARK : LOGO_SRC}" width="900" height="684" alt="Obras com Evidência">`;
+const logo = (onDark) => `<img class="logo-img" src="${LOGO_SRC}" width="900" height="704" alt="Obras com Evidência">`;
 
 // ---------- ícones (SVG de linha, minimalistas e coerentes) ----------
 const ICONS = {
