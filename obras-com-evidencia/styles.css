@@ -794,3 +794,13 @@ form.f{display:grid;gap:14px}
   .mock{min-height:547px}
 }
 @media(max-width:360px){#loginBtn{min-width:93px}}
+
+/* "Pedir orçamento" e chatbot: mais baixos, mesma largura */
+.float-cta{height:42px;padding:0 28px;display:inline-flex;align-items:center;justify-content:center;font-size:1.15rem;line-height:1}
+.bot-fab{height:42px;border-radius:21px}
+.bot-panel{bottom:84px}
+@media(max-width:560px){
+  .float-cta{height:38px;padding:0 18px;font-size:.98rem}
+  .bot-fab{height:38px;border-radius:19px}
+  .bot-panel{bottom:66px}
+}
