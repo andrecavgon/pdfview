@@ -1,0 +1,1341 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Obras com Evidência – Build &amp; Design</title>
+<meta name="description" content="Trabalhar connosco é ter uma Área de Cliente. Acompanhe a sua obra em tempo real, com planeamento, progresso e total transparência.">
+<meta name="theme-color" content="#1f3a5a" id="themeColor">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   Design tokens — duas camadas
+   1) PRIMITIVOS: a paleta bruta. Só são referenciados AQUI, nesta ficheiro.
+   2) SEMÂNTICOS: o que cada cor "faz". O site (styles.css, app.js) usa apenas
+      estes — nunca um primitivo nem um valor hexadecimal direto.
+   Para mudar a marca, altere os primitivos ou o mapeamento semântico abaixo.
+   ========================================================================== */
+:root {
+  /* ---------- primitivos ---------- */
+  --terra-600: oklch(0.50 0.116 41);
+  --terra-700: oklch(0.43 0.104 41);
+
+  --stone-white: #f4f1ec;   /* branco-pedra: fundo geral */
+  --sand-200: #e8e2d8;      /* areia: secções alternadas */
+  --ink-900: #1c1a17;       /* quase-preto quente: texto e rodapé */
+  --cream-50: #f7f2ee;
+  --cream-100: #efe6dc;
+  --cream-300: #e6dcd0;
+  --warm-white: #fffdfc;
+  --white: #ffffff;
+  --black: #000000;
+
+  --petrol-300: #3d6a98;
+  --petrol-400: #2c5078;
+  --petrol-500: #1f3a5a;
+  --petrol-900: #141e2d;
+
+  --green-500: #4a7c6a;
+  --green-700: #2f5446;
+  --red-500: #c8202a;
+  --red-600: #b3322f;
+  --logo-red: #d3191f;
+  --sand-300: #d9c3a5;
+  --gold-600: #77593a;
+
+  --slate-900: #1c2733;
+  --slate-500: #5b6571;
+
+  --stone-1: #a9a49a; --stone-2: #6f6b64;   /* tons de obra para marcadores de fotografia */
+  --stone-3: #b8b2a6; --stone-4: #7c8a93;
+  --stone-5: #c2b8a8; --stone-6: #8a7a66;
+  --stone-7: #9fa7a0; --stone-8: #5f6f68;
+  --stone-9: #c9b9a3; --stone-10: #8d8a82;
+  --stone-11: #9db0c2; --stone-12: #5d7791;
+  --stone-13: #a8b8aa; --stone-14: #5c7a6a;
+  --stone-15: #d9d3c9; --stone-16: #aaa397;
+  --stone-17: #c4c4c4; --stone-18: #3a3a3a;
+  --stone-19: #4a3e2c;
+
+  /* ---------- semânticos ---------- */
+  /* ação (botões principais, separador ativo) */
+  --color-action: var(--terra-600);
+  --color-action-hover: var(--terra-700);
+  --color-on-action: var(--white);
+
+  /* marca / estrutura */
+  --color-brand: var(--petrol-500);        /* títulos, barra lateral */
+  --color-brand-2: var(--petrol-400);      /* estado "em execução", topo do gradiente */
+  --color-on-brand: var(--white);
+  --color-link: var(--petrol-300);
+  --color-focus: var(--petrol-300);
+  --color-accent: var(--gold-600);
+  --color-accent-soft: var(--sand-300);
+  --color-logo: var(--logo-red);
+
+  /* superfícies e texto */
+  --color-bg: var(--stone-white);                /* fundo geral (60%) */
+  --color-surface: var(--white);                 /* cartões e formulários */
+  --color-surface-raised: var(--white);
+  --color-surface-alt: var(--sand-200);          /* superfície 2: secções alternadas */
+  --color-border: var(--cream-300);
+  --color-text: var(--ink-900);
+  --color-text-muted: var(--slate-500);
+  --color-text-on-dark: var(--white);
+  --color-text-soft: #3b4654;
+  --color-on-brand-muted: #e4ecf5;
+  --color-shadow-ink: var(--black);
+  --color-bg-inverse: var(--ink-900);            /* rodapé */
+  --color-footer-bg: var(--color-bg-inverse);
+  --color-footer-text: #cfc4b4;
+
+  /* estados */
+  --color-success: var(--green-500);
+  --color-success-strong: var(--green-700);
+  --color-danger: var(--red-600);
+  --color-danger-bg: #fdf3f2;
+  --color-danger-border: #f0d2d0;
+  --color-warning-bg: #fff4d6;
+  --color-warning-text: #6b5a1e;
+  --color-warning-border: #ecdca4;
+  --color-info-bg: #e5edf6;
+  --color-success-bg: #e2efe9;
+
+  /* barras do cronograma */
+  --color-gantt-done: var(--stone-17);
+  --color-gantt-done-text: var(--stone-18);
+  --color-gantt-plan-text: var(--stone-19);
+
+  /* sombras e sobreposições */
+  --color-overlay: color-mix(in srgb, var(--petrol-900) 55%, transparent);
+  --color-shadow: color-mix(in srgb, var(--petrol-500) 12%, transparent);
+  --shadow-sm: 0 4px 16px color-mix(in srgb, var(--petrol-500) 6%, transparent);
+  --shadow-md: 0 10px 30px var(--color-shadow);
+  --shadow-lg: 0 30px 60px color-mix(in srgb, var(--petrol-500) 22%, transparent);
+  --shadow-cta: 0 10px 28px color-mix(in srgb, var(--terra-700) 40%, transparent);
+  --shadow-action: 0 4px 14px color-mix(in srgb, var(--terra-700) 28%, transparent);
+
+  /* marcadores de fotografia (pares de gradiente) */
+  --ph-a1: var(--stone-1); --ph-a2: var(--stone-2);
+  --ph-b1: var(--stone-3); --ph-b2: var(--stone-4);
+  --ph-c1: var(--stone-5); --ph-c2: var(--stone-6);
+  --ph-d1: var(--stone-7); --ph-d2: var(--stone-8);
+  --ph-p1: var(--stone-9); --ph-p2: var(--stone-10);
+  --ph-p3: var(--stone-11); --ph-p4: var(--stone-12);
+  --ph-p5: var(--stone-13); --ph-p6: var(--stone-14);
+  --ph-m1: var(--stone-15); --ph-m2: var(--stone-16);
+
+  /* tipografia e forma */
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Jost', system-ui, sans-serif;
+  --radius: 12px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-sans);color:var(--color-text);background:var(--color-bg);line-height:1.5;-webkit-font-smoothing:antialiased}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+input,textarea,select{font:inherit;color:inherit}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:var(--font-serif);font-weight:500;color:var(--color-brand);line-height:1.15}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--color-action);color:var(--color-on-action);padding:12px 24px;border-radius:8px;font-family:var(--font-serif);font-size:1.15rem;font-weight:500;box-shadow:var(--shadow-action);transition:.2s}
+.btn:hover{background:var(--color-action-hover);transform:translateY(-1px)}
+.btn.ghost{background:var(--color-surface);color:var(--color-brand);border:1px solid var(--color-border);box-shadow:none;font-family:var(--font-sans);font-size:.9rem;padding:8px 14px}
+.btn.ghost:hover{background:var(--color-surface-alt)}
+.btn.sm{font-family:var(--font-sans);font-size:.85rem;padding:8px 14px}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+
+/* header */
+.hdr{position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--color-bg) 92%, transparent);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:.2s}
+.hdr.sc{border-color:var(--color-border)}
+.hdr .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;height:92px}
+.logo svg{height:64px;width:auto;display:block}
+.nav{display:flex;gap:34px;font-family:var(--font-serif);font-size:1.12rem}
+.nav a{padding:4px 0;border-bottom:1px solid transparent;transition:.2s}
+.nav a:hover{border-color:var(--color-accent);color:var(--color-accent)}
+.hdr-r{display:flex;align-items:center;gap:18px}
+.lang{display:flex;gap:6px;font-size:.88rem;letter-spacing:.04em}
+.lang button{color:var(--color-text-muted);padding:2px 2px}
+.lang button.on{color:var(--color-text);font-weight:500}
+.burger{display:none;width:40px;height:40px;font-size:1.6rem;color:var(--color-brand)}
+
+/* hero */
+.hero{padding:60px 0 70px;position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1fr 1.15fr;gap:48px;align-items:center}
+.hero h1{font-size:clamp(2.6rem,5vw,4.2rem);margin-bottom:22px}
+.hero p{font-size:1.25rem;color:var(--color-text-soft);font-weight:300;max-width:460px;margin-bottom:34px}
+.mock{position:relative;border-radius:16px;box-shadow:var(--shadow-lg);background:var(--color-surface);overflow:hidden;display:grid;grid-template-columns:130px 1fr;min-height:340px;transform:perspective(1400px) rotateY(-4deg);transition:.4s}
+.mock:hover{transform:none}
+.mock-side{background:linear-gradient(180deg,var(--color-brand-2),var(--color-brand));padding:16px 10px;color:var(--color-on-brand-muted);font-size:.7rem;display:flex;flex-direction:column;gap:4px}
+.mock-side i{display:block;padding:7px 8px;border-radius:6px;font-style:normal}
+.mock-side i.on{background:color-mix(in srgb, var(--color-on-brand) 14%, transparent)}
+.mock-main{padding:18px}
+.mock-main h4{font-family:var(--font-serif);font-size:1.2rem;color:var(--color-brand);font-weight:500}
+.mock-main small{color:var(--color-text-muted);font-size:.7rem}
+.mini-bar{height:7px;border-radius:4px;background:var(--color-surface-alt);margin:6px 0 12px;overflow:hidden}
+.mini-bar b{display:block;height:100%;background:var(--color-success);border-radius:4px}
+.mock-card{background:var(--color-surface-raised);border:1px solid var(--color-border);border-radius:10px;padding:12px;margin-top:10px;font-size:.72rem}
+.mock-card .row{display:flex;justify-content:space-between;margin-top:6px}
+
+/* sections */
+.sec{padding:90px 0}
+.sec.alt{background:var(--color-surface-alt)}
+.sec h2{font-size:clamp(2rem,3.6vw,3rem);text-align:center;margin-bottom:12px}
+.sec .lead{text-align:center;color:var(--color-text-muted);font-size:1.1rem;max-width:640px;margin:0 auto 48px;font-weight:300}
+.eyebrow{display:block;text-align:center;letter-spacing:.3em;font-size:.75rem;color:var(--color-accent);margin-bottom:10px;text-transform:uppercase}
+
+/* testimonials */
+.testi h2{color:var(--color-accent)}
+.carousel{max-width:780px;margin:0 auto;display:flex;align-items:center;gap:16px}
+.arrow{width:42px;height:42px;border-radius:50%;background:var(--color-surface-raised);box-shadow:var(--shadow-md);font-size:1.2rem;color:var(--color-brand);flex:none}
+.slide{flex:1;background:var(--color-surface-raised);border-radius:12px;box-shadow:var(--shadow-md);padding:22px 26px;display:flex;align-items:center;gap:22px;min-height:120px;animation:fade .6s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}}
+.avatar{width:72px;height:72px;border-radius:50%;flex:none;display:grid;place-items:center;font-family:var(--font-serif);font-size:1.7rem;color:var(--color-on-brand);background:linear-gradient(135deg,var(--color-link),var(--color-success))}
+.slide q{font-family:var(--font-serif);font-size:1.45rem;color:var(--color-brand);quotes:"“" "”";flex:1;line-height:1.3}
+.slide cite{font-style:normal;color:var(--color-text-muted);font-size:.9rem;white-space:nowrap}
+.dots{display:flex;justify-content:center;gap:8px;margin-top:20px}
+.dots button{width:8px;height:8px;border-radius:50%;background:var(--color-accent-soft)}
+.dots button.on{background:var(--color-action);width:22px;border-radius:5px}
+
+/* about / services / projects / contact */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.card{background:var(--color-surface-raised);border:1px solid var(--color-border);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow-sm)}
+.card h3{font-size:1.55rem;margin-bottom:8px}
+.card p{color:var(--color-text-soft);font-weight:300}
+.ico{width:46px;height:46px;border-radius:10px;background:var(--color-surface-alt);display:grid;place-items:center;color:var(--color-brand);margin-bottom:16px;font-size:1.3rem}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.about h2,.about .eyebrow{text-align:left}
+.about p{margin-bottom:14px;color:var(--color-text-soft);font-weight:300;font-size:1.08rem}
+.pillars{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pillar{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius);padding:22px;text-align:center}
+.pillar b{font-family:var(--font-serif);font-size:1.5rem;color:var(--color-brand);display:block;font-weight:500}
+.pillar span{font-size:.85rem;color:var(--color-text-muted)}
+.proj{border-radius:var(--radius);overflow:hidden;background:var(--color-surface-raised);border:1px solid var(--color-border);box-shadow:var(--shadow-sm)}
+.proj .img{height:200px;background:linear-gradient(135deg,var(--ph-p1),var(--ph-p2));position:relative}
+.proj:nth-child(2) .img{background:linear-gradient(135deg,var(--ph-p3),var(--ph-p4))}
+.proj:nth-child(3) .img{background:linear-gradient(135deg,var(--ph-p5),var(--ph-p6))}
+.proj .img::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,color-mix(in srgb, var(--color-on-brand) 7%, transparent) 0 2px,transparent 2px 60px)}
+.proj div.t{padding:18px 22px}
+.proj h3{font-size:1.4rem}
+.proj span{font-size:.85rem;color:var(--color-text-muted)}
+.contact{display:grid;grid-template-columns:1fr 1.2fr;gap:48px}
+.contact h2,.contact .eyebrow{text-align:left}
+.contact ul{list-style:none;margin-top:24px;display:grid;gap:12px;color:var(--color-text-soft)}
+form.f{display:grid;gap:14px}
+.f label{font-size:.82rem;color:var(--color-text-muted);display:grid;gap:6px}
+.f input,.f textarea,.f select{padding:12px 14px;border:1px solid var(--color-border);border-radius:8px;background:var(--color-surface-raised);outline:none}
+.f input:focus,.f textarea:focus,.f select:focus{border-color:var(--color-link);box-shadow:0 0 0 3px color-mix(in srgb, var(--color-focus) 15%, transparent)}
+.ftr{background:var(--color-footer-bg);color:var(--color-footer-text);padding:40px 0;text-align:center;font-size:.9rem}
+.ftr svg{height:70px;margin-bottom:14px}
+.float-cta{position:fixed;right:28px;bottom:28px;z-index:60;border-radius:999px;padding:14px 28px;box-shadow:var(--shadow-cta)}
+
+/* modal */
+.modal{position:fixed;inset:0;background:var(--color-overlay);display:none;place-items:center;z-index:100;padding:20px}
+.modal.open{display:grid}
+.modal .box{background:var(--color-surface);border-radius:16px;padding:32px;width:100%;max-width:440px;box-shadow:0 30px 80px color-mix(in srgb, var(--color-shadow-ink) 35%, transparent);position:relative}
+.modal h3{font-size:2rem;margin-bottom:6px}
+.modal .sub{color:var(--color-text-muted);font-size:.92rem;margin-bottom:20px}
+.modal .x{position:absolute;top:14px;right:16px;font-size:1.5rem;color:var(--color-text-muted)}
+.hint{font-size:.78rem;color:var(--color-text-muted);margin-top:12px;text-align:center}
+
+/* ============ CLIENT AREA ============ */
+.ca{display:grid;grid-template-columns:280px 1fr;min-height:100vh;background:var(--color-bg)}
+.side{background:var(--color-bg);padding:24px 16px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
+.side .logo{padding:0 12px 20px}
+.side .logo svg{height:84px}
+.menu{background:linear-gradient(180deg,var(--color-brand-2),var(--color-brand));border-radius:14px 14px 0 0;padding:16px 10px;flex:1;display:flex;flex-direction:column;gap:2px;overflow:auto}
+.menu a{display:flex;align-items:center;gap:14px;color:var(--color-on-brand-muted);padding:12px 14px;border-radius:8px;font-family:var(--font-serif);font-size:1.15rem;transition:.15s}
+.menu a:hover{background:color-mix(in srgb, var(--color-on-brand) 8%, transparent)}
+.menu a.on{background:color-mix(in srgb, var(--color-on-brand) 18%, transparent);color:var(--color-on-brand)}
+.menu a .i{width:22px;text-align:center;opacity:.9}
+.menu .user{margin-top:auto;padding:14px;display:flex;align-items:center;gap:12px;border-top:1px solid color-mix(in srgb, var(--color-on-brand) 15%, transparent);color:var(--color-on-brand);font-family:var(--font-serif);font-size:1.05rem;line-height:1.15}
+.menu .user .avatar{width:44px;height:44px;font-size:1.1rem;border:2px solid var(--color-on-brand)}
+.menu .user button{margin-left:auto;color:var(--color-on-brand-muted);font-size:.8rem;text-decoration:underline}
+.main{padding:0 40px 60px;min-width:0}
+.topbar{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--color-border);height:74px;margin:0 -40px 30px;padding:0 40px}
+.tabs{display:flex;gap:24px;font-size:1.02rem}
+.tabs span{padding:26px 2px 22px;border-bottom:2px solid transparent;color:var(--color-text-muted)}
+.tabs span.on{color:var(--color-text);border-color:var(--color-action)}
+.top-r{display:flex;align-items:center;gap:16px}
+.top-r .avatar{width:38px;height:38px;font-size:.95rem}
+.mburger{display:none}
+.page-h{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;margin-bottom:26px}
+.page-h h1{font-size:2.4rem}
+.page-h p{color:var(--color-text-soft);font-weight:300;margin-top:6px}
+.status{display:inline-flex;align-items:center;gap:8px;color:var(--color-text-muted);font-size:.95rem;margin-top:8px}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--color-success);display:inline-block}
+.panel{background:var(--color-surface-raised);border:1px solid var(--color-border);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow-sm)}
+.panel h3{font-size:1.5rem;margin-bottom:14px}
+.cols{display:grid;grid-template-columns:1.7fr 1fr;gap:22px;align-items:start}
+.stack{display:grid;gap:22px}
+.pbar{display:flex;align-items:center;gap:20px}
+.bar{flex:1;height:14px;background:var(--color-surface-alt);border-radius:7px;overflow:hidden}
+.bar b{display:block;height:100%;background:var(--color-brand-2);border-radius:7px;transition:width .8s}
+.bar.g b{background:var(--color-success)}
+.bar.s b{background:var(--color-accent-soft)}
+.big{font-family:var(--font-serif);font-size:2.2rem;color:var(--color-text)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:18px;border-top:1px solid var(--color-border);padding-top:16px}
+.two div+div{border-left:1px solid var(--color-border);padding-left:22px}
+.two small{display:block;color:var(--color-text-muted)}
+.two b{font-family:var(--font-serif);font-size:1.3rem;font-weight:500;color:var(--color-brand)}
+.upd{list-style:none;display:grid;gap:4px}
+.upd li{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--color-surface-alt);font-size:.95rem}
+.upd li:first-child{border:0}
+.upd .ic{width:30px;height:30px;border-radius:50%;background:var(--color-surface-alt);display:grid;place-items:center;font-size:.85rem;flex:none}
+.upd em{font-style:normal;color:var(--color-text-muted);margin-left:auto;font-size:.85rem;white-space:nowrap}
+.ok{color:var(--color-success-strong);display:inline-flex;align-items:center;gap:6px;font-size:.95rem}
+.ok::before{content:"✓";display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--color-success);color:var(--color-on-brand);font-size:.72rem}
+.tag{font-size:.85rem;color:var(--color-text-muted)}
+.note{display:flex;align-items:center;gap:10px;color:var(--color-text-soft);font-size:.9rem;margin-top:20px}
+.note::before{content:"✓";width:22px;height:22px;border-radius:5px;border:1px solid var(--color-border);display:grid;place-items:center;color:var(--color-success);font-size:.8rem;flex:none}
+
+/* mini cronograma */
+.ph{display:grid;grid-template-columns:170px 1fr 70px;align-items:center;gap:14px;padding:10px 0}
+.ph .n{text-transform:uppercase;font-size:.9rem;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
+.chk{width:20px;height:20px;border-radius:5px;display:inline-grid;place-items:center;font-size:.7rem;color:var(--color-on-brand);background:var(--color-accent-soft);flex:none}
+.chk.done{background:var(--color-success)}.chk.run{background:var(--color-brand-2)}
+.ph .v{text-align:right;font-family:var(--font-serif);font-size:1.2rem}
+
+/* gantt */
+.meta{text-align:right;color:var(--color-text-soft);display:grid;gap:4px;font-size:.95rem}
+.meta b{font-weight:500}
+.legend{display:flex;gap:22px;flex-wrap:wrap;font-size:.9rem;margin-bottom:16px}
+.legend span{display:flex;align-items:center;gap:8px}
+.sw{width:14px;height:14px;border-radius:3px;display:inline-block}
+.gantt{overflow-x:auto}
+.g-in{min-width:760px;position:relative}
+.g-head,.g-row{display:grid;grid-template-columns:200px 1fr;align-items:center}
+.g-scale{display:grid;grid-template-columns:repeat(12,1fr);font-size:.75rem;color:var(--color-text-muted);border-left:1px solid var(--color-border)}
+.g-scale span{padding:4px 6px;border-right:1px dashed var(--color-border)}
+.g-row{border-top:1px solid var(--color-surface-alt);min-height:58px}
+.g-row .n{display:flex;align-items:center;gap:10px;font-size:.98rem}
+.g-track{position:relative;height:58px;background:repeating-linear-gradient(90deg,transparent 0 calc(100%/12 - 1px),var(--color-surface-alt) calc(100%/12 - 1px) calc(100%/12))}
+.g-bar{position:absolute;top:16px;height:26px;border-radius:5px;font-size:.78rem;display:flex;align-items:center;padding:0 10px;color:var(--color-on-brand);white-space:nowrap;overflow:hidden;cursor:pointer;transition:.2s}
+.g-bar:hover{filter:brightness(1.08);transform:scaleY(1.1)}
+.g-bar.done{background:var(--color-gantt-done);color:var(--color-gantt-done-text)}.g-bar.run{background:var(--color-brand-2)}.g-bar.plan{background:var(--color-accent-soft);color:var(--color-gantt-plan-text)}
+.g-pct{position:absolute;top:17px;font-family:var(--font-serif);font-size:1.15rem}
+.g-today{position:absolute;top:0;bottom:0;width:2px;background:var(--color-logo);opacity:.55;z-index:2}
+.g-tip{position:absolute;z-index:5;background:var(--color-surface-raised);border:1px solid var(--color-border);border-radius:10px;box-shadow:var(--shadow-md);padding:12px 16px;font-size:.88rem;pointer-events:none;display:none;min-width:200px}
+.g-tip div{display:flex;justify-content:space-between;gap:16px;padding:2px 0}
+
+/* progress cards */
+.pg{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.pg .full{grid-column:1/-1}
+.sp{display:flex;flex-direction:column;gap:8px}
+.sp header{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--color-surface-alt);padding-bottom:8px}
+.sp h3{margin:0;font-size:1.4rem}
+.sp .pc{font-family:var(--font-serif);font-size:1.5rem}
+.sp .row{display:flex;justify-content:space-between;align-items:center;gap:10px;color:var(--color-text-soft);font-size:.95rem}
+.link{color:var(--color-link);font-size:.92rem;text-align:left}
+.link:hover{text-decoration:underline}
+
+/* photos */
+.filters{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+.seg{display:inline-flex;background:var(--color-surface-raised);border:1px solid var(--color-border);border-radius:8px;overflow:hidden}
+.seg button{padding:10px 16px;border-right:1px solid var(--color-border);font-size:.92rem;color:var(--color-text-soft)}
+.seg button:last-child{border:0}
+.seg button.on{background:var(--color-surface-alt);color:var(--color-brand)}
+.sel{padding:10px 14px;background:var(--color-surface-raised);border:1px solid var(--color-border);border-radius:8px;font-size:.92rem}
+.ph-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px}
+.photo{background:var(--color-surface-raised);border:1px solid var(--color-border);border-radius:10px;overflow:hidden;box-shadow:var(--shadow-sm)}
+.photo .im{height:150px;position:relative}
+.photo .im .c{position:absolute;right:10px;bottom:10px;background:var(--color-surface-raised);border-radius:6px;padding:2px 8px;font-size:.78rem}
+.photo .b{padding:10px 12px;display:grid;gap:8px}
+.photo .cap{font-size:.9rem;display:flex;justify-content:space-between}
+.cm{display:flex;gap:6px}
+.cm input{flex:1;min-width:0;padding:7px 10px;border:1px solid var(--color-border);border-radius:6px;font-size:.82rem;background:var(--color-bg)}
+.cm button{background:var(--color-link);color:var(--color-on-brand);border-radius:6px;padding:0 10px}
+.cl{list-style:none;font-size:.8rem;color:var(--color-text-soft);display:grid;gap:4px}
+.cl b{font-weight:500}
+.im.demo1{background:linear-gradient(135deg,var(--ph-a1),var(--ph-a2))}
+.im.demo2{background:linear-gradient(135deg,var(--ph-b1),var(--ph-b2))}
+.im.demo3{background:linear-gradient(135deg,var(--ph-c1),var(--ph-c2))}
+.im.demo4{background:linear-gradient(135deg,var(--ph-d1),var(--ph-d2))}
+.im::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,color-mix(in srgb, var(--color-shadow-ink) 5%, transparent) 0 2px,transparent 2px 14px),repeating-linear-gradient(90deg,color-mix(in srgb, var(--color-on-brand) 7%, transparent) 0 1px,transparent 1px 40px)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:26px}
+.stat{background:var(--color-surface-raised);border:1px solid var(--color-border);border-radius:10px;padding:14px 18px;cursor:pointer;transition:.2s}
+.stat:hover{border-color:var(--color-link)}
+.stat h4{font-family:var(--font-serif);font-size:1.15rem;font-weight:500;color:var(--color-brand)}
+.stat span{font-size:.85rem;color:var(--color-text-muted)}
+
+/* finance */
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);background:var(--color-surface-raised);border:1px solid var(--color-border);border-radius:var(--radius);margin-bottom:22px;box-shadow:var(--shadow-sm)}
+.kpi{padding:22px 12px;text-align:center;border-right:1px solid var(--color-surface-alt)}
+.kpi:last-child{border:0}
+.kpi b{display:block;font-family:var(--font-serif);font-size:1.7rem;font-weight:500}
+.kpi.g b{color:var(--color-success)}
+.kpi small{color:var(--color-text-muted)}
+.tbl{width:100%;border-collapse:collapse;font-size:.95rem}
+.tbl td,.tbl th{padding:13px 8px;border-top:1px solid var(--color-surface-alt);text-align:left;font-weight:400}
+.tbl td.r,.tbl th.r{text-align:right}
+.tbl tr:first-child td{border-top:0}
+.sec-h{display:flex;justify-content:space-between;align-items:center;margin:26px 0 12px}
+.sec-h h3{margin:0;font-size:1.45rem}
+
+/* materials */
+.mtabs{display:flex;gap:28px;border-bottom:1px solid var(--color-border);margin-bottom:20px}
+.mtabs button{padding:12px 4px;color:var(--color-text-muted);border-bottom:2px solid transparent;font-size:1rem}
+.mtabs button.on{color:var(--color-text);border-color:var(--color-action)}
+.mat-cols{display:grid;grid-template-columns:1.8fr 1fr;gap:22px;align-items:start}
+.room{border:1px solid var(--color-border);border-radius:10px;margin-bottom:12px;background:var(--color-surface-raised);overflow:hidden}
+.room>button{width:100%;text-align:left;padding:14px 18px;font-family:var(--font-serif);font-size:1.3rem;color:var(--color-text);display:flex;justify-content:space-between}
+.mat{display:grid;grid-template-columns:62px 1fr;border-top:1px solid var(--color-surface-alt)}
+.mat .sw2{background:linear-gradient(135deg,var(--ph-m1),var(--ph-m2))}
+.mat .bd{padding:12px 16px;display:grid;gap:8px}
+.mat .tt{display:flex;justify-content:space-between;align-items:center;font-family:var(--font-serif);font-size:1.2rem;gap:10px;flex-wrap:wrap}
+.mat .pv{display:flex;gap:22px;flex-wrap:wrap;font-size:.9rem;color:var(--color-text-soft);align-items:center}
+.pv b{font-weight:500}
+.over{color:var(--color-danger)}
+.good{color:var(--color-success-strong)}
+.warnbox{background:var(--color-danger-bg);border:1px solid var(--color-danger-border);border-radius:8px;padding:12px 14px;display:grid;gap:10px;font-size:.92rem}
+.warnbox label{display:flex;gap:10px;align-items:center;cursor:pointer}
+.balance{display:inline-flex;align-items:center;gap:6px;font-size:.88rem}
+.balance::before{content:"";width:10px;height:10px;border-radius:50%;background:currentColor}
+.state{font-size:.85rem;padding:3px 10px;border-radius:20px;background:var(--color-surface-alt)}
+.state.ap{background:var(--color-success-bg);color:var(--color-success-strong)}
+.state.sel{background:var(--color-info-bg);color:var(--color-brand)}
+.hist{list-style:none}
+.hist li{padding:12px 0;border-top:1px solid var(--color-surface-alt);display:flex;justify-content:space-between;gap:10px;font-size:.92rem}
+.hist li:first-child{border:0}
+.hist small{color:var(--color-text-muted);display:block}
+.rule{display:grid;gap:4px;font-size:.88rem;color:var(--color-text-soft);margin-top:18px}
+
+/* chat */
+.chat{display:grid;grid-template-columns:1.6fr 1fr;border:1px solid var(--color-border);border-radius:var(--radius);background:var(--color-surface-raised);overflow:hidden;height:620px}
+.chat-m{display:flex;flex-direction:column;min-height:0;border-right:1px solid var(--color-border)}
+.chat-h{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--color-surface-alt)}
+.chat-h .avatar{width:44px;height:44px;font-size:1rem}
+.chat-h b{font-weight:500}
+.chat-h small{color:var(--color-success-strong);display:flex;align-items:center;gap:6px}
+.msgs{flex:1;overflow:auto;padding:18px;display:flex;flex-direction:column;gap:12px;background:var(--color-bg)}
+.msg{max-width:78%;padding:10px 14px;border-radius:14px;background:var(--color-surface-raised);font-size:.95rem;box-shadow:0 1px 3px color-mix(in srgb, var(--color-shadow-ink) 6%, transparent)}
+.msg.me{align-self:flex-end;background:var(--color-info-bg)}
+.msg time{display:block;text-align:right;font-size:.72rem;color:var(--color-text-muted);margin-top:4px}
+.msg .th{display:flex;gap:8px;margin-top:8px}
+.msg .th i{width:70px;height:52px;border-radius:5px;display:block;background:linear-gradient(135deg,var(--ph-a1),var(--ph-a2))}
+.composer{display:flex;gap:10px;padding:12px 16px;border-top:1px solid var(--color-surface-alt);align-items:center}
+.composer input[type=text]{flex:1;border:0;outline:none;padding:8px;font-size:.95rem}
+.composer .att{color:var(--color-link);font-size:1.2rem;padding:4px 8px}
+.chat-s{padding:18px 22px;overflow:auto}
+.chat-s h3{font-size:1.4rem;margin-bottom:10px}
+.chat-s li{list-style:none;padding:12px 0;border-top:1px solid var(--color-surface-alt);font-size:.95rem;display:flex;justify-content:space-between;gap:8px}
+.chat-s small{color:var(--color-text-muted)}
+.chat-s li div small{display:block}
+
+/* docs */
+.docs{display:grid;gap:10px}
+.doc{display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--color-surface-raised);border:1px solid var(--color-border);border-radius:10px}
+.doc .ic{width:38px;height:44px;border-radius:5px;background:var(--color-surface-alt);display:grid;place-items:center;font-size:.7rem;color:var(--color-brand);font-weight:500}
+.doc div{flex:1}
+.doc small{color:var(--color-text-muted);display:block}
+.dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.dl dt{color:var(--color-text-muted);font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;margin-top:12px}
+.dl dd{font-family:var(--font-serif);font-size:1.25rem}
+
+#toast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,40px);background:var(--color-brand);color:var(--color-on-brand);padding:12px 22px;border-radius:30px;opacity:0;pointer-events:none;transition:.3s;z-index:200;font-size:.92rem;box-shadow:var(--shadow-md)}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+
+@media(max-width:980px){
+  .hero .wrap,.about,.contact{grid-template-columns:1fr}
+  .grid3{grid-template-columns:1fr}
+  .nav{display:none}
+  .nav.open{display:flex;position:absolute;top:92px;left:0;right:0;background:var(--color-surface);flex-direction:column;padding:20px 24px;gap:16px;border-bottom:1px solid var(--color-border)}
+  .burger{display:block}
+  .mock{transform:none}
+  .ca{grid-template-columns:1fr}
+  .side{position:fixed;left:0;top:0;bottom:0;width:290px;z-index:90;transform:translateX(-100%);transition:.3s;height:100%}
+  .side.open{transform:none;box-shadow:10px 0 40px color-mix(in srgb, var(--color-shadow-ink) 30%, transparent)}
+  .main{padding:0 18px 50px}
+  .topbar{margin:0 -18px 22px;padding:0 18px}
+  .mburger{display:block;font-size:1.5rem;margin-right:12px;color:var(--color-brand)}
+  .tabs{display:none}
+  .cols,.mat-cols,.chat{grid-template-columns:1fr}
+  .chat{height:auto}.chat-m{height:560px;border:0}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .pg{grid-template-columns:1fr}
+  .ph{grid-template-columns:120px 1fr 56px}
+}
+@media(max-width:560px){
+  .hdr .wrap{height:76px}.logo svg{height:50px}
+  .hdr-r .btn{padding:8px 12px;font-size:.95rem}
+  .slide{flex-direction:column;text-align:center}.slide cite{white-space:normal}
+  .float-cta{right:14px;bottom:14px;padding:12px 20px}
+  .carousel .arrow{display:none}
+}
+
+/* ===== versão funcional: banner, painel da equipa ===== */
+.banner{background:var(--color-warning-bg);color:var(--color-warning-text);text-align:center;font-size:.82rem;padding:6px 12px;border-bottom:1px solid var(--color-warning-border)}
+.err{color:var(--color-danger);font-size:.88rem;min-height:1.2em}
+.demo-links{display:flex;gap:14px;justify-content:center;margin-top:10px;font-size:.82rem}
+.demo-links button{color:var(--color-link);text-decoration:underline}
+.ph-grid .im{background-size:cover;background-position:center}
+.ph-grid .im img{width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px}
+.ba figure{border-radius:10px;overflow:hidden;border:1px solid var(--color-border)}
+.ba .im{height:220px;position:relative}
+.ba figcaption{padding:8px 12px;font-size:.88rem;color:var(--color-text-muted);background:var(--color-surface-raised)}
+.modal .box.wide{max-width:760px}
+.msg .att{display:inline-block;margin-top:6px;font-size:.85rem;color:var(--color-link);text-decoration:underline}
+.msg .nm{font-size:.74rem;color:var(--color-text-muted);display:block;margin-bottom:2px}
+
+.st .menu a{font-size:1.05rem}
+.stbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.stbar a{padding:9px 16px;border:1px solid var(--color-border);border-radius:8px;background:var(--color-surface-raised);font-size:.92rem;color:var(--color-text-soft)}
+.stbar a.on{background:var(--color-action);color:var(--color-on-action);border-color:var(--color-action)}
+.plist{display:grid;gap:12px}
+.pcard{display:grid;grid-template-columns:1.4fr 1fr 1fr auto;gap:16px;align-items:center;background:var(--color-surface-raised);border:1px solid var(--color-border);border-radius:10px;padding:16px 20px;transition:.15s}
+.pcard:hover{border-color:var(--color-link);box-shadow:var(--shadow-md)}
+.pcard b{font-family:var(--font-serif);font-size:1.3rem;font-weight:500;color:var(--color-brand)}
+.pcard small{color:var(--color-text-muted);display:block}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;align-items:end}
+.fgrid .wide2{grid-column:span 2}
+.f.row-card{background:var(--color-surface-raised);border:1px solid var(--color-border);border-radius:10px;padding:16px;margin-bottom:12px}
+.f.row-card h4{font-family:var(--font-serif);font-size:1.25rem;color:var(--color-brand);font-weight:500;margin-bottom:4px}
+.chkl{display:flex!important;align-items:center;gap:8px;grid-auto-flow:column;justify-content:start}
+.chkl input{width:auto}
+.btns{display:flex;gap:8px;align-items:center}
+.btn.danger{background:var(--color-surface-raised);color:var(--color-danger);border:1px solid var(--color-danger-border);box-shadow:none}
+.sgal{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-top:16px}
+.sgal .photo .im{height:120px}
+.hint2{color:var(--color-text-muted);font-size:.85rem}
+@media(max-width:980px){.pcard{grid-template-columns:1fr}.fgrid .wide2{grid-column:auto}}
+
+/* miniaturas do mockup */
+.tile{flex:1;height:54px;border-radius:5px}
+.ph-a{background:linear-gradient(135deg,var(--ph-a1),var(--ph-a2))}
+.ph-b{background:linear-gradient(135deg,var(--ph-b1),var(--ph-b2))}
+.ph-c{background:linear-gradient(135deg,var(--ph-c1),var(--ph-c2))}
+
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<script>
+/* Configuração do Supabase.
+   Preencha com os valores de Project Settings > API do seu projeto Supabase.
+   Enquanto estiver vazio, o site corre em MODO DEMONSTRAÇÃO (dados em memória). */
+window.OCE_CONFIG = {
+  SUPABASE_URL: '',       // ex.: 'https://abcdxyz.supabase.co'
+  SUPABASE_ANON_KEY: ''   // chave "anon public" (segura no browser; a proteção é feita pelo RLS)
+};
+
+</script>
+<script>
+/* Traduções PT/EN */
+window.I18N = {
+  pt: {
+    loading:'A carregar…', login_err:'Não foi possível entrar:', demo_banner:'Modo demonstração — os dados não são guardados.', staff_enter:'Entrar como equipa',
+    week_sec:'Atualização desta semana', all_sec:'Todas as fotografias', req_title:'Solicitar alteração / novo pedido', req_ph:'Descreva a alteração ou o novo pedido…', send_b:'Enviar', cancel:'Cancelar', err:'Erro:', no_photos:'Ainda sem fotografias.', no_items:'Sem itens.',
+    before:'Antes', after:'Depois', ba_need:'São necessárias pelo menos duas fotografias para comparar.', acc_needed:'Confirme que aceita o acréscimo.',
+    nav_about:'Sobre Nós', nav_services:'Os Nossos Serviços', nav_projects:'Projetos', nav_contact:'Contactos', client:'Área de Cliente',
+    hero1:'Trabalhar connosco é ter uma Área de Cliente.', hero2:'Acompanhe a sua obra em tempo real, com planeamento, progresso e total transparência.',
+    testi:'Opiniões dos Clientes', quote:'Pedir Orçamento',
+    about_t:'Método, confiança e transparência', about_e:'Sobre Nós',
+    about_p1:'Somos uma empresa de construção e design que acompanha cada obra de forma estruturada, do planeamento à fase final, em modelo chave-na-mão.',
+    about_p2:'Pensado para clientes exigentes, o nosso processo dispensa o contacto constante: tudo fica documentado, visível e organizado na sua Área de Cliente.',
+    p1:'Confiança', p1s:'Compromisso em cada fase', p2:'Método', p2s:'Processos estruturados', p3:'Transparência', p3s:'Valores e prazos claros', p4:'Chave-na-mão', p4s:'Acompanhamento total',
+    serv_t:'Os Nossos Serviços', serv_l:'Da primeira demolição ao último acabamento, uma equipa, um método.',
+    s1:'Remodelações Integrais', s1d:'Gestão completa de obra: demolições, estrutura, redes técnicas, revestimentos, carpintarias e acabamentos.',
+    s2:'Design & Interiores', s2d:'Projeto e seleção de materiais com teto de PVP definido, para decisões informadas e sem surpresas.',
+    s3:'Gestão e Fiscalização', s3d:'Direção de obra, validação técnica por especialidade e controlo financeiro rigoroso.',
+    proj_t:'Projetos', proj_l:'Uma seleção de obras recentes.',
+    cont_t:'Contactos', cont_l:'Fale connosco e peça um orçamento sem compromisso.', name:'Nome', email:'Email', phone:'Telefone', msg:'Mensagem', send:'Enviar pedido', sent:'Pedido enviado. Entraremos em contacto brevemente.',
+    login_t:'Área de Cliente', login_s:'Aceda à sua obra com o seu login individual.', user:'Utilizador', pass:'Palavra-passe', enter:'Entrar', demo:'Demonstração: qualquer dados funcionam.',
+    welcome:'Bem-vindo, Sr. Álvaro Fernandes', logout:'Sair',
+    m_dashboard:'Dashboard', m_plan:'Planeamento', m_prog:'Progresso', m_photos:'Fotografias', m_mat:'Materiais', m_fin:'Financeiro', m_comm:'Comunicação', m_docs:'Documentos', m_data:'Dados da Obra',
+    obra:'Moradia em Cascais', running:'Em execução', done:'Concluído', planned:'Planeado', approved:'Aprovado', approvedF:'Aprovada', paid:'Pago',
+    send_contact:'Enviar contacto', prog_obra:'Progresso da Obra', next:'Próxima Etapa', cur_spec:'Especialidade em curso', sched:'Cronograma', see_full:'Ver detalhe completo',
+    last_upd:'Últimas Atualizações', u1:'Fotografias atualizadas', u2:'Cronograma ajustado', u3:'Adenda aprovada', today:'hoje', yest:'ontem', may2:'2 de maio',
+    val_note:'A validação técnica garante que os trabalhos cumpriram os padrões de qualidade.',
+    ph_dem:'Demolições', ph_str:'Estrutura / BETÃO / Aço', ph_net:'Redes Técnicas', ph_cov:'Revestimentos', ph_car:'Carpintarias', ph_fin:'Acabamentos',
+    plan_t:'Planeamento da Obra', plan_s:'Cronograma técnico com acompanhamento em tempo real.', start:'Data de Início', end:'Conclusão Prevista', state:'Estado',
+    expected:'Previsto', actual:'Atual', exec:'Em execução', plan_note:'Cronograma atualizado semanalmente pela equipa técnica.', today_l:'Hoje',
+    prog_t:'Progresso por Especialidade', prog_s:'Evolução e validação das principais especialidades.', check_detail:'Verificar detalhe completo',
+    d_dem:'Demolição concluída.', d_str:'Estrutura validada pela equipa técnica.', d_net:'Trabalhos em andamento conforme planeado.', d_next:'A iniciar brevemente.',
+    ph_t:'Fotografias', ph_s:'Evolução visual detalhada da obra em Cascais.', ba:'Ver comparação Antes/Depois', all:'Todas', all_dates:'Todas as datas', recent:'Mais recentes', oldest:'Mais antigas',
+    week:'Atualização desta semana', add_cm:'Adicionar comentário…', photos:'fotos', ba_msg:'Comparação Antes/Depois disponível quando a fase estiver concluída.',
+    mat_t:'Materiais', mat_s:'Seleção e aprovação de acabamentos para a sua obra.', kitchen:'Cozinha', bath:'Casas de Banho', living:'Sala',
+    analysis:'Em análise', selected:'Selecionado', pvp_b:'PVP orçamentado', pvp_r:'PVP real selecionado', exceeds:'Este material excede o PVP orçamentado.', accept:'Aceito o acréscimo de', above:'acima do PVP orçamentado',
+    confirm:'Confirmar', within:'dentro do PVP', over:'excede o PVP', hist_dec:'Histórico das Decisões', confirmed:'Escolha confirmada.',
+    r1:'Sem estimativas globais', r2:'Sem valores intermédios confusos', r3:'Apenas valores claros por material',
+    fin_t:'Financeiro', fin_s:'Gestão financeira detalhada da obra em Cascais.', k1:'Orçamento Inicial', k2:'Adendas Aprovadas', k3:'Valor Total Atual', k4:'Valor Pago', k5:'Valor em Aberto',
+    base:'Orçamento Base', base_s:'Contrato inicial aprovado em 8 de janeiro de 2024', detail:'Ver detalhe', add_t:'Adendas / Trabalhos Adicionais', req:'Solicitar alteração / novo pedido', req_ok:'Pedido enviado à equipa técnica.',
+    hist_f:'Histórico Financeiro', contract_ok:'Contrato aprovado', invoice:'Fatura', init_b:'Orçamento Inicial',
+    a1:'Isolamento acústico adicional', a2:'Mais tomadas e pontos de luz', a3:'Fornecimento e instalação de novo móvel de casa de banho', a4:'Reforço estrutural da parede entre sala e cozinha',
+    comm_t:'Comunicação', comm_s:'Comunicação direta com o responsável de obra.', online:'Online', role:'Direção de Obra', conv:'Histórico de Conversas', msgs:'mensagens', compose:'Enviar uma fotografia, documento ou mensagem…',
+    c1:'Dúvidas sobre materiais', c2:'Planeamento da estrutura', c3:'Projeto redes técnicas', c4:'Detalhes das demolições', c5:'Novo orçamento', c6:'Boas vindas à obra',
+    m_a:'Boa tarde Sr. Álvaro, temos mais uma atualização fotográfica pronta: capturámos o progresso das redes elétricas.',
+    m_b:'Boa tarde João, as fotos ficaram ótimas, obrigado.', m_c:'Se precisar de alguma informação adicional, estou ao dispor. Como estão a correr as reuniões sobre o orçamento da cozinha?',
+    m_d:'Sobre a cozinha, as reuniões estão a correr bem, só preciso de esclarecer uma dúvida com a minha esposa sobre os eletrodomésticos. Amanhã dou feedback.', m_e:'Muito bem. Aguardo então a sua decisão. Obrigado Sr. Álvaro.',
+    auto:'Recebido. A equipa técnica responderá em breve.', attach_ok:'Anexo adicionado (demonstração).',
+    docs_t:'Documentos', docs_s:'Documentos e PDFs da obra, centralizados.', dl:'Descarregar', dl_ok:'Download simulado (demonstração).',
+    d1:'Contrato', d2:'Orçamentos', d3:'Projetos', d4:'Licenças', d5:'PDFs descarregáveis',
+    data_t:'Dados da Obra', data_s:'Dados do cliente e da obra centralizados.', cli:'Cliente', addr:'Morada da obra', resp:'Responsável de obra', typ:'Tipologia', area:'Área de intervenção', stt:'Estado',
+    clients_tab:'Cliente', footer:'Obras com Evidência — Build & Design by Ella'
+  },
+  en: {
+    loading:'Loading…', login_err:'Could not sign in:', demo_banner:'Demo mode — data is not saved.', staff_enter:'Sign in as staff',
+    week_sec:"This week's update", all_sec:'All photos', req_title:'Request change / new order', req_ph:'Describe the change or new order…', send_b:'Send', cancel:'Cancel', err:'Error:', no_photos:'No photos yet.', no_items:'No items.',
+    before:'Before', after:'After', ba_need:'At least two photos are needed to compare.', acc_needed:'Please confirm you accept the extra cost.',
+    nav_about:'About Us', nav_services:'Our Services', nav_projects:'Projects', nav_contact:'Contact', client:'Client Area',
+    hero1:'Working with us means having a Client Area.', hero2:'Follow your project in real time, with scheduling, progress and total transparency.',
+    testi:'Client Reviews', quote:'Request a Quote',
+    about_t:'Method, trust and transparency', about_e:'About Us',
+    about_p1:'We are a construction and design company that follows every project in a structured way, from planning to completion, on a turnkey basis.',
+    about_p2:'Designed for demanding clients, our process removes the need for constant contact: everything is documented, visible and organised in your Client Area.',
+    p1:'Trust', p1s:'Commitment at every phase', p2:'Method', p2s:'Structured processes', p3:'Transparency', p3s:'Clear costs and deadlines', p4:'Turnkey', p4s:'Full follow-up',
+    serv_t:'Our Services', serv_l:'From the first demolition to the last finish: one team, one method.',
+    s1:'Full Renovations', s1d:'Complete site management: demolition, structure, technical networks, finishes, joinery and fit-out.',
+    s2:'Design & Interiors', s2d:'Design and material selection with a defined price ceiling, for informed decisions and no surprises.',
+    s3:'Management & Supervision', s3d:'Site direction, technical validation per trade and rigorous financial control.',
+    proj_t:'Projects', proj_l:'A selection of recent works.',
+    cont_t:'Contact', cont_l:'Talk to us and request a no-obligation quote.', name:'Name', email:'Email', phone:'Phone', msg:'Message', send:'Send request', sent:'Request sent. We will be in touch shortly.',
+    login_t:'Client Area', login_s:'Access your project with your individual login.', user:'Username', pass:'Password', enter:'Sign in', demo:'Demo: any credentials work.',
+    welcome:'Welcome, Mr. Álvaro Fernandes', logout:'Sign out',
+    m_dashboard:'Dashboard', m_plan:'Schedule', m_prog:'Progress', m_photos:'Photos', m_mat:'Materials', m_fin:'Financial', m_comm:'Communication', m_docs:'Documents', m_data:'Project Data',
+    obra:'Villa in Cascais', running:'In progress', done:'Completed', planned:'Planned', approved:'Approved', approvedF:'Approved', paid:'Paid',
+    send_contact:'Send message', prog_obra:'Project Progress', next:'Next Stage', cur_spec:'Trade in progress', sched:'Schedule', see_full:'View full detail',
+    last_upd:'Latest Updates', u1:'Photos updated', u2:'Schedule adjusted', u3:'Addendum approved', today:'today', yest:'yesterday', may2:'May 2',
+    val_note:'Technical validation ensures the work meets quality standards.',
+    ph_dem:'Demolition', ph_str:'Structure / CONCRETE / Steel', ph_net:'Technical Networks', ph_cov:'Coverings', ph_car:'Joinery', ph_fin:'Finishes',
+    plan_t:'Project Schedule', plan_s:'Technical schedule with real-time follow-up.', start:'Start Date', end:'Expected Completion', state:'Status',
+    expected:'Planned', actual:'Actual', exec:'In progress', plan_note:'Schedule updated weekly by the technical team.', today_l:'Today',
+    prog_t:'Progress by Trade', prog_s:'Evolution and validation of the main trades.', check_detail:'View full detail',
+    d_dem:'Demolition completed.', d_str:'Structure validated by the technical team.', d_net:'Work in progress as planned.', d_next:'Starting soon.',
+    ph_t:'Photos', ph_s:'Detailed visual evolution of the Cascais project.', ba:'View Before/After comparison', all:'All', all_dates:'All dates', recent:'Most recent', oldest:'Oldest',
+    week:"This week's update", add_cm:'Add a comment…', photos:'photos', ba_msg:'Before/After comparison available once the phase is complete.',
+    mat_t:'Materials', mat_s:'Selection and approval of finishes for your project.', kitchen:'Kitchen', bath:'Bathrooms', living:'Living room',
+    analysis:'Under review', selected:'Selected', pvp_b:'Budgeted price', pvp_r:'Selected price', exceeds:'This material exceeds the budgeted price.', accept:'I accept the extra', above:'above the budgeted price',
+    confirm:'Confirm', within:'within budget', over:'over budget', hist_dec:'Decision History', confirmed:'Choice confirmed.',
+    r1:'No global estimates', r2:'No confusing intermediate values', r3:'Only clear values per material',
+    fin_t:'Financial', fin_s:'Detailed financial management of the Cascais project.', k1:'Initial Budget', k2:'Approved Addenda', k3:'Current Total', k4:'Amount Paid', k5:'Outstanding',
+    base:'Base Budget', base_s:'Initial contract approved on 8 January 2024', detail:'View detail', add_t:'Addenda / Additional Works', req:'Request change / new order', req_ok:'Request sent to the technical team.',
+    hist_f:'Financial History', contract_ok:'Contract approved', invoice:'Invoice', init_b:'Initial Budget',
+    a1:'Additional acoustic insulation', a2:'More sockets and light points', a3:'Supply and installation of new bathroom vanity unit', a4:'Structural reinforcement of the wall between living room and kitchen',
+    comm_t:'Communication', comm_s:'Direct communication with the site manager.', online:'Online', role:'Site Management', conv:'Conversation History', msgs:'messages', compose:'Send a photo, document or message…',
+    c1:'Questions about materials', c2:'Structure planning', c3:'Technical networks project', c4:'Demolition details', c5:'New quote', c6:'Welcome to the project',
+    m_a:'Good afternoon Mr. Álvaro, we have another photo update ready: we captured the progress of the electrical networks.',
+    m_b:'Good afternoon João, the photos look great, thank you.', m_c:'If you need any further information, I am at your disposal. How are the kitchen budget meetings going?',
+    m_d:'About the kitchen, the meetings are going well, I just need to clear up a question with my wife about the appliances. I will give feedback tomorrow.', m_e:'Very good. I will await your decision then. Thank you Mr. Álvaro.',
+    auto:'Received. The technical team will reply shortly.', attach_ok:'Attachment added (demo).',
+    docs_t:'Documents', docs_s:'Project documents and PDFs, centralised.', dl:'Download', dl_ok:'Simulated download (demo).',
+    d1:'Contract', d2:'Quotes', d3:'Designs', d4:'Permits', d5:'Downloadable PDFs',
+    data_t:'Project Data', data_s:'Client and project data, centralised.', cli:'Client', addr:'Site address', resp:'Site manager', typ:'Type', area:'Work area', stt:'Status',
+    clients_tab:'Client', footer:'Obras com Evidência — Build & Design by Ella'
+  }
+};
+
+</script>
+<script>
+/* Camada de dados: Supabase (real) ou demonstração (memória).
+   Ambas expõem a mesma API assíncrona em window.DB. */
+(function () {
+  'use strict';
+  const cfg = window.OCE_CONFIG || {};
+  const LIVE = !!(cfg.SUPABASE_URL && cfg.SUPABASE_ANON_KEY);
+  const KINDS = ['dem', 'str', 'net', 'cov', 'car', 'fin'];
+  const iso = d => d.toISOString().slice(0, 10);
+  const addDays = (s, n) => { const d = new Date(s + 'T00:00:00'); d.setDate(d.getDate() + n); return iso(d); };
+  const today = () => iso(new Date());
+  const diffDays = (a, b) => Math.round((new Date(b + 'T00:00:00') - new Date(a + 'T00:00:00')) / 864e5);
+  const safeName = n => String(n).normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^\w.\-]+/g, '_');
+
+  // fases por omissão, repartidas entre início e fim da obra
+  function defaultPhases(start, end) {
+    const total = Math.max(diffDays(start, end), KINDS.length);
+    const w = [.14, .24, .18, .16, .14, .14]; let acc = 0;
+    return KINDS.map((kind, i) => {
+      const ps = addDays(start, Math.round(total * acc)); acc += w[i];
+      const pe = addDays(start, Math.round(total * acc) - 1);
+      return { kind, name: null, sort: i, ps, pe, as: null, ae: null, pct: 0, status: 'planned', validated: false, note: '' };
+    });
+  }
+
+  /* =============== DEMONSTRAÇÃO =============== */
+  function demo() {
+    let seq = 1; const id = () => 'd' + (seq++);
+    let me = null; const S = { projects: [], B: {} };
+    const t0 = today();
+    function seed() {
+      const pid = id();
+      const start = addDays(t0, -50), end = addDays(t0, 60);
+      S.projects.push({ id: pid, name: 'Moradia em Cascais', address: 'Rua das Flores 24, Cascais', status: 'running', start, end, area: '240 m²', base: 120000, mgrName: 'Eng. João Ribeiro', mgrRole: 'Direção de Obra', clientName: 'Álvaro Fernandes', clientId: 'cli1' });
+      const ph = defaultPhases(start, end).map(p => ({ ...p, id: id() }));
+      const set = (i, o) => Object.assign(ph[i], o);
+      set(0, { pct: 100, status: 'done', as: ph[0].ps, ae: ph[0].pe, validated: true, note: 'Demolição concluída.' });
+      set(1, { pct: 80, status: 'running', as: ph[1].ps, validated: false, note: 'Trabalhos em execução conforme planeado.' });
+      set(2, { pct: 45, status: 'running', as: ph[2].ps, note: 'Trabalhos em andamento conforme planeado.' });
+      const cls = ['demo1', 'demo2', 'demo3', 'demo4'];
+      const photos = []; let n = 0;
+      [0, 1, 2, 3].forEach(pi => { for (let i = 0; i < 3; i++) photos.push({ id: id(), phaseId: ph[pi].id, url: null, cls: cls[(n++) % 4], caption: '', date: addDays(t0, -(pi * 6 + i * 2 + 1)), comments: i === 0 ? [{ id: id(), author: 'Sr. Álvaro', body: 'Podem confirmar a altura do rodapé aqui?', at: addDays(t0, -2) }] : [] }); });
+      S.B[pid] = {
+        project: S.projects[0], phases: ph, photos,
+        materials: [
+          { id: id(), cat: 'rev', room: 'Cozinha', name: 'Azulejo – Parede', budget: 30, real: 40, unit: 'm2', status: 'selected', accepted: false, decided: null },
+          { id: id(), cat: 'rev', room: 'Sala', name: 'Mosaico Hidráulico – Chão', budget: 60, real: 60, unit: 'm2', status: 'approved', accepted: false, decided: addDays(t0, -18) },
+          { id: id(), cat: 'rev', room: 'Sala', name: 'Soalho Sala', budget: 25, real: 30, unit: 'm2', status: 'analysis', accepted: false, decided: null },
+          { id: id(), cat: 'car', room: 'Quarto', name: 'Roupeiros Quarto', budget: 6200, real: 6200, unit: 'un', status: 'selected', accepted: false, decided: null },
+          { id: id(), cat: 'ban', room: 'Casas de Banho', name: 'Tampo WC – Mármore', budget: 5500, real: 5500, unit: 'un', status: 'approved', accepted: false, decided: addDays(t0, -30) },
+          { id: id(), cat: 'san', room: 'Casas de Banho', name: 'Sanita suspensa', budget: 320, real: 380, unit: 'un', status: 'analysis', accepted: false, decided: null }
+        ],
+        addenda: [
+          { id: id(), desc: 'Isolamento acústico adicional', date: addDays(t0, -12), amount: 3000, status: 'approved' },
+          { id: id(), desc: 'Mais tomadas e pontos de luz', date: addDays(t0, -20), amount: 2400, status: 'approved' },
+          { id: id(), desc: 'Fornecimento e instalação de novo móvel de casa de banho', date: addDays(t0, -33), amount: 4500, status: 'approved' },
+          { id: id(), desc: 'Reforço estrutural da parede entre sala e cozinha', date: addDays(t0, -45), amount: 1300, status: 'approved' }
+        ],
+        payments: [
+          { id: id(), label: 'Fatura 011', date: addDays(t0, -40), amount: 25000, status: 'paid' },
+          { id: id(), label: 'Fatura 017', date: addDays(t0, -15), amount: 60000, status: 'paid' }
+        ],
+        messages: [
+          { id: id(), staff: true, name: 'Eng. João Ribeiro', body: 'Boa tarde Sr. Álvaro, temos mais uma atualização fotográfica pronta: capturámos o progresso das redes elétricas.', at: new Date(Date.now() - 36e5 * 5).toISOString(), att: null },
+          { id: id(), staff: false, name: 'Álvaro Fernandes', body: 'Boa tarde João, as fotos ficaram ótimas, obrigado.', at: new Date(Date.now() - 36e5 * 4.9).toISOString(), att: null },
+          { id: id(), staff: true, name: 'Eng. João Ribeiro', body: 'Se precisar de alguma informação adicional, estou ao dispor.', at: new Date(Date.now() - 36e5 * 4.8).toISOString(), att: null }
+        ],
+        documents: [
+          { id: id(), cat: 'd1', name: 'Contrato_Obra.pdf', url: '#', size: 1200000 },
+          { id: id(), cat: 'd2', name: 'Orcamento_Base.pdf', url: '#', size: 860000 },
+          { id: id(), cat: 'd3', name: 'Projeto_Arquitetura.pdf', url: '#', size: 4800000 },
+          { id: id(), cat: 'd4', name: 'Licenca_Obras.pdf', url: '#', size: 410000 }
+        ],
+        updates: [
+          { id: id(), kind: 'photos', text: '', at: new Date().toISOString() },
+          { id: id(), kind: 'schedule', text: '', at: new Date(Date.now() - 864e5).toISOString() },
+          { id: id(), kind: 'addendum', text: '', at: new Date(Date.now() - 864e5 * 5).toISOString() }
+        ],
+        requests: []
+      };
+    }
+    seed();
+    const get = pid => S.B[pid];
+    const fileInfo = f => ({ url: URL.createObjectURL(f), size: f.size, name: f.name });
+    const clone = o => o;
+    return {
+      live: false,
+      async init() {},
+      user() { return me; },
+      async signIn(email) {
+        const staff = /equipa|staff|admin/i.test(email);
+        me = staff ? { id: 'staff1', email, name: 'Equipa Obras com Evidência', role: 'staff' } : { id: 'cli1', email, name: 'Álvaro Fernandes', role: 'client' };
+        return me;
+      },
+      async signOut() { me = null; },
+      async listProjects() { return me.role === 'staff' ? S.projects.slice() : S.projects.filter(p => p.clientId === me.id); },
+      async loadBundle(pid) { return get(pid); },
+      async addComment(pid, photoId, body) { const p = get(pid).photos.find(x => x.id === photoId); const c = { id: id(), author: me.name, body, at: today() }; p.comments.push(c); return c; },
+      async sendMessage(pid, body, file) {
+        const m = { id: id(), staff: me.role === 'staff', name: me.name, body, at: new Date().toISOString(), att: file ? fileInfo(file) : null };
+        get(pid).messages.push(m); return m;
+      },
+      async confirmMaterial(pid, mid, accept) {
+        const m = get(pid).materials.find(x => x.id === mid);
+        if ((m.real ?? m.budget) > m.budget && !accept) throw new Error('É necessária a confirmação explícita do acréscimo.');
+        m.status = 'approved'; m.accepted = (m.real ?? m.budget) > m.budget; m.decided = today();
+      },
+      async requestChange(pid, body) { get(pid).requests.push({ id: id(), body, at: new Date().toISOString(), author: me.name }); },
+      async docUrl(d) { return d.url; },
+      // ---- equipa ----
+      async createClientProject(f) {
+        const pid = id(), cid = id();
+        const p = { id: pid, name: f.name, address: f.address, status: 'running', start: f.start, end: f.end, area: f.area, base: +f.base || 0, mgrName: f.mgrName, mgrRole: 'Direção de Obra', clientName: f.clientName, clientId: cid };
+        S.projects.push(p);
+        S.B[pid] = { project: p, phases: defaultPhases(f.start, f.end).map(x => ({ ...x, id: id() })), photos: [], materials: [], addenda: [], payments: [], messages: [], documents: [], updates: [], requests: [] };
+        return p;
+      },
+      async saveProject(pid, patch) { Object.assign(get(pid).project, patch); },
+      async savePhase(pid, ph) { Object.assign(get(pid).phases.find(x => x.id === ph.id), ph); },
+      async addPhoto(pid, phaseId, file, caption, date) { const b = get(pid); const i = fileInfo(file); const p = { id: id(), phaseId, url: i.url, cls: null, caption, date: date || today(), comments: [] }; b.photos.push(p); return p; },
+      async deletePhoto(pid, photoId) { const b = get(pid); b.photos = b.photos.filter(x => x.id !== photoId); },
+      async saveMaterial(pid, m) { const b = get(pid); if (m.id) Object.assign(b.materials.find(x => x.id === m.id), m); else b.materials.push({ ...m, id: id(), accepted: false, decided: null }); },
+      async deleteMaterial(pid, mid) { const b = get(pid); b.materials = b.materials.filter(x => x.id !== mid); },
+      async saveAddendum(pid, a) { const b = get(pid); if (a.id) Object.assign(b.addenda.find(x => x.id === a.id), a); else b.addenda.push({ ...a, id: id() }); },
+      async savePayment(pid, a) { const b = get(pid); if (a.id) Object.assign(b.payments.find(x => x.id === a.id), a); else b.payments.push({ ...a, id: id() }); },
+      async addDocument(pid, cat, file) { get(pid).documents.push({ id: id(), cat, name: file.name, url: URL.createObjectURL(file), size: file.size }); },
+      async deleteDocument(pid, did) { const b = get(pid); b.documents = b.documents.filter(x => x.id !== did); },
+      async addUpdate(pid, kind, text) { get(pid).updates.unshift({ id: id(), kind, text, at: new Date().toISOString() }); }
+    };
+  }
+
+  /* =============== SUPABASE =============== */
+  function supa() {
+    let sb, me = null; const BUCKET = 'obra-files';
+    const loadScript = src => new Promise((ok, ko) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = () => ko(new Error('Falha a carregar o Supabase')); document.head.appendChild(s); });
+    const chk = r => { if (r.error) throw new Error(r.error.message); return r.data; };
+    const num = v => (v === null || v === undefined ? null : +v);
+    const mapProject = r => ({ id: r.id, name: r.name, address: r.address, status: r.status, start: r.start_date, end: r.end_date, area: r.area, base: num(r.base_budget) || 0, mgrName: r.manager_name, mgrRole: r.manager_role, clientName: r.client?.name || '', clientId: r.client_id });
+    const mapPhase = r => ({ id: r.id, kind: r.kind, name: r.name, sort: r.sort, ps: r.planned_start, pe: r.planned_end, as: r.actual_start, ae: r.actual_end, pct: r.pct, status: r.status, validated: r.validated, note: r.note || '' });
+    const mapMat = r => ({ id: r.id, cat: r.cat, room: r.room || '', name: r.name, budget: num(r.budget_price) || 0, real: num(r.real_price), unit: r.unit, status: r.status, accepted: r.accepted_extra, decided: r.decided_at ? r.decided_at.slice(0, 10) : null });
+    const signMany = async paths => {
+      const list = paths.filter(Boolean); if (!list.length) return {};
+      const r = chk(await sb.storage.from(BUCKET).createSignedUrls(list, 3600)); const o = {};
+      r.forEach(x => { if (x.path) o[x.path] = x.signedUrl; }); return o;
+    };
+    async function upload(pid, folder, file) {
+      const path = `${pid}/${folder}/${Date.now()}_${safeName(file.name)}`;
+      chk(await sb.storage.from(BUCKET).upload(path, file, { contentType: file.type || undefined }));
+      return path;
+    }
+    return {
+      live: true,
+      async init() {
+        await loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js');
+        sb = window.supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY);
+        const { data } = await sb.auth.getSession();
+        if (data.session) me = await this._profile(data.session.user);
+      },
+      async _profile(u) {
+        const { data } = await sb.from('profiles').select('name,role').eq('id', u.id).maybeSingle();
+        return { id: u.id, email: u.email, name: data?.name || u.email, role: data?.role || 'client' };
+      },
+      user() { return me; },
+      async signIn(email, password) { const r = chk(await sb.auth.signInWithPassword({ email, password })); me = await this._profile(r.user); return me; },
+      async signOut() { await sb.auth.signOut(); me = null; },
+      async listProjects() {
+        const r = chk(await sb.from('projects').select('*, client:profiles!client_id(name)').order('created_at', { ascending: false }));
+        return r.map(mapProject);
+      },
+      async loadBundle(pid) {
+        const q = (t, o) => { let x = sb.from(t).select('*').eq('project_id', pid); if (o) x = x.order(o[0], { ascending: o[1] }); return x; };
+        const [pr, ph, pt, pc, ma, ad, pa, ms, dc, up, rq] = await Promise.all([
+          sb.from('projects').select('*, client:profiles!client_id(name)').eq('id', pid).single(),
+          q('phases', ['sort', true]), q('photos', ['taken_at', false]), q('photo_comments', ['created_at', true]), q('materials', ['room', true]),
+          q('addenda', ['added_on', false]), q('payments', ['paid_on', false]), q('messages', ['created_at', true]), q('documents', ['created_at', false]),
+          q('updates', ['created_at', false]), q('change_requests', ['created_at', false])
+        ]);
+        const photosR = chk(pt), msgR = chk(ms);
+        const urls = await signMany([...photosR.map(p => p.path), ...msgR.map(m => m.attachment_path)]);
+        const comments = chk(pc);
+        return {
+          project: mapProject(chk(pr)), phases: chk(ph).map(mapPhase),
+          photos: photosR.map(p => ({ id: p.id, phaseId: p.phase_id, path: p.path, url: urls[p.path] || null, cls: null, caption: p.caption || '', date: p.taken_at, comments: comments.filter(c => c.photo_id === p.id).map(c => ({ id: c.id, author: c.author_name || '', body: c.body, at: c.created_at.slice(0, 10) })) })),
+          materials: chk(ma).map(mapMat),
+          addenda: chk(ad).map(r => ({ id: r.id, desc: r.description, date: r.added_on, amount: num(r.amount), status: r.status })),
+          payments: chk(pa).map(r => ({ id: r.id, label: r.label, date: r.paid_on, amount: num(r.amount), status: r.status })),
+          messages: msgR.map(m => ({ id: m.id, staff: m.sender_staff, name: m.sender_name, body: m.body, at: m.created_at, att: m.attachment_path ? { url: urls[m.attachment_path], name: m.attachment_name } : null })),
+          documents: chk(dc).map(d => ({ id: d.id, cat: d.category, name: d.name, path: d.path, size: d.size_bytes })),
+          updates: chk(up).map(u => ({ id: u.id, kind: u.kind, text: u.text, at: u.created_at })),
+          requests: chk(rq).map(r => ({ id: r.id, body: r.body, at: r.created_at }))
+        };
+      },
+      async addComment(pid, photoId, body) {
+        const r = chk(await sb.from('photo_comments').insert({ project_id: pid, photo_id: photoId, author_id: me.id, author_name: me.name, body }).select().single());
+        return { id: r.id, author: me.name, body, at: r.created_at.slice(0, 10) };
+      },
+      async sendMessage(pid, body, file) {
+        let attachment_path = null, attachment_name = null;
+        if (file) { attachment_path = await upload(pid, 'chat', file); attachment_name = file.name; }
+        const r = chk(await sb.from('messages').insert({ project_id: pid, sender_id: me.id, sender_name: me.name, sender_staff: me.role === 'staff', body, attachment_path, attachment_name }).select().single());
+        const u = attachment_path ? (await signMany([attachment_path]))[attachment_path] : null;
+        return { id: r.id, staff: r.sender_staff, name: me.name, body, at: r.created_at, att: attachment_path ? { url: u, name: attachment_name } : null };
+      },
+      async confirmMaterial(pid, mid, accept) { chk(await sb.rpc('confirm_material', { mid, accept })); },
+      async requestChange(pid, body) { chk(await sb.from('change_requests').insert({ project_id: pid, author_id: me.id, body })); },
+      async docUrl(d) { const u = await signMany([d.path]); return u[d.path]; },
+      // ---- equipa ----
+      async createClientProject(f) {
+        const tmp = window.supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY, { auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false } });
+        const su = await tmp.auth.signUp({ email: f.email, password: f.password, options: { data: { name: f.clientName } } });
+        if (su.error) throw new Error(su.error.message);
+        if (!su.data.user || (su.data.user.identities && !su.data.user.identities.length)) throw new Error('Este email já tem conta.');
+        const row = chk(await sb.from('projects').insert({ client_id: su.data.user.id, name: f.name, address: f.address, start_date: f.start, end_date: f.end, area: f.area, base_budget: +f.base || 0, manager_name: f.mgrName }).select('*, client:profiles!client_id(name)').single());
+        chk(await sb.from('phases').insert(defaultPhases(f.start, f.end).map(p => ({ project_id: row.id, kind: p.kind, sort: p.sort, planned_start: p.ps, planned_end: p.pe }))));
+        return mapProject(row);
+      },
+      async saveProject(pid, p) { chk(await sb.from('projects').update({ name: p.name, address: p.address, status: p.status, start_date: p.start, end_date: p.end, area: p.area, base_budget: p.base, manager_name: p.mgrName }).eq('id', pid)); },
+      async savePhase(pid, p) { chk(await sb.from('phases').update({ name: p.name || null, planned_start: p.ps || null, planned_end: p.pe || null, actual_start: p.as || null, actual_end: p.ae || null, pct: +p.pct, status: p.status, validated: !!p.validated, note: p.note }).eq('id', p.id)); },
+      async addPhoto(pid, phaseId, file, caption, date) {
+        const path = await upload(pid, 'fotos', file);
+        const r = chk(await sb.from('photos').insert({ project_id: pid, phase_id: phaseId || null, path, caption, taken_at: date || today() }).select().single());
+        const u = await signMany([path]);
+        return { id: r.id, phaseId, path, url: u[path], cls: null, caption, date: r.taken_at, comments: [] };
+      },
+      async deletePhoto(pid, photoId, path) { chk(await sb.from('photos').delete().eq('id', photoId)); if (path) await sb.storage.from(BUCKET).remove([path]); },
+      async saveMaterial(pid, m) {
+        const row = { project_id: pid, cat: m.cat, room: m.room, name: m.name, budget_price: m.budget, real_price: m.real, unit: m.unit, status: m.status };
+        chk(m.id ? await sb.from('materials').update(row).eq('id', m.id) : await sb.from('materials').insert(row));
+      },
+      async deleteMaterial(pid, mid) { chk(await sb.from('materials').delete().eq('id', mid)); },
+      async saveAddendum(pid, a) { const row = { project_id: pid, description: a.desc, added_on: a.date, amount: a.amount, status: a.status }; chk(a.id ? await sb.from('addenda').update(row).eq('id', a.id) : await sb.from('addenda').insert(row)); },
+      async savePayment(pid, a) { const row = { project_id: pid, label: a.label, paid_on: a.date, amount: a.amount, status: a.status }; chk(a.id ? await sb.from('payments').update(row).eq('id', a.id) : await sb.from('payments').insert(row)); },
+      async addDocument(pid, cat, file) { const path = await upload(pid, 'docs', file); chk(await sb.from('documents').insert({ project_id: pid, category: cat, name: file.name, path, size_bytes: file.size })); },
+      async deleteDocument(pid, did, path) { chk(await sb.from('documents').delete().eq('id', did)); if (path) await sb.storage.from(BUCKET).remove([path]); },
+      async addUpdate(pid, kind, text) { chk(await sb.from('updates').insert({ project_id: pid, kind, text })); }
+    };
+  }
+
+  window.DB = LIVE ? supa() : demo();
+  window.DBU = { today, addDays, diffDays, KINDS, defaultPhases };
+})();
+
+</script>
+<script>
+'use strict';
+/* Obras com Evidência — site institucional + Área de Cliente + painel da equipa.
+   Dados via window.DB (Supabase ou demonstração). */
+
+const I18N = window.I18N, DB = window.DB, U = window.DBU;
+let lang = (navigator.language || 'pt').toLowerCase().startsWith('en') ? 'en' : 'pt';
+try { const s = localStorage.getItem('oce-lang'); if (s) lang = s; } catch (e) {}
+const t = k => (I18N[lang][k] ?? k);
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const loc = () => (lang === 'pt' ? 'pt-PT' : 'en-GB');
+const eur = n => '€ ' + (+n || 0).toLocaleString(loc());
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const dm = s => (s ? s.slice(8, 10) + '/' + s.slice(5, 7) : '—');
+const dmy = s => (s ? s.slice(8, 10) + '/' + s.slice(5, 7) + '/' + s.slice(0, 4) : '—');
+function toast(m) { const e = $('#toast'); e.textContent = m; e.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => e.classList.remove('on'), 3000); }
+const ST = { user: null, projects: [], pid: null, B: null, page: 'dashboard', tab: 'fases', matTab: 'rev', pf: 'all', ps: 'recent', timer: null, testi: 0 };
+let testiTimer;
+const stopTimers = () => { clearInterval(testiTimer); clearInterval(ST.timer); };
+
+// ---------- logótipo ----------
+const logo = (dark = false) => { const c = dark ? 'var(--color-text-on-dark)' : 'var(--color-text)'; return `<svg viewBox="0 0 330 190" role="img" aria-label="Obras com Evidência — Build & Design">
+<polygon points="115,14 215,14 318,70 250,70" style="fill:var(--color-logo)"/><polyline points="12,72 113,14" style="stroke:var(--color-logo)" stroke-width="3" fill="none"/>
+<g style="fill:${c}" font-family="Jost,sans-serif" text-anchor="middle">
+<line x1="10" y1="92" x2="52" y2="92" style="stroke:${c}" stroke-width="1.5"/><line x1="208" y1="92" x2="320" y2="92" style="stroke:${c}" stroke-width="1.5"/>
+<text x="130" y="102" font-size="34" font-weight="300">Obras com</text><text x="165" y="152" font-size="50" font-weight="300" letter-spacing="1">EVIDÊNCIA</text>
+<line x1="10" y1="172" x2="48" y2="172" style="stroke:${c}" stroke-width="1.5"/><line x1="290" y1="172" x2="320" y2="172" style="stroke:${c}" stroke-width="1.5"/>
+<text x="168" y="178" font-size="12" letter-spacing="6" style="fill:var(--color-accent)">BUILD &amp; DESIGN</text></g></svg>`; };
+
+// ---------- modal genérico ----------
+function modal(html, wide) {
+  const m = document.createElement('div'); m.className = 'modal open';
+  m.innerHTML = `<div class="box ${wide ? 'wide' : ''}"><button class="x" aria-label="×">×</button>${html}</div>`;
+  document.body.appendChild(m);
+  m.result = new Promise(res => { m.close = v => { m.remove(); res(v); }; });
+  $('.x', m).onclick = () => m.close(null); m.onclick = e => { if (e.target === m) m.close(null); };
+  return m;
+}
+function ask(title, ph) {
+  const m = modal(`<h3>${title}</h3><form class="f" style="margin-top:14px"><textarea rows="4" required placeholder="${esc(ph)}"></textarea><div class="btns"><button class="btn sm">${t('send_b')}</button><button type="button" class="btn ghost" data-c>${t('cancel')}</button></div></form>`);
+  const f = $('form', m);
+  f.onsubmit = e => { e.preventDefault(); m.close($('textarea', f).value.trim()); }; $('[data-c]', m).onclick = () => m.close(null);
+  return m.result;
+}
+const busy = async (fn, ok) => { try { await fn(); if (ok) toast(ok); return true; } catch (e) { toast((lang === 'pt' ? 'Erro: ' : 'Error: ') + (e.message || e)); return false; } };
+
+// ---------- router ----------
+async function route() {
+  stopTimers();
+  const h = location.hash.replace(/^#\/?/, '');
+  ST.user = DB.user();
+  if (h.startsWith('gestao')) {
+    if (!ST.user || ST.user.role !== 'staff') { location.hash = '#/'; setTimeout(openLogin, 60); return; }
+    return staffRoute(h.split('/').slice(1));
+  }
+  if (h.startsWith('area')) {
+    if (!ST.user) { location.hash = '#/'; setTimeout(openLogin, 60); return; }
+    if (ST.user.role === 'staff') { location.hash = '#/gestao'; return; }
+    $('#app').innerHTML = `<p style="padding:40px;text-align:center">${t('loading')}</p>`;
+    try {
+      ST.projects = await DB.listProjects();
+      if (!ST.projects.find(p => p.id === ST.pid)) ST.pid = ST.projects[0]?.id;
+      ST.B = ST.pid ? await DB.loadBundle(ST.pid) : null;
+    } catch (e) { toast(e.message); }
+    ST.page = h.split('/')[1] || 'dashboard';
+    if (!MENU.some(m => m[0] === ST.page)) ST.page = 'dashboard';
+    return renderClient();
+  }
+  renderPublic();
+  if (h) requestAnimationFrame(() => { const el = document.getElementById(h); el && el.scrollIntoView(); });
+}
+window.addEventListener('hashchange', route);
+function setLang(l) { lang = l; try { localStorage.setItem('oce-lang', l); } catch (e) {} const h = location.hash; if (h.startsWith('#/area')) renderClient(); else route(); }
+const banner = () => (DB.live ? '' : `<div class="banner">${t('demo_banner')}</div>`);
+const homeFor = u => (u.role === 'staff' ? '#/gestao' : '#/area/dashboard');
+
+/* ===================== SITE PÚBLICO ===================== */
+const TESTI = [['Patrícia Moura', 'A área de cliente deu-me uma tranquilidade total durante toda a obra.', 'PM'], ['Ricardo & Sofia Almeida', 'Sempre soubemos o estado da obra e quanto custava cada decisão. Zero surpresas.', 'RS'], ['Miguel Tavares', 'Método e transparência raros no setor. Recomendo sem hesitar.', 'MT'], ['Helena Costa', 'As fotografias semanais e o chat direto substituíram dezenas de chamadas.', 'HC']];
+const TESTI_EN = ['The client area gave me total peace of mind throughout the project.', 'We always knew the project status and what every decision cost. Zero surprises.', 'Method and transparency that are rare in the industry. I recommend without hesitation.', 'The weekly photos and the direct chat replaced dozens of phone calls.'];
+
+function renderPublic() {
+  document.documentElement.lang = lang === 'pt' ? 'pt-PT' : 'en';
+  $('#app').innerHTML = `${banner()}
+  <header class="hdr"><div class="wrap">
+    <a class="logo" href="#/" aria-label="Obras com Evidência">${logo()}</a>
+    <nav class="nav" id="nav"><a href="#about">${t('nav_about')}</a><a href="#services">${t('nav_services')}</a><a href="#projects">${t('nav_projects')}</a><a href="#contact">${t('nav_contact')}</a></nav>
+    <div class="hdr-r"><div class="lang"><button data-l="pt" class="${lang === 'pt' ? 'on' : ''}">PT</button>|<button data-l="en" class="${lang === 'en' ? 'on' : ''}">EN</button></div>
+      <button class="btn sm" id="loginBtn" style="font-family:var(--font-serif);font-size:1.05rem">${t('client')}</button><button class="burger" id="burger" aria-label="Menu">☰</button></div></div></header>
+
+  <section class="hero"><div class="wrap">
+    <div><h1>${t('hero1')}</h1><p>${t('hero2')}</p><button class="btn" data-login>${t('client')}</button></div>
+    <div class="mock" aria-hidden="true"><div class="mock-side"><b style="font-family:var(--font-serif);font-size:.95rem;padding:4px 8px 12px">EVIDÊNCIA</b><i class="on">Dashboard</i><i>${t('m_plan')}</i><i>${t('m_prog')}</i><i>${t('m_photos')}</i><i>${t('m_mat')}</i><i>${t('m_fin')}</i><i>${t('m_comm')}</i></div>
+      <div class="mock-main"><small>${t('welcome')}</small><h4>${t('obra')}</h4><small>● ${t('running')} · 45%</small>
+        <div class="mock-card"><b style="font-family:var(--font-serif);font-size:1rem">${t('sched')}</b>
+          <div class="row"><span>${t('ph_dem')}</span><span>100%</span></div><div class="mini-bar"><b style="width:100%"></b></div>
+          <div class="row"><span>${t('ph_str')}</span><span>80%</span></div><div class="mini-bar"><b style="width:80%"></b></div>
+          <div class="row"><span>${t('ph_net')}</span><span>45%</span></div><div class="mini-bar"><b style="width:45%"></b></div></div>
+        <div class="mock-card"><b style="font-family:var(--font-serif);font-size:1rem">${t('m_photos')}</b><div style="display:flex;gap:6px;margin-top:8px"><i class="tile ph-a"></i><i class="tile ph-b"></i><i class="tile ph-c"></i></div></div></div></div>
+  </div></section>
+
+  <section class="sec testi" id="testimonials"><div class="wrap"><h2>${t('testi')}</h2><div style="height:30px"></div>
+    <div class="carousel"><button class="arrow" id="tPrev" aria-label="‹">‹</button><div class="slide" id="slide"></div><button class="arrow" id="tNext" aria-label="›">›</button></div><div class="dots" id="dots"></div></div></section>
+
+  <section class="sec alt" id="about"><div class="wrap about"><div><span class="eyebrow" style="text-align:left">${t('about_e')}</span><h2>${t('about_t')}</h2><p>${t('about_p1')}</p><p>${t('about_p2')}</p></div>
+    <div class="pillars">${[1, 2, 3, 4].map(i => `<div class="pillar"><b>${t('p' + i)}</b><span>${t('p' + i + 's')}</span></div>`).join('')}</div></div></section>
+
+  <section class="sec" id="services"><div class="wrap"><span class="eyebrow">${t('nav_services')}</span><h2>${t('serv_t')}</h2><p class="lead">${t('serv_l')}</p>
+    <div class="grid3">${[['⌂', 1], ['✎', 2], ['✓', 3]].map(([i, n]) => `<div class="card"><div class="ico">${i}</div><h3>${t('s' + n)}</h3><p>${t('s' + n + 'd')}</p></div>`).join('')}</div></div></section>
+
+  <section class="sec alt" id="projects"><div class="wrap"><span class="eyebrow">${t('nav_projects')}</span><h2>${t('proj_t')}</h2><p class="lead">${t('proj_l')}</p>
+    <div class="grid3">${[['Moradia em Cascais', 'Cascais · 2024'], ['Apartamento Chiado', 'Lisboa · 2023'], ['Villa Comporta', 'Comporta · 2023']].map(p => `<div class="proj"><div class="img"></div><div class="t"><h3>${p[0]}</h3><span>${p[1]}</span></div></div>`).join('')}</div></div></section>
+
+  <section class="sec" id="contact"><div class="wrap contact"><div><span class="eyebrow" style="text-align:left">${t('nav_contact')}</span><h2>${t('cont_t')}</h2><p style="color:var(--color-text-muted);font-weight:300;font-size:1.1rem">${t('cont_l')}</p>
+    <ul><li>✉ geral@obrascomevidencia.com</li><li>☎ +351 000 000 000</li><li>⌖ Lisboa, Portugal</li><li>🌐 www.obrascomevidencia.com</li></ul></div>
+    <form class="f" id="quoteForm"><label>${t('name')}<input required name="n"></label><label>${t('email')}<input required type="email" name="e"></label><label>${t('phone')}<input name="p"></label><label>${t('msg')}<textarea rows="4" name="m"></textarea></label><button class="btn" style="justify-self:start">${t('send')}</button></form></div></section>
+
+  <footer class="ftr"><div class="wrap">${logo(true)}<div>${t('footer')}</div></div></footer>
+  <a class="btn float-cta" href="#contact">${t('quote')}</a>`;
+  $$('.lang button').forEach(b => b.onclick = () => setLang(b.dataset.l));
+  $('#loginBtn').onclick = enterArea; $$('[data-login]').forEach(b => b.onclick = enterArea);
+  $('#quoteForm').onsubmit = e => { e.preventDefault(); e.target.reset(); toast(t('sent')); };
+  $('#burger').onclick = () => $('#nav').classList.toggle('open');
+  $$('#nav a').forEach(a => a.onclick = () => $('#nav').classList.remove('open'));
+  const hdr = $('.hdr'); const onS = () => hdr.classList.toggle('sc', scrollY > 10); onS(); addEventListener('scroll', onS, { passive: true });
+  const show = i => {
+    ST.testi = (i + TESTI.length) % TESTI.length; const [n, q, ini] = TESTI[ST.testi];
+    $('#slide').innerHTML = `<div class="avatar">${ini}</div><q>${lang === 'pt' ? q : TESTI_EN[ST.testi]}</q><cite>${n}</cite>`;
+    $('#dots').innerHTML = TESTI.map((_, k) => `<button class="${k === ST.testi ? 'on' : ''}" data-i="${k}" aria-label="${k + 1}"></button>`).join('');
+    $$('#dots button').forEach(b => b.onclick = () => { show(+b.dataset.i); auto(); });
+  };
+  const auto = () => { clearInterval(testiTimer); testiTimer = setInterval(() => ($('#slide') ? show(ST.testi + 1) : clearInterval(testiTimer)), 6000); };
+  $('#tPrev').onclick = () => { show(ST.testi - 1); auto(); }; $('#tNext').onclick = () => { show(ST.testi + 1); auto(); };
+  show(ST.testi); auto();
+}
+function enterArea() { const u = DB.user(); if (u) location.hash = homeFor(u); else openLogin(); }
+function openLogin() {
+  const demo = !DB.live;
+  const m = modal(`<h3>${t('login_t')}</h3><p class="sub">${t('login_s')}</p>
+    <form class="f" id="loginForm"><label>${t('email')}<input name="u" type="email" required autocomplete="username" value="${demo ? 'cliente@demo.pt' : ''}"></label>
+    <label>${t('pass')}<input name="p" type="password" required autocomplete="current-password" value="${demo ? 'demo1234' : ''}"></label>
+    <div class="err" id="lerr"></div><button class="btn" style="justify-content:center">${t('enter')}</button></form>
+    ${demo ? `<div class="demo-links"><button type="button" id="asStaff">${t('staff_enter')}</button></div><p class="hint">${t('demo')}</p>` : ''}`);
+  const f = $('#loginForm', m);
+  f.onsubmit = async e => {
+    e.preventDefault(); $('#lerr', m).textContent = '';
+    try { const u = await DB.signIn(f.u.value.trim(), f.p.value); m.close(); const h = homeFor(u); if (location.hash === h) route(); else location.hash = h; }
+    catch (er) { $('#lerr', m).textContent = t('login_err') + ' ' + (er.message || ''); }
+  };
+  if (demo) $('#asStaff', m).onclick = () => { f.u.value = 'equipa@demo.pt'; f.requestSubmit(); };
+}
+
+/* ===================== ÁREA DE CLIENTE ===================== */
+const MENU = [['dashboard', 'm_dashboard', '⌂'], ['plan', 'm_plan', '▤'], ['prog', 'm_prog', '◔'], ['photos', 'm_photos', '▣'], ['mat', 'm_mat', '▦'], ['fin', 'm_fin', '€'], ['comm', 'm_comm', '✉'], ['docs', 'm_docs', '❏'], ['data', 'm_data', '☰']];
+const phName = p => p.name || t('ph_' + p.kind);
+const stLbl = s => t(s === 'running' ? 'running' : s === 'done' ? 'done' : 'planned');
+const gPct = B => (B.phases.length ? Math.round(B.phases.reduce((a, p) => a + p.pct, 0) / B.phases.length) : 0);
+const first = s => (s || '').split(' ')[0];
+function rel(at) {
+  const d = String(at).slice(0, 10), td = U.today();
+  if (d === td) return t('today'); if (d === U.addDays(td, -1)) return t('yest'); return dm(d);
+}
+const head = (title, sub, extra = '') => `<div class="page-h"><div><h1>${title}</h1><p>${sub}</p></div>${extra}</div>`;
+const noteH = () => `<div class="note">${t('val_note')}</div>`;
+const barRow = p => { const st = p.status; return `<div class="ph"><div class="n"><span class="chk ${st === 'done' ? 'done' : st === 'running' ? 'run' : ''}">${st === 'done' ? '✓' : st === 'running' ? '●' : ''}</span>${esc(phName(p))}</div><div class="bar ${st === 'planned' ? 's' : ''}"><b style="width:${st === 'planned' ? 30 : p.pct}%"></b></div><div class="v">${st === 'done' ? t('done') : st === 'planned' ? `<span class="tag">${t('planned')}</span>` : p.pct + '%'}</div></div>`; };
+const accepted = {};
+
+const PAGES = {
+  dashboard(B) {
+    const P = B.project, cur = B.phases.find(p => p.status === 'running'), nxt = B.phases.find(p => p.status === 'planned'), g = gPct(B);
+    const upd = B.updates.slice(0, 5).map(u => `<li><span class="ic">${u.kind === 'photos' ? '▣' : u.kind === 'schedule' ? '▤' : u.kind === 'addendum' ? '✓' : '•'}</span>${esc(u.kind === 'photos' ? t('u1') : u.kind === 'schedule' ? t('u2') : u.kind === 'addendum' ? t('u3') : u.text)}<em>${rel(u.at)}</em></li>`).join('');
+    return `<div class="page-h"><div><h1 style="font-size:2rem">${lang === 'pt' ? 'Bem-vindo, Sr. ' : 'Welcome, Mr. '}${esc(ST.user.name)}</h1><h1 style="font-size:2rem;margin-top:4px">${esc(P.name)}</h1><div class="status"><span class="dot"></span>${stLbl(P.status)} · ${g}%</div></div>
+      <button class="btn ghost" id="contactBtn">👤 ${t('send_contact')}</button></div>
+    <div class="cols"><div class="stack">
+      <div class="panel"><h3>${t('prog_obra')}</h3><div class="pbar"><div class="bar"><b style="width:${g}%"></b></div><div class="big">${g}%</div></div>
+        <div class="two"><div><small>${t('next')}</small><b>${nxt ? esc(phName(nxt)) : '—'}</b></div><div><small>${t('cur_spec')}</small><b>${cur ? esc(phName(cur)) : '—'}</b></div></div></div>
+      <div class="panel"><div style="display:flex;justify-content:space-between;align-items:baseline"><h3>${t('sched')}</h3><a class="link" href="#/area/plan">${t('see_full')} ›</a></div>${B.phases.slice(0, 4).map(barRow).join('') || t('no_items')}</div>${noteH()}</div>
+      <div class="panel"><h3>${t('last_upd')}</h3><ul class="upd">${upd || `<li>${t('no_items')}</li>`}</ul></div></div>`;
+  },
+  plan(B) {
+    const P = B.project, ph = B.phases;
+    const dates = ph.flatMap(p => [p.ps, p.pe, p.as, p.ae]).filter(Boolean).sort();
+    const s0 = P.start || dates[0], e0 = P.end || dates[dates.length - 1] || s0;
+    const tot = Math.max(U.diffDays(s0, e0), 1);
+    const pos = d => Math.max(0, Math.min(100, (U.diffDays(s0, d) / tot) * 100));
+    const months = []; const d0 = new Date(s0 + 'T00:00:00'); let y = d0.getFullYear(), mo = d0.getMonth();
+    for (let n = 0; n < 36; n++) { const ds = `${y}-${String(mo + 1).padStart(2, '0')}-01`; if (ds > e0) break; months.push([pos(ds), new Date(y, mo, 1).toLocaleDateString(loc(), { month: 'short' })]); mo++; if (mo > 11) { mo = 0; y++; } }
+    const td = U.today(), showToday = td >= s0 && td <= e0;
+    return `${head(t('plan_t'), t('plan_s'), `<div class="meta"><div>${t('start')}: <b>${dmy(P.start)}</b></div><div>${t('end')}: <b>${dmy(P.end)}</b></div><div>${t('state')}: ${stLbl(P.status)}</div></div>`)}
+    <div class="panel"><div class="legend"><span><i class="sw" style="background:var(--color-success)"></i>${t('done')}</span><span><i class="sw" style="background:var(--color-brand-2)"></i>${t('running')}</span><span><i class="sw" style="background:var(--color-accent-soft)"></i>${t('planned')}</span></div>
+    <div class="gantt"><div class="g-in" id="gantt"><div class="g-head"><div></div><div class="g-scale" style="display:block;position:relative;height:26px;border:0">${months.map(([p, l]) => `<span style="position:absolute;left:${p}%;border:0;border-left:1px dashed var(--color-border)">${l}</span>`).join('')}</div></div>
+      ${ph.map((p, i) => { const bs = p.as || p.ps, be = p.ae || p.pe; const L = bs ? pos(bs) : 0, W = bs && be ? Math.max(pos(be) - L, 2) : 0; const cls = p.status === 'done' ? 'done' : p.status === 'running' ? 'run' : 'plan';
+        return `<div class="g-row"><div class="n"><span class="chk ${p.status === 'done' ? 'done' : p.status === 'running' ? 'run' : ''}">${p.status === 'done' ? '✓' : p.status === 'running' ? '●' : ''}</span>${esc(phName(p))}</div>
+        <div class="g-track" style="background:none">${W ? `<div class="g-bar ${cls}" data-i="${i}" tabindex="0" style="left:${L}%;width:${W}%">${dm(bs)} – ${dm(be)}</div>` : ''}${p.pct ? `<span class="g-pct" style="left:${Math.min(L + W + 1, 92)}%">${p.pct}%</span>` : ''}${showToday ? `<div class="g-today" style="left:${pos(td)}%" title="${t('today_l')}"></div>` : ''}</div></div>`; }).join('')}
+      <div class="g-tip" id="gtip"></div></div></div></div><div class="note">${t('plan_note')}</div>`;
+  },
+  prog(B) {
+    return `${head(t('prog_t'), t('prog_s'))}<div class="pg">${B.phases.map((p, i) => `<div class="panel sp ${i === 0 ? 'full' : ''}"><header><h3>${esc(phName(p))}</h3>${p.status === 'planned' ? `<span class="tag">${t('planned')}</span>` : `<span class="pc">${p.pct}%</span>`}</header>
+      <div class="bar ${p.pct === 100 ? 'g' : p.status === 'planned' ? 's' : ''}"><b style="width:${p.pct}%"></b></div>
+      <div class="row"><span>${esc(p.note || (p.status === 'planned' ? t('d_next') : ''))}</span>${p.validated ? `<span class="ok">${t('approved')}</span>` : ''}</div>
+      <a class="link" href="#/area/plan">${t('check_detail')} ›</a></div>`).join('')}</div>${noteH()}`;
+  },
+  photos(B) {
+    const kinds = [['all', t('all')], ...B.phases.map(p => [p.id, phName(p)])];
+    const counts = B.phases.map(p => [p, B.photos.filter(x => x.phaseId === p.id).length]).filter(([, n]) => n);
+    return `${head(t('ph_t'), t('ph_s').replace('Cascais', B.project.name), `<button class="btn ghost" id="baBtn">${t('ba')}</button>`)}
+    <div class="filters"><div class="seg" id="pf">${kinds.map(([k, l]) => `<button data-k="${k}" class="${ST.pf === k ? 'on' : ''}">${esc(l)}</button>`).join('')}</div>
+      <select class="sel" id="ps"><option value="recent" ${ST.ps === 'recent' ? 'selected' : ''}>${t('recent')}</option><option value="old" ${ST.ps === 'old' ? 'selected' : ''}>${t('oldest')}</option></select></div>
+    <div class="stats">${counts.map(([p, n]) => `<div class="stat" data-k="${p.id}"><h4>${esc(phName(p))}</h4><span>${n} ${t('photos')}</span></div>`).join('')}</div><div id="pgrid"></div>`;
+  },
+  mat(B) {
+    const cats = { rev: t('ph_cov'), car: t('ph_car'), ban: lang === 'pt' ? 'Bancadas' : 'Countertops', san: lang === 'pt' ? 'Sanitários' : 'Sanitary ware' };
+    const items = B.materials.filter(m => m.cat === ST.matTab), rooms = [...new Set(items.map(m => m.room || '—'))];
+    const hist = B.materials.filter(m => m.status === 'approved' || m.decided).sort((a, b) => (b.decided || '').localeCompare(a.decided || ''));
+    const f = (m, v) => (m.unit === 'm2' ? `€${v}/m²` : eur(v));
+    return `${head(t('mat_t'), t('mat_s'))}<div class="mtabs" id="mt">${Object.entries(cats).map(([k, l]) => `<button data-k="${k}" class="${ST.matTab === k ? 'on' : ''}">${l}</button>`).join('')}</div>
+    <div class="mat-cols"><div>${rooms.map(r => `<div class="room"><button>${esc(r)} <span>⌄</span></button>${items.filter(m => (m.room || '—') === r).map(matRow).join('')}</div>`).join('') || `<p class="tag">${t('no_items')}</p>`}</div>
+    <div class="panel"><h3>${t('hist_dec')}</h3><ul class="hist">${hist.map(m => { const r = m.real ?? m.budget, d = r - m.budget; return `<li><div>${esc(m.name)}<small>${dmy(m.decided)}</small></div><div class="${d > 0 ? 'over' : 'good'}">${f(m, r)}${d > 0 ? `<small class="over">+ ${f(m, d)}</small>` : ''}</div></li>`; }).join('') || `<li>${t('no_items')}</li>`}</ul>
+    <div class="rule"><span>❌ ${t('r1')}</span><span>❌ ${t('r2')}</span><span>✅ ${t('r3')}</span></div></div></div>`;
+  },
+  fin(B) {
+    const base = B.project.base, add = B.addenda.filter(a => a.status === 'approved').reduce((s, a) => s + a.amount, 0), tot = base + add, paid = B.payments.filter(p => p.status === 'paid').reduce((s, p) => s + p.amount, 0);
+    return `${head(t('fin_t'), t('fin_s').replace('Cascais', B.project.name))}
+    <div class="kpis"><div class="kpi"><b>${eur(base)}</b><small>${t('k1')}</small></div><div class="kpi"><b style="color:var(--color-text-muted)">${eur(add)}</b><small>${t('k2')}</small></div><div class="kpi"><b>${eur(tot)}</b><small>${t('k3')}</small></div><div class="kpi g"><b>${eur(paid)}</b><small>${t('k4')}</small></div><div class="kpi"><b>${eur(tot - paid)}</b><small>${t('k5')}</small></div></div>
+    <div class="panel"><div><h3 style="margin:0">${t('base')}</h3><small class="tag">${t('base_s')}</small></div><table class="tbl"><tr><td>${t('base')}</td><td class="r">${eur(base)}</td><td class="r"><span class="ok">${t('approved')}</span></td></tr></table></div>
+    <div class="sec-h"><h3>${t('add_t')}</h3><button class="btn ghost" id="reqBtn">${t('req')}</button></div>
+    <div class="panel"><table class="tbl">${B.addenda.map(a => `<tr><td>▸ ${esc(a.desc)}</td><td class="tag">${dmy(a.date)}</td><td class="r">${eur(a.amount)}</td><td class="r">${a.status === 'approved' ? `<span class="ok">${t('approvedF')}</span>` : `<span class="tag">${lang === 'pt' ? 'Pendente' : 'Pending'}</span>`}</td></tr>`).join('') || `<tr><td>${t('no_items')}</td></tr>`}</table></div>
+    <div class="sec-h"><h3>${t('hist_f')}</h3></div>
+    <div class="panel"><table class="tbl">${B.payments.map(p => `<tr><td>${esc(p.label)}</td><td class="tag">${dmy(p.date)}</td><td class="r">${eur(p.amount)}</td><td class="r">${p.status === 'paid' ? `<span class="ok">${t('paid')}</span>` : `<span class="tag">${lang === 'pt' ? 'Em aberto' : 'Open'}</span>`}</td></tr>`).join('')}
+      <tr><td>${t('init_b')}</td><td class="tag">${dmy(B.project.start)}</td><td class="r">${eur(base)}</td><td class="r tag">📄 ${t('contract_ok')}</td></tr></table></div>`;
+  },
+  comm(B) {
+    const P = B.project, days = {};
+    B.messages.forEach(m => { const d = m.at.slice(0, 10); days[d] = (days[d] || 0) + 1; });
+    const ini = (P.mgrName || 'R').split(' ').filter(w => /^[A-ZÁÉÍÓÚ]/.test(w)).slice(-2).map(w => w[0]).join('') || 'R';
+    return `${head(t('comm_t'), t('comm_s'))}<div class="chat"><div class="chat-m"><div class="chat-h"><div class="avatar">${esc(ini)}</div><div><b>${esc(P.mgrName || '—')}</b> – <span class="tag">${esc(P.mgrRole || t('role'))}</span><small><span class="dot"></span>${t('online')}</small></div></div>
+      <div class="msgs" id="msgs">${B.messages.map(chatMsg).join('')}</div>
+      <form class="composer" id="cf"><label class="att" title="+"><input type="file" id="cfile" hidden>📎</label><input type="text" id="ci" placeholder="${t('compose')}" autocomplete="off"><button class="btn sm">➤</button></form></div>
+      <aside class="chat-s"><h3>${t('conv')}</h3><ul>${Object.entries(days).sort().reverse().map(([d, n]) => `<li><div>${dmy(d)}<small>${n} ${t('msgs')}</small></div></li>`).join('')}</ul></aside></div>`;
+  },
+  docs(B) {
+    return `${head(t('docs_t'), t('docs_s'))}<div class="docs">${B.documents.map(d => `<div class="doc"><div class="ic">${esc((d.name.split('.').pop() || 'FILE').toUpperCase().slice(0, 4))}</div><div>${esc(d.name)}<small>${t(d.cat)} · ${d.size ? (d.size / 1048576).toFixed(1) + ' MB' : ''}</small></div><button class="btn ghost" data-doc="${d.id}">⬇ ${t('dl')}</button></div>`).join('') || `<p class="tag">${t('no_items')}</p>`}</div>`;
+  },
+  data(B) {
+    const P = B.project;
+    return `${head(t('data_t'), t('data_s'))}<div class="panel"><dl class="dl"><div><dt>${t('cli')}</dt><dd>${esc(P.clientName || ST.user.name)}</dd><dt>${t('addr')}</dt><dd>${esc(P.address || '—')}</dd><dt>${t('typ')}</dt><dd>${esc(P.name)}</dd></div>
+      <div><dt>${t('resp')}</dt><dd>${esc(P.mgrName || '—')}</dd><dt>${t('area')}</dt><dd>${esc(P.area || '—')}</dd><dt>${t('stt')}</dt><dd>${stLbl(P.status)} · ${gPct(B)}%</dd></div>
+      <div><dt>${t('start')}</dt><dd>${dmy(P.start)}</dd><dt>${t('end')}</dt><dd>${dmy(P.end)}</dd></div></dl></div>`;
+  }
+};
+function chatMsg(m) {
+  const mine = ST.user && (ST.user.role === 'staff' ? m.staff : !m.staff);
+  const hm = new Date(m.at).toLocaleTimeString(loc(), { hour: '2-digit', minute: '2-digit' });
+  return `<div class="msg ${mine ? 'me' : ''}"><span class="nm">${esc(m.name || '')}</span>${esc(m.body || '')}${m.att ? `<br><a class="att" href="${esc(m.att.url || '#')}" target="_blank" rel="noopener">📎 ${esc(m.att.name)}</a>` : ''}<time>${hm}</time></div>`;
+}
+function matRow(m) {
+  const real = m.real ?? m.budget, diff = real - m.budget, over = diff > 0, ok = m.status === 'approved', f = v => (m.unit === 'm2' ? `€${v}/m²` : eur(v));
+  const stl = ok ? `<span class="state ap">✓ ${t('approved')}</span>` : m.status === 'selected' ? `<span class="state sel">${t('selected')}</span>` : `<span class="state">${t('analysis')}</span>`;
+  const acc = !!accepted[m.id];
+  return `<div class="mat"><div class="sw2"></div><div class="bd"><div class="tt">${esc(m.name)}${stl}</div>
+    <div class="pv"><span>${t('pvp_b')} <b>${f(m.budget)}</b></span><span>${t('pvp_r')} <b class="${over ? 'over' : ''}">${f(real)}</b></span>${over ? `<span class="balance over">+ ${f(diff)} ${t('over')}</span>` : `<span class="balance good">✓ ${t('within')}</span>`}</div>
+    ${!ok && over ? `<div class="warnbox"><div>⚠ ${t('exceeds')}</div><label><input type="checkbox" data-acc="${m.id}" ${acc ? 'checked' : ''}> ${t('accept')} <b class="over">+${f(diff)}</b> ${t('above')}</label><button class="btn sm" style="justify-self:end" data-ok="${m.id}" ${acc ? '' : 'disabled'}>${t('confirm')}</button></div>` : ''}
+    ${!ok && !over ? `<div style="text-align:right"><button class="btn sm" data-ok="${m.id}">${t('confirm')}</button></div>` : ''}</div></div>`;
+}
+
+function renderClient() {
+  stopTimers(); ST.user = DB.user(); if (!ST.user) return route();
+  document.documentElement.lang = lang === 'pt' ? 'pt-PT' : 'en';
+  const B = ST.B, page = ST.page;
+  if (!B) { $('#app').innerHTML = `${banner()}<p style="padding:60px;text-align:center">${t('no_items')} <a class="link" href="#/">←</a></p>`; return; }
+  const ini = ST.user.name.split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
+  $('#app').innerHTML = `${banner()}<div class="ca"><aside class="side" id="side"><a class="logo" href="#/">${logo()}</a>
+    <nav class="menu">${MENU.map(([k, l, ic]) => `<a href="#/area/${k}" class="${k === page ? 'on' : ''}"><span class="i">${ic}</span>${t(l)}</a>`).join('')}
+      <div class="user"><div class="avatar">${esc(ini)}</div><span>${esc(first(ST.user.name))}<br>${esc(ST.user.name.split(' ').slice(1).join(' '))}</span><button id="logout">${t('logout')}</button></div></nav></aside>
+    <main class="main"><div class="topbar"><div style="display:flex;align-items:center"><button class="mburger" id="mb" aria-label="Menu">☰</button><div class="tabs"><span class="on">Dashboard</span><span>${t('clients_tab')}</span>${ST.projects.length > 1 ? `<select id="pSel" class="sel" style="margin-left:16px">${ST.projects.map(p => `<option value="${p.id}" ${p.id === ST.pid ? 'selected' : ''}>${esc(p.name)}</option>`).join('')}</select>` : ''}</div></div>
+      <div class="top-r"><div class="lang"><button data-l="pt" class="${lang === 'pt' ? 'on' : ''}">PT</button>/<button data-l="en" class="${lang === 'en' ? 'on' : ''}">EN</button></div><div class="avatar">${esc(ini)}</div></div></div>
+      ${PAGES[page](B)}</main></div>`;
+  $('#logout').onclick = async () => { await DB.signOut(); ST.B = null; location.hash = '#/'; route(); };
+  $$('.lang button').forEach(b => b.onclick = () => setLang(b.dataset.l));
+  $('#mb').onclick = () => $('#side').classList.toggle('open');
+  $$('.menu a').forEach(a => a.addEventListener('click', () => $('#side').classList.remove('open')));
+  const ps = $('#pSel'); if (ps) ps.onchange = async () => { ST.pid = ps.value; ST.B = await DB.loadBundle(ST.pid); renderClient(); };
+  (BIND[page] || (() => {}))(B); scrollTo(0, 0);
+}
+const reload = async () => { ST.B = await DB.loadBundle(ST.pid); renderClient(); };
+
+const BIND = {
+  dashboard() { $('#contactBtn').onclick = () => { location.hash = '#/area/comm'; }; },
+  plan(B) {
+    const tip = $('#gtip'), box = $('#gantt');
+    $$('.g-bar', box).forEach(b => {
+      const p = B.phases[+b.dataset.i];
+      const show = () => { tip.innerHTML = `<div><span>${t('expected')}:</span><b>${dm(p.ps)} – ${dm(p.pe)}</b></div><div><span>${t('actual')}:</span><b>${p.as ? dm(p.as) : '—'} – ${p.ae ? dm(p.ae) : '—'}</b></div><div><span>${stLbl(p.status)}:</span><b>${p.pct}%</b></div>${p.note ? `<div style="color:var(--color-text-muted)">${esc(p.note)}</div>` : ''}`;
+        const r = b.getBoundingClientRect(), br = box.getBoundingClientRect(); tip.style.display = 'block'; tip.style.left = Math.max(0, Math.min(r.left - br.left + 20, br.width - 230)) + 'px'; tip.style.top = (r.bottom - br.top + 6) + 'px'; };
+      b.onmouseenter = b.onfocus = show; b.onmouseleave = b.onblur = () => (tip.style.display = 'none');
+    });
+  },
+  photos(B) {
+    const draw = () => {
+      const L = B.photos.filter(p => ST.pf === 'all' || p.phaseId === ST.pf).sort((a, b) => (ST.ps === 'recent' ? b.date.localeCompare(a.date) : a.date.localeCompare(b.date)));
+      const wk = U.addDays(U.today(), -7), recent = L.filter(p => p.date >= wk), rest = L.filter(p => p.date < wk);
+      const card = p => { const ph = B.phases.find(x => x.id === p.phaseId);
+        return `<div class="photo"><div class="im ${p.cls || ''}">${p.url ? `<img loading="lazy" src="${esc(p.url)}" alt="">` : ''}<span class="c">💬 ${p.comments.length}</span></div><div class="b"><div class="cap"><span>${esc(ph ? phName(ph) : '')}</span><span class="tag">${dm(p.date)}</span></div>${p.caption ? `<div class="tag">${esc(p.caption)}</div>` : ''}
+        <ul class="cl">${p.comments.map(c => `<li><b>${esc(c.author)}:</b> ${esc(c.body)}</li>`).join('')}</ul><form class="cm" data-id="${p.id}"><input placeholder="${t('add_cm')}" aria-label="${t('add_cm')}"><button>➤</button></form></div></div>`; };
+      const sec = (title, arr) => (arr.length ? `<h3 style="font-size:1.5rem;margin:6px 0 14px">${title}</h3><div class="ph-grid" style="margin-bottom:26px">${arr.map(card).join('')}</div>` : '');
+      $('#pgrid').innerHTML = (sec(t('week_sec'), recent) + sec(t('all_sec'), rest)) || `<p class="tag">${t('no_photos')}</p>`;
+      $$('.cm').forEach(f => f.onsubmit = async e => { e.preventDefault(); const v = f.firstElementChild.value.trim(); if (!v) return;
+        const ok = await busy(async () => { const c = await DB.addComment(ST.pid, f.dataset.id, v); const ph = B.photos.find(x => x.id === f.dataset.id); if (!ph.comments.find(x => x.id === c.id)) ph.comments.push(c); }); if (ok) draw(); });
+      $$('#pf button').forEach(b => b.classList.toggle('on', b.dataset.k === ST.pf));
+    };
+    $$('#pf button').forEach(b => b.onclick = () => { ST.pf = b.dataset.k; draw(); });
+    $$('.stat').forEach(s => s.onclick = () => { ST.pf = s.dataset.k; draw(); });
+    $('#ps').onchange = e => { ST.ps = e.target.value; draw(); };
+    $('#baBtn').onclick = () => {
+      const L = B.photos.filter(p => ST.pf === 'all' || p.phaseId === ST.pf).sort((a, b) => a.date.localeCompare(b.date));
+      if (L.length < 2) return toast(t('ba_need'));
+      const fig = (p, l) => `<figure><div class="im ${p.cls || ''}">${p.url ? `<img src="${esc(p.url)}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">` : ''}</div><figcaption>${l} · ${dmy(p.date)}</figcaption></figure>`;
+      modal(`<h3>${t('ba')}</h3><div class="ba">${fig(L[0], t('before'))}${fig(L[L.length - 1], t('after'))}</div>`, true);
+    };
+    draw();
+  },
+  mat() {
+    $$('#mt button').forEach(b => b.onclick = () => { ST.matTab = b.dataset.k; renderClient(); });
+    $$('[data-acc]').forEach(c => c.onchange = () => { accepted[c.dataset.acc] = c.checked; renderClient(); });
+    $$('[data-ok]').forEach(b => b.onclick = async () => { const id = b.dataset.ok; if (await busy(() => DB.confirmMaterial(ST.pid, id, !!accepted[id]), t('confirmed'))) reload(); });
+  },
+  fin() { $('#reqBtn').onclick = async () => { const v = await ask(t('req_title'), t('req_ph')); if (v) busy(() => DB.requestChange(ST.pid, v), t('req_ok')); }; },
+  comm(B) {
+    const box = $('#msgs'); box.scrollTop = box.scrollHeight;
+    const send = async (body, file) => { const m = await DB.sendMessage(ST.pid, body, file); if (!B.messages.find(x => x.id === m.id)) B.messages.push(m); box.innerHTML = B.messages.map(chatMsg).join(''); box.scrollTop = box.scrollHeight; };
+    $('#cf').onsubmit = e => { e.preventDefault(); const i = $('#ci'), v = i.value.trim(); if (!v) return; i.value = ''; busy(() => send(v)); };
+    $('#cfile').onchange = e => { const f = e.target.files[0]; if (f) busy(() => send('', f), t('attach_ok')); };
+    ST.timer = setInterval(async () => { try { const nb = await DB.loadBundle(ST.pid); if (nb.messages.length !== B.messages.length && $('#msgs')) { B.messages = nb.messages; box.innerHTML = B.messages.map(chatMsg).join(''); box.scrollTop = box.scrollHeight; } } catch (e) {} }, 8000);
+  },
+  docs(B) { $$('[data-doc]').forEach(b => b.onclick = async () => { const d = B.documents.find(x => x.id === b.dataset.doc); try { const u = await DB.docUrl(d); if (u && u !== '#') window.open(u, '_blank', 'noopener'); else toast(t('dl_ok')); } catch (e) { toast(e.message); } }); }
+};
+
+/* ===================== PAINEL DA EQUIPA (PT) ===================== */
+const fld = (label, name, val = '', type = 'text', extra = '') => `<label>${label}<input name="${name}" type="${type}" value="${esc(val)}" ${extra}></label>`;
+const sel = (label, name, opts, val) => `<label>${label}<select name="${name}">${opts.map(([v, l]) => `<option value="${v}" ${String(v) === String(val) ? 'selected' : ''}>${l}</option>`).join('')}</select></label>`;
+const STAT = [['planned', 'Planeado'], ['running', 'Em execução'], ['done', 'Concluído']];
+const CATS = [['rev', 'Revestimentos'], ['car', 'Carpintarias'], ['ban', 'Bancadas'], ['san', 'Sanitários']];
+const DOCCATS = [['d1', 'Contrato'], ['d2', 'Orçamentos'], ['d3', 'Projetos'], ['d4', 'Licenças']];
+const STABS = [['fases', 'Fases e cronograma'], ['fotos', 'Fotografias'], ['mat', 'Materiais'], ['fin', 'Financeiro'], ['docs', 'Documentos'], ['msg', 'Mensagens'], ['ped', 'Pedidos'], ['dados', 'Dados da obra']];
+
+async function staffRoute(parts) {
+  $('#app').innerHTML = `<p style="padding:40px;text-align:center">${t('loading')}</p>`;
+  try { ST.projects = await DB.listProjects(); } catch (e) { toast(e.message); }
+  const [a, tab] = parts;
+  if (a && a !== 'nova') { ST.pid = a; ST.tab = tab || 'fases'; try { ST.B = await DB.loadBundle(a); } catch (e) { toast(e.message); ST.B = null; } }
+  staffRender(a || 'lista');
+}
+function staffShell(inner, active) {
+  const ini = ST.user.name.split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
+  return `${banner()}<div class="ca st"><aside class="side" id="side"><a class="logo" href="#/">${logo()}</a><nav class="menu">
+    <a href="#/gestao" class="${active !== 'nova' ? 'on' : ''}"><span class="i">▦</span>Obras</a><a href="#/gestao/nova" class="${active === 'nova' ? 'on' : ''}"><span class="i">＋</span>Nova obra / cliente</a>
+    <div class="user"><div class="avatar">${esc(ini)}</div><span>Equipa<br>técnica</span><button id="logout">Sair</button></div></nav></aside>
+    <main class="main"><div class="topbar"><div style="display:flex;align-items:center"><button class="mburger" id="mb">☰</button><div class="tabs"><span class="on">Painel da equipa</span></div></div><div class="top-r"><span class="tag">${esc(ST.user.name)}</span></div></div>${inner}</main></div>`;
+}
+function staffRender(a) {
+  document.documentElement.lang = 'pt-PT';
+  let inner = '';
+  if (a === 'lista') inner = `<div class="page-h"><div><h1>Obras</h1><p>Todas as obras e clientes.</p></div><a class="btn" href="#/gestao/nova">＋ Nova obra</a></div><div class="plist">${ST.projects.map(p => `<a class="pcard" href="#/gestao/${p.id}"><div><b>${esc(p.name)}</b><small>${esc(p.address || '')}</small></div><div><small>Cliente</small>${esc(p.clientName)}</div><div><small>Estado</small>${stLbl(p.status)}</div><span class="link">Abrir ›</span></a>`).join('') || '<p class="tag">Ainda não há obras. Crie a primeira.</p>'}</div>`;
+  else if (a === 'nova') inner = `<div class="page-h"><div><h1>Nova obra e cliente</h1><p>Cria o login do cliente e a obra com as 6 fases standard.</p></div></div><form class="f panel" data-act="novo"><div class="fgrid">
+      ${fld('Nome do cliente', 'clientName', '', 'text', 'required')}${fld('Email (login)', 'email', '', 'email', 'required')}${fld('Palavra-passe inicial', 'password', '', 'text', 'required minlength="6"')}
+      ${fld('Nome da obra', 'name', '', 'text', 'required')}${fld('Morada da obra', 'address')}${fld('Área de intervenção', 'area')}${fld('Início', 'start', U.today(), 'date', 'required')}${fld('Conclusão prevista', 'end', U.addDays(U.today(), 120), 'date', 'required')}${fld('Orçamento base (€)', 'base', '', 'number', 'min="0" step="0.01"')}${fld('Responsável de obra', 'mgrName')}</div>
+      <p class="hint2">O cliente entra com este email e palavra-passe. Peça-lhe que a altere depois.</p><button class="btn" style="justify-self:start">Criar obra e cliente</button></form>`;
+  else if (ST.B) inner = staffProject();
+  else inner = '<p class="tag">Obra não encontrada.</p>';
+  $('#app').innerHTML = staffShell(inner, a);
+  $('#logout').onclick = async () => { await DB.signOut(); location.hash = '#/'; route(); };
+  $('#mb').onclick = () => $('#side').classList.toggle('open');
+  bindStaff();
+}
+function staffProject() {
+  const B = ST.B, P = B.project, tab = ST.tab;
+  const body = STAFF[tab] ? STAFF[tab](B) : '';
+  return `<div class="page-h"><div><h1>${esc(P.name)}</h1><p>${esc(P.clientName)} · ${stLbl(P.status)} · ${gPct(B)}%</p></div><a class="btn ghost" href="#/gestao">← Obras</a></div>
+  <div class="stbar">${STABS.map(([k, l]) => `<a href="#/gestao/${ST.pid}/${k}" class="${k === tab ? 'on' : ''}">${l}</a>`).join('')}</div>${body}`;
+}
+const btns = del => `<div class="btns"><button class="btn sm">Guardar</button>${del ? `<button type="button" class="btn sm danger" data-del="${del}">Apagar</button>` : ''}</div>`;
+const STAFF = {
+  fases(B) {
+    return `<div class="panel" style="margin-bottom:20px"><h3>Publicar atualização</h3><form class="f" data-act="update"><textarea name="text" rows="2" required placeholder="Ex.: Concluída a instalação elétrica do piso 1."></textarea><button class="btn sm" style="justify-self:start">Publicar no dashboard do cliente</button></form></div>
+    ${B.phases.map(p => `<form class="f row-card" data-act="phase" data-id="${p.id}"><h4>${esc(phName(p))}</h4><div class="fgrid">
+      ${sel('Estado', 'status', STAT, p.status)}${fld('Execução (%)', 'pct', p.pct, 'number', 'min="0" max="100"')}${fld('Previsto: início', 'ps', p.ps || '', 'date')}${fld('Previsto: fim', 'pe', p.pe || '', 'date')}${fld('Real: início', 'as', p.as || '', 'date')}${fld('Real: fim', 'ae', p.ae || '', 'date')}
+      <label class="wide2">Nota para o cliente<input name="note" value="${esc(p.note)}"></label><label class="chkl"><input type="checkbox" name="validated" ${p.validated ? 'checked' : ''}> Validação de qualidade (V verde)</label></div>${btns()}</form>`).join('')}`;
+  },
+  fotos(B) {
+    return `<form class="f panel" data-act="photo"><h3>Carregar fotografias</h3><div class="fgrid">${fld('Ficheiros', 'files', '', 'file', 'multiple accept="image/*" required')}${sel('Especialidade', 'phaseId', B.phases.map(p => [p.id, phName(p)]), '')}${fld('Data', 'date', U.today(), 'date')}${fld('Legenda (opcional)', 'caption')}</div><button class="btn sm" style="justify-self:start">Carregar</button></form>
+    <div class="sgal">${B.photos.map(p => `<div class="photo"><div class="im ${p.cls || ''}" style="position:relative">${p.url ? `<img src="${esc(p.url)}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">` : ''}</div><div class="b"><div class="cap"><span>${esc(phName(B.phases.find(x => x.id === p.phaseId) || { kind: 'custom' }))}</span><span class="tag">${dm(p.date)}</span></div><button class="btn sm danger" data-del="photo:${p.id}">Apagar</button></div></div>`).join('')}</div>`;
+  },
+  mat(B) {
+    const row = m => `<form class="f row-card" data-act="mat" data-id="${m?.id || ''}"><h4>${m ? esc(m.name) : 'Novo material'}</h4><div class="fgrid">${fld('Nome', 'name', m?.name || '', 'text', 'required')}${fld('Divisão (Cozinha, WC…)', 'room', m?.room || '')}${sel('Especialidade', 'cat', CATS, m?.cat || 'rev')}${sel('Unidade', 'unit', [['m2', '€/m²'], ['un', '€ (total)']], m?.unit || 'm2')}
+      ${fld('PVP orçamentado', 'budget', m?.budget ?? '', 'number', 'step="0.01" required')}${fld('PVP real selecionado', 'real', m?.real ?? '', 'number', 'step="0.01"')}${sel('Estado', 'status', [['analysis', 'Em análise'], ['selected', 'Selecionado'], ['approved', 'Aprovado']], m?.status || 'analysis')}</div>
+      ${m ? `<div class="hint2">${m.accepted ? '✔ Cliente aceitou o acréscimo' : ''}</div>` : ''}${btns(m ? 'mat:' + m.id : '')}</form>`;
+    return `${row(null)}${B.materials.map(row).join('')}`;
+  },
+  fin(B) {
+    const arow = a => `<form class="f row-card" data-act="add" data-id="${a?.id || ''}"><div class="fgrid">${fld('Descrição', 'desc', a?.desc || '', 'text', 'required')}${fld('Data', 'date', a?.date || U.today(), 'date')}${fld('Valor (€)', 'amount', a?.amount ?? '', 'number', 'step="0.01" required')}${sel('Estado', 'status', [['pending', 'Pendente'], ['approved', 'Aprovada']], a?.status || 'pending')}</div>${btns()}</form>`;
+    const prow = a => `<form class="f row-card" data-act="pay" data-id="${a?.id || ''}"><div class="fgrid">${fld('Descrição (ex.: Fatura 018)', 'label', a?.label || '', 'text', 'required')}${fld('Data', 'date', a?.date || U.today(), 'date')}${fld('Valor (€)', 'amount', a?.amount ?? '', 'number', 'step="0.01" required')}${sel('Estado', 'status', [['paid', 'Pago'], ['open', 'Em aberto']], a?.status || 'paid')}</div>${btns()}</form>`;
+    return `<form class="f panel" data-act="base" style="margin-bottom:20px"><h3>Orçamento base</h3><div class="fgrid">${fld('Valor (€)', 'base', B.project.base, 'number', 'step="0.01" min="0"')}</div><button class="btn sm" style="justify-self:start">Guardar</button></form>
+      <h3 style="font-size:1.4rem;margin:18px 0 10px">Adendas / trabalhos adicionais</h3>${arow(null)}${B.addenda.map(arow).join('')}
+      <h3 style="font-size:1.4rem;margin:18px 0 10px">Pagamentos</h3>${prow(null)}${B.payments.map(prow).join('')}`;
+  },
+  docs(B) {
+    return `<form class="f panel" data-act="doc"><h3>Carregar documento</h3><div class="fgrid">${sel('Tipo', 'cat', DOCCATS, 'd3')}${fld('Ficheiro', 'file', '', 'file', 'required')}</div><button class="btn sm" style="justify-self:start">Carregar</button></form>
+    <div class="docs" style="margin-top:16px">${B.documents.map(d => `<div class="doc"><div class="ic">${esc((d.name.split('.').pop() || '').toUpperCase().slice(0, 4))}</div><div>${esc(d.name)}<small>${t(d.cat)}</small></div><button class="btn ghost" data-doc="${d.id}">Abrir</button><button class="btn sm danger" data-del="doc:${d.id}">Apagar</button></div>`).join('')}</div>`;
+  },
+  msg(B) {
+    return `<div class="chat" style="grid-template-columns:1fr"><div class="chat-m"><div class="msgs" id="smsgs" style="min-height:360px">${B.messages.map(chatMsg).join('') || '<p class="tag">Sem mensagens.</p>'}</div><form class="composer" id="scf"><label class="att"><input type="file" id="sfile" hidden>📎</label><input type="text" id="sci" placeholder="Responder ao cliente…" autocomplete="off"><button class="btn sm">➤</button></form></div></div>`;
+  },
+  ped(B) {
+    return `<div class="panel"><h3>Pedidos de alteração do cliente</h3><ul class="hist">${B.requests.map(r => `<li><div>${esc(r.body)}<small>${dmy(String(r.at).slice(0, 10))}</small></div></li>`).join('') || '<li>Sem pedidos.</li>'}</ul></div>`;
+  },
+  dados(B) {
+    const P = B.project;
+    return `<form class="f panel" data-act="proj"><div class="fgrid">${fld('Nome da obra', 'name', P.name, 'text', 'required')}${fld('Morada', 'address', P.address || '')}${fld('Área', 'area', P.area || '')}${fld('Responsável de obra', 'mgrName', P.mgrName || '')}${fld('Início', 'start', P.start || '', 'date')}${fld('Conclusão prevista', 'end', P.end || '', 'date')}${sel('Estado da obra', 'status', STAT, P.status)}</div><button class="btn sm" style="justify-self:start">Guardar</button></form>`;
+  }
+};
+async function mut(fn, ok = 'Guardado.') {
+  if (!(await busy(fn, ok))) return;
+  try { ST.B = await DB.loadBundle(ST.pid); } catch (e) { toast(e.message); }
+  staffRender(ST.pid);
+}
+const numOrNull = v => (v === '' || v == null ? null : +v);
+const ACT = {
+  async novo(fd) { let p; if (await busy(async () => { p = await DB.createClientProject(fd); }, 'Obra e cliente criados.')) location.hash = '#/gestao/' + p.id; },
+  update: fd => mut(() => DB.addUpdate(ST.pid, 'custom', fd.text), 'Atualização publicada.'),
+  phase: (fd, f) => mut(() => { const old = ST.B.phases.find(x => x.id === f.dataset.id); return DB.savePhase(ST.pid, { ...old, ...fd, id: old.id, pct: +fd.pct || 0, validated: f.validated.checked, ps: fd.ps || null, pe: fd.pe || null, as: fd.as || null, ae: fd.ae || null }).then(() => DB.addUpdate(ST.pid, 'schedule', '')); }),
+  photo: (fd, f) => mut(async () => { const files = [...f.files.files]; for (const file of files) await DB.addPhoto(ST.pid, fd.phaseId, file, fd.caption, fd.date); await DB.addUpdate(ST.pid, 'photos', ''); }, 'Fotografias carregadas.'),
+  mat: (fd, f) => mut(() => DB.saveMaterial(ST.pid, { id: f.dataset.id || undefined, name: fd.name, room: fd.room, cat: fd.cat, unit: fd.unit, budget: +fd.budget, real: numOrNull(fd.real), status: fd.status })),
+  add: (fd, f) => mut(async () => { await DB.saveAddendum(ST.pid, { id: f.dataset.id || undefined, desc: fd.desc, date: fd.date, amount: +fd.amount, status: fd.status }); if (fd.status === 'approved') await DB.addUpdate(ST.pid, 'addendum', ''); }),
+  pay: (fd, f) => mut(() => DB.savePayment(ST.pid, { id: f.dataset.id || undefined, label: fd.label, date: fd.date, amount: +fd.amount, status: fd.status })),
+  base: fd => mut(() => DB.saveProject(ST.pid, { ...ST.B.project, base: +fd.base || 0 })),
+  proj: fd => mut(() => DB.saveProject(ST.pid, { ...ST.B.project, ...fd })),
+  doc: (fd, f) => mut(() => DB.addDocument(ST.pid, fd.cat, f.file.files[0]), 'Documento carregado.')
+};
+function bindStaff() {
+  $$('form[data-act]').forEach(f => f.onsubmit = e => { e.preventDefault(); ACT[f.dataset.act](Object.fromEntries(new FormData(f)), f); });
+  $$('[data-del]').forEach(b => b.onclick = () => {
+    const [k, id] = b.dataset.del.split(':'); if (!confirm('Apagar este item?')) return; const B = ST.B;
+    mut(() => (k === 'photo' ? DB.deletePhoto(ST.pid, id, B.photos.find(x => x.id === id)?.path) : k === 'mat' ? DB.deleteMaterial(ST.pid, id) : DB.deleteDocument(ST.pid, id, B.documents.find(x => x.id === id)?.path)), 'Apagado.');
+  });
+  $$('[data-doc]').forEach(b => b.onclick = async () => { const d = ST.B.documents.find(x => x.id === b.dataset.doc); try { const u = await DB.docUrl(d); if (u && u !== '#') window.open(u, '_blank', 'noopener'); } catch (e) { toast(e.message); } });
+  const cf = $('#scf'); if (cf) {
+    const box = $('#smsgs'); box.scrollTop = box.scrollHeight;
+    const send = async (body, file) => { await DB.sendMessage(ST.pid, body, file); ST.B = await DB.loadBundle(ST.pid); box.innerHTML = ST.B.messages.map(chatMsg).join(''); box.scrollTop = box.scrollHeight; };
+    cf.onsubmit = e => { e.preventDefault(); const i = $('#sci'), v = i.value.trim(); if (!v) return; i.value = ''; busy(() => send(v)); };
+    $('#sfile').onchange = e => { const f = e.target.files[0]; if (f) busy(() => send('', f), 'Anexo enviado.'); };
+  }
+}
+
+/* ===================== arranque ===================== */
+(async function boot() {
+  $('#app').innerHTML = `<p style="padding:60px;text-align:center;font-family:var(--font-serif);font-size:1.4rem">${t('loading')}</p>`;
+  try { await DB.init(); } catch (e) { toast(e.message); }
+  route();
+})();
+
+</script>
+
+</body>
+</html>
