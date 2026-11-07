@@ -143,6 +143,56 @@ const homeFor = u => (u.role === 'staff' ? '#/gestao' : '#/area/dashboard');
 const TESTI = [['Patrícia Moura', 'A área de cliente deu-me uma tranquilidade total durante toda a obra.', 'PM'], ['Ricardo & Sofia Almeida', 'Sempre soubemos o estado da obra e quanto custava cada decisão. Zero surpresas.', 'RS'], ['Miguel Tavares', 'Método e transparência raros no setor. Recomendo sem hesitar.', 'MT'], ['Helena Costa', 'As fotografias semanais e o chat direto substituíram dezenas de chamadas.', 'HC']];
 const TESTI_EN = ['The client area gave me total peace of mind throughout the project.', 'We always knew the project status and what every decision cost. Zero surprises.', 'Method and transparency that are rare in the industry. I recommend without hesitation.', 'The weekly photos and the direct chat replaced dozens of phone calls.'];
 
+
+// ---------- exemplo animado do dashboard (página inicial) ----------
+function mockViews() {
+  const row = (l, p) => `<div class="row"><span>${l}</span><span>${p}%</span></div><div class="mini-bar"><b style="width:${p}%"></b></div>`;
+  const head = (l, extra) => `<h4>${t(l)}</h4><small>${t('obra')}</small>${extra || ''}`;
+  const V = [
+    `<h4>${t('mock_hi')}</h4><small>${t('obra')}</small><div class="mk-st"><i></i>${t('running')} · 45%</div>
+      <div class="mk-grid">
+        <div class="mock-card"><b>${t('prog_obra')}</b><div class="mini-bar big"><b style="width:45%"></b></div><div class="row"><span>${t('next')}</span><span>${t('ph_cov')}</span></div></div>
+        <div class="mock-card"><b>${t('last_upd')}</b><div class="row"><span>${ico('image', 12)} ${t('u1')}</span><span>${t('today')}</span></div><div class="row"><span>${ico('calendar', 12)} ${t('u2')}</span><span>${t('yest')}</span></div></div>
+      </div>
+      <div class="mock-card"><b>${t('sched')}</b>${row(t('ph_dem'), 100)}${row(t('ph_str'), 80)}${row(t('ph_net'), 45)}</div>`,
+    `${head('m_plan')}<div class="mock-card"><b>${t('sched')}</b>${row(t('ph_dem'), 100)}${row(t('ph_str'), 80)}${row(t('ph_net'), 45)}${row(t('ph_cov'), 10)}${row(t('ph_car'), 0)}</div>`,
+    `${head('m_prog')}<div class="mock-card"><b>${t('prog_obra')}</b><div class="mk-big">45%</div><div class="mini-bar big"><b style="width:45%"></b></div><div class="row"><span>${t('next')}</span><span>${t('ph_cov')}</span></div></div>
+      <div class="mk-grid"><div class="mock-card"><b>${t('ph_str')}</b>${row('', 80)}</div><div class="mock-card"><b>${t('ph_net')}</b>${row('', 45)}</div></div>`,
+    `${head('m_photos')}<div class="mk-ph">${['a', 'b', 'c', 'd', 'p', 'm'].map(k => `<i style="background:linear-gradient(135deg,var(--ph-${k}1),var(--ph-${k}2))"></i>`).join('')}</div>`,
+    `${head('m_mat')}<div class="mock-card">${[['kitchen', 'mk_ok'], ['bath', 'mk_ok'], ['living', 'mk_pend']].map(([k, st]) => `<div class="row"><span>${ico('layers', 12)} ${t(k)}</span><span class="mk-tag ${st === 'mk_ok' ? 'done' : ''}">${t(st)}</span></div>`).join('')}</div>`,
+    `${head('m_fin')}<div class="mock-card">${[['k1', '120.000 €', 85], ['k2', '8.500 €', 15], ['k3', '128.500 €', 100]].map(([k, v, p]) => `<div class="row"><span>${t(k)}</span><span>${v}</span></div><div class="mini-bar"><b style="width:${p}%"></b></div>`).join('')}</div>`,
+    `${head('m_comm')}<div class="mk-chat"><p class="l">${t('mk_m1')}</p><p class="r">${t('mk_m2')}</p></div>`,
+    `${head('m_docs')}<div class="mock-card">${['mk_d1', 'mk_d2', 'mk_d3'].map(k => `<div class="row"><span>${ico('doc', 12)} ${t(k)}</span><span>PDF</span></div>`).join('')}</div>`,
+    `${head('m_data')}<div class="mock-card">${[['mk_loc', 'Cascais'], ['mk_start', '03/2025'], ['mk_end', '11/2025']].map(([k, v]) => `<div class="row"><span>${t(k)}</span><span>${v}</span></div>`).join('')}</div>`
+  ];
+  return V.map((h, i) => `<div class="mk-v${i === 0 ? ' on' : ''}">${h}</div>`).join('');
+}
+let MOCK_T = 0;
+function initMock() {
+  clearTimeout(MOCK_T);
+  const m = $('.mock'); if (!m) return;
+  const items = $$('.mk-side>span:not(.mk-out)', m), views = $$('.mk-v', m), cur = $('.mk-cursor', m);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let idx = 0, auto = !reduce, vis = false, idle = 0, tm = 0;
+  const show = i => { idx = i; items.forEach((e, k) => e.classList.toggle('on', k === i)); views.forEach((v, k) => v.classList.toggle('on', k === i)); };
+  const moveTo = el => { const r = el.getBoundingClientRect(), mr = m.getBoundingClientRect(); cur.style.transform = `translate(${r.left - mr.left + r.width * .55}px,${r.top - mr.top + r.height * .5}px)`; };
+  const click = () => { cur.classList.remove('click'); void cur.offsetWidth; cur.classList.add('click'); };
+  const step = () => {
+    if (!auto || !vis) return;
+    const nx = (idx + 1) % items.length; cur.classList.add('on'); moveTo(items[nx]);
+    tm = setTimeout(() => { click(); show(nx); tm = setTimeout(step, 2200); }, 1000);
+  };
+  const stop = () => { auto = false; clearTimeout(tm); clearTimeout(idle); cur.classList.remove('on'); };
+  const resume = ms => { clearTimeout(idle); if (reduce) return; idle = setTimeout(() => { auto = true; step(); }, ms); };
+  items.forEach((e, i) => e.addEventListener('click', () => { stop(); show(i); resume(9000); }));
+  m.addEventListener('pointerenter', () => { stop(); });
+  m.addEventListener('pointerleave', () => resume(2500));
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(es => { vis = es[0].isIntersecting; if (vis && auto) { clearTimeout(tm); moveTo(items[idx]); tm = setTimeout(step, 700); } else if (!vis) clearTimeout(tm); }, { threshold: .35 }).observe(m);
+  } else { vis = true; step(); }
+  MOCK_T = 0;
+}
+
 function renderPublic() {
   document.documentElement.lang = lang === 'pt' ? 'pt-PT' : 'en';
   $('#app').innerHTML = `${banner()}
@@ -158,17 +208,8 @@ function renderPublic() {
       <div class="mk-top"><div class="mk-brand"><img src="${LOGO_SRC}" alt=""><span><b>Obras com Evidência</b><small>${t('client').toUpperCase()}</small></span></div><div class="mk-tabs"><u>Dashboard</u><span>${t('clients_tab')}</span></div><i class="mk-av">${ico('user', 12)}</i></div>
       <div class="mk-body">
         <div class="mk-side">${MENU.map(([k, l, ic], i) => `<span class="${i === 0 ? 'on' : ''}">${ico(ic)}<em>${t(l)}</em></span>`).join('')}<div class="mk-user"><i class="mk-av">${ico('user', 12)}</i><em>${t('mock_user')}</em></div><span class="mk-out">${ico('logout')}<em>${t('logout')}</em></span></div>
-        <div class="mk-main">
-          <h4>${t('mock_hi')}</h4><small>${t('obra')}</small><div class="mk-st"><i></i>${t('running')} · 45%</div>
-          <div class="mk-grid">
-            <div class="mock-card"><b>${t('prog_obra')}</b><div class="mini-bar big"><b style="width:45%"></b></div><div class="row"><span>${t('next')}</span><span>${t('ph_cov')}</span></div></div>
-            <div class="mock-card"><b>${t('last_upd')}</b><div class="row"><span>${ico('image', 12)} ${t('u1')}</span><span>${t('today')}</span></div><div class="row"><span>${ico('calendar', 12)} ${t('u2')}</span><span>${t('yest')}</span></div></div>
-          </div>
-          <div class="mock-card"><b>${t('sched')}</b>
-            <div class="row"><span>${t('ph_dem')}</span><span>100%</span></div><div class="mini-bar"><b style="width:100%"></b></div>
-            <div class="row"><span>${t('ph_str')}</span><span>80%</span></div><div class="mini-bar"><b style="width:80%"></b></div>
-            <div class="row"><span>${t('ph_net')}</span><span>45%</span></div><div class="mini-bar"><b style="width:45%"></b></div></div>
-        </div>
+        <div class="mk-main">${mockViews()}</div>
+<i class="mk-cursor" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M4 2l15 9-6.5 1.6L9.8 19z" fill="#fff" stroke="#1c1a17" stroke-width="1.6" stroke-linejoin="round"/></svg></i>
       </div>
     </div>
   </div></section>
@@ -193,6 +234,7 @@ function renderPublic() {
   <a class="btn float-cta" href="#contact">${t('quote')}</a><div id="bot"></div>`;
   $$('.lang button').forEach(b => b.onclick = () => setLang(b.dataset.l));
   $('#loginBtn').onclick = enterArea; $$('[data-login]').forEach(b => b.onclick = enterArea);
+  initMock();
   $('#quoteForm').onsubmit = e => { e.preventDefault(); e.target.reset(); toast(t('sent')); };
   $('#burger').onclick = () => $('#nav').classList.toggle('open');
   $$('#nav a').forEach(a => a.onclick = () => $('#nav').classList.remove('open'));

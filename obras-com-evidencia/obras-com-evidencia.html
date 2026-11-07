@@ -1064,6 +1064,35 @@ form.f{display:grid;gap:14px}
 .mk-side{width:138px}
 @media(max-width:560px){.mk-side{width:106px}}
 @media(max-width:340px){.mk-side{width:98px}}
+/* exemplo de dashboard animado e interativo */
+.mk-main{display:grid;position:relative}
+.mk-v{grid-area:1/1;opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .45s,transform .45s,visibility 0s .45s;min-width:0}
+.mk-v.on{opacity:1;visibility:visible;transform:none;transition:opacity .45s,transform .45s}
+.mk-v .mini-bar b{transition:width 1.1s cubic-bezier(.2,.7,.2,1) .15s}
+.mk-v:not(.on) .mini-bar b{width:0!important}
+.mk-side>span:not(.mk-out){cursor:pointer;transition:background .25s,color .25s}
+.mk-side>span:not(.mk-out):not(.on):hover{background:color-mix(in srgb, var(--color-on-brand) 14%, transparent)}
+.mk-cursor{position:absolute;left:0;top:0;z-index:6;width:18px;height:18px;margin:-3px 0 0 -3px;pointer-events:none;opacity:0;transform:translate(60px,120px);transition:transform .9s cubic-bezier(.45,.1,.2,1),opacity .3s;filter:drop-shadow(0 2px 3px rgba(0,0,0,.35))!important}
+.mk-cursor.on{opacity:1}
+.mk-cursor::after{content:'';position:absolute;left:-7px;top:-7px;width:26px;height:26px;border-radius:50%;border:2px solid var(--color-brand);opacity:0;transform:scale(.3)}
+.mk-cursor.click::after{animation:mkclick .6s ease-out}
+@keyframes mkclick{0%{opacity:.9;transform:scale(.3)}100%{opacity:0;transform:scale(1.4)}}
+.mk-big{font-family:var(--font-serif);font-size:1.5rem;color:var(--color-brand);margin:4px 0}
+.mk-ph{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
+.mk-ph i{display:block;aspect-ratio:4/3;border-radius:6px}
+.mk-tag{padding:1px 7px;border-radius:999px;background:var(--color-warning-bg);color:var(--color-warning-text);font-size:.5rem}
+.mk-tag.done{background:var(--color-success-bg);color:var(--color-success-strong)}
+.mk-chat{display:grid;gap:6px;margin-top:8px}
+.mk-chat p{margin:0;max-width:78%;padding:7px 9px;border-radius:10px;font-size:.58rem;line-height:1.3}
+.mk-chat .l{background:var(--color-surface-raised);border:1px solid var(--color-border)}
+.mk-chat .r{justify-self:end;background:var(--color-brand);color:var(--color-on-brand)}
+@media(prefers-reduced-motion:reduce){.mk-v,.mk-v .mini-bar b,.mk-cursor{transition:none}}
+/* as vistas do exemplo não mudam a altura do quadro */
+.mk-v:not(:first-child){position:absolute;left:0;right:0;top:0;bottom:0;overflow:hidden;display:flex;flex-direction:column}
+.mk-v:not(:first-child) .mk-ph{flex:1;min-height:0;grid-template-rows:1fr 1fr}
+.mk-v:not(:first-child) .mk-ph i{aspect-ratio:auto;height:100%}
+.mk-chat .l,.mk-chat .r{justify-self:start;text-align:left}
+.mk-chat .r{justify-self:end}
 
 </style>
 </head>
@@ -1098,6 +1127,7 @@ window.I18N = {
     bot_r_contact:'Pode falar connosco por geral@obrascomevidencia.com ou +351 000 000 000. Também pode usar o formulário de contacto.',
     bot_r_default:'Não tenho a certeza de ter percebido. Posso falar-lhe dos serviços, do orçamento, da Área de Cliente ou dos contactos. Se preferir, deixe o seu pedido no formulário.',
     bot_a_contact:'Ir para o formulário', bot_a_login:'Entrar na Área de Cliente',
+    mk_ok:'Aprovado', mk_pend:'Pendente', mk_m1:'Bom dia! O betão ficou concluído hoje.', mk_m2:'Obrigado! Já posso ver as fotografias?', mk_d1:'Contrato.pdf', mk_d2:'Orçamento.pdf', mk_d3:'Planta.pdf', mk_loc:'Localização', mk_start:'Início', mk_end:'Conclusão',
     mock_hi:'Bem-vindo, Sr. Cliente', mock_user:'Sr. Cliente',
     nav_about:'Sobre Nós', nav_services:'Os Nossos Serviços', nav_projects:'Projetos', nav_contact:'Contactos', client:'Área de Cliente',
     hero1:'Trabalhar connosco é ter uma Área de Cliente.', hero2:'Acompanhe a sua obra em tempo real, com planeamento, progresso e total transparência.',
@@ -1158,6 +1188,7 @@ window.I18N = {
     bot_r_contact:'You can reach us at geral@obrascomevidencia.com or +351 000 000 000. You can also use the contact form.',
     bot_r_default:'I am not sure I understood. I can tell you about our services, quotes, the Client Area or contact details. If you prefer, leave your request in the form.',
     bot_a_contact:'Go to the form', bot_a_login:'Sign in to the Client Area',
+    mk_ok:'Approved', mk_pend:'Pending', mk_m1:'Good morning! The concrete was finished today.', mk_m2:'Thanks! Can I see the photos?', mk_d1:'Contract.pdf', mk_d2:'Budget.pdf', mk_d3:'Floor plan.pdf', mk_loc:'Location', mk_start:'Start', mk_end:'Completion',
     mock_hi:'Welcome, Mr. Client', mock_user:'Mr. Client',
     nav_about:'About Us', nav_services:'Our Services', nav_projects:'Projects', nav_contact:'Contact', client:'Client Area',
     hero1:'Working with us means having a Client Area.', hero2:'Follow your project in real time, with scheduling, progress and total transparency.',
@@ -1597,6 +1628,56 @@ const homeFor = u => (u.role === 'staff' ? '#/gestao' : '#/area/dashboard');
 const TESTI = [['Patrícia Moura', 'A área de cliente deu-me uma tranquilidade total durante toda a obra.', 'PM'], ['Ricardo & Sofia Almeida', 'Sempre soubemos o estado da obra e quanto custava cada decisão. Zero surpresas.', 'RS'], ['Miguel Tavares', 'Método e transparência raros no setor. Recomendo sem hesitar.', 'MT'], ['Helena Costa', 'As fotografias semanais e o chat direto substituíram dezenas de chamadas.', 'HC']];
 const TESTI_EN = ['The client area gave me total peace of mind throughout the project.', 'We always knew the project status and what every decision cost. Zero surprises.', 'Method and transparency that are rare in the industry. I recommend without hesitation.', 'The weekly photos and the direct chat replaced dozens of phone calls.'];
 
+
+// ---------- exemplo animado do dashboard (página inicial) ----------
+function mockViews() {
+  const row = (l, p) => `<div class="row"><span>${l}</span><span>${p}%</span></div><div class="mini-bar"><b style="width:${p}%"></b></div>`;
+  const head = (l, extra) => `<h4>${t(l)}</h4><small>${t('obra')}</small>${extra || ''}`;
+  const V = [
+    `<h4>${t('mock_hi')}</h4><small>${t('obra')}</small><div class="mk-st"><i></i>${t('running')} · 45%</div>
+      <div class="mk-grid">
+        <div class="mock-card"><b>${t('prog_obra')}</b><div class="mini-bar big"><b style="width:45%"></b></div><div class="row"><span>${t('next')}</span><span>${t('ph_cov')}</span></div></div>
+        <div class="mock-card"><b>${t('last_upd')}</b><div class="row"><span>${ico('image', 12)} ${t('u1')}</span><span>${t('today')}</span></div><div class="row"><span>${ico('calendar', 12)} ${t('u2')}</span><span>${t('yest')}</span></div></div>
+      </div>
+      <div class="mock-card"><b>${t('sched')}</b>${row(t('ph_dem'), 100)}${row(t('ph_str'), 80)}${row(t('ph_net'), 45)}</div>`,
+    `${head('m_plan')}<div class="mock-card"><b>${t('sched')}</b>${row(t('ph_dem'), 100)}${row(t('ph_str'), 80)}${row(t('ph_net'), 45)}${row(t('ph_cov'), 10)}${row(t('ph_car'), 0)}</div>`,
+    `${head('m_prog')}<div class="mock-card"><b>${t('prog_obra')}</b><div class="mk-big">45%</div><div class="mini-bar big"><b style="width:45%"></b></div><div class="row"><span>${t('next')}</span><span>${t('ph_cov')}</span></div></div>
+      <div class="mk-grid"><div class="mock-card"><b>${t('ph_str')}</b>${row('', 80)}</div><div class="mock-card"><b>${t('ph_net')}</b>${row('', 45)}</div></div>`,
+    `${head('m_photos')}<div class="mk-ph">${['a', 'b', 'c', 'd', 'p', 'm'].map(k => `<i style="background:linear-gradient(135deg,var(--ph-${k}1),var(--ph-${k}2))"></i>`).join('')}</div>`,
+    `${head('m_mat')}<div class="mock-card">${[['kitchen', 'mk_ok'], ['bath', 'mk_ok'], ['living', 'mk_pend']].map(([k, st]) => `<div class="row"><span>${ico('layers', 12)} ${t(k)}</span><span class="mk-tag ${st === 'mk_ok' ? 'done' : ''}">${t(st)}</span></div>`).join('')}</div>`,
+    `${head('m_fin')}<div class="mock-card">${[['k1', '120.000 €', 85], ['k2', '8.500 €', 15], ['k3', '128.500 €', 100]].map(([k, v, p]) => `<div class="row"><span>${t(k)}</span><span>${v}</span></div><div class="mini-bar"><b style="width:${p}%"></b></div>`).join('')}</div>`,
+    `${head('m_comm')}<div class="mk-chat"><p class="l">${t('mk_m1')}</p><p class="r">${t('mk_m2')}</p></div>`,
+    `${head('m_docs')}<div class="mock-card">${['mk_d1', 'mk_d2', 'mk_d3'].map(k => `<div class="row"><span>${ico('doc', 12)} ${t(k)}</span><span>PDF</span></div>`).join('')}</div>`,
+    `${head('m_data')}<div class="mock-card">${[['mk_loc', 'Cascais'], ['mk_start', '03/2025'], ['mk_end', '11/2025']].map(([k, v]) => `<div class="row"><span>${t(k)}</span><span>${v}</span></div>`).join('')}</div>`
+  ];
+  return V.map((h, i) => `<div class="mk-v${i === 0 ? ' on' : ''}">${h}</div>`).join('');
+}
+let MOCK_T = 0;
+function initMock() {
+  clearTimeout(MOCK_T);
+  const m = $('.mock'); if (!m) return;
+  const items = $$('.mk-side>span:not(.mk-out)', m), views = $$('.mk-v', m), cur = $('.mk-cursor', m);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let idx = 0, auto = !reduce, vis = false, idle = 0, tm = 0;
+  const show = i => { idx = i; items.forEach((e, k) => e.classList.toggle('on', k === i)); views.forEach((v, k) => v.classList.toggle('on', k === i)); };
+  const moveTo = el => { const r = el.getBoundingClientRect(), mr = m.getBoundingClientRect(); cur.style.transform = `translate(${r.left - mr.left + r.width * .55}px,${r.top - mr.top + r.height * .5}px)`; };
+  const click = () => { cur.classList.remove('click'); void cur.offsetWidth; cur.classList.add('click'); };
+  const step = () => {
+    if (!auto || !vis) return;
+    const nx = (idx + 1) % items.length; cur.classList.add('on'); moveTo(items[nx]);
+    tm = setTimeout(() => { click(); show(nx); tm = setTimeout(step, 2200); }, 1000);
+  };
+  const stop = () => { auto = false; clearTimeout(tm); clearTimeout(idle); cur.classList.remove('on'); };
+  const resume = ms => { clearTimeout(idle); if (reduce) return; idle = setTimeout(() => { auto = true; step(); }, ms); };
+  items.forEach((e, i) => e.addEventListener('click', () => { stop(); show(i); resume(9000); }));
+  m.addEventListener('pointerenter', () => { stop(); });
+  m.addEventListener('pointerleave', () => resume(2500));
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(es => { vis = es[0].isIntersecting; if (vis && auto) { clearTimeout(tm); moveTo(items[idx]); tm = setTimeout(step, 700); } else if (!vis) clearTimeout(tm); }, { threshold: .35 }).observe(m);
+  } else { vis = true; step(); }
+  MOCK_T = 0;
+}
+
 function renderPublic() {
   document.documentElement.lang = lang === 'pt' ? 'pt-PT' : 'en';
   $('#app').innerHTML = `${banner()}
@@ -1612,17 +1693,8 @@ function renderPublic() {
       <div class="mk-top"><div class="mk-brand"><img src="${LOGO_SRC}" alt=""><span><b>Obras com Evidência</b><small>${t('client').toUpperCase()}</small></span></div><div class="mk-tabs"><u>Dashboard</u><span>${t('clients_tab')}</span></div><i class="mk-av">${ico('user', 12)}</i></div>
       <div class="mk-body">
         <div class="mk-side">${MENU.map(([k, l, ic], i) => `<span class="${i === 0 ? 'on' : ''}">${ico(ic)}<em>${t(l)}</em></span>`).join('')}<div class="mk-user"><i class="mk-av">${ico('user', 12)}</i><em>${t('mock_user')}</em></div><span class="mk-out">${ico('logout')}<em>${t('logout')}</em></span></div>
-        <div class="mk-main">
-          <h4>${t('mock_hi')}</h4><small>${t('obra')}</small><div class="mk-st"><i></i>${t('running')} · 45%</div>
-          <div class="mk-grid">
-            <div class="mock-card"><b>${t('prog_obra')}</b><div class="mini-bar big"><b style="width:45%"></b></div><div class="row"><span>${t('next')}</span><span>${t('ph_cov')}</span></div></div>
-            <div class="mock-card"><b>${t('last_upd')}</b><div class="row"><span>${ico('image', 12)} ${t('u1')}</span><span>${t('today')}</span></div><div class="row"><span>${ico('calendar', 12)} ${t('u2')}</span><span>${t('yest')}</span></div></div>
-          </div>
-          <div class="mock-card"><b>${t('sched')}</b>
-            <div class="row"><span>${t('ph_dem')}</span><span>100%</span></div><div class="mini-bar"><b style="width:100%"></b></div>
-            <div class="row"><span>${t('ph_str')}</span><span>80%</span></div><div class="mini-bar"><b style="width:80%"></b></div>
-            <div class="row"><span>${t('ph_net')}</span><span>45%</span></div><div class="mini-bar"><b style="width:45%"></b></div></div>
-        </div>
+        <div class="mk-main">${mockViews()}</div>
+<i class="mk-cursor" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M4 2l15 9-6.5 1.6L9.8 19z" fill="#fff" stroke="#1c1a17" stroke-width="1.6" stroke-linejoin="round"/></svg></i>
       </div>
     </div>
   </div></section>
@@ -1647,6 +1719,7 @@ function renderPublic() {
   <a class="btn float-cta" href="#contact">${t('quote')}</a><div id="bot"></div>`;
   $$('.lang button').forEach(b => b.onclick = () => setLang(b.dataset.l));
   $('#loginBtn').onclick = enterArea; $$('[data-login]').forEach(b => b.onclick = enterArea);
+  initMock();
   $('#quoteForm').onsubmit = e => { e.preventDefault(); e.target.reset(); toast(t('sent')); };
   $('#burger').onclick = () => $('#nav').classList.toggle('open');
   $$('#nav a').forEach(a => a.onclick = () => $('#nav').classList.remove('open'));

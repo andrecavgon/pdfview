@@ -914,3 +914,32 @@ form.f{display:grid;gap:14px}
 .mk-side{width:138px}
 @media(max-width:560px){.mk-side{width:106px}}
 @media(max-width:340px){.mk-side{width:98px}}
+/* exemplo de dashboard animado e interativo */
+.mk-main{display:grid;position:relative}
+.mk-v{grid-area:1/1;opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .45s,transform .45s,visibility 0s .45s;min-width:0}
+.mk-v.on{opacity:1;visibility:visible;transform:none;transition:opacity .45s,transform .45s}
+.mk-v .mini-bar b{transition:width 1.1s cubic-bezier(.2,.7,.2,1) .15s}
+.mk-v:not(.on) .mini-bar b{width:0!important}
+.mk-side>span:not(.mk-out){cursor:pointer;transition:background .25s,color .25s}
+.mk-side>span:not(.mk-out):not(.on):hover{background:color-mix(in srgb, var(--color-on-brand) 14%, transparent)}
+.mk-cursor{position:absolute;left:0;top:0;z-index:6;width:18px;height:18px;margin:-3px 0 0 -3px;pointer-events:none;opacity:0;transform:translate(60px,120px);transition:transform .9s cubic-bezier(.45,.1,.2,1),opacity .3s;filter:drop-shadow(0 2px 3px rgba(0,0,0,.35))!important}
+.mk-cursor.on{opacity:1}
+.mk-cursor::after{content:'';position:absolute;left:-7px;top:-7px;width:26px;height:26px;border-radius:50%;border:2px solid var(--color-brand);opacity:0;transform:scale(.3)}
+.mk-cursor.click::after{animation:mkclick .6s ease-out}
+@keyframes mkclick{0%{opacity:.9;transform:scale(.3)}100%{opacity:0;transform:scale(1.4)}}
+.mk-big{font-family:var(--font-serif);font-size:1.5rem;color:var(--color-brand);margin:4px 0}
+.mk-ph{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
+.mk-ph i{display:block;aspect-ratio:4/3;border-radius:6px}
+.mk-tag{padding:1px 7px;border-radius:999px;background:var(--color-warning-bg);color:var(--color-warning-text);font-size:.5rem}
+.mk-tag.done{background:var(--color-success-bg);color:var(--color-success-strong)}
+.mk-chat{display:grid;gap:6px;margin-top:8px}
+.mk-chat p{margin:0;max-width:78%;padding:7px 9px;border-radius:10px;font-size:.58rem;line-height:1.3}
+.mk-chat .l{background:var(--color-surface-raised);border:1px solid var(--color-border)}
+.mk-chat .r{justify-self:end;background:var(--color-brand);color:var(--color-on-brand)}
+@media(prefers-reduced-motion:reduce){.mk-v,.mk-v .mini-bar b,.mk-cursor{transition:none}}
+/* as vistas do exemplo não mudam a altura do quadro */
+.mk-v:not(:first-child){position:absolute;left:0;right:0;top:0;bottom:0;overflow:hidden;display:flex;flex-direction:column}
+.mk-v:not(:first-child) .mk-ph{flex:1;min-height:0;grid-template-rows:1fr 1fr}
+.mk-v:not(:first-child) .mk-ph i{aspect-ratio:auto;height:100%}
+.mk-chat .l,.mk-chat .r{justify-self:start;text-align:left}
+.mk-chat .r{justify-self:end}
