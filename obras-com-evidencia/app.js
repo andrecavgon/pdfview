@@ -108,7 +108,6 @@ async function route() {
   stopTimers();
   const h = location.hash.replace(/^#\/?/, '');
   ST.user = DB.user();
-  document.body.classList.toggle('pub', !h.startsWith('gestao') && !h.startsWith('area'));
   if (h.startsWith('gestao')) {
     if (!ST.user || ST.user.role !== 'staff') { location.hash = '#/'; setTimeout(openLogin, 60); return; }
     return staffRoute(h.split('/').slice(1));
