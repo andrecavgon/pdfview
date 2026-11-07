@@ -914,3 +914,9 @@ form.f{display:grid;gap:14px}
 .mk-side{width:138px}
 @media(max-width:560px){.mk-side{width:106px}}
 @media(max-width:340px){.mk-side{width:98px}}
+/* página inicial: imagem de fundo (azul escuro) com texto claro; cartões mantêm superfície clara */
+body.pub{background:#0a1c26}
+body.pub::before{content:'';position:fixed;inset:0;z-index:-1;background:#0a1c26 url('fundo.webp') center/cover no-repeat}
+body.pub .sec.alt{background:color-mix(in srgb, #06141b 42%, transparent)}
+body.pub .hero,body.pub .sec{--color-text:#fbf8f2;--color-text-muted:#d4dde0;--color-text-soft:#e6ecee;--color-accent:#d3b98f;--color-border:color-mix(in srgb, #fff 24%, transparent)}
+body.pub .card,body.pub .proj,body.pub .slide,body.pub .mock,body.pub .f input,body.pub .f textarea,body.pub .f select,body.pub .arrow,body.pub .pillar{--color-text:var(--ink-900);--color-text-muted:#444c56;--color-text-soft:#333b46;--color-border:var(--cream-line)}
