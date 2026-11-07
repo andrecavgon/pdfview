@@ -915,6 +915,6 @@ form.f{display:grid;gap:14px}
 @media(max-width:560px){.mk-side{width:106px}}
 @media(max-width:340px){.mk-side{width:98px}}
 /* imagem de fundo só na primeira secção (hero), com texto claro */
-.hero{background:linear-gradient(rgba(22,14,8,.58),rgba(22,14,8,.58)),url('hero.webp') center/cover no-repeat;
+.hero{background:linear-gradient(rgba(22,14,8,.34),rgba(22,14,8,.34)),url('hero.webp') center/cover no-repeat;
   --color-text:#fffaf2;--color-text-muted:#f0e6d8;--color-text-soft:#fbf3e8}
 .hero .mock{--color-text:var(--ink-900);--color-text-muted:#444c56;--color-text-soft:#333b46}
