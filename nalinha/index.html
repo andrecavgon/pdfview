@@ -31,6 +31,10 @@ nav button:hover{background:rgba(14,68,82,.1)}
 nav button.active,nav button.active:hover{background:var(--rust);color:#fff}
 nav button:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
 
+/* Botão de menu (só em telemóvel) */
+.menu-toggle{display:none}
+.menu-toggle .i-close{display:none}
+
 /* Cartões */
 .grid{display:grid;gap:15px;margin-top:0}
 .card{position:relative;overflow:hidden;background-size:cover;background-position:center}
@@ -104,11 +108,20 @@ footer .rules i+i{margin-top:5px}
 /* Telemóvel */
 @media (max-width:760px){
   .page{padding:0 16px 32px}
-  header{margin:0 -16px;padding:0 16px 18px}
-  .masthead{margin-left:0;gap:14px}
-  .masthead .rule{margin-top:10px}
-  nav{margin-left:0;overflow-x:auto;scrollbar-width:none}
-  nav button{flex:0 0 auto!important;padding:0 18px!important;font-size:12px}
+  header{margin:0 -16px;padding:0 16px;background:var(--rust);color:var(--bg)}
+  .masthead{margin-left:0;padding:0;height:58px;justify-content:space-between}
+  .masthead .rule{display:none}
+  .masthead h1{font-size:34px;color:var(--bg)}
+  .menu-toggle{display:flex;align-items:center;justify-content:center;width:44px;height:44px;margin-right:-8px;appearance:none;border:0;background:none;color:var(--bg);cursor:pointer;border-radius:4px}
+  .menu-toggle:focus-visible{outline:2px solid var(--bg);outline-offset:1px}
+  header.open .menu-toggle .i-open{display:none}
+  header.open .menu-toggle .i-close{display:inline}
+  nav{display:none;flex-direction:column;height:auto;margin:0;padding:4px 0 16px;gap:2px;border-top:1px solid rgba(246,240,223,.25)}
+  header.open nav{display:flex}
+  nav button{flex:0 0 auto!important;justify-content:flex-start;height:48px;padding:0 12px 4px!important;font-size:18px;color:var(--bg)}
+  nav button:hover{background:rgba(246,240,223,.12)}
+  nav button.active,nav button.active:hover{background:var(--bg);color:var(--rust)}
+  nav button:focus-visible{outline-color:var(--bg)}
   .hero{margin-top:24px;grid-template-columns:1fr}
   .row2,.row3{grid-template-columns:1fr}
   .small{height:220px}
@@ -127,8 +140,11 @@ footer .rules i+i{margin-top:5px}
       <span class="rule"></span>
       <h1>Na Linha</h1>
       <span class="rule"></span>
+      <button type="button" class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path class="i-open" d="M4 7h16M4 12h16M4 17h16"/><path class="i-close" d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
     </div>
-    <nav aria-label="Secções">
+    <nav id="menu" aria-label="Secções">
       <button type="button" class="active" aria-current="page">Livros</button><button type="button">Leitura</button><button type="button">Local</button><button type="button">Literatura</button><button type="button">Críticas</button>
     </nav>
   </header>
@@ -229,6 +245,12 @@ footer .rules i+i{margin-top:5px}
   </footer>
 </div>
 <script>
+(function(){
+  var header=document.querySelector('header'),t=document.querySelector('.menu-toggle');
+  function set(o){header.classList.toggle('open',o);t.setAttribute('aria-expanded',o);t.setAttribute('aria-label',o?'Fechar menu':'Abrir menu')}
+  t.addEventListener('click',function(){set(!header.classList.contains('open'))});
+  document.querySelectorAll('nav button').forEach(function(b){b.addEventListener('click',function(){set(false)})});
+})();
 document.querySelectorAll('nav button').forEach(function(b){
   b.addEventListener('click',function(){
     document.querySelectorAll('nav button').forEach(function(o){o.classList.remove('active');o.removeAttribute('aria-current')});
