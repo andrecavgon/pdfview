@@ -22,7 +22,7 @@ a{color:inherit;text-decoration:none}
 
 /* Cabeçalho (fixo ao fazer scroll) */
 header{position:sticky;top:0;z-index:20;background:var(--bg);margin:0 -40px;padding:0 40px 24px}
-.masthead{position:relative;display:flex;align-items:center;gap:30px;padding:20px 0 0;margin-left:-5px}
+.masthead{position:relative;display:flex;align-items:center;justify-content:center;gap:30px;padding:20px 0 0;margin-left:-5px}
 .masthead .rule{flex:1;height:1px;background:var(--ink)}
 .masthead h1{font-family:var(--display);font-weight:600;font-size:clamp(40px,5.2vw,64px);line-height:1;letter-spacing:0;white-space:nowrap}
 nav{display:flex;align-items:stretch;margin:26px 0 0;height:43px;justify-content:center;gap:8px}
@@ -124,9 +124,7 @@ footer .rules i+i{margin-top:5px}
 
   <header>
     <div class="masthead">
-      <span class="rule"></span>
       <h1>Na Linha</h1>
-      <span class="rule"></span>
     </div>
     <nav aria-label="Secções">
       <button type="button" class="active" aria-current="page">Livros</button><button type="button">Leitura</button><button type="button">Local</button><button type="button">Literatura</button><button type="button">Críticas</button>
@@ -195,7 +193,7 @@ footer .rules i+i{margin-top:5px}
     </section>
 
     <section class="emais">
-      <div class="head">E mais...<i></i></div>
+      <div class="head">E mais...</div>
       <div class="thumbs">
         <figure><div style="background-image:url(img/feiras.jpg)"></div><h3>Feiras do Livro<br>em Cascais</h3></figure>
         <figure><div style="background-image:url(img/sugestoes.jpg)"></div><h3>Sugestões da Equipa</h3></figure>
@@ -221,7 +219,6 @@ footer .rules i+i{margin-top:5px}
   </main>
 
   <footer>
-    <div class="rules"><i></i><i></i></div>
     <div class="foot">
       <strong>Na Linha</strong>
       <span>Livros, leitura e literatura em Cascais.</span>
