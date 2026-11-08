@@ -26,8 +26,10 @@ header{position:sticky;top:0;z-index:20;background:var(--bg);margin:0 -40px;padd
 .masthead .rule{flex:1;height:1px;background:var(--ink)}
 .masthead h1{font-family:var(--display);font-weight:600;font-size:clamp(40px,5.2vw,64px);line-height:1;letter-spacing:0;white-space:nowrap}
 nav{display:flex;align-items:stretch;border-bottom:1px solid var(--line);margin:26px 0 0;height:43px;justify-content:center;gap:8px}
-nav span{font-family:var(--sans);font-size:12px;padding-bottom:4px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;flex:0 0 auto;padding:0 30px 4px}
-nav span:first-child{background:var(--rust);color:#fff}
+nav button{appearance:none;border:0;background:none;color:inherit;cursor:pointer;font-family:var(--sans);font-size:12px;padding-bottom:4px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;flex:0 0 auto;padding:0 30px 4px}
+nav button:hover{background:rgba(179,71,42,.1)}
+nav button.active,nav button.active:hover{background:var(--rust);color:#fff}
+nav button:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
 
 /* Cartões */
 .grid{display:grid;gap:15px;margin-top:0}
@@ -106,7 +108,7 @@ footer .rules i+i{margin-top:5px}
   .masthead{margin-left:0;gap:14px}
   .masthead .rule{margin-top:10px}
   nav{margin-left:0;overflow-x:auto;scrollbar-width:none}
-  nav span{flex:0 0 auto!important;padding:0 18px!important;font-size:12px}
+  nav button{flex:0 0 auto!important;padding:0 18px!important;font-size:12px}
   .hero{margin-top:24px;grid-template-columns:1fr}
   .row2,.row3{grid-template-columns:1fr}
   .small{height:220px}
@@ -126,8 +128,8 @@ footer .rules i+i{margin-top:5px}
       <h1>Na Linha</h1>
       <span class="rule"></span>
     </div>
-    <nav>
-      <span>Livros</span><span>Leitura</span><span>Local</span><span>Literatura</span><span>Críticas</span>
+    <nav aria-label="Secções">
+      <button type="button" class="active" aria-current="page">Livros</button><button type="button">Leitura</button><button type="button">Local</button><button type="button">Literatura</button><button type="button">Críticas</button>
     </nav>
   </header>
 
@@ -227,5 +229,13 @@ footer .rules i+i{margin-top:5px}
     </div>
   </footer>
 </div>
+<script>
+document.querySelectorAll('nav button').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('nav button').forEach(function(o){o.classList.remove('active');o.removeAttribute('aria-current')});
+    b.classList.add('active');b.setAttribute('aria-current','page');
+  });
+});
+</script>
 </body>
 </html>
