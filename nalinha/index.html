@@ -63,7 +63,7 @@ nav span:nth-child(2){flex:0 0 auto;padding:0 63px 0 66px}
 .s2 .pic{width:136px;background-image:url(img/booker.jpg)}
 .s3 .pic{width:120px;background-image:url(img/leitura.jpg)}
 
-.row3{margin-top:31px;grid-template-columns:640fr 306fr;gap:16px}
+.row3{margin-top:31px;grid-template-columns:306fr 640fr;gap:16px}
 .row3 .card{height:295px;padding:0 0 0 38px}
 .big{background-image:url(img/historia.jpg);color:#fff;padding-top:40px!important}
 .big .tag{display:block;margin-bottom:10px;font-size:10.5px}
@@ -84,6 +84,22 @@ nav span:nth-child(2){flex:0 0 auto;padding:0 63px 0 66px}
 .thumbs div{height:119px;background-size:cover;background-position:center}
 .thumbs h3{font-weight:400;font-size:19px;line-height:1.2;margin-top:19px}
 
+.row5{margin-top:31px;grid-template-columns:1fr 1fr;gap:16px}
+.duo{height:250px;color:#fff;padding:38px 36px 0}
+.duo .tag{display:block;margin-bottom:10px}
+.duo h2{font-size:40px;line-height:1.08}
+.duo p{font-size:18px;line-height:1.25;margin-top:14px;color:#f1e8dc;max-width:280px}
+.duo .more{position:absolute;left:36px;bottom:28px}
+.d1{background-image:linear-gradient(90deg,rgba(20,12,6,.88),rgba(20,12,6,.35)),url(img/sugestoes.jpg)}
+.d2{background-image:linear-gradient(90deg,rgba(20,12,6,.88),rgba(20,12,6,.35)),url(img/noticias.jpg)}
+footer{margin-top:44px}
+footer .rules i{display:block;height:1px;background:var(--ink)}
+footer .rules i+i{margin-top:5px}
+.foot{padding:36px 0 40px;display:flex;flex-direction:column;gap:8px}
+.foot strong{font-family:var(--display);font-weight:500;font-size:32px}
+.foot span{font-size:17px}
+.foot small{font-family:var(--sans);font-size:11px;letter-spacing:.08em;color:#6b645b;margin-top:14px}
+@media (max-width:760px){.row5{grid-template-columns:1fr}}
 /* Telemóvel */
 @media (max-width:760px){
   .page{padding:0 16px 32px}
@@ -163,16 +179,16 @@ nav span:nth-child(2){flex:0 0 auto;padding:0 63px 0 66px}
     </section>
 
     <section class="grid row3">
-      <article class="card big">
-        <span class="tag">Livros</span>
-        <h2>Novidades<br>de História</h2>
-        <p>Grandes narrativas para compreender o nosso tempo.</p>
-        <span class="more">Ler mais</span>
-      </article>
       <article class="card kids">
         <span class="tag">Infanto-juvenil</span>
         <h2>Histórias<br>para todas<br>as idades</h2>
         <p>Da primeira infância aos jovens leitores.</p>
+        <span class="more">Ler mais</span>
+      </article>
+      <article class="card big">
+        <span class="tag">Livros</span>
+        <h2>Novidades<br>de História</h2>
+        <p>Grandes narrativas para compreender o nosso tempo.</p>
         <span class="more">Ler mais</span>
       </article>
     </section>
@@ -186,7 +202,31 @@ nav span:nth-child(2){flex:0 0 auto;padding:0 63px 0 66px}
         <figure><div style="background-image:url(img/vida.jpg)"></div><h3>A vida em Cascais<br>através dos livros</h3></figure>
       </div>
     </section>
+
+    <section class="grid row5">
+      <article class="card duo d1">
+        <span class="tag">Em breve</span>
+        <h2>Cartas<br>dos leitores</h2>
+        <p>O que andamos a ler.<br>Contado por quem lê.</p>
+        <span class="more">Ler mais</span>
+      </article>
+      <article class="card duo d2">
+        <span class="tag">Em breve</span>
+        <h2>Agenda<br>cultural</h2>
+        <p>Lançamentos, sessões<br>e encontros do mês.</p>
+        <span class="more">Ler mais</span>
+      </article>
+    </section>
   </main>
+
+  <footer>
+    <div class="rules"><i></i><i></i></div>
+    <div class="foot">
+      <strong>Na Linha</strong>
+      <span>Livros, leitura e literatura em Cascais.</span>
+      <small>© 2025 Na Linha. Todos os direitos reservados.</small>
+    </div>
+  </footer>
 </div>
 </body>
 </html>
