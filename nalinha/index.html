@@ -20,11 +20,12 @@ body{background:var(--bg);color:var(--ink);font-family:var(--serif);-webkit-font
 a{color:inherit;text-decoration:none}
 .page{max-width:1280px;margin:0 auto;padding:0 40px 56px}
 
-/* Cabeçalho */
-.masthead{position:relative;display:flex;align-items:center;gap:30px;padding:34px 0 0;margin-left:-5px}
+/* Cabeçalho (fixo ao fazer scroll) */
+header{position:sticky;top:0;z-index:20;background:var(--bg);margin:0 -40px;padding:0 40px}
+.masthead{position:relative;display:flex;align-items:center;gap:30px;padding:20px 0 0;margin-left:-5px}
 .masthead .rule{flex:1;height:1px;background:var(--ink)}
 .masthead h1{font-family:var(--display);font-weight:600;font-size:clamp(40px,5.2vw,64px);line-height:1;letter-spacing:0;white-space:nowrap}
-nav{display:flex;align-items:stretch;border-bottom:1px solid var(--line);margin:64px 0 0;height:43px;justify-content:center;gap:8px}
+nav{display:flex;align-items:stretch;border-bottom:1px solid var(--line);margin:26px 0 0;height:43px;justify-content:center;gap:8px}
 nav span{font-family:var(--sans);font-size:14px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;flex:0 0 auto;padding:0 30px}
 nav span:first-child{background:var(--rust);color:#fff}
 
@@ -37,7 +38,7 @@ nav span:first-child{background:var(--rust);color:#fff}
 .card h2{font-weight:400;letter-spacing:-.005em}
 .card p{font-weight:400}
 
-.hero{margin-top:64px;grid-template-columns:476fr 472fr}
+.hero{margin-top:36px;grid-template-columns:476fr 472fr}
 .hero .card{height:440px;color:#fff;padding:58px 36px 0}
 .hero .tag{display:block;margin-bottom:12px}
 .hero h2{font-size:45px;line-height:1.08}
@@ -101,6 +102,7 @@ footer .rules i+i{margin-top:5px}
 /* Telemóvel */
 @media (max-width:760px){
   .page{padding:0 16px 32px}
+  header{margin:0 -16px;padding:0 16px}
   .masthead{margin-left:0;gap:14px}
   .masthead .rule{margin-top:10px}
   nav{margin-left:0;overflow-x:auto;scrollbar-width:none}
