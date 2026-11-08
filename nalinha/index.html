@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Na Linha</title>
+<meta name="description" content="Na Linha — livros, leitura, literatura e crítica, em Cascais.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f9f4ed; --ink:#161412; --rust:#b3472a; --line:#d9d2c8;
+  --serif:"Newsreader","Cormorant Garamond",Georgia,serif;
+  --display:"Playfair Display","Didot",Georgia,serif;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--serif);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.page{max-width:1024px;margin:0 auto;padding:0 31px 48px}
+
+/* Cabeçalho */
+.masthead{position:relative;display:flex;align-items:center;gap:30px;padding:15px 0 0;margin-left:-5px}
+.masthead::before{content:"";position:absolute;left:-5px;top:30px;height:129px;width:1px;background:var(--ink)}
+.masthead .rule{flex:1;height:1px;background:var(--ink);margin-top:16px}
+.masthead h1{font-family:var(--display);font-weight:500;font-size:clamp(64px,11.4vw,117px);line-height:1;letter-spacing:-.02em;white-space:nowrap}
+nav{display:flex;align-items:stretch;border-bottom:1px solid var(--line);margin:13px 0 0 10px;height:43px}
+nav span{font-family:var(--sans);font-size:14px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;flex:1}
+nav span:first-child{background:var(--rust);color:#fff;flex:0 0 143px}
+nav span:nth-child(2){flex:0 0 auto;padding:0 63px 0 66px}
+
+/* Cartões */
+.grid{display:grid;gap:15px;margin-top:0}
+.card{position:relative;overflow:hidden;background-size:cover;background-position:center}
+.tag{font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase}
+.more{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;display:inline-block;padding-bottom:3px;border-bottom:1px solid currentColor}
+.more::after{content:" →"}
+.card h2{font-weight:400;letter-spacing:-.005em}
+.card p{font-weight:400}
+
+.hero{margin-top:43px;grid-template-columns:476fr 472fr}
+.hero .card{height:386px;color:#fff;padding:58px 36px 0}
+.hero .tag{display:block;margin-bottom:12px}
+.hero h2{font-size:45px;line-height:1.08}
+.hero p{font-size:19px;line-height:1.25;margin-top:20px;max-width:250px;color:#f1e8dc}
+.hero .more{position:absolute;left:36px;bottom:30px}
+.hero .c1{background-image:url(img/hero-livrarias.jpg)}
+.hero .c2{background-image:url(img/hero-cascais.jpg)}
+.hero .c2{padding-top:66px}
+.hero .c2 h2{font-size:45px;line-height:1.1}
+.hero .c2 p{max-width:none}
+
+.row2{margin-top:27px;grid-template-columns:306fr 321fr 320fr;gap:16px}
+.small{height:233px;background:#fbf7f1;box-shadow:0 1px 3px rgba(60,40,20,.12);display:flex}
+.small .txt{flex:1;padding:24px 2px 0 21px;position:relative;min-width:0}
+.small .tag{font-size:9.5px;display:block;margin-bottom:11px;color:#333}
+.small h2{font-size:22.5px;line-height:1.08;margin-bottom:14px}
+.small p{font-size:14.5px;line-height:1.25;color:#2b2724}
+.small .more{position:absolute;left:21px;bottom:19px;font-size:9.5px}
+.small .pic{flex:0 0 auto;height:100%;background-size:cover;background-position:center}
+.s1 .pic{width:139px;background-image:url(img/maggie.jpg)}
+.s2 .pic{width:136px;background-image:url(img/booker.jpg)}
+.s3 .pic{width:120px;background-image:url(img/leitura.jpg)}
+
+.row3{margin-top:31px;grid-template-columns:640fr 306fr;gap:16px}
+.row3 .card{height:295px;padding:0 0 0 38px}
+.big{background-image:url(img/historia.jpg);color:#fff;padding-top:40px!important}
+.big .tag{display:block;margin-bottom:10px;font-size:10.5px}
+.big h2{font-size:46px;line-height:1.05}
+.big p{font-size:18.5px;line-height:1.25;margin-top:16px;color:#f1e8dc;max-width:260px}
+.big .more{position:absolute;left:38px;bottom:42px}
+.kids{background-image:url(img/infantil.jpg);padding:34px 0 0 22px!important}
+.kids .tag{display:block;margin-bottom:10px;font-size:10px;color:#222}
+.kids h2{font-size:33px;line-height:1.05;color:#16222a}
+.kids p{font-size:15px;line-height:1.25;margin-top:14px;color:#2a3a44;max-width:150px}
+.kids .more{position:absolute;left:22px;bottom:34px;color:#16222a}
+
+/* E mais */
+.emais{margin-top:36px}
+.emais .head{display:flex;align-items:center;gap:14px;font-family:var(--sans);font-size:11.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase}
+.emais .head i{flex:1;height:1px;background:var(--ink)}
+.thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:20px;padding:0 3px}
+.thumbs div{height:119px;background-size:cover;background-position:center}
+.thumbs h3{font-weight:400;font-size:19px;line-height:1.2;margin-top:19px}
+
+/* Telemóvel */
+@media (max-width:760px){
+  .page{padding:0 16px 32px}
+  .masthead{margin-left:0;gap:14px}
+  .masthead::before{display:none}
+  .masthead .rule{margin-top:10px}
+  nav{margin-left:0;overflow-x:auto;scrollbar-width:none}
+  nav span{flex:0 0 auto!important;padding:0 18px!important;font-size:12px}
+  .hero{margin-top:24px;grid-template-columns:1fr}
+  .row2,.row3{grid-template-columns:1fr}
+  .small{height:220px}
+  .s1 .pic,.s2 .pic,.s3 .pic{width:42%}
+  .row3 .card{height:280px}
+  .big h2{font-size:38px}
+  .thumbs{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="masthead">
+      <span class="rule"></span>
+      <h1>Na Linha</h1>
+      <span class="rule"></span>
+    </div>
+    <nav>
+      <span>Livros</span><span>Leitura</span><span>Local</span><span>Literatura</span><span>Críticas</span>
+    </nav>
+  </header>
+
+  <main>
+    <section class="grid hero">
+      <article class="card c1">
+        <span class="tag">Livros</span>
+        <h2>O prazer<br>de voltar<br>às livrarias</h2>
+        <p>Porque é que os livros continuam a ser um refúgio.</p>
+        <span class="more">Ler mais</span>
+      </article>
+      <article class="card c2">
+        <span class="tag">Local</span>
+        <h2>Cascais<br>e os livros</h2>
+        <p>Uma cidade que lê,<br>dentro e fora das livrarias.</p>
+        <span class="more">Ler mais</span>
+      </article>
+    </section>
+
+    <section class="grid row2">
+      <article class="card small s1">
+        <div class="txt">
+          <span class="tag">Literatura</span>
+          <h2>O regresso<br>de Maggie<br>O’Farrell</h2>
+          <p>Uma nova história sobre a memória.</p>
+          <span class="more">Ler mais</span>
+        </div>
+        <div class="pic"></div>
+      </article>
+      <article class="card small s2">
+        <div class="txt">
+          <span class="tag">Críticas</span>
+          <h2>Dois finalistas<br>do Booker 2025</h2>
+          <p>Uma escolha<br>que celebra a diversidade.</p>
+          <span class="more">Ler mais</span>
+        </div>
+        <div class="pic"></div>
+      </article>
+      <article class="card small s3">
+        <div class="txt">
+          <span class="tag">Leitura</span>
+          <h2>A importância<br>da leitura hoje</h2>
+          <p>Reflexões sobre uma sociedade pós-literata.</p>
+          <span class="more">Ler mais</span>
+        </div>
+        <div class="pic"></div>
+      </article>
+    </section>
+
+    <section class="grid row3">
+      <article class="card big">
+        <span class="tag">Livros</span>
+        <h2>Novidades<br>de História</h2>
+        <p>Grandes narrativas para compreender o nosso tempo.</p>
+        <span class="more">Ler mais</span>
+      </article>
+      <article class="card kids">
+        <span class="tag">Infanto-juvenil</span>
+        <h2>Histórias<br>para todas<br>as idades</h2>
+        <p>Da primeira infância aos jovens leitores.</p>
+        <span class="more">Ler mais</span>
+      </article>
+    </section>
+
+    <section class="emais">
+      <div class="head">E mais...<i></i></div>
+      <div class="thumbs">
+        <figure><div style="background-image:url(img/feiras.jpg)"></div><h3>Feiras do Livro<br>em Cascais</h3></figure>
+        <figure><div style="background-image:url(img/sugestoes.jpg)"></div><h3>Sugestões da Equipa</h3></figure>
+        <figure><div style="background-image:url(img/noticias.jpg)"></div><h3>Notícias do Mundo<br>da Literatura</h3></figure>
+        <figure><div style="background-image:url(img/vida.jpg)"></div><h3>A vida em Cascais<br>através dos livros</h3></figure>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>
