@@ -21,7 +21,7 @@ a{color:inherit;text-decoration:none}
 .page{max-width:1280px;margin:0 auto;padding:0 40px 56px}
 
 /* Cabeçalho (fixo ao fazer scroll) */
-header{position:sticky;top:0;z-index:20;background:var(--bg);margin:0 -40px;padding:0 40px}
+header{position:sticky;top:0;z-index:20;background:var(--bg);margin:0 -40px;padding:0 40px 24px}
 .masthead{position:relative;display:flex;align-items:center;gap:30px;padding:20px 0 0;margin-left:-5px}
 .masthead .rule{flex:1;height:1px;background:var(--ink)}
 .masthead h1{font-family:var(--display);font-weight:600;font-size:clamp(40px,5.2vw,64px);line-height:1;letter-spacing:0;white-space:nowrap}
@@ -40,7 +40,7 @@ nav button:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
 .card h2{font-weight:400;letter-spacing:-.005em}
 .card p{font-weight:400}
 
-.hero{margin-top:36px;grid-template-columns:476fr 472fr}
+.hero{margin-top:16px;grid-template-columns:476fr 472fr}
 .hero .card{height:440px;color:#fff;padding:58px 36px 0}
 .hero .tag{display:block;margin-bottom:12px}
 .hero h2{font-size:45px;line-height:1.08}
@@ -104,7 +104,7 @@ footer .rules i+i{margin-top:5px}
 /* Telemóvel */
 @media (max-width:760px){
   .page{padding:0 16px 32px}
-  header{margin:0 -16px;padding:0 16px}
+  header{margin:0 -16px;padding:0 16px 18px}
   .masthead{margin-left:0;gap:14px}
   .masthead .rule{margin-top:10px}
   nav{margin-left:0;overflow-x:auto;scrollbar-width:none}
