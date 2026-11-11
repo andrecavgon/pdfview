@@ -943,3 +943,7 @@ form.f{display:grid;gap:14px}
 .mk-v:not(:first-child) .mk-ph i{aspect-ratio:auto;height:100%}
 .mk-chat .l,.mk-chat .r{justify-self:start;text-align:left}
 .mk-chat .r{justify-self:end}
+/* novo logo (mais largo): um pouco maior no cabeçalho */
+.hdr .logo-img{height:86px}
+@media(max-width:560px){.hdr .logo-img{height:80px}}
+@media(max-width:360px){.hdr .logo-img{height:70px}}

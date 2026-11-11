@@ -20,9 +20,7 @@ const stopTimers = () => { clearInterval(testiTimer); clearInterval(ST.timer); }
 
 // ---------- logótipo ----------
 const LOGO_SRC = 'logo.webp';
-const LOGO_DARK = 'logo-dark.webp';
-const FORCED_DARK = (() => { try { return matchMedia('(prefers-color-scheme: dark)').matches && matchMedia('(max-width:560px)').matches && !!navigator.userAgentData && navigator.userAgentData.brands.some(b => /Chrom/i.test(b.brand)); } catch (e) { return false; } })();
-const logo = (onDark) => `<img class="logo-img" src="${LOGO_SRC}" width="900" height="704" alt="Obras com Evidência">`;
+const logo = () => `<img class="logo-img" src="${LOGO_SRC}" width="690" height="465" alt="Obras com Evidência">`;
 
 // ---------- ícones (SVG de linha, minimalistas e coerentes) ----------
 const ICONS = {
