@@ -947,3 +947,24 @@ form.f{display:grid;gap:14px}
 .hdr .logo-img{height:86px}
 @media(max-width:560px){.hdr .logo-img{height:80px}}
 @media(max-width:360px){.hdr .logo-img{height:70px}}
+/* telemóvel: barra de menus horizontal no topo, recolhida; desliza para baixo para abrir */
+@media(max-width:560px){
+  .side,.side:not(.open),.side.open{left:8px;right:8px;top:var(--tb,84px);width:auto;max-height:none;transition:none;z-index:58}
+  .menu{flex-direction:row;align-items:center;gap:2px;padding:4px 6px;border-radius:26px;max-height:none;overflow-x:auto;overflow-y:hidden}
+  .side:not(.open) .menu{padding:4px 6px}
+  .menu a,.side:not(.open) .menu a{width:42px;min-width:42px;height:42px;min-height:42px;padding:0;justify-content:center;flex:none;border-radius:21px}
+  .dock-toggle,.side:not(.open) .dock-toggle{margin:0 4px 0 0;width:42px;height:42px;flex:none}
+  .menu .user,.side:not(.open) .menu .user{flex:none;flex-direction:row;align-items:center;margin:0 0 0 4px;padding:0 0 0 6px;border-top:0;border-left:1px solid color-mix(in srgb, var(--color-on-brand) 22%, transparent);gap:2px}
+  .side:not(.open) .menu .user .avatar{display:none}
+  .menu .user button,.side:not(.open) .menu .user button{width:42px;height:42px;padding:0;justify-content:center;flex:none}
+  .side.open .menu{flex-direction:column;align-items:stretch;overflow-x:hidden;overflow-y:auto;max-height:calc(100vh - var(--tb,84px) - 16px);padding:8px 6px}
+  .side.open .menu a{width:100%;height:46px;min-height:46px;padding:0 14px;gap:12px;justify-content:flex-start;border-radius:23px}
+  .side.open .menu .user{flex-direction:column;align-items:stretch;margin:4px 0 0;padding:6px 0 0;border-left:0;border-top:1px solid color-mix(in srgb, var(--color-on-brand) 22%, transparent)}
+  .side.open .menu .user .avatar{display:grid;align-self:center}
+  .side.open .menu .user button{width:100%;height:44px;padding:0 14px;justify-content:flex-start}
+  .ca .main .view{padding-top:62px}
+}
+@media(max-width:560px){
+  .ca .main{padding:0 12px 40px}
+  .ca .topbar{margin:0 -12px 0;padding:0 12px}
+}

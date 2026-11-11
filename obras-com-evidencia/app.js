@@ -434,7 +434,7 @@ function renderClient() {
   if (!B) { $('#app').innerHTML = `${banner()}<p style="padding:60px;text-align:center">${t('no_items')} <a class="link" href="#/">←</a></p>`; return; }
   const ini = ST.user.name.split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
   const anim = ST.lastView !== page ? ' enter' : ''; ST.lastView = page;   // animação só quando a página muda
-  $('#app').innerHTML = `${banner()}<div class="ca"><aside class="side${ST.dock ? ' open' : ''}" id="side"><a class="logo" href="#/">${logo()}</a>
+  $('#app').innerHTML = `${banner()}<div class="ca"><aside class="side${ST.dock && !matchMedia('(max-width:560px)').matches ? ' open' : ''}" id="side"><a class="logo" href="#/">${logo()}</a>
     <nav class="menu"><button class="dock-toggle" id="dockT" aria-label="Menu" aria-expanded="${ST.dock}"><span class="t-closed">${ico('menu')}</span><span class="t-open">${ico('x')}</span></button>${MENU.map(([k, l, ic]) => `<a href="#/area/${k}" class="${k === page ? 'on' : ''}"><span class="i">${ico(ic)}</span><span class="lbl">${t(l)}</span></a>`).join('')}
       <div class="user"><div class="avatar">${ico('user', 20)}</div><span class="uname">${esc(first(ST.user.name))}<br>${esc(ST.user.name.split(' ').slice(1).join(' '))}</span><button id="logout" aria-label="${t('logout')}">${ico('logout')}<span class="lbl">${t('logout')}</span></button></div></nav></aside>
     <main class="main"><div class="topbar"><div style="display:flex;align-items:center"><button class="mburger" id="mb" aria-label="Menu">${ico('menu', 24)}</button><a class="top-logo" href="#/">${logo()}</a><div class="top-title"><b>Obras com Evidência</b><small>${t('client')}</small></div><div class="tabs"><span class="on">Dashboard</span><span>${t('clients_tab')}</span>${ST.projects.length > 1 ? `<select id="pSel" class="sel" style="margin-left:16px">${ST.projects.map(p => `<option value="${p.id}" ${p.id === ST.pid ? 'selected' : ''}>${esc(tx(p.name))}</option>`).join('')}</select>` : ''}</div></div>
@@ -447,6 +447,7 @@ function renderClient() {
     dt.onclick = e => { e.stopPropagation(); setDock(!sd.classList.contains('open')); };
     $('.main').addEventListener('click', () => { if (mob()) setDock(false); });            // no telemóvel, tocar fora fecha
     $$('.menu a').forEach(a => a.addEventListener('click', () => { if (mob()) setDock(false); })); }
+  dockMobile();
   const ps = $('#pSel'); if (ps) ps.onchange = async () => { ST.pid = ps.value; ST.B = await DB.loadBundle(ST.pid); renderClient(); };
   const dk = $('.menu'), da = $('.menu a.on'); /* dockScroll */ if (dk && da) dk.scrollTop = da.offsetTop - dk.clientHeight / 2 + da.offsetHeight / 2;
   (BIND[page] || (() => {}))(B); scrollTo(0, 0);
@@ -522,7 +523,7 @@ async function staffRoute(parts) {
 function staffShell(inner, active) {
   const ini = ST.user.name.split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
   const vk = active + '/' + ST.tab, anim = ST.lastStaff !== vk ? ' enter' : ''; ST.lastStaff = vk;
-  return `${banner()}<div class="ca st"><aside class="side${ST.dock ? ' open' : ''}" id="side"><a class="logo" href="#/">${logo()}</a><nav class="menu"><button class="dock-toggle" id="dockT" aria-label="Menu" aria-expanded="${ST.dock}"><span class="t-closed">${ico('menu')}</span><span class="t-open">${ico('x')}</span></button>
+  return `${banner()}<div class="ca st"><aside class="side${ST.dock && !matchMedia('(max-width:560px)').matches ? ' open' : ''}" id="side"><a class="logo" href="#/">${logo()}</a><nav class="menu"><button class="dock-toggle" id="dockT" aria-label="Menu" aria-expanded="${ST.dock}"><span class="t-closed">${ico('menu')}</span><span class="t-open">${ico('x')}</span></button>
     <a href="#/gestao" class="${active !== 'nova' ? 'on' : ''}"><span class="i">${ico('grid')}</span><span class="lbl">Obras</span></a><a href="#/gestao/nova" class="${active === 'nova' ? 'on' : ''}"><span class="i">${ico('plus')}</span><span class="lbl">Nova obra / cliente</span></a>
     <div class="user"><div class="avatar">${ico('user', 20)}</div><span class="uname">Equipa<br>técnica</span><button id="logout" aria-label="Sair">${ico('logout')}<span class="lbl">Sair</span></button></div></nav></aside>
     <main class="main"><div class="topbar"><div style="display:flex;align-items:center"><button class="mburger" id="mb">${ico('menu', 24)}</button><a class="top-logo" href="#/">${logo()}</a><div class="top-title"><b>Obras com Evidência</b><small>Painel da equipa</small></div><div class="tabs"><span class="on">Painel da equipa</span></div></div><div class="top-r"><span class="tag">${esc(ST.user.name)}</span></div></div><div class="view${anim}">${inner}</div></main></div>`;
@@ -543,8 +544,27 @@ function staffRender(a) {
   { const dt = $('#dockT'), sd = $('#side'), mob = () => matchMedia('(max-width:980px)').matches, setDock = o => { ST.dock = o; sd.classList.toggle('open', o); dt.setAttribute('aria-expanded', o); };
     dt.onclick = e => { e.stopPropagation(); setDock(!sd.classList.contains('open')); };
     $('.main').addEventListener('click', () => { if (mob()) setDock(false); }); $$('.menu a').forEach(a => a.addEventListener('click', () => { if (mob()) setDock(false); })); }
+  dockMobile();
   bindStaff();
 }
+
+// ---------- telemóvel: barra de menus no topo, recolhida; abre ao deslizar o dedo para baixo ----------
+let DOCK_POS = null;
+function dockMobile() {
+  const sd = $('#side'), dt = $('#dockT'), tb = $('.topbar'); if (!sd || !dt || !tb) return;
+  const set = o => { ST.dock = o; sd.classList.toggle('open', o); dt.setAttribute('aria-expanded', o); };
+  if (DOCK_POS) { removeEventListener('scroll', DOCK_POS); removeEventListener('resize', DOCK_POS); }
+  DOCK_POS = () => document.documentElement.style.setProperty('--tb', Math.max(0, Math.round(tb.getBoundingClientRect().bottom)) + 'px');
+  DOCK_POS(); addEventListener('scroll', DOCK_POS, { passive: true }); addEventListener('resize', DOCK_POS);
+  let x0 = 0, y0 = 0, on = false;
+  sd.addEventListener('touchstart', e => { const t = e.touches[0]; x0 = t.clientX; y0 = t.clientY; on = true; }, { passive: true });
+  sd.addEventListener('touchmove', e => {
+    if (!on) return; const t = e.touches[0], dx = t.clientX - x0, dy = t.clientY - y0;
+    if (Math.abs(dy) > 14 && Math.abs(dy) > Math.abs(dx)) { set(dy > 0); on = false; }
+  }, { passive: true });
+  sd.addEventListener('touchend', () => { on = false; }, { passive: true });
+}
+
 function staffProject() {
   const B = ST.B, P = B.project, tab = ST.tab;
   const body = STAFF[tab] ? STAFF[tab](B) : '';
