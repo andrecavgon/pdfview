@@ -1148,6 +1148,16 @@ form.f{display:grid;gap:14px}
   .side.open .menu{max-height:calc(100vh - var(--bn,0px) - 20px)}
   .ca .main .view{padding-top:62px}
 }
+/* telemóvel: barra do dashboard mais baixa e 50% transparente (recolhida) */
+@media(max-width:560px){
+  .side:not(.open) .menu{padding:2px 4px;background:color-mix(in srgb, var(--color-brand) 50%, transparent);-webkit-backdrop-filter:blur(12px) saturate(1.4);backdrop-filter:blur(12px) saturate(1.4);box-shadow:0 8px 24px color-mix(in srgb, var(--color-shadow-ink) 14%, transparent)}
+  .side:not(.open) .menu a,.side:not(.open) .dock-toggle,.side:not(.open) .menu .user button{height:32px;min-height:32px;border-radius:16px}
+  .side:not(.open) .dock-toggle{background:none}
+  .side:not(.open) .menu a .i .svg-i,.side:not(.open) .menu .user button .svg-i,.side:not(.open) .dock-toggle .svg-i{width:17px;height:17px;filter:drop-shadow(0 0 2px rgba(0,0,0,.45))}
+  .side:not(.open) .menu a.on .i .svg-i{filter:none}
+  .ca .main .view{padding-top:50px}
+}
+@media(max-width:560px){.side,.side:not(.open),.side.open{background:none;-webkit-backdrop-filter:none;backdrop-filter:none;border:0;box-shadow:none}}
 
 </style>
 </head>
