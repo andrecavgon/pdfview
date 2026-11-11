@@ -550,7 +550,7 @@ function staffRender(a) {
 
 // ---------- telemóvel: barra de menus no topo, recolhida; abre ao deslizar o dedo para baixo ----------
 let DOCK_POS = null, DOCK_OUT = null;
-const dockOpen = () => ST.dock && !matchMedia('(max-width:560px)').matches;
+const dockOpen = () => ST.dock;
 function dockMobile() {
   const sd = $('#side'), dt = $('#dockT'), tb = $('.topbar'); if (!sd || !dt || !tb) return;
   const set = o => { ST.dock = o; sd.classList.toggle('open', o); dt.setAttribute('aria-expanded', o); };

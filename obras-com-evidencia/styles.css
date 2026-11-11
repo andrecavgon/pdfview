@@ -1014,3 +1014,23 @@ form.f{display:grid;gap:14px}
 @media(max-width:560px){
   .side:not(.open) .menu a.on{flex:0 0 32px;width:32px;min-width:32px;border-radius:50%;margin:0 auto}
 }
+/* barra do dashboard recolhida: ligeiramente mais alta */
+@media(max-width:560px){
+  .side:not(.open) .menu a,.side:not(.open) .dock-toggle,.side:not(.open) .menu .user button{height:38px;min-height:38px;border-radius:19px}
+  .side:not(.open) .menu a.on{flex:0 0 38px;width:38px;min-width:38px;border-radius:50%}
+  .side:not(.open) .menu a .i .svg-i,.side:not(.open) .menu .user button .svg-i,.side:not(.open) .dock-toggle .svg-i{width:18px;height:18px}
+  .ca .main .view{padding-top:56px}
+}
+/* telemóvel: botões "Área de Cliente" (cabeçalho e página inicial), "Pedir Orçamento" e chat mais pequenos e do mesmo tamanho */
+@media(max-width:560px){
+  #loginBtn,.hero .btn,.float-cta{height:30px!important;min-height:30px;padding:0 8px!important;min-width:104px!important;font-size:.78rem!important;line-height:1;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;white-space:nowrap}
+  .float-cta{right:56px;bottom:14px}
+  .bot-fab{width:36px;height:30px;border-radius:15px;font-size:1rem;right:14px;bottom:14px}
+  .bot-fab .svg-i{width:16px;height:16px}
+}
+@media(max-width:360px){
+  #loginBtn,.hero .btn,.float-cta{min-width:98px!important;font-size:.74rem!important;padding:0 6px!important}
+  .float-cta{right:54px}
+}
+@media(max-width:560px){#loginBtn,.hero .btn,.float-cta{min-width:112px!important}.float-cta{right:56px}}
+@media(max-width:360px){#loginBtn,.hero .btn,.float-cta{min-width:104px!important}}
