@@ -968,3 +968,20 @@ form.f{display:grid;gap:14px}
   .ca .main{padding:0 12px 40px}
   .ca .topbar{margin:0 -12px 0;padding:0 12px}
 }
+/* animação do exemplo 2x mais rápida */
+.mk-v{transition:opacity .22s,transform .22s,visibility 0s .22s}
+.mk-v.on{transition:opacity .22s,transform .22s}
+.mk-v .mini-bar b{transition:width .55s cubic-bezier(.2,.7,.2,1) .08s}
+.mk-cursor{transition:transform .45s cubic-bezier(.45,.1,.2,1),opacity .15s}
+.mk-cursor.click::after{animation-duration:.3s}
+/* telemóvel: barras do topo mais compactas e menu recolhido sempre dentro do ecrã (sem deslizar para os lados) */
+@media(max-width:560px){
+  .ca .topbar{height:66px}
+  .ca .top-logo .logo-img{height:54px}
+  .ca .main .view{padding-top:54px}
+  .side,.side:not(.open),.side.open{left:6px;right:6px}
+  .side:not(.open) .menu{overflow:hidden;gap:0;padding:3px 4px}
+  .side:not(.open) .menu a,.side:not(.open) .dock-toggle,.side:not(.open) .menu .user button{flex:1 1 0;min-width:0;width:auto;height:40px;min-height:40px;margin:0;padding:0}
+  .side:not(.open) .menu .user{flex:1 1 0;min-width:0;margin:0;padding:0;border:0}
+  .side:not(.open) .menu a .i .svg-i,.side:not(.open) .menu .user button .svg-i,.side:not(.open) .dock-toggle .svg-i{width:18px;height:18px}
+}

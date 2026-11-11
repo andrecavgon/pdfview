@@ -178,7 +178,7 @@ function initMock() {
   const step = () => {
     if (!auto || !vis) return;
     const nx = (idx + 1) % items.length; cur.classList.add('on'); moveTo(items[nx]);
-    tm = setTimeout(() => { click(); show(nx); tm = setTimeout(step, 2200); }, 1000);
+    tm = setTimeout(() => { click(); show(nx); tm = setTimeout(step, 1100); }, 500);
   };
   const stop = () => { auto = false; clearTimeout(tm); clearTimeout(idle); cur.classList.remove('on'); };
   const resume = ms => { clearTimeout(idle); if (reduce) return; idle = setTimeout(() => { auto = true; step(); }, ms); };
@@ -186,7 +186,7 @@ function initMock() {
   m.addEventListener('pointerenter', () => { stop(); });
   m.addEventListener('pointerleave', () => resume(2500));
   if ('IntersectionObserver' in window) {
-    new IntersectionObserver(es => { vis = es[0].isIntersecting; if (vis && auto) { clearTimeout(tm); moveTo(items[idx]); tm = setTimeout(step, 700); } else if (!vis) clearTimeout(tm); }, { threshold: .35 }).observe(m);
+    new IntersectionObserver(es => { vis = es[0].isIntersecting; if (vis && auto) { clearTimeout(tm); moveTo(items[idx]); tm = setTimeout(step, 350); } else if (!vis) clearTimeout(tm); }, { threshold: .35 }).observe(m);
   } else { vis = true; step(); }
   MOCK_T = 0;
 }
