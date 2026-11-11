@@ -1184,6 +1184,16 @@ form.f{display:grid;gap:14px}
 }
 @media(max-width:560px){#loginBtn,.hero .btn,.float-cta{min-width:112px!important}.float-cta{right:56px}}
 @media(max-width:360px){#loginBtn,.hero .btn,.float-cta{min-width:104px!important}}
+/* telemóvel: nenhum texto sai da largura do ecrã (secção "Sobre nós") */
+.about>*,.pillars>*{min-width:0}
+.pillars{grid-template-columns:repeat(2,minmax(0,1fr))}
+.pillar b,.pillar span{overflow-wrap:anywhere}
+@media(max-width:560px){
+  .pillar{padding:16px 10px}
+  .pillar b{font-size:1.05rem}
+  .pillar span{font-size:.78rem}
+}
+@media(max-width:360px){.hdr .wrap{gap:4px}.hdr-r{gap:4px}.hdr .logo-img{height:66px}}
 
 </style>
 </head>
