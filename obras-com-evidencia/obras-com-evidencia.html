@@ -1140,6 +1140,14 @@ form.f{display:grid;gap:14px}
   .ca .topbar{position:fixed;top:var(--bn,0px);left:0;right:0;margin:0;padding:0 12px;z-index:60}
   .ca{padding-top:66px}
 }
+/* telemóvel, área de cliente / equipa: sem cabeçalho do site; só a barra do dashboard no topo */
+@media(max-width:560px){
+  .ca .topbar{display:none}
+  .ca{padding-top:0}
+  .side,.side:not(.open),.side.open{top:calc(var(--bn,0px) + 6px)}
+  .side.open .menu{max-height:calc(100vh - var(--bn,0px) - 20px)}
+  .ca .main .view{padding-top:62px}
+}
 
 </style>
 </head>
