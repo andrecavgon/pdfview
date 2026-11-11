@@ -1135,6 +1135,11 @@ form.f{display:grid;gap:14px}
   .side:not(.open) .menu .user{flex:1 1 0;min-width:0;margin:0;padding:0;border:0}
   .side:not(.open) .menu a .i .svg-i,.side:not(.open) .menu .user button .svg-i,.side:not(.open) .dock-toggle .svg-i{width:18px;height:18px}
 }
+/* telemóvel: barra de topo da área de cliente fixa (não desaparece em nenhum browser) */
+@media(max-width:560px){
+  .ca .topbar{position:fixed;top:var(--bn,0px);left:0;right:0;margin:0;padding:0 12px;z-index:60}
+  .ca{padding-top:66px}
+}
 
 </style>
 </head>
@@ -2082,7 +2087,8 @@ function dockMobile() {
   const sd = $('#side'), dt = $('#dockT'), tb = $('.topbar'); if (!sd || !dt || !tb) return;
   const set = o => { ST.dock = o; sd.classList.toggle('open', o); dt.setAttribute('aria-expanded', o); };
   if (DOCK_POS) { removeEventListener('scroll', DOCK_POS); removeEventListener('resize', DOCK_POS); }
-  DOCK_POS = () => document.documentElement.style.setProperty('--tb', Math.max(0, Math.round(tb.getBoundingClientRect().bottom)) + 'px');
+  const bn = $('.banner');
+  DOCK_POS = () => { const st = document.documentElement.style; st.setProperty('--bn', (bn ? Math.max(0, Math.round(bn.getBoundingClientRect().bottom)) : 0) + 'px'); st.setProperty('--tb', Math.max(0, Math.round(tb.getBoundingClientRect().bottom)) + 'px'); };
   DOCK_POS(); addEventListener('scroll', DOCK_POS, { passive: true }); addEventListener('resize', DOCK_POS);
   if (DOCK_OUT) document.removeEventListener('click', DOCK_OUT);
   DOCK_OUT = e => { if (matchMedia('(max-width:560px)').matches && sd.classList.contains('open') && !sd.contains(e.target)) set(false); };

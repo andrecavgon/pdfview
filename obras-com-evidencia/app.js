@@ -555,7 +555,8 @@ function dockMobile() {
   const sd = $('#side'), dt = $('#dockT'), tb = $('.topbar'); if (!sd || !dt || !tb) return;
   const set = o => { ST.dock = o; sd.classList.toggle('open', o); dt.setAttribute('aria-expanded', o); };
   if (DOCK_POS) { removeEventListener('scroll', DOCK_POS); removeEventListener('resize', DOCK_POS); }
-  DOCK_POS = () => document.documentElement.style.setProperty('--tb', Math.max(0, Math.round(tb.getBoundingClientRect().bottom)) + 'px');
+  const bn = $('.banner');
+  DOCK_POS = () => { const st = document.documentElement.style; st.setProperty('--bn', (bn ? Math.max(0, Math.round(bn.getBoundingClientRect().bottom)) : 0) + 'px'); st.setProperty('--tb', Math.max(0, Math.round(tb.getBoundingClientRect().bottom)) + 'px'); };
   DOCK_POS(); addEventListener('scroll', DOCK_POS, { passive: true }); addEventListener('resize', DOCK_POS);
   if (DOCK_OUT) document.removeEventListener('click', DOCK_OUT);
   DOCK_OUT = e => { if (matchMedia('(max-width:560px)').matches && sd.classList.contains('open') && !sd.contains(e.target)) set(false); };
