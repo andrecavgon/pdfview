@@ -30,6 +30,8 @@ header{position:sticky;top:0;z-index:20;background:var(--bg);margin:0 -40px;padd
 .masthead .rule{flex:1;height:1px;background:var(--ink)}
 .masthead h1{line-height:0;color:var(--ink);position:relative;top:-4px}
 .masthead .logo{width:var(--lw)}
+.logo-btn{appearance:none;border:0;background:none;padding:0;margin:0;color:inherit;cursor:pointer;display:block;line-height:0}
+.logo-btn:focus-visible{outline:2px solid var(--rust);outline-offset:4px}
 .logo{display:block;width:200px;aspect-ratio:2556/696;height:auto}
 nav{display:flex;align-items:stretch;margin:4px 0 0;height:43px;justify-content:center;gap:8px}
 nav .item{position:relative;display:flex}
@@ -180,7 +182,7 @@ footer .rules i+i{margin-top:5px}
   <header>
     <div class="masthead">
       <span class="rule"></span>
-      <h1 aria-label="Na Linha"><svg class="logo" role="img" aria-hidden="true"><use href="#logo"/></svg></h1>
+      <h1><button type="button" class="logo-btn" aria-label="Na Linha, voltar ao início"><svg class="logo" aria-hidden="true"><use href="#logo"/></svg></button></h1>
       <span class="rule"></span>
       <button type="button" class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
         <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path class="i-open" d="M4 7h16M4 12h16M4 17h16"/><path class="i-close" d="M6 6l12 12M18 6L6 18"/></svg>
@@ -320,6 +322,12 @@ footer .rules i+i{margin-top:5px}
     });
   });
   t.addEventListener('click',function(){set(!header.classList.contains('open'))});
+  document.querySelector('.logo-btn').addEventListener('click',function(){
+    closeSubs();set(false);
+    if(items[0]){selectTop(items[0]);items[0].querySelectorAll('.sub button.active').forEach(function(x){x.classList.remove('active')})}
+    var rm=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({top:0,behavior:rm?'auto':'smooth'});
+  });
   document.addEventListener('click',function(e){
     if(!e.target.closest('nav')){closeSubs();if(!e.target.closest('.menu-toggle'))set(false)}
   });
