@@ -121,11 +121,18 @@ nav button:focus:not(:focus-visible){outline:none}
 footer{margin-top:44px}
 footer .rules i{display:block;height:1px;background:var(--ink)}
 footer .rules i+i{margin-top:5px}
-.foot{padding:36px 0 40px;display:flex;flex-direction:column;gap:8px}
+.foot{padding:40px 0 40px;display:grid;grid-template-columns:1fr auto;align-items:end;gap:28px 40px}
+.foot-brand{display:flex;flex-direction:column;gap:8px}
 .foot strong{line-height:0}
 .foot .logo{width:200px}
-.foot span{font-size:17px}
-.foot small{font-family:var(--sans);font-size:11px;letter-spacing:.08em;color:#756c58;margin-top:14px}
+.foot-brand span{font-size:17px}
+.foot-links{display:flex;align-items:center;gap:6px 34px;flex-wrap:wrap;justify-content:flex-end}
+.foot-links button{appearance:none;border:0;background:none;color:var(--ink);cursor:pointer;font-family:var(--sans);font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;padding:10px 0;-webkit-tap-highlight-color:transparent}
+.foot-links button:hover{color:var(--rust)}
+.foot-links button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.redes{display:flex;align-items:center;gap:6px}
+.redes button{display:flex;align-items:center;justify-content:center;width:38px;height:38px;padding:0;border-radius:50%}
+.foot small{grid-column:1/-1;font-family:var(--sans);font-size:11px;letter-spacing:.08em;color:#756c58}
 @media (max-width:760px){.row5{grid-template-columns:1fr}}
 /* Telemóvel */
 @media (max-width:760px){
@@ -179,7 +186,9 @@ footer .rules i+i{margin-top:5px}
   .duo{height:310px}
   .thumbs h3{font-size:21px}
   .emais .head{font-size:13px}
-  .foot span{font-size:19px}
+  .foot{grid-template-columns:1fr;gap:20px}
+  .foot-brand span{font-size:19px}
+  .foot-links{justify-content:flex-start;gap:2px 26px}
   .foot small{font-size:13px}
 }
 </style>
@@ -300,8 +309,20 @@ footer .rules i+i{margin-top:5px}
 
   <footer>
     <div class="foot">
-      <strong aria-label="Na Linha"><svg class="logo" aria-hidden="true"><use href="#logo"/></svg></strong>
-      <span>Livros, leitura e literatura em Cascais.</span>
+      <div class="foot-brand">
+        <strong aria-label="Na Linha"><svg class="logo" aria-hidden="true"><use href="#logo"/></svg></strong>
+        <span>Livros, leitura e literatura em Cascais.</span>
+      </div>
+      <div class="foot-links" role="navigation" aria-label="Rodapé">
+        <button type="button">Contactos</button>
+        <button type="button">Parceiros</button>
+        <div class="redes" role="group" aria-label="Redes">
+          <button type="button" aria-label="Instagram"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.2" cy="6.8" r=".6" fill="currentColor"/></svg></button>
+          <button type="button" aria-label="Facebook"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M13.4 20.9v-7.3h2.4l.4-2.8h-2.8V9.1c0-.8.3-1.4 1.5-1.4h1.4V5.2c-.3 0-1.1-.1-2.1-.1-2.1 0-3.5 1.3-3.5 3.6v2.1H8.4v2.8h2.3v7.3"/></svg></button>
+          <button type="button" aria-label="YouTube"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.6" y="5.6" width="18.8" height="12.8" rx="4"/><path d="M10.2 9.4v5.2l4.5-2.6z" fill="currentColor"/></svg></button>
+        </div>
+        <button type="button">Mailing List</button>
+      </div>
       <small>© 2025 Na Linha. Todos os direitos reservados.</small>
     </div>
   </footer>
