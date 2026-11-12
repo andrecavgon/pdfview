@@ -193,7 +193,6 @@ footer .rules i+i{margin-top:5px}
   .page{padding:0}
   header{position:sticky;top:0;margin:0;padding:0 16px;background:var(--bg);color:var(--ink)}
   .masthead{--lw:138px;margin-left:0;padding:1px 0;align-items:center;justify-content:center;gap:5px}
-  .menu-toggle{display:flex;align-items:center;justify-content:center;width:42px;height:42px;margin:0 -8px 0 0;flex:0 0 auto;appearance:none;border:0;background:none;color:var(--ink);cursor:pointer;border-radius:4px}
   .menu-toggle:hover,.menu-toggle:active,.menu-toggle:focus{color:var(--ink);background:none}
   .menu-toggle:focus:not(:focus-visible){outline:none}
   .menu-toggle:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
@@ -201,24 +200,24 @@ footer .rules i+i{margin-top:5px}
   header.open .menu-toggle .i-open{display:none}
   header.open .menu-toggle .i-close{display:inline}
   header.open .menu-toggle svg{width:19px;height:19px}
-  nav{display:none;height:auto;margin:0;padding:0;gap:0}
+  .menu-toggle{display:none}
   header{transition:transform .25s ease}
-  header.esconde{transform:translateY(calc(-100% - var(--oc,0px)))}
+  header.esconde{transform:translateY(-100%)}
   @media (prefers-reduced-motion:reduce){header{transition:none}}
-  header.open nav{display:grid;grid-template-columns:repeat(5,1fr);justify-items:center;row-gap:0;position:absolute;top:100%;left:0;right:0;z-index:30;padding:10px 8px 8px;background:var(--bg);box-shadow:0 14px 24px rgba(0,0,0,.16);max-height:calc(100vh - 70px);overflow-y:auto}
+  /* títulos das categorias sempre presos ao cabeçalho, numa só linha, só texto */
+  nav{display:flex;justify-content:space-between;align-items:stretch;height:auto;margin:0;padding:0 0 2px;gap:0}
   nav .item{display:contents}
-  nav .top{grid-row:1;width:100%;height:auto;padding:0 0 2px;border-radius:0;flex-direction:column;align-items:center;justify-content:flex-start;gap:5px;background:none;color:var(--ink);-webkit-tap-highlight-color:transparent}
+  nav .top{flex:0 0 auto;padding:7px 3px 6px;height:auto;gap:0;background:none;color:var(--ink);-webkit-tap-highlight-color:transparent;border-radius:0}
   nav .top::after{content:none}
-  nav .ic{display:block;box-sizing:border-box;width:34px;height:34px;padding:6px;border-radius:50%;background:#d97757;color:#fff;transition:transform .15s,background .15s}
-  nav .lbl{display:block;font-family:var(--sans);font-size:9.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;line-height:1.1;color:var(--ink);white-space:nowrap}
+  nav .ic{display:none}
+  nav .lbl{display:block;font-family:var(--sans);font-size:9.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;line-height:1.1;color:var(--ink);white-space:nowrap;padding-bottom:3px;border-bottom:2px solid transparent}
   nav .item:hover .top,nav .top:hover,nav .top.active,nav .top.active:hover{background:none;color:var(--ink)}
-  nav .top:active .ic{transform:scale(.94)}
-  nav .top.active .ic{background:#7a4a2e;box-shadow:0 0 0 2px var(--bg),0 0 0 3.5px #7a4a2e}
-  nav .top.active .lbl{font-weight:700}
-  nav button:focus-visible{outline:2px solid var(--ink);outline-offset:2px;border-radius:6px}
+  nav .top.active .lbl{font-weight:700;color:#7a4a2e;border-bottom-color:#7a4a2e}
+  nav button:focus-visible{outline:2px solid var(--ink);outline-offset:1px;border-radius:4px}
   .nav-cap{display:none}
-  nav .sub{grid-row:3;grid-column:1/-1;width:100%;position:static;transform:none;max-width:none;min-width:0;box-shadow:none;background:none;border-radius:0;padding:4px 0 0;text-align:center}
-  nav .sub button{width:100%;text-align:center;padding:9px 12px;font-size:13px;letter-spacing:.05em}
+  nav .sub{position:absolute;top:100%;left:0;right:0;z-index:30;display:none;transform:none;width:auto;max-width:none;min-width:0;padding:4px 16px 8px;background:var(--bg);border-radius:0;box-shadow:0 14px 24px rgba(0,0,0,.16);text-align:center}
+  nav .item.open .sub{display:block}
+  nav .sub button{width:100%;text-align:center;padding:10px 12px;font-size:13px;letter-spacing:.05em}
   nav .sub button.active{box-shadow:none;color:#7a4a2e;font-weight:600}
   .hero{margin-top:0;grid-template-columns:1fr}
   .row2,.row3{grid-template-columns:1fr}
@@ -434,7 +433,6 @@ footer .rules i+i{margin-top:5px}
     items.forEach(function(i){var b=i.querySelector('.top');b.classList.remove('active');b.removeAttribute('aria-current');i.classList.remove('open');b.setAttribute('aria-expanded','false');i.querySelectorAll('.sub button.active').forEach(function(x){x.classList.remove('active')})});
   }
   function set(o){
-    if(window.matchMedia('(max-width: 760px)').matches) limparSelecao(); /* telemóvel: ao abrir ou fechar o menu, nenhum campo fica selecionado */
     header.classList.toggle('open',o);t.setAttribute('aria-expanded',o);t.setAttribute('aria-label',o?'Fechar menu':'Abrir menu')}
   function closeSubs(){items.forEach(function(i){i.classList.remove('open');i.querySelector('.top').setAttribute('aria-expanded','false')})}
   function selectTop(item){
@@ -468,6 +466,7 @@ footer .rules i+i{margin-top:5px}
     if(!e.target.closest('nav')){closeSubs();if(!e.target.closest('.menu-toggle'))set(false)}
   });
   document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeSubs();set(false)}});
+  if(window.matchMedia('(max-width: 760px)').matches) limparSelecao(); /* telemóvel: começa sem nenhuma categoria selecionada */
   /* Telemóvel: o cabeçalho esconde-se ao descer a página e volta ao subir */
   (function(){
     var h=document.querySelector('header'), ult=window.scrollY, tick=false;
@@ -476,7 +475,7 @@ footer .rules i+i{margin-top:5px}
       tick=false;
       var y=Math.max(0,window.scrollY), d=y-ult;
       if(!mq.matches||y<=h.offsetHeight){ h.classList.remove('esconde'); ult=y; return; }
-      if(d>6){ h.style.setProperty('--oc',h.classList.contains('open')?(h.querySelector('nav').offsetHeight+30)+'px':'0px'); h.classList.add('esconde'); ult=y; }
+      if(d>6){ closeSubs(); h.classList.add('esconde'); ult=y; }
       else if(d<-6){ h.classList.remove('esconde'); ult=y; }
     }
     window.addEventListener('scroll',function(){ if(!tick){tick=true;requestAnimationFrame(atualizar)} },{passive:true});
