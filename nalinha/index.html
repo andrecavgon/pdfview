@@ -22,7 +22,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--ink);font-family:var(--serif);-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
-.page{max-width:1280px;margin:0 auto;padding:0 40px 10px}
+.page{max-width:1280px;margin:0 auto;padding:0 40px 4px}
 
 /* Cabeçalho (fixo ao fazer scroll) */
 header{position:sticky;top:0;z-index:20;background:var(--bg);margin:0 -40px;padding:0 40px 12px}
@@ -123,7 +123,7 @@ nav button:focus:not(:focus-visible){outline:none}
 footer{margin-top:6px}
 footer .rules i{display:block;height:1px;background:var(--ink)}
 footer .rules i+i{margin-top:5px}
-.foot{padding:8px 0 14px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px}
+.foot{padding:8px 0 4px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px}
 .foot-brand{display:flex;flex-direction:column;align-items:center;gap:4px;margin-bottom:6px}
 .foot strong{line-height:0}
 .foot .logo{width:200px}
@@ -136,7 +136,7 @@ footer .rules i+i{margin-top:5px}
 .redes{display:flex;align-items:center;justify-content:center;gap:12px}
 .redes button{display:flex;align-items:center;justify-content:center;width:38px;height:38px;padding:0;border-radius:50%}
 .redes button:hover{transform:translateY(-1px)}
-.foot small{font-family:var(--sans);font-size:11px;letter-spacing:.08em;color:#756c58;margin-top:12px}
+.foot small{font-family:var(--sans);font-size:11px;letter-spacing:.08em;color:#756c58;margin-top:4px}
 @media (max-width:760px){.row5{grid-template-columns:1fr}}
 /* Catálogo de livros */
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -189,7 +189,7 @@ footer .rules i+i{margin-top:5px}
 
 /* Telemóvel */
 @media (max-width:760px){
-  .page{padding:0 0 6px}
+  .page{padding:0}
   header{position:sticky;top:0;margin:0;padding:0 16px;background:var(--bg);color:var(--ink)}
   .masthead{--lw:166px;margin-left:0;padding:5px 0;align-items:center;justify-content:center;gap:5px}
   .menu-toggle{display:flex;align-items:center;justify-content:center;width:44px;height:44px;margin:0 -8px 0 0;flex:0 0 auto;appearance:none;border:0;background:none;color:var(--ink);cursor:pointer;border-radius:4px}
