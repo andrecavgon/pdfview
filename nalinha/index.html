@@ -148,6 +148,58 @@ footer .rules i+i{margin-top:5px}
 .leia-btn:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
 .foot small{font-family:var(--sans);font-size:11px;letter-spacing:.08em;color:#756c58}
 @media (max-width:760px){.row5{grid-template-columns:1fr}}
+/* Catálogo de livros */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.catalogo{padding:26px 0 8px;min-height:60vh}
+.cat-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.catalogo h2{font-family:var(--display);font-weight:600;font-size:44px;line-height:1}
+.cat-nota{font-family:var(--sans);font-size:12px;letter-spacing:.04em;color:#6a5f3f;background:rgba(14,68,82,.08);padding:6px 10px;border-radius:4px}
+.cat-tools{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+.cat-search{flex:1 1 280px}
+.cat-search input,.cat-sort select{width:100%;font-family:var(--sans);font-size:14px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:12px 14px}
+.cat-sort{flex:0 0 190px}
+.cat-search input:focus-visible,.cat-sort select:focus-visible{outline:2px solid var(--rust);outline-offset:1px}
+.cat-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.cat-chips button{appearance:none;border:1px solid var(--line);background:none;color:var(--ink);cursor:pointer;font-family:var(--sans);font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:9px 14px;border-radius:999px}
+.cat-chips button:hover{border-color:var(--rust)}
+.cat-chips button.on{background:var(--rust);border-color:var(--rust);color:#fff}
+.cat-chips button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.cat-count{font-family:var(--sans);font-size:12px;letter-spacing:.08em;color:#6a5f3f;margin:18px 0 12px}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:22px 18px}
+.livro{appearance:none;border:0;background:none;padding:0;text-align:left;cursor:pointer;color:var(--ink);display:flex;flex-direction:column;gap:10px;font:inherit}
+.livro:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
+.capa{position:relative;aspect-ratio:2/3;width:100%;border-radius:3px;overflow:hidden;box-shadow:0 2px 6px rgba(60,40,20,.18),0 10px 22px rgba(60,40,20,.10);transition:transform .15s}
+.livro:hover .capa{transform:translateY(-3px)}
+.capa img{display:block;width:100%;height:100%;object-fit:cover}
+.capa-gen{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:16px 14px;color:#fbf7ea}
+.capa-gen b{font-family:var(--display);font-weight:600;font-size:22px;line-height:1.05}
+.capa-gen i{font-family:var(--sans);font-style:normal;font-size:10px;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+.livro .t{font-family:var(--display);font-weight:600;font-size:19px;line-height:1.1}
+.livro .a{font-family:var(--serif);font-size:15px;color:#4a4130}
+.livro .m{display:flex;align-items:center;justify-content:space-between;gap:8px;font-family:var(--sans);font-size:13px}
+.livro .p{font-weight:600}
+.pill{font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:rgba(14,68,82,.12);color:var(--rust)}
+.pill.no{background:rgba(120,50,30,.12);color:#8a3b25}
+.cat-vazio{font-family:var(--serif);font-size:20px;padding:40px 0;text-align:center}
+.livro-dlg{margin:auto;border:0;border-radius:8px;padding:0;max-width:760px;width:calc(100% - 32px);background:var(--bg);color:var(--ink);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.livro-dlg::backdrop{background:rgba(20,14,6,.55)}
+.dlg-x{position:absolute;top:8px;right:12px;appearance:none;border:0;background:none;font-size:30px;line-height:1;color:var(--ink);cursor:pointer;width:40px;height:40px}
+.dlg-body{display:grid;grid-template-columns:200px 1fr;gap:26px;padding:28px}
+.dlg-body h3{font-family:var(--display);font-weight:600;font-size:32px;line-height:1.05}
+.dlg-body .a{font-size:20px;margin-top:6px}
+.dlg-body dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:16px 0;font-family:var(--sans);font-size:13px}
+.dlg-body dt{color:#6a5f3f;letter-spacing:.06em;text-transform:uppercase;font-size:11px;padding-top:2px}
+.dlg-body p.s{font-size:18px;line-height:1.4}
+@media (max-width:760px){
+  .catalogo{padding:18px 16px 4px}
+  .catalogo h2{font-size:36px}
+  .cat-grid{grid-template-columns:repeat(2,1fr);gap:20px 14px}
+  .cat-sort{flex:1 1 100%}
+  .livro .t{font-size:17px}
+  .dlg-body{grid-template-columns:1fr;padding:22px 18px}
+  .dlg-body .capa{max-width:150px}
+}
+
 /* Telemóvel */
 @media (max-width:760px){
   .page{padding:0 0 6px}
@@ -228,7 +280,7 @@ footer .rules i+i{margin-top:5px}
     </div>
     <nav id="menu" aria-label="Secções">
       <div class="item"><button type="button" class="top active" aria-current="page" aria-expanded="false" aria-haspopup="true">Livros</button>
-        <ul class="sub"><li><button type="button">Ficção</button></li><li><button type="button">Não Ficção</button></li><li><button type="button">Infantil</button></li><li><button type="button">Cascais</button></li></ul></div>
+        <ul class="sub"><li><button type="button" data-g="ficcao">Ficção</button></li><li><button type="button" data-g="nao-ficcao">Não Ficção</button></li><li><button type="button" data-g="infantil">Infantil</button></li><li><button type="button" data-g="cascais">Cascais</button></li></ul></div>
       <div class="item"><button type="button" class="top" aria-expanded="false" aria-haspopup="true">Leituras</button>
         <ul class="sub"><li><button type="button">Na Imprensa</button></li><li><button type="button">Sugestões</button></li><li><button type="button">Leitores</button></li><li><button type="button">Outras Rúbricas</button></li></ul></div>
       <div class="item"><button type="button" class="top" aria-expanded="false" aria-haspopup="true">Local</button>
@@ -241,6 +293,7 @@ footer .rules i+i{margin-top:5px}
   </header>
 
   <main>
+    <div id="home">
     <section class="grid hero">
       <article class="card c1">
         <span class="tag">Livros</span>
@@ -325,7 +378,43 @@ footer .rules i+i{margin-top:5px}
         <span class="more">Ler mais</span>
       </article>
     </section>
+    </div>
+
+    <section id="catalogo" class="catalogo" hidden aria-labelledby="cat-titulo">
+      <div class="cat-head">
+        <h2 id="cat-titulo">Livros</h2>
+        <p class="cat-nota" id="cat-nota" hidden></p>
+      </div>
+      <div class="cat-tools">
+        <label class="cat-search"><span class="sr">Pesquisar livros</span>
+          <input id="cat-q" type="search" placeholder="Pesquisar por título, autor ou ISBN" autocomplete="off">
+        </label>
+        <label class="cat-sort"><span class="sr">Ordenar</span>
+          <select id="cat-sort">
+            <option value="novos">Mais recentes</option>
+            <option value="titulo">Título (A–Z)</option>
+            <option value="autor">Autor (A–Z)</option>
+            <option value="preco">Preço (menor)</option>
+          </select>
+        </label>
+      </div>
+      <div class="cat-chips" id="cat-chips" role="group" aria-label="Filtrar por género">
+        <button type="button" data-g="todos" class="on">Todos</button>
+        <button type="button" data-g="ficcao">Ficção</button>
+        <button type="button" data-g="nao-ficcao">Não Ficção</button>
+        <button type="button" data-g="infantil">Infantil</button>
+        <button type="button" data-g="cascais">Cascais</button>
+      </div>
+      <p class="cat-count" id="cat-count" aria-live="polite"></p>
+      <div class="cat-grid" id="cat-grid"></div>
+      <p class="cat-vazio" id="cat-vazio" hidden>Não encontrámos livros com estes critérios.</p>
+    </section>
   </main>
+
+  <dialog id="livro-dlg" class="livro-dlg" aria-labelledby="dlg-titulo">
+    <button type="button" class="dlg-x" id="dlg-x" aria-label="Fechar">×</button>
+    <div class="dlg-body" id="dlg-body"></div>
+  </dialog>
 
   <footer>
     <div class="foot">
@@ -395,6 +484,141 @@ footer .rules i+i{margin-top:5px}
     if(!e.target.closest('nav')){closeSubs();if(!e.target.closest('.menu-toggle'))set(false)}
   });
   document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeSubs();set(false)}});
+})();
+</script>
+<script>
+/* ===== Catálogo de livros =====
+   Cola aqui o endereço CSV da folha publicada (ver CATALOGO.md).
+   Enquanto estiver vazio, mostra livros de exemplo. */
+const CATALOGO_URL = '';
+
+(function(){
+  var EXEMPLOS = [
+    {titulo:'Os Maias',autor:'Eça de Queirós',editora:'Livros do Brasil',ano:'1888',isbn:'',genero:'Ficção',preco:'14,90',capa:'',sinopse:'Crónica da vida de uma família lisboeta na segunda metade do século XIX.',stock:'sim'},
+    {titulo:'Mensagem',autor:'Fernando Pessoa',editora:'Assírio & Alvim',ano:'1934',isbn:'',genero:'Ficção',preco:'9,50',capa:'',sinopse:'Poemas sobre a história e o mito de Portugal.',stock:'sim'},
+    {titulo:'Sapiens',autor:'Yuval Noah Harari',editora:'Elsinore',ano:'2011',isbn:'',genero:'Não Ficção',preco:'19,90',capa:'',sinopse:'Uma breve história da humanidade.',stock:'sim'},
+    {titulo:'O Principezinho',autor:'Antoine de Saint-Exupéry',editora:'Presença',ano:'1943',isbn:'',genero:'Infantil',preco:'8,90',capa:'',sinopse:'Um piloto perdido no deserto encontra um pequeno príncipe vindo de outro planeta.',stock:'sim'},
+    {titulo:'Cascais, Memórias da Vila',autor:'Autor de exemplo',editora:'Edições de exemplo',ano:'2019',isbn:'',genero:'Cascais; Não Ficção',preco:'16,00',capa:'',sinopse:'Livro de exemplo sobre a história de Cascais.',stock:'sim'},
+    {titulo:'A Menina do Mar',autor:'Sophia de Mello Breyner',editora:'Caminho',ano:'1958',isbn:'',genero:'Infantil; Cascais',preco:'10,50',capa:'',sinopse:'Um conto sobre o mar e a amizade.',stock:'não'},
+    {titulo:'Ensaio sobre a Cegueira',autor:'José Saramago',editora:'Porto Editora',ano:'1995',isbn:'',genero:'Ficção',preco:'17,90',capa:'',sinopse:'Uma epidemia de cegueira branca desfaz a ordem de uma cidade.',stock:'sim'},
+    {titulo:'Breve História do Tempo',autor:'Stephen Hawking',editora:'Gradiva',ano:'1988',isbn:'',genero:'Não Ficção',preco:'15,00',capa:'',sinopse:'Do Big Bang aos buracos negros, em linguagem acessível.',stock:'sim'}
+  ];
+  var CORES = ['#0e4452','#6b3a2a','#3d4a2c','#4a3b5c','#7a5a1f','#2f4a5a'];
+
+  var home=document.getElementById('home'), cat=document.getElementById('catalogo');
+  var grid=document.getElementById('cat-grid'), q=document.getElementById('cat-q'), sortSel=document.getElementById('cat-sort');
+  var chips=[].slice.call(document.querySelectorAll('#cat-chips button'));
+  var count=document.getElementById('cat-count'), vazio=document.getElementById('cat-vazio'), nota=document.getElementById('cat-nota');
+  var dlg=document.getElementById('livro-dlg'), dlgBody=document.getElementById('dlg-body');
+  var livros=[], estado={g:'todos'}, carregado=false;
+
+  function norm(t){return (t||'').toString().normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().trim()}
+  function slug(t){return norm(t).replace(/\s+/g,'-')}
+  function esc(t){return (t||'').toString().replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+  function num(p){var n=parseFloat((p||'').toString().replace(/[^\d,.-]/g,'').replace(',','.'));return isNaN(n)?null:n}
+  function eur(p){var n=num(p);return n===null?'':n.toFixed(2).replace('.',',')+' €'}
+  function hash(t){var h=0;for(var i=0;i<t.length;i++)h=(h*31+t.charCodeAt(i))|0;return Math.abs(h)}
+  function emStock(l){var v=norm(l.stock);return !(v==='nao'||v==='não'||v==='no'||v==='0'||v==='esgotado'||v==='false')}
+
+  /* CSV: aceita , ou ; e campos entre aspas */
+  function parseCSV(txt){
+    txt=txt.replace(/^﻿/,'');
+    var first=txt.split(/\r?\n/)[0]||'', d=(first.split(';').length>first.split(',').length)?';':',';
+    var rows=[],row=[],cur='',q=false;
+    for(var i=0;i<txt.length;i++){
+      var c=txt[i];
+      if(q){ if(c==='"'){ if(txt[i+1]==='"'){cur+='"';i++} else q=false } else cur+=c }
+      else if(c==='"') q=true;
+      else if(c===d){row.push(cur);cur=''}
+      else if(c==='\n'||c==='\r'){ if(c==='\r'&&txt[i+1]==='\n')i++; row.push(cur);cur=''; if(row.length>1||row[0]!=='')rows.push(row); row=[] }
+      else cur+=c;
+    }
+    row.push(cur); if(row.length>1||row[0]!=='')rows.push(row);
+    if(!rows.length) return [];
+    var h=rows[0].map(norm);
+    return rows.slice(1).map(function(r){var o={};h.forEach(function(k,i){o[k]=(r[i]||'').trim()});return o}).filter(function(o){return o.titulo});
+  }
+
+  function carregar(){
+    if(carregado) return Promise.resolve();
+    carregado=true;
+    if(!CATALOGO_URL){ livros=EXEMPLOS.slice(); nota.textContent='Livros de exemplo. Liga a folha do Google Sheets para mostrar o catálogo real.'; nota.hidden=false; return Promise.resolve(); }
+    return fetch(CATALOGO_URL).then(function(r){ if(!r.ok) throw 0; return r.text() }).then(function(t){
+      livros=parseCSV(t); nota.hidden=true;
+    }).catch(function(){
+      livros=EXEMPLOS.slice(); nota.textContent='Não foi possível ler o catálogo. A mostrar livros de exemplo.'; nota.hidden=false;
+    });
+  }
+
+  function generos(l){return (l.genero||'').split(/[;,|]/).map(slug).filter(Boolean)}
+
+  function capaHTML(l){
+    if(l.capa) return '<div class="capa"><img src="'+esc(l.capa)+'" alt="Capa de '+esc(l.titulo)+'" loading="lazy" onerror="this.parentNode.innerHTML=window.__capaGen(this.alt)"></div>';
+    return '<div class="capa">'+capaGen(l)+'</div>';
+  }
+  function capaGen(l){
+    var t=l.titulo||'', cor=CORES[hash(t)%CORES.length];
+    return '<div class="capa-gen" style="background:linear-gradient(160deg,'+cor+',#1c1912 140%)"><i>'+esc(l.autor||'')+'</i><b>'+esc(t)+'</b></div>';
+  }
+  window.__capaGen=function(alt){var t=alt.replace(/^Capa de /,'');return capaGen({titulo:t,autor:''})};
+
+  function render(){
+    var termo=norm(q.value), g=estado.g;
+    var lista=livros.filter(function(l){
+      if(g!=='todos' && generos(l).indexOf(g)<0) return false;
+      if(termo){ var alvo=norm([l.titulo,l.autor,l.isbn,l.editora].join(' ')); if(alvo.indexOf(termo)<0) return false }
+      return true;
+    });
+    var ord=sortSel.value;
+    var idx=function(l){return livros.indexOf(l)};
+    lista.sort(function(a,b){
+      if(ord==='titulo') return norm(a.titulo).localeCompare(norm(b.titulo),'pt');
+      if(ord==='autor') return norm(a.autor).localeCompare(norm(b.autor),'pt');
+      if(ord==='preco') return (num(a.preco)===null?1e9:num(a.preco))-(num(b.preco)===null?1e9:num(b.preco));
+      return idx(b)-idx(a);
+    });
+    grid.innerHTML=lista.map(function(l){
+      var i=livros.indexOf(l), p=eur(l.preco), st=emStock(l);
+      return '<button type="button" class="livro" data-i="'+i+'">'+capaHTML(l)+
+        '<span class="t">'+esc(l.titulo)+'</span><span class="a">'+esc(l.autor)+'</span>'+
+        '<span class="m"><span class="p">'+esc(p)+'</span><span class="pill'+(st?'':' no')+'">'+(st?'Disponível':'Esgotado')+'</span></span></button>';
+    }).join('');
+    vazio.hidden=lista.length>0;
+    count.textContent=lista.length+(lista.length===1?' livro':' livros');
+    chips.forEach(function(c){var on=c.getAttribute('data-g')===g;c.classList.toggle('on',on);c.setAttribute('aria-pressed',on)});
+  }
+
+  function abrir(i){
+    var l=livros[i]; if(!l) return;
+    var st=emStock(l), linhas='';
+    [['Editora',l.editora],['Ano',l.ano],['ISBN',l.isbn],['Género',(l.genero||'').split(/[;|]/).map(function(x){return x.trim()}).filter(Boolean).join(', ')],['Preço',eur(l.preco)]].forEach(function(r){ if(r[1]) linhas+='<dt>'+r[0]+'</dt><dd>'+esc(r[1])+'</dd>' });
+    dlgBody.innerHTML=capaHTML(l)+'<div><h3 id="dlg-titulo">'+esc(l.titulo)+'</h3><p class="a">'+esc(l.autor)+'</p><dl>'+linhas+'<dt>Estado</dt><dd><span class="pill'+(st?'':' no')+'">'+(st?'Disponível':'Esgotado')+'</span></dd></dl>'+(l.sinopse?'<p class="s">'+esc(l.sinopse)+'</p>':'')+'</div>';
+    if(dlg.showModal) dlg.showModal(); else dlg.setAttribute('open','');
+  }
+
+  grid.addEventListener('click',function(e){var b=e.target.closest('.livro'); if(b) abrir(+b.getAttribute('data-i'))});
+  document.getElementById('dlg-x').addEventListener('click',function(){dlg.close?dlg.close():dlg.removeAttribute('open')});
+  dlg.addEventListener('click',function(e){if(e.target===dlg){dlg.close&&dlg.close()}});
+  q.addEventListener('input',render); sortSel.addEventListener('change',render);
+  chips.forEach(function(c){c.addEventListener('click',function(){estado.g=c.getAttribute('data-g');render()})});
+
+  function mostrarCatalogo(g){
+    estado.g=g||'todos';
+    home.hidden=true; cat.hidden=false;
+    carregar().then(function(){render(); window.scrollTo({top:0})});
+  }
+  function mostrarHome(){ cat.hidden=true; home.hidden=false; }
+
+  /* Ligação ao menu: Livros e os seus submenus abrem o catálogo; os restantes menus voltam à página inicial */
+  var items=[].slice.call(document.querySelectorAll('nav .item'));
+  items.forEach(function(item,n){
+    var top=item.querySelector('.top');
+    top.addEventListener('click',function(){ if(n===0) mostrarCatalogo('todos'); else mostrarHome(); });
+    item.querySelectorAll('.sub button').forEach(function(b){
+      b.addEventListener('click',function(){ if(n===0) mostrarCatalogo(b.getAttribute('data-g')||'todos'); else mostrarHome(); });
+    });
+  });
+  var logo=document.querySelector('.logo-btn'); if(logo) logo.addEventListener('click',mostrarHome);
 })();
 </script>
 </body>
