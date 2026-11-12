@@ -491,13 +491,13 @@ const CATALOGO_URL = '';
 
 (function(){
   var EXEMPLOS = [
-    {titulo:'Os Maias',autores:'Eça de Queirós',editora:'Livros do Brasil',tema:'Ficção',tema2:''},
+    {titulo:'Os Maias',autores:'Eça de Queirós',editora:'Livros do Brasil',tema:'Ficção',tema2:'História'},
     {titulo:'Mensagem',autores:'Fernando Pessoa',editora:'Assírio & Alvim',tema:'Ficção',tema2:'Poesia'},
     {titulo:'Sapiens',autores:'Yuval Noah Harari',editora:'Elsinore',tema:'Não Ficção',tema2:'História'},
     {titulo:'O Principezinho',autores:'Antoine de Saint-Exupéry',editora:'Presença',tema:'Infantil',tema2:'Ficção'},
     {titulo:'Cascais, Memórias da Vila',autores:'Autor de exemplo',editora:'Edições de exemplo',tema:'Cascais',tema2:'Não Ficção'},
     {titulo:'A Menina do Mar',autores:'Sophia de Mello Breyner',editora:'Caminho',tema:'Infantil',tema2:'Cascais'},
-    {titulo:'Ensaio sobre a Cegueira',autores:'José Saramago',editora:'Porto Editora',tema:'Ficção',tema2:''},
+    {titulo:'Ensaio sobre a Cegueira',autores:'José Saramago',editora:'Porto Editora',tema:'Ficção',tema2:'Distopia'},
     {titulo:'Breve História do Tempo',autores:'Stephen Hawking',editora:'Gradiva',tema:'Não Ficção',tema2:'Ciência'},
     {titulo:'Livro a duas mãos (exemplo)',autores:'Autora Um; Autor Dois',editora:'Edições de exemplo',tema:'Não Ficção',tema2:'Cascais'}
   ];
@@ -582,7 +582,7 @@ const CATALOGO_URL = '';
   function abrir(i){
     var l=livros[i]; if(!l) return;
     var linhas='';
-    [['Autor(es)',autoresTxt(l)],['Editora',l.editora],['Tema',l.tema],['Tema secundário',l.tema2]].forEach(function(r){ if(r[1]) linhas+='<dt>'+r[0]+'</dt><dd>'+esc(r[1])+'</dd>' });
+    [['Autor(es)',autoresTxt(l)],['Editora',l.editora],['Tema',l.tema],['Tema secundário',l.tema2||'—']].forEach(function(r){ if(r[1]) linhas+='<dt>'+r[0]+'</dt><dd>'+esc(r[1])+'</dd>' });
     dlgBody.innerHTML=capaHTML(l)+'<div><h3 id="dlg-titulo">'+esc(l.titulo)+'</h3><dl>'+linhas+'</dl></div>';
     if(dlg.showModal) dlg.showModal(); else dlg.setAttribute('open','');
   }
