@@ -136,9 +136,10 @@ footer .rules i+i{margin-top:5px}
 .redes{display:flex;align-items:center;justify-content:center;gap:12px}
 .redes button{display:flex;align-items:center;justify-content:center;width:38px;height:38px;padding:0;border-radius:50%}
 .redes button:hover{transform:translateY(-1px)}
-.sep{display:block;width:min(360px,70%);height:2px;overflow:visible;mix-blend-mode:difference;margin-top:2px}
+.sep{display:block;width:min(360px,70%);height:2px;overflow:visible;mix-blend-mode:difference;margin-top:2px;margin-bottom:0}
 .rg-head{display:flex;align-items:center;justify-content:center;gap:14px;margin:4px 0 0}
 .rg-title{font-family:"Oswald","Arial Narrow","Roboto Condensed",sans-serif;font-weight:400;font-size:18px;letter-spacing:.06em;line-height:1.1;text-align:center;margin:0;color:var(--ink)}
+.sep-end{margin-top:6px}
 .leia{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:0}
 .rg-head .rg{display:block;height:26px;width:auto}
 .leia-btn{appearance:none;border:0;background:none;cursor:pointer;display:flex;align-items:center;gap:10px;color:var(--ink);font-family:var(--display);font-size:21px;font-weight:600;padding:2px 0;-webkit-tap-highlight-color:transparent}
@@ -203,7 +204,7 @@ footer .rules i+i{margin-top:5px}
   .foot-brand span{font-size:15px}
   .foot-texts{gap:0 20px}
   .foot-links button{font-size:12.5px;font-weight:500;letter-spacing:.14em}
-  .sep{width:min(260px,66%)}
+  .sep{width:calc(100% + 32px);margin-left:-16px;margin-right:-16px}
   .rg-title{font-size:15.5px}
   .leia{gap:16px}
   .rg-head .rg{height:26px}
@@ -354,6 +355,7 @@ footer .rules i+i{margin-top:5px}
           <i class="wa" aria-hidden="true"></i>
         </button>
       </div>
+      <svg class="sep sep-end" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true"><path d="M0 1H100" fill="none" stroke="#fffae8" stroke-width=".55" vector-effect="non-scaling-stroke"/></svg>
       <small>© 2027 Na Linha. Todos os direitos reservados.</small>
     </div>
   </footer>
