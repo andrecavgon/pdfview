@@ -40,6 +40,7 @@ header{position:sticky;top:0;z-index:20;background:var(--bg);margin:0 -40px;padd
 .logo{display:block;width:200px;aspect-ratio:2556/696;height:auto}
 nav{display:flex;align-items:stretch;margin:4px 0 0;height:43px;justify-content:center;gap:8px}
 nav .item{position:relative;display:flex}
+nav .ic,.nav-cap{display:none}
 nav .top{appearance:none;border:0;background:none;color:inherit;cursor:pointer;font-family:var(--display);font-size:18px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;flex:0 0 auto;padding:0 30px 4px}
 nav .item:hover .top,nav .top:hover{background:rgba(14,68,82,.1)}
 nav .top.active,nav .top.active:hover{background:var(--rust);color:#fff}
@@ -200,22 +201,24 @@ footer .rules i+i{margin-top:5px}
   header.open .menu-toggle .i-open{display:none}
   header.open .menu-toggle .i-close{display:inline}
   header.open .menu-toggle svg{width:19px;height:19px}
-  nav{display:none;flex-direction:column;height:auto;margin:0;padding:2px 0 4px;gap:0;justify-content:flex-start}
+  nav{display:none;height:auto;margin:0;padding:0;gap:0}
   header{transition:transform .25s ease}
   header.esconde{transform:translateY(-100%)}
   @media (prefers-reduced-motion:reduce){header{transition:none}}
-  header.open nav{display:flex;position:absolute;top:100%;left:0;right:0;z-index:30;padding:2px 16px 10px;background:var(--bg);box-shadow:0 14px 24px rgba(0,0,0,.16);max-height:calc(100vh - 70px);overflow-y:auto}
-  nav .item{display:block}
-  nav .top{width:100%;justify-content:space-between;height:38px;padding:0 12px 2px;font-family:var(--sans);font-size:14px;font-weight:500;letter-spacing:.14em;color:var(--ink)}
-  nav .top::after{content:"";flex:0 0 auto;width:16px;height:16px;margin-right:2px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M2.43 7.79Q6.30 13.13 12.03 16.39L12.37 16.01Q7.57 11.71 2.77 7.41Z%22/%3E%3Cpath d=%22M11.77 16.58Q16.81 11.71 21.77 6.78L21.43 6.42Q15.55 10.43 11.43 16.22Z%22/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M2.43 7.79Q6.30 13.13 12.03 16.39L12.37 16.01Q7.57 11.71 2.77 7.41Z%22/%3E%3Cpath d=%22M11.77 16.58Q16.81 11.71 21.77 6.78L21.43 6.42Q15.55 10.43 11.43 16.22Z%22/%3E%3C/svg%3E") center/contain no-repeat;transition:transform .15s}
-  nav .item.open .top::after{transform:rotate(180deg)}
-  nav .item:hover .top{background:none}
-  nav .top:hover{background:rgba(28,25,18,.07)}
-  nav .top.active,nav .top.active:hover{background:var(--rust);color:var(--bg)}
-  nav .sub{position:static;transform:none;width:auto;max-width:none;min-width:0;box-shadow:none;background:none;border-radius:0;padding:2px 0 6px}
-  nav .sub button{padding:9px 12px 9px 26px;font-size:13px;letter-spacing:.04em}
-  nav .sub button.active{box-shadow:inset 3px 0 0 var(--rust)}
-  nav button:focus-visible{outline-color:var(--rust)}
+  header.open nav{display:grid;grid-template-columns:repeat(5,1fr);justify-items:center;row-gap:0;position:absolute;top:100%;left:0;right:0;z-index:30;padding:14px 12px 12px;background:var(--bg);box-shadow:0 14px 24px rgba(0,0,0,.16);max-height:calc(100vh - 70px);overflow-y:auto}
+  nav .item{display:contents}
+  nav .top{grid-row:1;width:54px;height:54px;padding:0;border-radius:50%;justify-content:center;background:#d97757;color:#fff;-webkit-tap-highlight-color:transparent;transition:transform .15s,background .15s}
+  nav .top::after{content:none}
+  nav .ic{display:block;width:26px;height:26px}
+  nav .lbl{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  nav .item:hover .top,nav .top:hover{background:#d97757}
+  nav .top:active{transform:scale(.94)}
+  nav .top.active,nav .top.active:hover{background:#c15f3c;color:#fff;box-shadow:0 0 0 2px var(--bg),0 0 0 4px #d97757}
+  nav button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+  .nav-cap{display:block;grid-row:2;grid-column:1/-1;margin-top:12px;font-family:var(--sans);font-size:12px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--ink)}
+  nav .sub{grid-row:3;grid-column:1/-1;width:100%;position:static;transform:none;max-width:none;min-width:0;box-shadow:none;background:none;border-radius:0;padding:6px 0 2px;text-align:center}
+  nav .sub button{width:100%;text-align:center;padding:11px 12px;font-size:14px;letter-spacing:.06em}
+  nav .sub button.active{box-shadow:none;color:#c15f3c;font-weight:600}
   .hero{margin-top:0;grid-template-columns:1fr}
   .row2,.row3{grid-template-columns:1fr}
   .small{height:220px}
@@ -263,15 +266,16 @@ footer .rules i+i{margin-top:5px}
       </button>
     </div>
     <nav id="menu" aria-label="Secções">
-      <div class="item"><button type="button" class="top active" aria-current="page" aria-expanded="false" aria-haspopup="true">Livros</button>
+      <p class="nav-cap" id="nav-cap" aria-hidden="true">Livros</p>
+      <div class="item"><button type="button" class="top active" aria-current="page" aria-expanded="false" aria-haspopup="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5C6.5 4.6 9.5 4.6 12 6c2.5-1.4 5.5-1.4 8-.5V19c-2.5-.9-5.5-.9-8 .5-2.5-1.4-5.5-1.4-8-.5Z"/><path d="M12 6v13.5"/></svg><span class="lbl">Livros</span></button>
         <ul class="sub"><li><button type="button" data-g="ficcao">Ficção</button></li><li><button type="button" data-g="nao-ficcao">Não Ficção</button></li><li><button type="button" data-g="infantil">Infantil</button></li><li><button type="button" data-g="cascais">Cascais</button></li></ul></div>
-      <div class="item"><button type="button" class="top" aria-expanded="false" aria-haspopup="true">Leituras</button>
+      <div class="item"><button type="button" class="top" aria-expanded="false" aria-haspopup="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.8h11v16.4L12 16.4l-5.5 3.8z"/></svg><span class="lbl">Leituras</span></button>
         <ul class="sub"><li><button type="button">Na Imprensa</button></li><li><button type="button">Sugestões</button></li><li><button type="button">Leitores</button></li><li><button type="button">Outras Rúbricas</button></li></ul></div>
-      <div class="item"><button type="button" class="top" aria-expanded="false" aria-haspopup="true">Local</button>
+      <div class="item"><button type="button" class="top" aria-expanded="false" aria-haspopup="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6-5.3-6-10a6 6 0 1 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg><span class="lbl">Local</span></button>
         <ul class="sub"><li><button type="button">Espaços e Cultura</button></li><li><button type="button">Livros e Escritores</button></li><li><button type="button">Parcerias e Parceiros</button></li></ul></div>
-      <div class="item"><button type="button" class="top" aria-expanded="false" aria-haspopup="true">Expats</button>
+      <div class="item"><button type="button" class="top" aria-expanded="false" aria-haspopup="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.6"/><path d="M3.4 12h17.2"/><path d="M12 3.4c3 2.6 3 14.6 0 17.2M12 3.4c-3 2.6-3 14.6 0 17.2"/></svg><span class="lbl">Expats</span></button>
         <ul class="sub"><li><button type="button">Books</button></li><li><button type="button">Reading</button></li><li><button type="button">On Cascais</button></li></ul></div>
-      <div class="item"><button type="button" class="top" aria-expanded="false" aria-haspopup="true">Sobre nós</button>
+      <div class="item"><button type="button" class="top" aria-expanded="false" aria-haspopup="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.6"/><path d="M12 11v5.2"/><circle cx="12" cy="7.9" r=".5" fill="currentColor"/></svg><span class="lbl">Sobre nós</span></button>
         <ul class="sub"><li><button type="button">Corpo Editorial</button></li><li><button type="button">Quem Somos</button></li><li><button type="button">Contactos</button></li></ul></div>
     </nav>
   </header>
@@ -428,6 +432,7 @@ footer .rules i+i{margin-top:5px}
   function set(o){header.classList.toggle('open',o);t.setAttribute('aria-expanded',o);t.setAttribute('aria-label',o?'Fechar menu':'Abrir menu')}
   function closeSubs(){items.forEach(function(i){i.classList.remove('open');i.querySelector('.top').setAttribute('aria-expanded','false')})}
   function selectTop(item){
+    var cap=document.getElementById('nav-cap');if(cap)cap.textContent=item.querySelector('.lbl').textContent;
     items.forEach(function(i){var b=i.querySelector('.top');var on=i===item;b.classList.toggle('active',on);if(on)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');
       if(!on)i.querySelectorAll('.sub button.active').forEach(function(x){x.classList.remove('active')})})
   }
