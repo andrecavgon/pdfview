@@ -32,10 +32,17 @@ header{position:sticky;top:0;z-index:20;background:var(--bg);margin:0 -40px;padd
 .masthead .logo{width:var(--lw)}
 .logo{display:block;width:200px;aspect-ratio:2556/696;height:auto}
 nav{display:flex;align-items:stretch;margin:4px 0 0;height:43px;justify-content:center;gap:8px}
-nav button{appearance:none;border:0;background:none;color:inherit;cursor:pointer;font-family:var(--display);font-size:18px;padding-bottom:4px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;flex:0 0 auto;padding:0 30px 4px}
-nav button:hover{background:rgba(14,68,82,.1)}
-nav button.active,nav button.active:hover{background:var(--rust);color:#fff}
+nav .item{position:relative;display:flex}
+nav .top{appearance:none;border:0;background:none;color:inherit;cursor:pointer;font-family:var(--display);font-size:18px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;flex:0 0 auto;padding:0 30px 4px}
+nav .item:hover .top,nav .top:hover{background:rgba(14,68,82,.1)}
+nav .top.active,nav .top.active:hover{background:var(--rust);color:#fff}
 nav button:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
+nav .sub{display:none;list-style:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);min-width:100%;width:max-content;max-width:300px;background:var(--paper);box-shadow:0 12px 30px rgba(40,28,10,.18);border-radius:0 0 6px 6px;padding:6px 0;z-index:30}
+nav .item.open .sub{display:block}
+@media (hover:hover) and (min-width:761px){nav .item:hover .sub{display:block}}
+nav .sub button{appearance:none;border:0;background:none;color:var(--ink);cursor:pointer;display:block;width:100%;text-align:left;font-family:var(--sans);font-size:13px;font-weight:500;letter-spacing:.05em;padding:10px 20px}
+nav .sub button:hover{background:rgba(14,68,82,.08)}
+nav .sub button.active{color:var(--rust);font-weight:600;box-shadow:inset 3px 0 0 var(--rust)}
 
 /* Botão de menu (só em telemóvel) */
 .menu-toggle{display:none}
@@ -126,12 +133,19 @@ footer .rules i+i{margin-top:5px}
   .masthead h1{top:0}
   header.open .menu-toggle .i-open{display:none}
   header.open .menu-toggle .i-close{display:inline}
-  nav{display:none;flex-direction:column;height:auto;margin:0;padding:2px 0 4px;gap:0}
+  nav{display:none;flex-direction:column;height:auto;margin:0;padding:2px 0 4px;gap:0;justify-content:flex-start}
   header.open nav{display:flex}
-  .stuck nav{position:fixed;z-index:39;top:calc(56px + env(safe-area-inset-top,0px));right:max(12px,env(safe-area-inset-right,0px));width:min(260px,calc(100vw - 24px));padding:6px;background:var(--bg);border-radius:10px;box-shadow:0 10px 32px rgba(0,0,0,.25)}
-  nav button{flex:0 0 auto!important;justify-content:flex-start;height:36px;padding:0 12px 4px!important;font-family:var(--sans);font-size:14px;font-weight:500;letter-spacing:.14em;color:var(--ink)}
-  nav button:hover{background:rgba(28,25,18,.07)}
-  nav button.active,nav button.active:hover{background:var(--rust);color:var(--bg)}
+  .stuck nav{position:fixed;z-index:39;top:calc(56px + env(safe-area-inset-top,0px));right:max(12px,env(safe-area-inset-right,0px));width:min(280px,calc(100vw - 24px));max-height:calc(100vh - 72px);overflow-y:auto;padding:6px;background:var(--bg);border-radius:10px;box-shadow:0 10px 32px rgba(0,0,0,.25)}
+  nav .item{display:block}
+  nav .top{width:100%;justify-content:space-between;height:38px;padding:0 12px 2px;font-family:var(--sans);font-size:14px;font-weight:500;letter-spacing:.14em;color:var(--ink)}
+  nav .top::after{content:"";width:7px;height:7px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .15s}
+  nav .item.open .top::after{transform:rotate(-135deg) translateY(-1px)}
+  nav .item:hover .top{background:none}
+  nav .top:hover{background:rgba(28,25,18,.07)}
+  nav .top.active,nav .top.active:hover{background:var(--rust);color:var(--bg)}
+  nav .sub{position:static;transform:none;width:auto;max-width:none;min-width:0;box-shadow:none;background:none;border-radius:0;padding:2px 0 6px}
+  nav .sub button{padding:9px 12px 9px 26px;font-size:13px;letter-spacing:.04em}
+  nav .sub button.active{box-shadow:inset 3px 0 0 var(--rust)}
   nav button:focus-visible{outline-color:var(--rust)}
   .hero{margin-top:0;grid-template-columns:1fr}
   .row2,.row3{grid-template-columns:1fr}
@@ -178,7 +192,16 @@ footer .rules i+i{margin-top:5px}
       </button>
     </div>
     <nav id="menu" aria-label="Secções">
-      <button type="button" class="active" aria-current="page">Livros</button><button type="button">Leitura</button><button type="button">Local</button><button type="button">Literatura</button><button type="button">Críticas</button>
+      <div class="item"><button type="button" class="top active" aria-current="page" aria-expanded="false" aria-haspopup="true">Livros</button>
+        <ul class="sub"><li><button type="button">Ficção</button></li><li><button type="button">Não Ficção</button></li><li><button type="button">Infantil</button></li><li><button type="button">Cascais</button></li></ul></div>
+      <div class="item"><button type="button" class="top" aria-expanded="false" aria-haspopup="true">Leituras</button>
+        <ul class="sub"><li><button type="button">Na Imprensa</button></li><li><button type="button">Sugestões</button></li><li><button type="button">Leitores</button></li><li><button type="button">Outras Rúbricas</button></li></ul></div>
+      <div class="item"><button type="button" class="top" aria-expanded="false" aria-haspopup="true">Local</button>
+        <ul class="sub"><li><button type="button">Espaços e Cultura</button></li><li><button type="button">Livros e Escritores</button></li><li><button type="button">Parcerias e Parceiros</button></li></ul></div>
+      <div class="item"><button type="button" class="top" aria-expanded="false" aria-haspopup="true">Expats</button>
+        <ul class="sub"><li><button type="button">Books</button></li><li><button type="button">Reading</button></li><li><button type="button">On Cascais</button></li></ul></div>
+      <div class="item"><button type="button" class="top" aria-expanded="false" aria-haspopup="true">Sobre nós</button>
+        <ul class="sub"><li><button type="button">Corpo Editorial</button></li><li><button type="button">Quem Somos</button></li><li><button type="button">Contactos</button></li></ul></div>
     </nav>
   </header>
 
@@ -280,20 +303,35 @@ footer .rules i+i{margin-top:5px}
 <script>
 (function(){
   var header=document.querySelector('header'),t=document.querySelector('.menu-toggle');
+  var items=[].slice.call(document.querySelectorAll('nav .item'));
   function set(o){header.classList.toggle('open',o);t.setAttribute('aria-expanded',o);t.setAttribute('aria-label',o?'Fechar menu':'Abrir menu')}
+  function closeSubs(){items.forEach(function(i){i.classList.remove('open');i.querySelector('.top').setAttribute('aria-expanded','false')})}
+  function selectTop(item){
+    items.forEach(function(i){var b=i.querySelector('.top');var on=i===item;b.classList.toggle('active',on);if(on)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');
+      if(!on)i.querySelectorAll('.sub button.active').forEach(function(x){x.classList.remove('active')})})
+  }
+  items.forEach(function(item){
+    var top=item.querySelector('.top');
+    top.addEventListener('click',function(){
+      var was=item.classList.contains('open');
+      closeSubs();selectTop(item);
+      if(!was){item.classList.add('open');top.setAttribute('aria-expanded','true')}
+    });
+    item.querySelectorAll('.sub button').forEach(function(b){
+      b.addEventListener('click',function(){
+        items.forEach(function(i){i.querySelectorAll('.sub button.active').forEach(function(x){x.classList.remove('active')})});
+        b.classList.add('active');selectTop(item);closeSubs();set(false);
+      });
+    });
+  });
   t.addEventListener('click',function(){set(!header.classList.contains('open'))});
-  document.querySelectorAll('nav button').forEach(function(b){b.addEventListener('click',function(){set(false)})});
-  document.addEventListener('click',function(e){if(header.classList.contains('open')&&!e.target.closest('nav')&&!e.target.closest('.menu-toggle'))set(false)});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape')set(false)});
+  document.addEventListener('click',function(e){
+    if(!e.target.closest('nav')){closeSubs();if(!e.target.closest('.menu-toggle'))set(false)}
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeSubs();set(false)}});
   function chk(){document.body.classList.toggle('stuck',header.getBoundingClientRect().bottom<=0)}
   window.addEventListener('scroll',chk,{passive:true});window.addEventListener('resize',chk);chk();
 })();
-document.querySelectorAll('nav button').forEach(function(b){
-  b.addEventListener('click',function(){
-    document.querySelectorAll('nav button').forEach(function(o){o.classList.remove('active');o.removeAttribute('aria-current')});
-    b.classList.add('active');b.setAttribute('aria-current','page');
-  });
-});
 </script>
 </body>
 </html>
