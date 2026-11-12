@@ -430,7 +430,12 @@ footer .rules i+i{margin-top:5px}
 (function(){
   var header=document.querySelector('header'),t=document.querySelector('.menu-toggle');
   var items=[].slice.call(document.querySelectorAll('nav .item'));
-  function set(o){header.classList.toggle('open',o);t.setAttribute('aria-expanded',o);t.setAttribute('aria-label',o?'Fechar menu':'Abrir menu')}
+  function limparSelecao(){
+    items.forEach(function(i){var b=i.querySelector('.top');b.classList.remove('active');b.removeAttribute('aria-current');i.classList.remove('open');b.setAttribute('aria-expanded','false');i.querySelectorAll('.sub button.active').forEach(function(x){x.classList.remove('active')})});
+  }
+  function set(o){
+    if(o && window.matchMedia('(max-width: 760px)').matches) limparSelecao(); /* telemóvel: ao abrir, nenhum campo selecionado */
+    header.classList.toggle('open',o);t.setAttribute('aria-expanded',o);t.setAttribute('aria-label',o?'Fechar menu':'Abrir menu')}
   function closeSubs(){items.forEach(function(i){i.classList.remove('open');i.querySelector('.top').setAttribute('aria-expanded','false')})}
   function selectTop(item){
     var cap=document.getElementById('nav-cap');if(cap)cap.textContent=item.querySelector('.lbl').textContent;
