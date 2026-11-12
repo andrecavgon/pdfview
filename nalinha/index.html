@@ -50,7 +50,10 @@ nav .sub button:hover{background:rgba(14,68,82,.08)}
 nav .sub button.active{color:var(--rust);font-weight:600;box-shadow:inset 3px 0 0 var(--rust)}
 
 /* Botão de menu (só em telemóvel) */
-.menu-toggle{display:none}
+.menu-toggle{display:none;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;user-select:none;-webkit-user-select:none}
+.menu-toggle svg{pointer-events:none}
+nav button{-webkit-tap-highlight-color:transparent}
+nav button:focus:not(:focus-visible){outline:none}
 .menu-toggle .i-close{display:none}
 
 /* Cartões */
@@ -130,6 +133,8 @@ footer .rules i+i{margin-top:5px}
   header{position:sticky;top:0;margin:0;padding:0 16px;background:var(--bg);color:var(--ink)}
   .masthead{--lw:166px;margin-left:0;padding:5px 0;align-items:center;justify-content:center;gap:5px}
   .menu-toggle{display:flex;align-items:center;justify-content:center;width:44px;height:44px;margin:0 -8px 0 0;flex:0 0 auto;appearance:none;border:0;background:none;color:var(--ink);cursor:pointer;border-radius:4px}
+  .menu-toggle:hover,.menu-toggle:active,.menu-toggle:focus{color:var(--ink);background:none}
+  .menu-toggle:focus:not(:focus-visible){outline:none}
   .menu-toggle:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
   .masthead h1{top:0}
   header.open .menu-toggle .i-open{display:none}
