@@ -176,20 +176,17 @@ footer .rules i+i{margin-top:5px}
 .capa-gen i{font-family:var(--sans);font-style:normal;font-size:10px;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
 .livro .t{font-family:var(--display);font-weight:600;font-size:19px;line-height:1.1}
 .livro .a{font-family:var(--serif);font-size:15px;color:#4a4130}
-.livro .m{display:flex;align-items:center;justify-content:space-between;gap:8px;font-family:var(--sans);font-size:13px}
-.livro .p{font-weight:600}
+.livro .ed{font-family:var(--sans);font-size:12px;letter-spacing:.04em;color:#6a5f3f}
+.livro .m{display:flex;flex-wrap:wrap;gap:6px;font-family:var(--sans)}
 .pill{font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:rgba(14,68,82,.12);color:var(--rust)}
-.pill.no{background:rgba(120,50,30,.12);color:#8a3b25}
 .cat-vazio{font-family:var(--serif);font-size:20px;padding:40px 0;text-align:center}
 .livro-dlg{margin:auto;border:0;border-radius:8px;padding:0;max-width:760px;width:calc(100% - 32px);background:var(--bg);color:var(--ink);box-shadow:0 20px 60px rgba(0,0,0,.35)}
 .livro-dlg::backdrop{background:rgba(20,14,6,.55)}
 .dlg-x{position:absolute;top:8px;right:12px;appearance:none;border:0;background:none;font-size:30px;line-height:1;color:var(--ink);cursor:pointer;width:40px;height:40px}
 .dlg-body{display:grid;grid-template-columns:200px 1fr;gap:26px;padding:28px}
 .dlg-body h3{font-family:var(--display);font-weight:600;font-size:32px;line-height:1.05}
-.dlg-body .a{font-size:20px;margin-top:6px}
-.dlg-body dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:16px 0;font-family:var(--sans);font-size:13px}
+.dlg-body dl{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;margin:18px 0;font-family:var(--sans);font-size:14px}
 .dlg-body dt{color:#6a5f3f;letter-spacing:.06em;text-transform:uppercase;font-size:11px;padding-top:2px}
-.dlg-body p.s{font-size:18px;line-height:1.4}
 @media (max-width:760px){
   .catalogo{padding:18px 16px 4px}
   .catalogo h2{font-size:36px}
@@ -387,14 +384,13 @@ footer .rules i+i{margin-top:5px}
       </div>
       <div class="cat-tools">
         <label class="cat-search"><span class="sr">Pesquisar livros</span>
-          <input id="cat-q" type="search" placeholder="Pesquisar por título, autor ou ISBN" autocomplete="off">
+          <input id="cat-q" type="search" placeholder="Pesquisar por título, autor, editora ou tema" autocomplete="off">
         </label>
         <label class="cat-sort"><span class="sr">Ordenar</span>
           <select id="cat-sort">
             <option value="novos">Mais recentes</option>
             <option value="titulo">Título (A–Z)</option>
             <option value="autor">Autor (A–Z)</option>
-            <option value="preco">Preço (menor)</option>
           </select>
         </label>
       </div>
@@ -489,19 +485,21 @@ footer .rules i+i{margin-top:5px}
 <script>
 /* ===== Catálogo de livros =====
    Cola aqui o endereço CSV da folha publicada (ver CATALOGO.md).
-   Enquanto estiver vazio, mostra livros de exemplo. */
+   Enquanto estiver vazio, mostra livros de exemplo.
+   Campos de cada livro: título, autores, editora, tema, tema secundário. */
 const CATALOGO_URL = '';
 
 (function(){
   var EXEMPLOS = [
-    {titulo:'Os Maias',autor:'Eça de Queirós',editora:'Livros do Brasil',ano:'1888',isbn:'',genero:'Ficção',preco:'14,90',capa:'',sinopse:'Crónica da vida de uma família lisboeta na segunda metade do século XIX.',stock:'sim'},
-    {titulo:'Mensagem',autor:'Fernando Pessoa',editora:'Assírio & Alvim',ano:'1934',isbn:'',genero:'Ficção',preco:'9,50',capa:'',sinopse:'Poemas sobre a história e o mito de Portugal.',stock:'sim'},
-    {titulo:'Sapiens',autor:'Yuval Noah Harari',editora:'Elsinore',ano:'2011',isbn:'',genero:'Não Ficção',preco:'19,90',capa:'',sinopse:'Uma breve história da humanidade.',stock:'sim'},
-    {titulo:'O Principezinho',autor:'Antoine de Saint-Exupéry',editora:'Presença',ano:'1943',isbn:'',genero:'Infantil',preco:'8,90',capa:'',sinopse:'Um piloto perdido no deserto encontra um pequeno príncipe vindo de outro planeta.',stock:'sim'},
-    {titulo:'Cascais, Memórias da Vila',autor:'Autor de exemplo',editora:'Edições de exemplo',ano:'2019',isbn:'',genero:'Cascais; Não Ficção',preco:'16,00',capa:'',sinopse:'Livro de exemplo sobre a história de Cascais.',stock:'sim'},
-    {titulo:'A Menina do Mar',autor:'Sophia de Mello Breyner',editora:'Caminho',ano:'1958',isbn:'',genero:'Infantil; Cascais',preco:'10,50',capa:'',sinopse:'Um conto sobre o mar e a amizade.',stock:'não'},
-    {titulo:'Ensaio sobre a Cegueira',autor:'José Saramago',editora:'Porto Editora',ano:'1995',isbn:'',genero:'Ficção',preco:'17,90',capa:'',sinopse:'Uma epidemia de cegueira branca desfaz a ordem de uma cidade.',stock:'sim'},
-    {titulo:'Breve História do Tempo',autor:'Stephen Hawking',editora:'Gradiva',ano:'1988',isbn:'',genero:'Não Ficção',preco:'15,00',capa:'',sinopse:'Do Big Bang aos buracos negros, em linguagem acessível.',stock:'sim'}
+    {titulo:'Os Maias',autores:'Eça de Queirós',editora:'Livros do Brasil',tema:'Ficção',tema2:''},
+    {titulo:'Mensagem',autores:'Fernando Pessoa',editora:'Assírio & Alvim',tema:'Ficção',tema2:'Poesia'},
+    {titulo:'Sapiens',autores:'Yuval Noah Harari',editora:'Elsinore',tema:'Não Ficção',tema2:'História'},
+    {titulo:'O Principezinho',autores:'Antoine de Saint-Exupéry',editora:'Presença',tema:'Infantil',tema2:'Ficção'},
+    {titulo:'Cascais, Memórias da Vila',autores:'Autor de exemplo',editora:'Edições de exemplo',tema:'Cascais',tema2:'Não Ficção'},
+    {titulo:'A Menina do Mar',autores:'Sophia de Mello Breyner',editora:'Caminho',tema:'Infantil',tema2:'Cascais'},
+    {titulo:'Ensaio sobre a Cegueira',autores:'José Saramago',editora:'Porto Editora',tema:'Ficção',tema2:''},
+    {titulo:'Breve História do Tempo',autores:'Stephen Hawking',editora:'Gradiva',tema:'Não Ficção',tema2:'Ciência'},
+    {titulo:'Livro a duas mãos (exemplo)',autores:'Autora Um; Autor Dois',editora:'Edições de exemplo',tema:'Não Ficção',tema2:'Cascais'}
   ];
   var CORES = ['#0e4452','#6b3a2a','#3d4a2c','#4a3b5c','#7a5a1f','#2f4a5a'];
 
@@ -515,10 +513,8 @@ const CATALOGO_URL = '';
   function norm(t){return (t||'').toString().normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().trim()}
   function slug(t){return norm(t).replace(/\s+/g,'-')}
   function esc(t){return (t||'').toString().replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
-  function num(p){var n=parseFloat((p||'').toString().replace(/[^\d,.-]/g,'').replace(',','.'));return isNaN(n)?null:n}
-  function eur(p){var n=num(p);return n===null?'':n.toFixed(2).replace('.',',')+' €'}
   function hash(t){var h=0;for(var i=0;i<t.length;i++)h=(h*31+t.charCodeAt(i))|0;return Math.abs(h)}
-  function emStock(l){var v=norm(l.stock);return !(v==='nao'||v==='não'||v==='no'||v==='0'||v==='esgotado'||v==='false')}
+  function autoresTxt(l){return (l.autores||'').split(/[;|]/).map(function(x){return x.trim()}).filter(Boolean).join(', ')}
 
   /* CSV: aceita , ou ; e campos entre aspas */
   function parseCSV(txt){
@@ -535,7 +531,8 @@ const CATALOGO_URL = '';
     }
     row.push(cur); if(row.length>1||row[0]!=='')rows.push(row);
     if(!rows.length) return [];
-    var h=rows[0].map(norm);
+    var alias={'autor':'autores','tema secundario':'tema2','temasecundario':'tema2'};
+    var h=rows[0].map(function(k){k=norm(k).replace(/_/g,' ');return alias[k]||k});
     return rows.slice(1).map(function(r){var o={};h.forEach(function(k,i){o[k]=(r[i]||'').trim()});return o}).filter(function(o){return o.titulo});
   }
 
@@ -550,38 +547,32 @@ const CATALOGO_URL = '';
     });
   }
 
-  function generos(l){return (l.genero||'').split(/[;,|]/).map(slug).filter(Boolean)}
+  function temas(l){return [l.tema,l.tema2].filter(Boolean)}
+  function pills(l){return temas(l).map(function(t){return '<span class="pill">'+esc(t)+'</span>'}).join('')}
 
   function capaHTML(l){
-    if(l.capa) return '<div class="capa"><img src="'+esc(l.capa)+'" alt="Capa de '+esc(l.titulo)+'" loading="lazy" onerror="this.parentNode.innerHTML=window.__capaGen(this.alt)"></div>';
-    return '<div class="capa">'+capaGen(l)+'</div>';
-  }
-  function capaGen(l){
     var t=l.titulo||'', cor=CORES[hash(t)%CORES.length];
-    return '<div class="capa-gen" style="background:linear-gradient(160deg,'+cor+',#1c1912 140%)"><i>'+esc(l.autor||'')+'</i><b>'+esc(t)+'</b></div>';
+    return '<div class="capa"><div class="capa-gen" style="background:linear-gradient(160deg,'+cor+',#1c1912 140%)"><i>'+esc(autoresTxt(l))+'</i><b>'+esc(t)+'</b></div></div>';
   }
-  window.__capaGen=function(alt){var t=alt.replace(/^Capa de /,'');return capaGen({titulo:t,autor:''})};
 
   function render(){
     var termo=norm(q.value), g=estado.g;
     var lista=livros.filter(function(l){
-      if(g!=='todos' && generos(l).indexOf(g)<0) return false;
-      if(termo){ var alvo=norm([l.titulo,l.autor,l.isbn,l.editora].join(' ')); if(alvo.indexOf(termo)<0) return false }
+      if(g!=='todos' && temas(l).map(slug).indexOf(g)<0) return false;
+      if(termo){ var alvo=norm([l.titulo,l.autores,l.editora,l.tema,l.tema2].join(' ')); if(alvo.indexOf(termo)<0) return false }
       return true;
     });
     var ord=sortSel.value;
-    var idx=function(l){return livros.indexOf(l)};
     lista.sort(function(a,b){
       if(ord==='titulo') return norm(a.titulo).localeCompare(norm(b.titulo),'pt');
-      if(ord==='autor') return norm(a.autor).localeCompare(norm(b.autor),'pt');
-      if(ord==='preco') return (num(a.preco)===null?1e9:num(a.preco))-(num(b.preco)===null?1e9:num(b.preco));
-      return idx(b)-idx(a);
+      if(ord==='autor') return norm(a.autores).localeCompare(norm(b.autores),'pt');
+      return livros.indexOf(b)-livros.indexOf(a);
     });
     grid.innerHTML=lista.map(function(l){
-      var i=livros.indexOf(l), p=eur(l.preco), st=emStock(l);
-      return '<button type="button" class="livro" data-i="'+i+'">'+capaHTML(l)+
-        '<span class="t">'+esc(l.titulo)+'</span><span class="a">'+esc(l.autor)+'</span>'+
-        '<span class="m"><span class="p">'+esc(p)+'</span><span class="pill'+(st?'':' no')+'">'+(st?'Disponível':'Esgotado')+'</span></span></button>';
+      return '<button type="button" class="livro" data-i="'+livros.indexOf(l)+'">'+capaHTML(l)+
+        '<span class="t">'+esc(l.titulo)+'</span><span class="a">'+esc(autoresTxt(l))+'</span>'+
+        (l.editora?'<span class="ed">'+esc(l.editora)+'</span>':'')+
+        '<span class="m">'+pills(l)+'</span></button>';
     }).join('');
     vazio.hidden=lista.length>0;
     count.textContent=lista.length+(lista.length===1?' livro':' livros');
@@ -590,9 +581,9 @@ const CATALOGO_URL = '';
 
   function abrir(i){
     var l=livros[i]; if(!l) return;
-    var st=emStock(l), linhas='';
-    [['Editora',l.editora],['Ano',l.ano],['ISBN',l.isbn],['Género',(l.genero||'').split(/[;|]/).map(function(x){return x.trim()}).filter(Boolean).join(', ')],['Preço',eur(l.preco)]].forEach(function(r){ if(r[1]) linhas+='<dt>'+r[0]+'</dt><dd>'+esc(r[1])+'</dd>' });
-    dlgBody.innerHTML=capaHTML(l)+'<div><h3 id="dlg-titulo">'+esc(l.titulo)+'</h3><p class="a">'+esc(l.autor)+'</p><dl>'+linhas+'<dt>Estado</dt><dd><span class="pill'+(st?'':' no')+'">'+(st?'Disponível':'Esgotado')+'</span></dd></dl>'+(l.sinopse?'<p class="s">'+esc(l.sinopse)+'</p>':'')+'</div>';
+    var linhas='';
+    [['Autor(es)',autoresTxt(l)],['Editora',l.editora],['Tema',l.tema],['Tema secundário',l.tema2]].forEach(function(r){ if(r[1]) linhas+='<dt>'+r[0]+'</dt><dd>'+esc(r[1])+'</dd>' });
+    dlgBody.innerHTML=capaHTML(l)+'<div><h3 id="dlg-titulo">'+esc(l.titulo)+'</h3><dl>'+linhas+'</dl></div>';
     if(dlg.showModal) dlg.showModal(); else dlg.setAttribute('open','');
   }
 

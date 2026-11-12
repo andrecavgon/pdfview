@@ -2,14 +2,21 @@
 
 O menu **Livros** lê o catálogo de uma folha do Google Sheets. Para acrescentar um livro, basta acrescentar uma linha à folha, sem tocar no site.
 
+## Campos de cada livro
+Mantém estes nomes de coluna na primeira linha da folha:
+
+`titulo, autores, editora, tema, tema_secundario`
+
+- **titulo**: título do livro.
+- **autores**: um ou vários. Separa com `;` (ex.: `Autora Um; Autor Dois`).
+- **editora**: nome da editora.
+- **tema**: tema principal. Os filtros do menu usam `Ficção`, `Não Ficção`, `Infantil` e `Cascais`.
+- **tema_secundario**: tema secundário (opcional). Um livro aparece também no filtro do seu tema secundário.
+
+Não há mais campos: não há preço, ISBN, capa, sinopse nem stock. A capa é desenhada pela página com o título e os autores.
+
 ## Montar a folha
-1. No Google Sheets, importa `catalogo-modelo.csv` (Ficheiro → Importar) ou copia os cabeçalhos.
-2. Mantém os nomes das colunas na primeira linha:
-   `titulo, autor, editora, ano, isbn, genero, preco, capa, sinopse, stock`
-3. **genero**: usa `Ficção`, `Não Ficção`, `Infantil` e/ou `Cascais`. Para vários, separa com `;` (ex.: `Infantil; Cascais`).
-4. **preco**: número com vírgula ou ponto (ex.: `14,90`).
-5. **capa**: endereço (URL) de uma imagem. Se ficar vazio, a página desenha uma capa com o título.
-6. **stock**: `sim` ou `não`.
+No Google Sheets, importa `catalogo-modelo.csv` (Ficheiro → Importar) e substitui as linhas de exemplo pelos teus livros.
 
 ## Publicar a folha
 1. Ficheiro → Partilhar → **Publicar na Web**.

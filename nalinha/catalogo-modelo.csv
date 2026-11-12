@@ -1,9 +1,10 @@
-﻿titulo;autor;editora;ano;isbn;genero;preco;capa;sinopse;stock
-Os Maias;Eça de Queirós;Livros do Brasil;1888;;Ficção;14,90;;Crónica da vida de uma família lisboeta na segunda metade do século XIX.;sim
-Mensagem;Fernando Pessoa;Assírio & Alvim;1934;;Ficção;9,50;;Poemas sobre a história e o mito de Portugal.;sim
-Sapiens;Yuval Noah Harari;Elsinore;2011;;Não Ficção;19,90;;Uma breve história da humanidade.;sim
-O Principezinho;Antoine de Saint-Exupéry;Presença;1943;;Infantil;8,90;;Um piloto perdido no deserto encontra um pequeno príncipe vindo de outro planeta.;sim
-Cascais, Memórias da Vila;Autor de exemplo;Edições de exemplo;2019;;"Cascais; Não Ficção";16,00;;Livro de exemplo sobre a história de Cascais.;sim
-A Menina do Mar;Sophia de Mello Breyner;Caminho;1958;;"Infantil; Cascais";10,50;;Um conto sobre o mar e a amizade.;não
-Ensaio sobre a Cegueira;José Saramago;Porto Editora;1995;;Ficção;17,90;;Uma epidemia de cegueira branca desfaz a ordem de uma cidade.;sim
-Breve História do Tempo;Stephen Hawking;Gradiva;1988;;Não Ficção;15,00;;Do Big Bang aos buracos negros, em linguagem acessível.;sim
+﻿titulo;autores;editora;tema;tema_secundario
+Os Maias;Eça de Queirós;Livros do Brasil;Ficção;
+Mensagem;Fernando Pessoa;Assírio & Alvim;Ficção;Poesia
+Sapiens;Yuval Noah Harari;Elsinore;Não Ficção;História
+O Principezinho;Antoine de Saint-Exupéry;Presença;Infantil;Ficção
+Cascais, Memórias da Vila;Autor de exemplo;Edições de exemplo;Cascais;Não Ficção
+A Menina do Mar;Sophia de Mello Breyner;Caminho;Infantil;Cascais
+Ensaio sobre a Cegueira;José Saramago;Porto Editora;Ficção;
+Breve História do Tempo;Stephen Hawking;Gradiva;Não Ficção;Ciência
+Livro a duas mãos (exemplo);"Autora Um; Autor Dois";Edições de exemplo;Não Ficção;Cascais
