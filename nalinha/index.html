@@ -30,8 +30,11 @@ header{position:sticky;top:0;z-index:20;background:var(--bg);margin:0 -40px;padd
 .masthead .rule{flex:1;height:1px;background:var(--ink)}
 .masthead h1{line-height:0;color:var(--ink);position:relative;top:-4px}
 .masthead .logo{width:var(--lw)}
-.logo-btn{appearance:none;border:0;background:none;padding:0;margin:0;color:inherit;cursor:pointer;display:block;line-height:0}
-.logo-btn:focus-visible{outline:2px solid var(--rust);outline-offset:4px}
+.logo-btn{appearance:none;border:0;background:none;padding:0;margin:0;color:var(--ink);cursor:pointer;display:block;line-height:0;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.logo-btn:hover,.logo-btn:active,.logo-btn:focus{color:var(--ink);background:none}
+.logo-btn:focus:not(:focus-visible){outline:none}
+.logo-btn:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
+.logo-btn svg{pointer-events:none}
 .logo{display:block;width:200px;aspect-ratio:2556/696;height:auto}
 nav{display:flex;align-items:stretch;margin:4px 0 0;height:43px;justify-content:center;gap:8px}
 nav .item{position:relative;display:flex}
