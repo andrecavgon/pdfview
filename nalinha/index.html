@@ -481,6 +481,7 @@ const CATALOGO_URL = '';
   var chips=[].slice.call(document.querySelectorAll('#cat-chips button'));
   var count=document.getElementById('cat-count'), vazio=document.getElementById('cat-vazio'), nota=document.getElementById('cat-nota');
   var dlg=document.getElementById('livro-dlg'), dlgBody=document.getElementById('dlg-body');
+  var rodape=document.querySelector('footer');
   var livros=[], estado={g:'todos'}, carregado=false;
 
   function norm(t){return (t||'').toString().normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().trim()}
@@ -568,10 +569,10 @@ const CATALOGO_URL = '';
 
   function mostrarCatalogo(g){
     estado.g=g||'todos';
-    home.hidden=true; cat.hidden=false;
+    home.hidden=true; cat.hidden=false; if(rodape) rodape.hidden=true;
     carregar().then(function(){render(); window.scrollTo({top:0})});
   }
-  function mostrarHome(){ cat.hidden=true; home.hidden=false; }
+  function mostrarHome(){ cat.hidden=true; home.hidden=false; if(rodape) rodape.hidden=false; }
 
   /* Ligação ao menu: Livros e os seus submenus abrem o catálogo; os restantes menus voltam à página inicial */
   var items=[].slice.call(document.querySelectorAll('nav .item'));
