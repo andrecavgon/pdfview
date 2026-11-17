@@ -114,19 +114,19 @@ nav button:focus:not(:focus-visible){outline:none}
 .thumbs h3{font-weight:400;font-size:19px;line-height:1.2;margin-top:19px}
 
 .row5{margin-top:31px;grid-template-columns:1fr 1fr;gap:16px}
-.lista-banner{grid-column:1/-1;height:300px;display:flex;flex-direction:column;gap:10px;padding:20px 36px 14px;background:linear-gradient(90deg,rgba(20,12,6,.94),rgba(20,12,6,.82)),url(img/sugestoes.jpg);background-size:cover;background-position:center;color:#fff;--cw:110px}
-.lb-head{display:flex;align-items:baseline;gap:14px;flex:0 0 auto}
+.lista-banner{grid-column:1/-1;position:relative;height:300px;display:flex;flex-direction:column;gap:10px;padding:20px 36px 14px;background:linear-gradient(90deg,rgba(20,12,6,.94),rgba(20,12,6,.82)),url(img/sugestoes.jpg);background-size:cover;background-position:center;color:#fff;--cw:138px}
+.lb-head{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .lista-banner .tag{display:block;margin:0}
 .lista-banner h2{font-size:28px;line-height:1}
-.lb-row{display:flex;gap:18px;overflow-x:auto;overflow-y:hidden;flex:1 1 auto;min-height:0;padding-bottom:4px;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.35) transparent}
+.lb-row{display:flex;gap:22px;justify-content:safe center;overflow-x:auto;overflow-y:hidden;flex:1 1 auto;min-height:0;padding-bottom:4px;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.35) transparent}
 .lb-item{appearance:none;border:0;background:none;padding:0;margin:0;color:#fff;text-align:left;cursor:pointer;flex:0 0 var(--cw);width:var(--cw);display:flex;flex-direction:column;gap:7px;font:inherit;scroll-snap-align:start}
 .lb-item:focus-visible{outline:2px solid #fff;outline-offset:3px}
 .lb-item .capa{width:100%;aspect-ratio:2/3;box-shadow:0 2px 8px rgba(0,0,0,.45)}
 .lb-item:hover .capa{transform:translateY(-3px)}
 .lb-item .capa-gen{padding:10px 8px}
-.lb-item .capa-gen b{font-size:14px}
-.lb-item .capa-gen i{font-size:7.5px}
-.lb-item .t{font-family:var(--display);font-weight:600;font-size:14px;line-height:1.1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.lb-item .capa-gen b{font-size:17px}
+.lb-item .capa-gen i{font-size:8px}
+.lb-item .t{font-family:var(--display);font-weight:600;font-size:15px;line-height:1.1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .lb-item .a{font-family:var(--sans);font-size:10.5px;letter-spacing:.03em;color:rgba(255,255,255,.72);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .duo{height:300px;color:#fff;padding:38px 36px 0}
 .duo .tag{display:block;margin-bottom:10px}
@@ -259,8 +259,7 @@ footer .rules i+i{margin-top:5px}
   .kids p{font-size:19px;max-width:190px}
   .row3 .card{height:320px}
   .duo{height:310px}
-  .lista-banner{height:310px;padding:18px 16px 12px;--cw:104px}
-  .lista-banner h2{font-size:26px}
+  .lista-banner{height:310px;padding:16px 16px 12px;--cw:142px}
   .thumbs h3{font-size:21px}
   .emais .head{font-size:13px}
   .foot .logo{width:148px}
@@ -609,7 +608,7 @@ const CATALOGO_URL = '';
   function listaHome(){
     var row=document.getElementById('lb-list'); if(!row) return;
     carregar().then(function(){
-      row.innerHTML=livros.map(function(l,i){return {l:l,i:i}}).reverse().slice(0,16).map(function(o){
+      row.innerHTML=livros.map(function(l,i){return {l:l,i:i}}).reverse().slice(0,6).map(function(o){
         return '<button type="button" class="lb-item" role="listitem" data-i="'+o.i+'">'+capaHTML(o.l)+'<span class="t">'+esc(o.l.titulo)+'</span><span class="a">'+esc(autoresTxt(o.l))+'</span></button>';
       }).join('');
     });
