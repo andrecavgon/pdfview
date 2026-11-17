@@ -114,6 +114,15 @@ nav button:focus:not(:focus-visible){outline:none}
 .thumbs h3{font-weight:400;font-size:19px;line-height:1.2;margin-top:19px}
 
 .row5{margin-top:31px;grid-template-columns:1fr 1fr;gap:16px}
+.lista-banner{grid-column:1/-1;height:300px;display:grid;grid-template-columns:240px 1fr;gap:0 36px;padding:30px 36px;background:linear-gradient(90deg,rgba(20,12,6,.94),rgba(20,12,6,.82)),url(img/sugestoes.jpg);background-size:cover;background-position:center;color:#fff}
+.lista-banner .tag{display:block;margin-bottom:10px}
+.lista-banner h2{font-size:40px;line-height:1.08}
+.lb-list{list-style:none;margin:0;padding:0;overflow-y:auto;align-self:stretch;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.35) transparent}
+.lb-list li{display:grid;grid-template-columns:1.4fr 1fr .9fr;gap:6px 18px;align-items:baseline;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.18)}
+.lb-list li:first-child{padding-top:2px}
+.lb-list .t{font-family:var(--display);font-weight:600;font-size:20px;line-height:1.1}
+.lb-list .a{font-family:var(--serif);font-size:16px;color:#f1e8dc}
+.lb-list .e{font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.7)}
 .duo{height:300px;color:#fff;padding:38px 36px 0}
 .duo .tag{display:block;margin-bottom:10px}
 .duo h2{font-size:40px;line-height:1.08}
@@ -245,6 +254,14 @@ footer .rules i+i{margin-top:5px}
   .kids p{font-size:19px;max-width:190px}
   .row3 .card{height:320px}
   .duo{height:310px}
+  .lista-banner{height:310px;grid-template-columns:1fr;grid-template-rows:auto 1fr;gap:12px;padding:26px 16px 14px}
+  .lista-banner h2{font-size:32px}
+  .lb-head{display:flex;align-items:baseline;gap:12px}
+  .lb-head .tag{margin:0}
+  .lb-list li{grid-template-columns:1fr;gap:2px;padding:9px 0}
+  .lb-list .t{font-size:18px}
+  .lb-list .a{font-size:15px}
+  .lb-list .e{display:none}
   .thumbs h3{font-size:21px}
   .emais .head{font-size:13px}
   .foot .logo{width:148px}
@@ -355,17 +372,9 @@ footer .rules i+i{margin-top:5px}
     </section>
 
     <section class="grid row5">
-      <article class="card duo d1">
-        <span class="tag">Em breve</span>
-        <h2>Cartas<br>dos leitores</h2>
-        <p>O que andamos a ler.<br>Contado por quem lê.</p>
-        <span class="more">Ler mais</span>
-      </article>
-      <article class="card duo d2">
-        <span class="tag">Em breve</span>
-        <h2>Agenda<br>cultural</h2>
-        <p>Lançamentos, sessões<br>e encontros do mês.</p>
-        <span class="more">Ler mais</span>
+      <article class="card lista-banner" aria-labelledby="lb-t">
+        <div class="lb-head"><span class="tag">Novidades</span><h2 id="lb-t">Livros</h2></div>
+        <ul class="lb-list" id="lb-list"></ul>
       </article>
     </section>
     </div>
@@ -598,6 +607,15 @@ const CATALOGO_URL = '';
   q.addEventListener('input',render); sortSel.addEventListener('change',render);
   chips.forEach(function(c){c.addEventListener('click',function(){estado.g=c.getAttribute('data-g');render()})});
 
+  function listaHome(){
+    var ul=document.getElementById('lb-list'); if(!ul) return;
+    carregar().then(function(){
+      ul.innerHTML=livros.slice().reverse().slice(0,12).map(function(l){
+        return '<li><span class="t">'+esc(l.titulo)+'</span><span class="a">'+esc(autoresTxt(l))+'</span><span class="e">'+esc(l.editora||'')+'</span></li>';
+      }).join('');
+    });
+  }
+  listaHome();
   function mostrarCatalogo(g){
     estado.g=g||'todos';
     home.hidden=true; cat.hidden=false; if(rodape) rodape.hidden=true;
