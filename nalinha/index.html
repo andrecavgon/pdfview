@@ -114,12 +114,12 @@ nav button:focus:not(:focus-visible){outline:none}
 .thumbs h3{font-weight:400;font-size:19px;line-height:1.2;margin-top:19px}
 
 .row5{margin-top:31px;grid-template-columns:1fr 1fr;gap:16px}
-.lista-banner{grid-column:1/-1;position:relative;height:300px;display:flex;flex-direction:column;gap:10px;padding:20px 36px 14px;background:linear-gradient(90deg,rgba(20,12,6,.94),rgba(20,12,6,.82)),url(img/sugestoes.jpg);background-size:cover;background-position:center;color:#fff;--cw:138px}
-.lb-head{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.lista-banner .tag{display:block;margin:0}
-.lista-banner h2{font-size:28px;line-height:1}
-.lb-row{display:flex;gap:22px;justify-content:safe center;overflow-x:auto;overflow-y:hidden;flex:1 1 auto;min-height:0;padding-bottom:4px;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.35) transparent}
-.lb-item{appearance:none;border:0;background:none;padding:0;margin:0;color:#fff;text-align:left;cursor:pointer;flex:0 0 var(--cw);width:var(--cw);display:flex;flex-direction:column;gap:7px;font:inherit;scroll-snap-align:start}
+.sec-titulo{grid-column:1/-1;font-family:var(--display);font-weight:600;font-size:34px;line-height:1;color:var(--ink);margin:0}
+.bn-row{grid-column:1/-1;display:grid;grid-template-columns:repeat(6,1fr);gap:8px;--cw:138px}
+.bn{position:relative;height:300px;overflow:hidden;color:#fff;background:linear-gradient(160deg,rgba(20,12,6,.94),rgba(20,12,6,.80)),url(img/sugestoes.jpg);background-size:cover;background-position:center}
+.bn-body{height:100%;padding:16px 8px 12px;display:flex;justify-content:center;align-items:flex-start;overflow:auto;scrollbar-width:none}
+.bn-body::-webkit-scrollbar{display:none}
+.lb-item{appearance:none;border:0;background:none;padding:0;margin:0;color:#fff;text-align:left;cursor:pointer;flex:0 0 var(--cw);width:var(--cw);max-width:100%;display:flex;flex-direction:column;gap:7px;font:inherit}
 .lb-item:focus-visible{outline:2px solid #fff;outline-offset:3px}
 .lb-item .capa{width:100%;aspect-ratio:2/3;box-shadow:0 2px 8px rgba(0,0,0,.45)}
 .lb-item:hover .capa{transform:translateY(-3px)}
@@ -128,6 +128,17 @@ nav button:focus:not(:focus-visible){outline:none}
 .lb-item .capa-gen i{font-size:8px}
 .lb-item .t{font-family:var(--display);font-weight:600;font-size:15px;line-height:1.1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .lb-item .a{font-family:var(--sans);font-size:10.5px;letter-spacing:.03em;color:rgba(255,255,255,.72);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bn-edit{position:absolute;top:6px;right:6px;z-index:3;appearance:none;border:1px solid rgba(255,255,255,.45);background:rgba(20,12,6,.7);color:#fff;font:600 11px/1 var(--sans);letter-spacing:.04em;padding:6px 8px;border-radius:4px;cursor:pointer}
+.bn-edit:hover{background:rgba(20,12,6,.95)}
+.bn-ed{position:absolute;inset:0;z-index:4;display:none;flex-direction:column;gap:6px;padding:8px;background:#17110a}
+.bn.editando .bn-ed{display:flex}
+.bn-ed label{font:600 10px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.bn-ed textarea{flex:1 1 auto;min-height:0;width:100%;resize:none;font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#f6f0df;background:#0c0804;border:1px solid rgba(255,255,255,.3);border-radius:4px;padding:8px}
+.bn-ed textarea:focus-visible{outline:2px solid #fff;outline-offset:1px}
+.bn-ed .bt{display:flex;gap:5px;flex-wrap:wrap}
+.bn-ed .bt button{appearance:none;border:1px solid rgba(255,255,255,.4);background:none;color:#fff;font:600 11px/1 var(--sans);padding:7px 9px;border-radius:4px;cursor:pointer}
+.bn-ed .bt .ok{background:#f6f0df;color:#1c1912;border-color:#f6f0df}
+.bn-ed .bt button:focus-visible{outline:2px solid #fff;outline-offset:2px}
 .duo{height:300px;color:#fff;padding:38px 36px 0}
 .duo .tag{display:block;margin-bottom:10px}
 .duo h2{font-size:40px;line-height:1.08}
@@ -259,7 +270,10 @@ footer .rules i+i{margin-top:5px}
   .kids p{font-size:19px;max-width:190px}
   .row3 .card{height:320px}
   .duo{height:310px}
-  .lista-banner{height:310px;padding:16px 16px 12px;--cw:142px}
+  .sec-titulo{font-size:30px;padding:0 16px}
+  .bn-row{display:flex;overflow-x:auto;gap:6px;padding:0;scroll-snap-type:x proximity;scrollbar-width:none;--cw:142px}
+  .bn-row::-webkit-scrollbar{display:none}
+  .bn{flex:0 0 172px;height:310px;scroll-snap-align:start}
   .thumbs h3{font-size:21px}
   .emais .head{font-size:13px}
   .foot .logo{width:148px}
@@ -370,10 +384,8 @@ footer .rules i+i{margin-top:5px}
     </section>
 
     <section class="grid row5">
-      <article class="card lista-banner" aria-labelledby="lb-t">
-        <div class="lb-head"><span class="tag">Novidades</span><h2 id="lb-t">Livros</h2></div>
-        <div class="lb-row" id="lb-list" role="list"></div>
-      </article>
+      <h2 class="sec-titulo" id="lb-t">Livros</h2>
+      <div class="bn-row" id="bn-row" role="list" aria-labelledby="lb-t"></div>
     </section>
     </div>
 
@@ -499,6 +511,8 @@ footer .rules i+i{margin-top:5px}
    Enquanto estiver vazio, mostra livros de exemplo.
    Campos de cada livro: título, autores, editora, tema, tema secundário. */
 const CATALOGO_URL = '';
+/* Caixas de edição de HTML dos 6 banners de Livros. Põe false antes de publicar o site para os visitantes não as verem. */
+const EDITAR_BANNERS = true;
 
 (function(){
   var EXEMPLOS = [
@@ -605,14 +619,41 @@ const CATALOGO_URL = '';
   q.addEventListener('input',render); sortSel.addEventListener('change',render);
   chips.forEach(function(c){c.addEventListener('click',function(){estado.g=c.getAttribute('data-g');render()})});
 
+  function bookHtml(l,i){
+    return '<button type="button" class="lb-item" data-i="'+i+'">'+capaHTML(l)+'<span class="t">'+esc(l.titulo)+'</span><span class="a">'+esc(autoresTxt(l))+'</span></button>';
+  }
+  function limpar(h){return (h||'').replace(/<script[\s\S]*?<\/script>/gi,'')}
+  function lerSalvo(k){try{return localStorage.getItem('nalinha-bn-'+k)}catch(e){return null}}
+  function gravar(k,v){try{if(v===null)localStorage.removeItem('nalinha-bn-'+k);else localStorage.setItem('nalinha-bn-'+k,v)}catch(e){}}
   function listaHome(){
-    var row=document.getElementById('lb-list'); if(!row) return;
+    var row=document.getElementById('bn-row'); if(!row) return;
     carregar().then(function(){
-      row.innerHTML=livros.map(function(l,i){return {l:l,i:i}}).reverse().slice(0,6).map(function(o){
-        return '<button type="button" class="lb-item" role="listitem" data-i="'+o.i+'">'+capaHTML(o.l)+'<span class="t">'+esc(o.l.titulo)+'</span><span class="a">'+esc(autoresTxt(o.l))+'</span></button>';
-      }).join('');
+      var top=livros.map(function(l,i){return {l:l,i:i}}).reverse().slice(0,6);
+      row.innerHTML='';
+      for(var k=0;k<6;k++)(function(k){
+        var def=top[k]?bookHtml(top[k].l,top[k].i):'';
+        var salvo=lerSalvo(k), tile=document.createElement('div');
+        tile.className='bn'; tile.setAttribute('role','listitem');
+        var body=document.createElement('div'); body.className='bn-body';
+        body.innerHTML=limpar(salvo!==null?salvo:def); tile.appendChild(body);
+        if(EDITAR_BANNERS){
+          var eb=document.createElement('button'); eb.type='button'; eb.className='bn-edit'; eb.textContent='</> '+(k+1); eb.setAttribute('aria-label','Editar o HTML do banner '+(k+1));
+          var ed=document.createElement('div'); ed.className='bn-ed';
+          ed.innerHTML='<label for="bn-ta-'+k+'">HTML do banner '+(k+1)+'</label><textarea id="bn-ta-'+k+'" spellcheck="false"></textarea><div class="bt"><button type="button" class="ok">Aplicar</button><button type="button" data-a="repor">Repor</button><button type="button" data-a="copiar">Copiar</button><button type="button" data-a="fechar">Fechar</button></div>';
+          var ta=ed.querySelector('textarea');
+          eb.addEventListener('click',function(){ta.value=salvo!==null?salvo:def;tile.classList.add('editando');ta.focus()});
+          ed.querySelector('.ok').addEventListener('click',function(){salvo=ta.value;gravar(k,salvo);body.innerHTML=limpar(salvo);tile.classList.remove('editando')});
+          ed.addEventListener('click',function(e){var a=e.target.getAttribute&&e.target.getAttribute('data-a'); if(!a) return;
+            if(a==='fechar')tile.classList.remove('editando');
+            if(a==='repor'){salvo=null;gravar(k,null);ta.value=def;body.innerHTML=limpar(def)}
+            if(a==='copiar'){ta.select();try{navigator.clipboard.writeText(ta.value).catch(function(){document.execCommand('copy')})}catch(x){try{document.execCommand('copy')}catch(y){}}}
+          });
+          tile.appendChild(eb); tile.appendChild(ed);
+        }
+        row.appendChild(tile);
+      })(k);
     });
-    row.addEventListener('click',function(e){var b=e.target.closest('.lb-item'); if(b) abrir(+b.getAttribute('data-i'))});
+    row.addEventListener('click',function(e){var b=e.target.closest('.lb-item'); if(b&&b.getAttribute('data-i')!==null) abrir(+b.getAttribute('data-i'))});
   }
   listaHome();
   function mostrarCatalogo(g){
