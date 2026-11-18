@@ -379,38 +379,90 @@ footer .rules i+i{margin-top:5px}
       <h2 class="sec-titulo" id="lb-t"><a class="sec-link" href="#livros">Livros</a></h2>
       <div class="bn-row" id="bn-row" role="list" aria-labelledby="lb-t">
         <!--
-          TAMANHO DE CADA BANNER (editar aqui, no atributo style de cada banner):
-            --bn-largura       largura relativa no computador (1 = todos iguais; 2 = o dobro dos outros)
-            --bn-altura        altura no computador, por exemplo 300px
-            --bn-capa          largura da capa do livro no computador, por exemplo 138px
-            --bn-largura-tlm   largura no telemóvel, por exemplo 172px
-            --bn-altura-tlm    altura no telemóvel, por exemplo 310px
-            --bn-capa-tlm      largura da capa no telemóvel, por exemplo 142px
-          O livro mostrado em cada banner é o n.º do banner na lista dos mais recentes.
+          EDITAR OS 6 BANNERS (tudo aqui, em HTML):
+            1) TAMANHO, no atributo style de cada <div class="bn">:
+                 --bn-largura       largura relativa no computador (1 = todos iguais; 2 = o dobro)
+                 --bn-altura        altura no computador, por exemplo 300px
+                 --bn-capa          largura da capa no computador, por exemplo 138px
+                 --bn-largura-tlm   largura no telemóvel, por exemplo 172px
+                 --bn-altura-tlm    altura no telemóvel, por exemplo 310px
+                 --bn-capa-tlm      largura da capa no telemóvel, por exemplo 142px
+            2) CAPA: dentro de <div class="capa">: a cor (style), o autor (<i>) e o título (<b>) da capa,
+               ou uma imagem com <img src="..."> no lugar do <div class="capa-gen">.
+            3) TEXTO: <span class="t"> é o título e <span class="a"> são os autores, por baixo da capa.
+          Ao tocar num banner, abre-se o livro do catálogo com o mesmo título; se não existir, abre a lista de livros.
         -->
-        <!-- Banner 1 -->
+        <!-- ===== BANNER 1 ===== -->
         <div class="bn" role="listitem" data-banner="1" style="--bn-largura:1; --bn-altura:300px; --bn-capa:138px; --bn-largura-tlm:172px; --bn-altura-tlm:310px; --bn-capa-tlm:142px">
-          <div class="bn-body"></div>
+          <div class="bn-body">
+            <button type="button" class="lb-item">
+              <!-- CAPA: muda a cor no style, o autor (<i>) e o título (<b>); ou troca o <div class="capa-gen"> inteiro por <img src="endereço-da-imagem" alt="Capa de ..."> -->
+              <div class="capa"><div class="capa-gen" style="background:linear-gradient(160deg,#6b3a2a,#1c1912 140%)"><i>Autora Um, Autor Dois</i><b>Livro a duas mãos (exemplo)</b></div></div>
+              <!-- TEXTO por baixo da capa: título e autores -->
+              <span class="t">Livro a duas mãos (exemplo)</span>
+              <span class="a">Autora Um, Autor Dois</span>
+            </button>
+          </div>
         </div>
-        <!-- Banner 2 -->
+        <!-- ===== BANNER 2 ===== -->
         <div class="bn" role="listitem" data-banner="2" style="--bn-largura:1; --bn-altura:300px; --bn-capa:138px; --bn-largura-tlm:172px; --bn-altura-tlm:310px; --bn-capa-tlm:142px">
-          <div class="bn-body"></div>
+          <div class="bn-body">
+            <button type="button" class="lb-item">
+              <!-- CAPA: muda a cor no style, o autor (<i>) e o título (<b>); ou troca o <div class="capa-gen"> inteiro por <img src="endereço-da-imagem" alt="Capa de ..."> -->
+              <div class="capa"><div class="capa-gen" style="background:linear-gradient(160deg,#4a3b5c,#1c1912 140%)"><i>Stephen Hawking</i><b>Breve História do Tempo</b></div></div>
+              <!-- TEXTO por baixo da capa: título e autores -->
+              <span class="t">Breve História do Tempo</span>
+              <span class="a">Stephen Hawking</span>
+            </button>
+          </div>
         </div>
-        <!-- Banner 3 -->
+        <!-- ===== BANNER 3 ===== -->
         <div class="bn" role="listitem" data-banner="3" style="--bn-largura:1; --bn-altura:300px; --bn-capa:138px; --bn-largura-tlm:172px; --bn-altura-tlm:310px; --bn-capa-tlm:142px">
-          <div class="bn-body"></div>
+          <div class="bn-body">
+            <button type="button" class="lb-item">
+              <!-- CAPA: muda a cor no style, o autor (<i>) e o título (<b>); ou troca o <div class="capa-gen"> inteiro por <img src="endereço-da-imagem" alt="Capa de ..."> -->
+              <div class="capa"><div class="capa-gen" style="background:linear-gradient(160deg,#3d4a2c,#1c1912 140%)"><i>José Saramago</i><b>Ensaio sobre a Cegueira</b></div></div>
+              <!-- TEXTO por baixo da capa: título e autores -->
+              <span class="t">Ensaio sobre a Cegueira</span>
+              <span class="a">José Saramago</span>
+            </button>
+          </div>
         </div>
-        <!-- Banner 4 -->
+        <!-- ===== BANNER 4 ===== -->
         <div class="bn" role="listitem" data-banner="4" style="--bn-largura:1; --bn-altura:300px; --bn-capa:138px; --bn-largura-tlm:172px; --bn-altura-tlm:310px; --bn-capa-tlm:142px">
-          <div class="bn-body"></div>
+          <div class="bn-body">
+            <button type="button" class="lb-item">
+              <!-- CAPA: muda a cor no style, o autor (<i>) e o título (<b>); ou troca o <div class="capa-gen"> inteiro por <img src="endereço-da-imagem" alt="Capa de ..."> -->
+              <div class="capa"><div class="capa-gen" style="background:linear-gradient(160deg,#0e4452,#1c1912 140%)"><i>Sophia de Mello Breyner</i><b>A Menina do Mar</b></div></div>
+              <!-- TEXTO por baixo da capa: título e autores -->
+              <span class="t">A Menina do Mar</span>
+              <span class="a">Sophia de Mello Breyner</span>
+            </button>
+          </div>
         </div>
-        <!-- Banner 5 -->
+        <!-- ===== BANNER 5 ===== -->
         <div class="bn" role="listitem" data-banner="5" style="--bn-largura:1; --bn-altura:300px; --bn-capa:138px; --bn-largura-tlm:172px; --bn-altura-tlm:310px; --bn-capa-tlm:142px">
-          <div class="bn-body"></div>
+          <div class="bn-body">
+            <button type="button" class="lb-item">
+              <!-- CAPA: muda a cor no style, o autor (<i>) e o título (<b>); ou troca o <div class="capa-gen"> inteiro por <img src="endereço-da-imagem" alt="Capa de ..."> -->
+              <div class="capa"><div class="capa-gen" style="background:linear-gradient(160deg,#6b3a2a,#1c1912 140%)"><i>Autor de exemplo</i><b>Cascais, Memórias da Vila</b></div></div>
+              <!-- TEXTO por baixo da capa: título e autores -->
+              <span class="t">Cascais, Memórias da Vila</span>
+              <span class="a">Autor de exemplo</span>
+            </button>
+          </div>
         </div>
-        <!-- Banner 6 -->
+        <!-- ===== BANNER 6 ===== -->
         <div class="bn" role="listitem" data-banner="6" style="--bn-largura:1; --bn-altura:300px; --bn-capa:138px; --bn-largura-tlm:172px; --bn-altura-tlm:310px; --bn-capa-tlm:142px">
-          <div class="bn-body"></div>
+          <div class="bn-body">
+            <button type="button" class="lb-item">
+              <!-- CAPA: muda a cor no style, o autor (<i>) e o título (<b>); ou troca o <div class="capa-gen"> inteiro por <img src="endereço-da-imagem" alt="Capa de ..."> -->
+              <div class="capa"><div class="capa-gen" style="background:linear-gradient(160deg,#4a3b5c,#1c1912 140%)"><i>Antoine de Saint-Exupéry</i><b>O Principezinho</b></div></div>
+              <!-- TEXTO por baixo da capa: título e autores -->
+              <span class="t">O Principezinho</span>
+              <span class="a">Antoine de Saint-Exupéry</span>
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -649,13 +701,16 @@ const CATALOGO_URL = '';
   }
   function listaHome(){
     var row=document.getElementById('bn-row'); if(!row) return;
-    carregar().then(function(){
-      var top=livros.map(function(l,i){return {l:l,i:i}}).reverse().slice(0,6);
-      [].slice.call(row.querySelectorAll('.bn')).forEach(function(tile,k){
-        var body=tile.querySelector('.bn-body'); if(body) body.innerHTML=top[k]?bookHtml(top[k].l,top[k].i):'';
+    row.addEventListener('click',function(e){
+      var b=e.target.closest('.lb-item'); if(!b) return;
+      var tt=b.querySelector('.t'), titulo=tt?tt.textContent:'';
+      carregar().then(function(){
+        var n=norm(titulo), i=-1;
+        livros.forEach(function(l,k){ if(i<0 && norm(l.titulo)===n) i=k; });
+        if(i>=0) abrir(i);
+        else { q.value=titulo; mostrarCatalogo('todos'); }
       });
     });
-    row.addEventListener('click',function(e){var b=e.target.closest('.lb-item'); if(b&&b.getAttribute('data-i')!==null) abrir(+b.getAttribute('data-i'))});
   }
   listaHome();
   function mostrarCatalogo(g){
