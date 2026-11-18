@@ -115,6 +115,9 @@ nav button:focus:not(:focus-visible){outline:none}
 
 .row5{margin-top:31px;grid-template-columns:1fr 1fr;gap:16px}
 .sec-titulo{grid-column:1/-1;font-family:var(--display);font-weight:600;font-size:34px;line-height:1;color:var(--ink);margin:0}
+.sec-link{color:inherit;text-decoration:none;cursor:pointer;background:linear-gradient(currentColor,currentColor) 0 100%/0 1.5px no-repeat;transition:background-size .2s}
+.sec-link:hover,.sec-link:focus-visible{background-size:100% 1.5px}
+.sec-link:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
 .bn-row{grid-column:1/-1;display:grid;grid-template-columns:repeat(6,1fr);gap:8px;--cw:138px}
 .bn{position:relative;height:300px;overflow:hidden;color:#fff;background:linear-gradient(160deg,rgba(20,12,6,.94),rgba(20,12,6,.80)),url(img/sugestoes.jpg);background-size:cover;background-position:center}
 .bn-body{height:100%;padding:16px 8px 12px;display:flex;justify-content:center;align-items:flex-start;overflow:auto;scrollbar-width:none}
@@ -373,7 +376,7 @@ footer .rules i+i{margin-top:5px}
     </section>
 
     <section class="grid row5">
-      <h2 class="sec-titulo" id="lb-t">Livros</h2>
+      <h2 class="sec-titulo" id="lb-t"><a class="sec-link" href="#livros">Livros</a></h2>
       <div class="bn-row" id="bn-row" role="list" aria-labelledby="lb-t"></div>
     </section>
     </div>
@@ -640,6 +643,8 @@ const CATALOGO_URL = '';
       b.addEventListener('click',function(){ if(n===0) mostrarCatalogo(b.getAttribute('data-g')||'todos'); else mostrarHome(); });
     });
   });
+  var secLink=document.querySelector('.sec-link');
+  if(secLink) secLink.addEventListener('click',function(e){e.preventDefault();mostrarCatalogo('todos')});
   var logo=document.querySelector('.logo-btn'); if(logo) logo.addEventListener('click',mostrarHome);
 })();
 </script>
