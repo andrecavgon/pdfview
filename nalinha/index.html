@@ -118,8 +118,8 @@ nav button:focus:not(:focus-visible){outline:none}
 .sec-link{color:inherit;text-decoration:none;cursor:pointer;background:linear-gradient(currentColor,currentColor) 0 100%/0 1.5px no-repeat;transition:background-size .2s}
 .sec-link:hover,.sec-link:focus-visible{background-size:100% 1.5px}
 .sec-link:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
-.bn-row{grid-column:1/-1;display:grid;grid-template-columns:repeat(6,1fr);gap:8px;--cw:138px}
-.bn{position:relative;height:300px;overflow:hidden;color:#fff;background:linear-gradient(160deg,rgba(20,12,6,.94),rgba(20,12,6,.80)),url(img/sugestoes.jpg);background-size:cover;background-position:center}
+.bn-row{grid-column:1/-1;display:flex;align-items:flex-start;gap:8px}
+.bn{position:relative;flex:var(--bn-largura,1) 1 0;min-width:0;height:var(--bn-altura,300px);--cw:var(--bn-capa,138px);overflow:hidden;color:#fff;background:linear-gradient(160deg,rgba(20,12,6,.94),rgba(20,12,6,.80)),url(img/sugestoes.jpg);background-size:cover;background-position:center}
 .bn-body{height:100%;padding:16px 8px 12px;display:flex;justify-content:center;align-items:flex-start;overflow:auto;scrollbar-width:none}
 .bn-body::-webkit-scrollbar{display:none}
 .lb-item{appearance:none;border:0;background:none;padding:0;margin:0;color:#fff;text-align:left;cursor:pointer;flex:0 0 var(--cw);width:var(--cw);max-width:100%;display:flex;flex-direction:column;gap:7px;font:inherit}
@@ -263,9 +263,9 @@ footer .rules i+i{margin-top:5px}
   .row3 .card{height:320px}
   .duo{height:310px}
   .sec-titulo{font-size:30px;padding:0 16px}
-  .bn-row{display:flex;overflow-x:auto;gap:6px;padding:0;scroll-snap-type:x proximity;scrollbar-width:none;--cw:142px}
+  .bn-row{overflow-x:auto;gap:6px;padding:0;scroll-snap-type:x proximity;scrollbar-width:none}
   .bn-row::-webkit-scrollbar{display:none}
-  .bn{flex:0 0 172px;height:310px;scroll-snap-align:start}
+  .bn{flex:0 0 var(--bn-largura-tlm,172px);height:var(--bn-altura-tlm,310px);--cw:var(--bn-capa-tlm,142px);scroll-snap-align:start}
   .thumbs h3{font-size:21px}
   .emais .head{font-size:13px}
   .foot .logo{width:148px}
@@ -377,7 +377,42 @@ footer .rules i+i{margin-top:5px}
 
     <section class="grid row5">
       <h2 class="sec-titulo" id="lb-t"><a class="sec-link" href="#livros">Livros</a></h2>
-      <div class="bn-row" id="bn-row" role="list" aria-labelledby="lb-t"></div>
+      <div class="bn-row" id="bn-row" role="list" aria-labelledby="lb-t">
+        <!--
+          TAMANHO DE CADA BANNER (editar aqui, no atributo style de cada banner):
+            --bn-largura       largura relativa no computador (1 = todos iguais; 2 = o dobro dos outros)
+            --bn-altura        altura no computador, por exemplo 300px
+            --bn-capa          largura da capa do livro no computador, por exemplo 138px
+            --bn-largura-tlm   largura no telemóvel, por exemplo 172px
+            --bn-altura-tlm    altura no telemóvel, por exemplo 310px
+            --bn-capa-tlm      largura da capa no telemóvel, por exemplo 142px
+          O livro mostrado em cada banner é o n.º do banner na lista dos mais recentes.
+        -->
+        <!-- Banner 1 -->
+        <div class="bn" role="listitem" data-banner="1" style="--bn-largura:1; --bn-altura:300px; --bn-capa:138px; --bn-largura-tlm:172px; --bn-altura-tlm:310px; --bn-capa-tlm:142px">
+          <div class="bn-body"></div>
+        </div>
+        <!-- Banner 2 -->
+        <div class="bn" role="listitem" data-banner="2" style="--bn-largura:1; --bn-altura:300px; --bn-capa:138px; --bn-largura-tlm:172px; --bn-altura-tlm:310px; --bn-capa-tlm:142px">
+          <div class="bn-body"></div>
+        </div>
+        <!-- Banner 3 -->
+        <div class="bn" role="listitem" data-banner="3" style="--bn-largura:1; --bn-altura:300px; --bn-capa:138px; --bn-largura-tlm:172px; --bn-altura-tlm:310px; --bn-capa-tlm:142px">
+          <div class="bn-body"></div>
+        </div>
+        <!-- Banner 4 -->
+        <div class="bn" role="listitem" data-banner="4" style="--bn-largura:1; --bn-altura:300px; --bn-capa:138px; --bn-largura-tlm:172px; --bn-altura-tlm:310px; --bn-capa-tlm:142px">
+          <div class="bn-body"></div>
+        </div>
+        <!-- Banner 5 -->
+        <div class="bn" role="listitem" data-banner="5" style="--bn-largura:1; --bn-altura:300px; --bn-capa:138px; --bn-largura-tlm:172px; --bn-altura-tlm:310px; --bn-capa-tlm:142px">
+          <div class="bn-body"></div>
+        </div>
+        <!-- Banner 6 -->
+        <div class="bn" role="listitem" data-banner="6" style="--bn-largura:1; --bn-altura:300px; --bn-capa:138px; --bn-largura-tlm:172px; --bn-altura-tlm:310px; --bn-capa-tlm:142px">
+          <div class="bn-body"></div>
+        </div>
+      </div>
     </section>
     </div>
 
@@ -616,13 +651,9 @@ const CATALOGO_URL = '';
     var row=document.getElementById('bn-row'); if(!row) return;
     carregar().then(function(){
       var top=livros.map(function(l,i){return {l:l,i:i}}).reverse().slice(0,6);
-      row.innerHTML='';
-      for(var k=0;k<6;k++){
-        var tile=document.createElement('div'); tile.className='bn'; tile.setAttribute('role','listitem');
-        var body=document.createElement('div'); body.className='bn-body';
-        body.innerHTML=top[k]?bookHtml(top[k].l,top[k].i):'';
-        tile.appendChild(body); row.appendChild(tile);
-      }
+      [].slice.call(row.querySelectorAll('.bn')).forEach(function(tile,k){
+        var body=tile.querySelector('.bn-body'); if(body) body.innerHTML=top[k]?bookHtml(top[k].l,top[k].i):'';
+      });
     });
     row.addEventListener('click',function(e){var b=e.target.closest('.lb-item'); if(b&&b.getAttribute('data-i')!==null) abrir(+b.getAttribute('data-i'))});
   }
