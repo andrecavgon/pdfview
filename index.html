@@ -86780,10 +86780,18 @@ const pdfjsBuild = 'ce8716743';
     }
   }
   // ecrã inteiro: esconde a barra do browser enquanto um PDF está aberto
+  // telemóvel/tablet: a app fica sempre em ecrã inteiro (sem horas em cima nem barra de navegação em baixo).
+  // O browser só deixa entrar em ecrã inteiro depois de um toque, por isso entra ao primeiro toque e volta a entrar se sair.
+  const TOUCH = matchMedia('(pointer:coarse)').matches;
+  if(TOUCH){
+    const goFull=()=>{ if(!document.fullscreenElement && !document.webkitFullscreenElement) enterFull(); };
+    document.addEventListener('click', goFull, true);
+    document.addEventListener('touchend', goFull, true);
+  }
   function enterFull(){
     try{
       if(document.fullscreenElement || document.webkitFullscreenElement){ R.fsMine=false; return; }
-      if(matchMedia('(display-mode: fullscreen)').matches || matchMedia('(display-mode: standalone)').matches || navigator.standalone===true) return;
+      if(matchMedia('(display-mode: fullscreen)').matches) return;
       const el=document.documentElement;
       const r = el.requestFullscreen ? el.requestFullscreen({navigationUI:'hide'}) : (el.webkitRequestFullscreen ? el.webkitRequestFullscreen() : null);
       R.fsMine=true;
@@ -86792,7 +86800,7 @@ const pdfjsBuild = 'ce8716743';
   }
   function exitFull(){
     try{
-      if(!R.fsMine) return; R.fsMine=false;
+      if(!R.fsMine || TOUCH) return; R.fsMine=false;
       if(document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(()=>{});
       else if(document.webkitFullscreenElement && document.webkitExitFullscreen) document.webkitExitFullscreen();
     }catch(e){}
