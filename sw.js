@@ -2,14 +2,17 @@
    - a página (index.html) vem primeiro da rede, para as atualizações chegarem logo; sem rede usa a cópia guardada
    - ícones e manifest vêm da cópia guardada e são atualizados em segundo plano
    Ao mudar a app, aumenta o número da versão abaixo. */
-const VERSION = 'pdfview-v10';
+const VERSION = 'pdfview-v11';
 const SHELL = [
   './',
   'index.html',
   'manifest.webmanifest',
   'icon.svg',
+  'favicon.ico',
+  'favicon-16.png',
   'favicon-32.png',
   'favicon-48.png',
+  'favicon-96.png',
   'icon-192.png',
   'icon-512.png',
   'icon-maskable-512.png',

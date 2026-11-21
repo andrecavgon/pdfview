@@ -7,9 +7,12 @@
 <title>PDFView</title>
 <meta name="description" content="Biblioteca de PDF por tópicos, com leitor em ecrã inteiro. Funciona offline.">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect x='10' y='10' width='492' height='492' rx='128' fill='%23181a16' stroke='%232b2f28' stroke-width='12'/><g transform='translate%28256 256%29 scale%2812.4%29 translate%28-12 -12.5%29' fill='none' stroke='%238a8e83' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5V19c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5Z'/><path d='M12 6v13.5'/></g></svg>">
+<link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect x='11' y='11' width='490' height='490' rx='120' fill='%23181a16' stroke='%232b2f28' stroke-width='18'/><g transform='translate%28256 256%29 scale%2816%29 translate%28-12 -12.6%29' fill='none' stroke='%239a9e92' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5V19c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5Z'/><path d='M12 6v13.5'/></g></svg>">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
@@ -162,7 +165,7 @@ footer{font-size:12px;color:var(--muted)}
 #thName::placeholder,#renameI::placeholder{text-transform:none}
 .th b{margin-left:auto;font:400 12px var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums}
 .th span{overflow:hidden;text-overflow:ellipsis}
-.th[data-id]:not([data-id=all])::before{content:"";flex:none;width:2px;height:2px;border-radius:50%;background:var(--orange);align-self:center;margin-right:0}
+.th[data-id]:not([data-id=all])::before{content:"";flex:none;width:2px;height:2px;border-radius:50%;background:var(--orange);align-self:center;margin-right:1px}
 .th:focus-visible{outline:2px solid var(--orange);outline-offset:1px}
 .th.kbth{outline:2px solid var(--orange);outline-offset:1px;color:var(--fg)}
 .th{border:1px solid var(--line);flex:none;max-width:100%}.th b{margin-left:4px}
@@ -197,22 +200,22 @@ footer{font-size:12px;color:var(--muted)}
 .shelf-head h2{margin:0;font-size:13.5px;text-transform:none;color:var(--fg);font-weight:700;letter-spacing:-.02em;text-wrap:balance;min-width:0;overflow-wrap:anywhere}
 .books{display:flex;flex-direction:column;border-top:1px solid var(--line)}
 .books.bsorting .book{transition:transform .16s ease}
-.books.bsorting .book.bdrag{transition:none;position:relative;z-index:5;background:var(--panel,#181a16);border-radius:0;border-bottom-color:transparent;box-shadow:inset 0 1px 0 var(--orange),inset 0 -1px 0 var(--orange),0 12px 16px -12px rgba(0,0,0,.7);opacity:1}
+.books.bsorting .book.bdrag{transition:none;position:relative;z-index:5;background:var(--panel,#181a16);border-radius:0;border-bottom-color:transparent;box-shadow:0 12px 16px -12px rgba(0,0,0,.7);opacity:1}
 .books.bsorting .book.kbsel .brow{background:none;box-shadow:none}
 .book{display:flex;flex-direction:column;border-bottom:1px solid var(--line);min-width:0}
 .brow{display:flex;align-items:center;gap:8px;min-width:0}
-.book.kbsel .brow{background:none;border-radius:0;box-shadow:inset 1.5px 0 0 var(--orange)}
+.book.kbsel .brow{background:none;box-shadow:none;border-radius:0}
 .book.kbsel .bopen{padding-left:12px}
-.bopen{all:unset;box-sizing:border-box;cursor:pointer;flex:1;min-width:0;display:flex;align-items:center;gap:12px;padding:14px 4px;font-size:15px;font-weight:500;color:var(--fg)}
+.bopen{all:unset;box-sizing:border-box;cursor:pointer;flex:1;min-width:0;display:flex;align-items:center;gap:12px;padding:14px 4px;font-size:15.5px;font-weight:300;letter-spacing:.01em;color:var(--fg)}
 /* só um PDF destacado a laranja de cada vez; toque longo não faz nada */
 .book{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 /* sem o realce azul do browser ao tocar ou clicar */
 *{-webkit-tap-highlight-color:transparent}
 .bopen:focus:not(:focus-visible),.bopen:active{outline:none;background:none}
 .book ::selection{background:transparent}
-.bopen:focus-visible{outline:2px solid var(--orange);outline-offset:-2px;border-radius:8px}
-.bopen .bdot{flex:none;width:2px;height:2px;border-radius:50%;background:var(--orange);align-self:center;margin-right:-6px}
-@media (min-width:760px){.bopen .bdot{margin-right:-2px}}
+.bopen:focus-visible{outline:none}
+.bopen .bdot{flex:none;width:2px;height:2px;border-radius:50%;background:var(--orange);align-self:center;margin-right:-2px}
+@media (min-width:760px){.bopen .bdot{margin-right:2px}}
 .bopen .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .bopen svg{flex:none;color:var(--muted)}
 .book .confirm{margin-bottom:12px;width:50%;align-self:flex-end;box-sizing:border-box}
@@ -256,7 +259,7 @@ footer{font-size:12px;color:var(--muted)}
 .bmove input::placeholder{text-transform:none;color:var(--muted)}
 .bren{flex:1;min-width:0;display:flex;align-items:center;gap:8px;padding:8px 0}
 /* pequenos traços nas pontas das linhas de cima e de baixo (cantos) */
-.books.bsorting .book.bdrag{--tk:var(--orange);background-image:linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk));background-size:1px 6px;background-repeat:no-repeat;background-position:left top,right top,left bottom,right bottom}
+.books.bsorting .book.bdrag{--tk:var(--olive-hi);background-image:linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk));background-size:10px 1px,1px 10px,10px 1px,1px 10px,10px 1px,1px 10px,10px 1px,1px 10px;background-repeat:no-repeat;background-position:left top,left top,right top,right top,left bottom,left bottom,right bottom,right bottom}
 form.bren input{--tk:var(--olive-hi);background-color:var(--panel);background-image:linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk));background-size:1px 5px;background-repeat:no-repeat;background-position:left top,right top,left bottom,right bottom}
 .book.kbsel:has(.bren) .brow{box-shadow:none}
 .bren input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--olive-hi);border-left:0;border-right:0;border-radius:0;color:var(--fg);font:500 15px var(--f-display);padding:7px 10px;outline:none}
