@@ -154,12 +154,15 @@ footer{font-size:12px;color:var(--muted)}
 .libgrid{display:flex;flex-direction:column;gap:16px}
 .panel.banner{padding:14px 18px;gap:12px}
 .themes{display:flex;flex-wrap:wrap;gap:8px}
-.th{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;font-size:15px;font-weight:500;color:var(--muted);white-space:nowrap;min-width:0}
+.th{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:10px;padding:7px 12px;border-radius:10px;font-size:13px;font-weight:500;color:var(--muted);white-space:nowrap;min-width:0}
 .th:hover{background:var(--raise);color:var(--fg)}
 .th[aria-current=true]{background:var(--olive-soft);color:var(--fg)}
 .th em{font-style:normal;color:var(--orange)}
+#thName,#renameI{text-transform:uppercase}
+#thName::placeholder,#renameI::placeholder{text-transform:none}
 .th b{margin-left:auto;font:400 12px var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums}
 .th span{overflow:hidden;text-overflow:ellipsis}
+.th[data-id]:not([data-id=all])::before{content:"";flex:none;width:2px;height:2px;border-radius:50%;background:var(--orange);align-self:center;margin-right:0}
 .th:focus-visible{outline:2px solid var(--orange);outline-offset:1px}
 .th.kbth{outline:2px solid var(--orange);outline-offset:1px;color:var(--fg)}
 .th{border:1px solid var(--line);flex:none;max-width:100%}.th b{margin-left:4px}
@@ -171,10 +174,12 @@ footer{font-size:12px;color:var(--muted)}
 .newth input:focus{border-color:var(--olive-hi)}
 .newth .btn{padding:10px 14px}
 .shelf-head{position:relative;display:flex;align-items:center;gap:10px}
+.shelf-head::after{content:"";position:absolute;left:-18px;right:-18px;bottom:-11px;height:1px;background:var(--line);pointer-events:none}
+#lib .shelf .books{border-top-color:transparent}
 .sortb{all:unset;cursor:pointer;margin-left:auto;flex:none;width:32px;height:32px;border-radius:8px;display:grid;place-items:center;color:var(--olive-hi)}
 .sortb:hover{background:var(--raise)}
 .sortb:focus-visible{outline:2px solid var(--orange)}
-.sortb svg{width:21px;height:21px}
+.sortb svg{width:16px;height:16px}
 .rename{display:flex;gap:8px;flex:1;min-width:0;margin:0}
 .rename input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--olive-hi);border-radius:10px;color:var(--fg);font:700 18px var(--f-display);padding:8px 12px;outline:none}
 .rename .btn{padding:8px 12px}
@@ -187,15 +192,18 @@ footer{font-size:12px;color:var(--muted)}
 .mi:hover,.mi:focus-visible{background:var(--olive-soft)}
 .mi.del{color:var(--fg)}
 #addLbl{color:var(--orange)}
-.mark{width:42px;height:42px;border-radius:12px;background:var(--panel);border:1px solid var(--line)}
+.mark{width:42px;height:42px;box-sizing:border-box;flex:none;border-radius:10px;background:var(--panel);border:1px solid var(--line)}
 .mark svg{width:26px;height:26px}
-.shelf-head h2{margin:0;font-size:16px;text-transform:none;color:var(--fg);font-weight:700;letter-spacing:-.02em;text-wrap:balance;min-width:0;overflow-wrap:anywhere}
+.shelf-head h2{margin:0;font-size:13.5px;text-transform:none;color:var(--fg);font-weight:700;letter-spacing:-.02em;text-wrap:balance;min-width:0;overflow-wrap:anywhere}
 .books{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.books.bsorting .book{transition:transform .16s ease}
+.books.bsorting .book.bdrag{transition:none;position:relative;z-index:5;background:var(--panel,#181a16);border-radius:0;border-bottom-color:transparent;box-shadow:inset 0 1px 0 var(--orange),inset 0 -1px 0 var(--orange),0 12px 16px -12px rgba(0,0,0,.7);opacity:1}
+.books.bsorting .book.kbsel .brow{background:none;box-shadow:none}
 .book{display:flex;flex-direction:column;border-bottom:1px solid var(--line);min-width:0}
 .brow{display:flex;align-items:center;gap:8px;min-width:0}
 .book.kbsel .brow{background:var(--raise);border-radius:8px;box-shadow:inset 3px 0 0 var(--orange)}
-.book.kbsel .bopen{color:var(--orange-hi);padding-left:12px}
-.bopen{all:unset;box-sizing:border-box;cursor:pointer;flex:1;min-width:0;display:flex;align-items:center;gap:12px;padding:14px 4px;font-size:16px;font-weight:500;color:var(--fg)}
+.book.kbsel .bopen{padding-left:12px}
+.bopen{all:unset;box-sizing:border-box;cursor:pointer;flex:1;min-width:0;display:flex;align-items:center;gap:12px;padding:14px 4px;font-size:15px;font-weight:500;color:var(--fg)}
 /* só um PDF destacado a laranja de cada vez; toque longo não faz nada */
 .book{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 /* sem o realce azul do browser ao tocar ou clicar */
@@ -203,9 +211,11 @@ footer{font-size:12px;color:var(--muted)}
 .bopen:focus:not(:focus-visible),.bopen:active{outline:none;background:none}
 .book ::selection{background:transparent}
 .bopen:focus-visible{outline:2px solid var(--orange);outline-offset:-2px;border-radius:8px}
+.bopen .bdot{flex:none;width:2px;height:2px;border-radius:50%;background:var(--orange);align-self:center;margin-right:-6px}
+@media (min-width:760px){.bopen .bdot{margin-right:-2px}}
 .bopen .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .bopen svg{flex:none;color:var(--muted)}
-.book .confirm{margin-bottom:12px}
+.book .confirm{margin-bottom:12px;width:50%;align-self:flex-end;box-sizing:border-box}
 .cover{all:unset;box-sizing:border-box;cursor:pointer;display:block;aspect-ratio:3/4;max-width:100%;border-radius:8px;overflow:hidden;background:var(--raise);border:1px solid var(--line);box-shadow:0 8px 24px rgba(0,0,0,.35);transition:transform .15s}
 .cover:hover{transform:translateY(-2px)}
 .cover:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
@@ -224,6 +234,35 @@ footer{font-size:12px;color:var(--muted)}
 .undo button:hover{background:var(--olive-soft)}
 .undo button:focus-visible{outline:2px solid var(--orange)}
 .more:hover{background:var(--raise);color:var(--fg)}
+.brow{position:relative}
+.more svg{width:13px;height:13px}
+.bmenu{position:absolute;right:0;top:50%;transform:translateY(-50%);z-index:4;display:flex;gap:2px;padding:3px;background:var(--raise);border:1px solid var(--line);border-radius:9px;box-shadow:0 6px 18px rgba(0,0,0,.45)}
+.bmenu button{all:unset;cursor:pointer;width:30px;height:30px;border-radius:7px;display:grid;place-items:center;color:var(--muted)}
+.bmenu button svg{width:15px;height:15px}
+.bmenu button:hover{background:var(--olive-soft);color:var(--fg)}
+.bmenu button.del:hover{color:var(--orange)}
+.bmenu button:focus-visible{outline:2px solid var(--orange)}
+.bmove{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:2px 0 12px;padding:8px;background:var(--raise);border:1px solid var(--line);border-radius:10px}
+.bmove .mvt{all:unset;cursor:pointer;display:flex;align-items:center;gap:6px;padding:5px 10px;border:1px solid var(--line);border-radius:8px;font:500 13px var(--f-display);color:var(--muted);background:var(--panel)}
+.bmove .mvt::before{content:"";width:2px;height:2px;border-radius:50%;background:var(--orange)}
+.bmove .mvt:hover{color:var(--fg);background:var(--olive-soft)}
+.bmove .mvt:focus-visible{outline:2px solid var(--orange)}
+.bmove .mvadd,.bmove .mvok{all:unset;cursor:pointer;width:30px;height:30px;border-radius:7px;display:grid;place-items:center;color:var(--muted);flex:none}
+.bmove .mvadd:hover,.bmove .mvok:hover{background:var(--olive-soft);color:var(--fg)}
+.bmove .mvadd svg,.bmove .mvok svg{width:15px;height:15px}
+.bmove .mvok{color:var(--olive-hi)}
+.bmove form{display:flex;align-items:center;gap:6px;flex:1 1 160px;min-width:0;margin:0}
+.bmove input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--olive-hi);border-radius:8px;color:var(--fg);font:500 13px var(--f-display);padding:6px 10px;outline:none;text-transform:uppercase}
+.bmove input::placeholder{text-transform:none;color:var(--muted)}
+.bren{flex:1;min-width:0;display:flex;align-items:center;gap:8px;padding:8px 0}
+/* pequenos traços nas pontas das linhas de cima e de baixo (cantos) */
+.books.bsorting .book.bdrag{--tk:var(--orange);background-image:linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk));background-size:1px 6px;background-repeat:no-repeat;background-position:left top,right top,left bottom,right bottom}
+form.bren input{--tk:var(--olive-hi);background-color:var(--panel);background-image:linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk));background-size:1px 5px;background-repeat:no-repeat;background-position:left top,right top,left bottom,right bottom}
+.book.kbsel:has(.bren) .brow{box-shadow:none}
+.bren input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--olive-hi);border-left:0;border-right:0;border-radius:0;color:var(--fg);font:500 15px var(--f-display);padding:7px 10px;outline:none}
+.bren button{all:unset;cursor:pointer;width:30px;height:30px;border-radius:7px;display:grid;place-items:center;color:var(--olive-hi);flex:none}
+.bren button:hover{background:var(--raise)}
+.bren button svg{width:16px;height:16px}
 .more:focus-visible{outline:2px solid var(--orange)}
 .confirm{display:flex;flex-direction:column;gap:6px;background:var(--raise);border:1px solid var(--line);border-radius:10px;padding:10px;font-size:12px}
 .confirm .row{display:flex;gap:6px}
@@ -242,23 +281,40 @@ footer{font-size:12px;color:var(--muted)}
 #lib.wrap{height:calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));box-sizing:border-box;padding-block:22px 22px;overflow:hidden}
 #lib .libgrid{flex:1;min-height:0}
 #lib .libgrid > section{flex:none}
-#lib .libgrid > section.shelf{flex:1;min-height:0}
+#lib .libgrid > section.shelf{flex:1;min-height:0;padding-top:10px}
+#lib .shelf .shelf-head h2{color:var(--olive);position:relative;top:1px}
+#lib .shelf .shelf-head .sortb svg{transform:translateY(-.5px)}
+#lib .shelf .shelf-head .pinf,#lib .shelf .shelf-head .sortb{color:var(--olive)}
 #lib .shelf .books{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none}
 #lib .shelf .books::-webkit-scrollbar{display:none;width:0;height:0}
 #lib .shelf .shelf-empty{flex:none}
+/* ícone do estado vazio com o mesmo aspeto do logo da app */
+.shelf-empty .ico{background:var(--panel);border:1px solid var(--line);box-sizing:border-box}
+.shelf-empty .ico svg{stroke:var(--muted)}
+/* lista vazia: só o ícone e o texto, sem a caixa à volta */
+.shelf-empty{border:0}
 #lib .shelf .books:empty{flex:none}
 
 /* versão telemóvel: tópicos mais compactos (texto do mesmo tamanho) e sem o campo de página no leitor */
 /* sem campo de página no leitor; páginas sem sombra para o fundo se fundir com o PDF */
 .rgo{display:none!important}
 #reader .pg{background:transparent;box-shadow:none}
+/* computador: botão de ecrã inteiro no cabeçalho em vez de "Instalar app" */
+.fsbtn{display:none}
+@media (min-width:760px){
+  .fsbtn{display:grid;place-items:center;flex:none;width:42px;height:42px;padding:0;border-radius:10px;border:1px solid var(--line);background:#272b1f;color:var(--fg);cursor:pointer}
+  .fsbtn:hover{background:#313726}
+  .fsbtn:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+  .fsbtn svg{width:18px;height:18px}
+  #installBtn,#installHint{display:none!important}
+}
 
 /* monitores grandes / 4K: amplia a biblioteca para o texto não ficar minúsculo */
 @media (min-width:2200px){ html body #lib.wrap{zoom:1.35;width:calc(60vw / 1.35);height:calc((100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px)) / 1.35)} }
 @media (min-width:3000px){ html body #lib.wrap{zoom:1.8;width:calc(60vw / 1.8);height:calc((100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px)) / 1.8)} }
 @media (max-width:759px){
   .themes{gap:6px}
-  .th{padding:5px 9px;gap:6px;border-radius:8px}
+  .th{padding:3.5px 9px;gap:6px;border-radius:8px}
   .th b{margin-left:2px}
   .rgo{display:none}
 }
@@ -271,7 +327,7 @@ footer{font-size:12px;color:var(--muted)}
 .pin.on{color:var(--olive-hi)}
 .pin.on svg{fill:currentColor}
 .pinf{all:unset;cursor:pointer;margin-left:auto;flex:none;width:32px;height:32px;border-radius:8px;display:grid;place-items:center;color:var(--olive-hi)}
-.pinf svg{width:15px;height:15px}
+.pinf svg{width:13px;height:13px}
 .pinf:hover{background:var(--raise)}
 .pinf:focus-visible{outline:2px solid var(--orange)}
 .pinf[aria-pressed=true]{background:var(--olive-soft)}
@@ -293,11 +349,11 @@ footer{font-size:12px;color:var(--muted)}
 .brand h1{white-space:nowrap}
 @media (max-width:759px){.brand{gap:10px}.brand h1{font-size:15px;letter-spacing:.03em}header .panel.banner.newtop{max-width:none}header .newtop .newth input{padding:0 10px;font-size:13px}}
 
-/* "New topic" no cabeçalho: à direita do logo, um terço da largura, mesma altura do logo */
+/* "New Topic" no cabeçalho: à direita do logo, um terço da largura, mesma altura do logo */
 header .panel.banner.newtop{margin-left:auto;width:calc(100% / 3);min-width:0;padding:0;border:0;background:none;gap:0;display:block}
 header .newtop .newth{height:42px}
 header .newtop .newth input{height:42px;box-sizing:border-box;padding:0 12px}
-header .newtop .newth .btn{height:42px;width:42px;padding:0}
+header .newtop .newth .btn{height:42px;width:42px;padding:0;flex:none}
 header .newtop .newth .btn.olive{background:#272b1f;border:1px solid var(--line);color:var(--fg)}
 header .newtop .newth .btn.olive:hover{background:#313726}
 header{flex-wrap:nowrap}
@@ -305,8 +361,28 @@ header .hdr-r:not(:has(> :not([hidden]))){display:none}
 @media (max-width:759px){header .panel.banner.newtop{width:auto;flex:1;max-width:220px}}
 /* ecrãs largos: a biblioteca ocupa só 60% da largura, ao centro */
 @media (min-width:760px){#lib.wrap{width:60vw;max-width:none;margin-inline:auto;padding-left:0;padding-right:0}}
+/* cabeçalho mais compacto: logo, campo, + e ecrã inteiro com o mesmo tamanho (38px) */
+header .brand .mark{width:38px;height:38px}
+header .brand .mark svg{width:22px;height:22px;stroke-width:1.8}
+header .newtop .newth,header .newtop .newth input{height:38px}
+header .newtop .newth .btn{height:38px;width:38px}
+header .newtop .newth .btn.olive{background:var(--panel)}
+header .newtop .newth .btn.olive:hover{background:var(--raise)}
+header .newtop .newth .btn svg{width:14px;height:14px}
+header .fsbtn{width:38px;height:38px}
+header .fsbtn svg{width:16px;height:16px}
+/* banner dos tópicos: mesma distância para cima e para baixo */
+#lib .libgrid{margin-top:-4px}
+.brand h1{font-size:13.5px;color:var(--muted)}
+header .brand{gap:9px}
+header .brand .mark{cursor:pointer;-webkit-tap-highlight-color:transparent}
+header .brand .mark svg{stroke:var(--muted)}
+header .newtop .newth .btn.olive{color:var(--muted)}
+header .brand .mark:hover{background:var(--raise)}
+header .brand .mark:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
 
-.pages{touch-action:pan-y pinch-zoom}
+.pages{touch-action:pan-y}
+#reader.zoomed .pages{touch-action:pan-x pan-y}
 .pages-in{transition:transform .18s ease,opacity .18s ease}
 .pages-in.swl{transform:translateX(-40px);opacity:0}
 .pages-in.swr{transform:translateX(40px);opacity:0}
@@ -341,22 +417,22 @@ header .hdr-r:not(:has(> :not([hidden]))){display:none}
 <div class="wrap" id="lib">
   <header>
     <div class="brand">
-      <div class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#e7e8e2" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5V19c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5Z"/><path d="M12 6v13.5"/></svg></div>
-      <div><h1><span class="e">PDF</span>View<span>.</span></h1></div>
+      <div class="mark" id="closeApp" role="button" tabindex="0" aria-label="Fechar a app" title="Fechar a app"><svg viewBox="0 0 24 24" fill="none" stroke="#e7e8e2" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5V19c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5Z"/><path d="M12 6v13.5"/></svg></div>
+      <div><h1><span class="e">PDF</span>View</h1></div>
     </div>
-  <section class="panel banner newtop" aria-label="New topic">
+  <section class="panel banner newtop" aria-label="New Topic">
     <form class="newth" id="newTh" autocomplete="off">
-      <input id="thName" maxlength="40" placeholder="New topic" aria-label="New topic name">
-      <button class="btn olive" type="submit" aria-label="Add topic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+      <input id="thName" maxlength="40" placeholder="New Topic" aria-label="New Topic name">
+      <button class="btn olive" type="submit" aria-label="Add Topic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
     </form>
   </section>
+    <button type="button" class="fsbtn" id="fsBtn" aria-label="Ecrã inteiro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V5a1 1 0 0 1 1-1h4M15 4h4a1 1 0 0 1 1 1v4M20 15v4a1 1 0 0 1-1 1h-4M9 20H5a1 1 0 0 1-1-1v-4"/></svg></button>
     <div class="hdr-r"><div class="status" id="status" role="status" hidden><span class="dot"></span><span id="statusText"></span></div><button type="button" class="instbtn" id="installBtn" hidden aria-label="Instalar app"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Instalar app</button></div>
     <div class="insthint" id="installHint" hidden role="dialog" aria-label="Como instalar"><p id="installHintText"></p><button type="button" class="instbtn" id="installHintClose">OK</button></div>
   </header>
 
   <div class="libgrid">
     <section class="panel banner" aria-label="Topics">
-      <h2>Topics</h2>
       <nav class="themes" id="themes" aria-label="Topics"></nav>
     </section>
 
@@ -369,7 +445,7 @@ header .hdr-r:not(:has(> :not([hidden]))){display:none}
         <div class="tmenu" id="tmenu" role="menu" hidden>
           <button class="mi" id="editTh" role="menuitem" type="button" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg>Edit</button>
           <label class="mi" id="addLbl" role="menuitem" tabindex="0"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg>Add PDF<input type="file" id="file" class="vh" accept="application/pdf,.pdf" multiple></label>
-          <button class="mi del" id="delTh" role="menuitem" type="button" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 12h10l1-12M9 7V4h6v3"/></svg>Delete topic</button>
+          <button class="mi del" id="delTh" role="menuitem" type="button" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 12h10l1-12M9 7V4h6v3"/></svg>Delete Topic</button>
         </div>
       </div>
       <div class="confirm" id="thConfirm" hidden><span id="thConfirmTxt"></span><div class="row"><button type="button" class="del" id="thYes">Delete</button><button type="button" class="no" id="thNo">Cancel</button></div></div>
@@ -86044,11 +86120,12 @@ const pdfjsBuild = 'ce8716743';
   const uid = () => Date.now().toString(36)+Math.random().toString(36).slice(2,8);
   const esc = s => String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const S = { themes:[], books:[], sel:'all', store:null, sort:'az' };
-  try{ if(localStorage.getItem('el-sort')==='za') S.sort='za'; }catch(e){}
+  try{ const so=localStorage.getItem('el-sort'); if(so==='za'||so==='p') S.sort=so; }catch(e){}
   const COLL = new Intl.Collator(undefined,{sensitivity:'base',numeric:true});
   const SORT_ICON = {
     az:'<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="11" font-size="9.5" font-weight="700" font-family="Sora,system-ui,sans-serif" fill="currentColor" stroke="none">A</text><text x="3" y="24" font-size="9.5" font-weight="700" font-family="Sora,system-ui,sans-serif" fill="currentColor" stroke="none">Z</text><path d="M20 5v18M16 19l4 4 4-4"/></svg>',
-    za:'<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="11" font-size="9.5" font-weight="700" font-family="Sora,system-ui,sans-serif" fill="currentColor" stroke="none">Z</text><text x="3" y="24" font-size="9.5" font-weight="700" font-family="Sora,system-ui,sans-serif" fill="currentColor" stroke="none">A</text><path d="M20 5v18M16 19l4 4 4-4"/></svg>'
+    za:'<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="11" font-size="9.5" font-weight="700" font-family="Sora,system-ui,sans-serif" fill="currentColor" stroke="none">Z</text><text x="3" y="24" font-size="9.5" font-weight="700" font-family="Sora,system-ui,sans-serif" fill="currentColor" stroke="none">A</text><path d="M20 5v18M16 19l4 4 4-4"/></svg>',
+    p:'<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="9" r="4.6"/><path d="M5.5 23.5c0-4.7 3.8-8 8.5-8s8.5 3.3 8.5 8"/></svg>'
   };
   let tt;
   function toast(msg, err, ms){
@@ -86196,6 +86273,78 @@ const pdfjsBuild = 'ce8716743';
   window.addEventListener('pointerup', endDrag);
   window.addEventListener('pointercancel', endDrag);
 
+  // ---------- arrastar PDFs para mudar a ordem (passa para a ordem manual «P») ----------
+  // rato: carrega e arrasta; dedo: toca sem mexer ~0,35 s e depois arrasta. O PDF acompanha o dedo e os outros abrem espaço.
+  const booksEl=$('books');
+  let bd=null, bdJustEnded=0;
+  booksEl.addEventListener('pointerdown', e=>{
+    if(e.button>0 || !e.isPrimary || e.target.closest('.pin,.more,.confirm,.bmenu,.bren,.bmove')) return;
+    const row=e.target.closest('.book'); if(!row || row.parentNode!==booksEl) return;
+    bd={ row, pid:e.pointerId, x:e.clientX, y:e.clientY, cy:e.clientY, on:false, touch:e.pointerType!=='mouse' };
+    if(bd.touch){ const me=bd; bd.lt=setTimeout(()=>{ if(bd===me) startBD(); },350); }
+  });
+  function startBD(){
+    const rows=[...booksEl.children].filter(r=>r.classList.contains('book'));
+    bd.on=true; bd.rows=rows; bd.from=rows.indexOf(bd.row); bd.to=bd.from;
+    bd.tops=rows.map(r=>r.offsetTop); bd.hs=rows.map(r=>r.offsetHeight); bd.st0=booksEl.scrollTop;
+    booksEl.classList.add('bsorting'); bd.row.classList.add('bdrag');
+    try{ bd.row.setPointerCapture(bd.pid); }catch(_){}
+    if(navigator.vibrate) try{ navigator.vibrate(8); }catch(_){}
+    moveBD();
+  }
+  function moveBD(){
+    const dy=bd.cy-bd.y + (booksEl.scrollTop-bd.st0);
+    bd.row.style.transform=`translateY(${dy}px)`;
+    const f=bd.from, h=bd.hs[f], mid=bd.tops[f]+h/2+dy;
+    let to=f;
+    for(let i=0;i<bd.rows.length;i++){ const c=bd.tops[i]+bd.hs[i]/2; if(i<f && mid<c){ to=i; break; } }
+    if(to===f) for(let i=bd.rows.length-1;i>f;i--){ const c=bd.tops[i]+bd.hs[i]/2; if(mid>c){ to=i; break; } }
+    bd.to=to;
+    bd.rows.forEach((r,i)=>{ if(i===f) return; const sh = (f<i && i<=to) ? -h : (to<=i && i<f) ? h : 0; r.style.transform = sh ? `translateY(${sh}px)` : ''; });
+  }
+  function autoScrollBD(){
+    if(!bd || !bd.on) return;
+    const r=booksEl.getBoundingClientRect(), edge=48;
+    const v = bd.cy<r.top+edge ? -Math.ceil((r.top+edge-bd.cy)/4) : (bd.cy>r.bottom-edge ? Math.ceil((bd.cy-(r.bottom-edge))/4) : 0);
+    if(v){ const before=booksEl.scrollTop; booksEl.scrollTop+=v; if(booksEl.scrollTop!==before) moveBD(); }
+    bd.raf=requestAnimationFrame(autoScrollBD);
+  }
+  window.addEventListener('pointermove', e=>{
+    if(!bd || e.pointerId!==bd.pid) return;
+    bd.cy=e.clientY;
+    if(!bd.on){
+      const d=Math.hypot(e.clientX-bd.x, e.clientY-bd.y);
+      if(bd.touch){ if(d>8){ clearTimeout(bd.lt); bd=null; } return; }
+      if(d<6) return;
+      startBD(); bd.raf=requestAnimationFrame(autoScrollBD); return;
+    }
+    e.preventDefault(); moveBD();
+    if(!bd.raf) bd.raf=requestAnimationFrame(autoScrollBD);
+  }, { passive:false });
+  // enquanto se arrasta um PDF com o dedo, a lista não faz scroll
+  booksEl.addEventListener('touchmove', e=>{ if(bd && bd.on) e.preventDefault(); }, { passive:false });
+  async function endBD(e){
+    if(!bd || (e && e.pointerId!==bd.pid)) return;
+    const d=bd; bd=null; clearTimeout(d.lt); cancelAnimationFrame(d.raf);
+    if(!d.on) return;
+    bdJustEnded=Date.now();
+    const L=currentList(), keys=L.map(bKey).sort((a,b)=>a-b);
+    const moved=L.splice(d.from,1)[0]; L.splice(d.to,0,moved);
+    // usa os mesmos valores de ordem, redistribuídos, para não mexer na posição dos outros tópicos
+    for(let i=1;i<keys.length;i++) if(keys[i]<=keys[i-1]) keys[i]=keys[i-1]+1;
+    const changed=[];
+    L.forEach((b,i)=>{ if(bKey(b)!==keys[i] || b.order===undefined){ b.order=keys[i]; changed.push(b); } });
+    if(S.sort!=='p'){ S.sort='p'; try{ localStorage.setItem('el-sort','p'); }catch(_){} }
+    booksEl.classList.remove('bsorting');
+    render();
+    for(const b of changed){ try{ await S.store.saveBook(b); }catch(_){} }
+  }
+  window.addEventListener('pointerup', endBD);
+  window.addEventListener('pointercancel', endBD);
+  // depois de arrastar, o PDF não abre
+  booksEl.addEventListener('click', e=>{ if(Date.now()-bdJustEnded<400){ e.preventDefault(); e.stopPropagation(); } }, true);
+  booksEl.addEventListener('contextmenu', e=>{ if(e.target.closest('.book')) e.preventDefault(); });
+
   // seleção por teclado na biblioteca: W/S/A/D ou setas mudam o PDF selecionado, espaço abre
   const KB={ sel:null, th:null };
   function markTh(){ document.querySelectorAll('#themes .th').forEach(b=>b.classList.toggle('kbth', b.dataset.id===KB.th)); }
@@ -86241,18 +86390,23 @@ const pdfjsBuild = 'ce8716743';
       else moveSel(1);
     }
   });
+  // nomes de tópicos sempre em maiúsculas
+  const capT=s=>String(s||'').toLocaleUpperCase();
+  const bKey=b=>(b.order ?? b.created ?? 0);
   function currentList(){
     const th=S.themes.find(t=>t.id===S.sel), nm=b=>(b.file||b.title||'').replace(/\.pdf$/i,'');
-    return (th ? S.books.filter(b=>b.theme===th.id) : S.books.slice()).filter(b=>!S.pinOnly || b.pinned).sort((a,b)=>COLL.compare(nm(a),nm(b))*(S.sort==='za'?-1:1));
+    const L=(th ? S.books.filter(b=>b.theme===th.id) : S.books.slice()).filter(b=>!S.pinOnly || b.pinned);
+    if(S.sort==='p') return L.sort((a,b)=>bKey(a)-bKey(b));
+    return L.sort((a,b)=>COLL.compare(nm(a),nm(b))*(S.sort==='za'?-1:1));
   }
   function render(){
     const nav=$('themes'); nav.innerHTML='';
     const mk=(id,name,color,count)=>{ const b=document.createElement('button'); b.className='th'; b.type='button'; b.setAttribute('aria-current', S.sel===id);
-      b.dataset.id=id; b.innerHTML=`<span>${esc(name)}${id==='all'?'':'<em>.</em>'}</span><b>${count}</b>`; b.onclick=()=>{ if(dragJustEnded) return; select(id); }; nav.appendChild(b); };
+      b.dataset.id=id; b.innerHTML=`<span>${esc(id==='all'?name:capT(name))}</span>`; b.onclick=()=>{ if(dragJustEnded) return; select(id); }; nav.appendChild(b); };
     mk('all','All','var(--fg)',S.books.length);
     S.themes.forEach(t=>mk(t.id,t.name,t.color,S.books.filter(b=>b.theme===t.id).length));
     const th=S.themes.find(t=>t.id===S.sel);
-    $('shelfTitle').innerHTML = th ? esc(th.name)+'<span style="color:var(--orange)">.</span>' : 'All';
+    $('shelfTitle').innerHTML = th ? esc(capT(th.name)) : 'All';
     $('delTh').hidden = !th; $('editTh').hidden = !th;
     drawSort();
     $('pinBtn').setAttribute('aria-pressed', S.pinOnly?'true':'false'); $('pinBtn').setAttribute('aria-label', S.pinOnly?'A mostrar só os fixados. Mostrar todos':'Mostrar só os PDF fixados');
@@ -86261,13 +86415,14 @@ const pdfjsBuild = 'ce8716743';
     list.forEach(b=>grid.appendChild(bookCard(b)));
     markSel(); markTh();
     $('shelfEmpty').hidden = list.length>0;
-    $('emptyTitle').textContent = !S.themes.length ? 'Create a topic' : (S.pinOnly ? 'No pinned PDFs' : 'Upload');
+    $('shelfEmpty').classList.toggle('noth', !S.themes.length);
+    $('emptyTitle').textContent = !S.themes.length ? 'Create a Topic' : (S.pinOnly ? 'No pinned PDFs' : 'Upload');
   }
   function bookCard(b){
     const el=document.createElement('div'); el.className='book';
     const name = (b.file || b.title || '').replace(/\.pdf$/i,'');
-    el.innerHTML = `<div class="brow"><button class="bopen" type="button" aria-label="Open ${esc(name)}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5V19c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5Z"/><path d="M12 6v13.5"/></svg><span class="nm">${esc(name)}</span></button>
-      <button class="pin${b.pinned?' on':''}" type="button" aria-pressed="${b.pinned?'true':'false'}" aria-label="Fixar ${esc(name)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg></button><button class="more" type="button" aria-label="Delete ${esc(name)}"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 12h10l1-12M9 7V4h6v3"/></svg></button></div>`;
+    el.innerHTML = `<div class="brow"><button class="bopen" type="button" aria-label="Open ${esc(name)}"><span class="bdot" aria-hidden="true"></span><span class="nm">${esc(name)}</span></button>
+      <button class="pin${b.pinned?' on':''}" type="button" aria-pressed="${b.pinned?'true':'false'}" aria-label="Fixar ${esc(name)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg></button><button class="more" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Menu ${esc(name)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div>`;
     el._b=b;
     const bo=el.querySelector('.bopen'); let downAt=0;
     bo.addEventListener('pointerdown', ()=>{ downAt=Date.now(); });
@@ -86275,7 +86430,8 @@ const pdfjsBuild = 'ce8716743';
     el.addEventListener('pointerenter', e=>{ if(e.pointerType==='mouse' && KB.sel!==b){ KB.sel=b; markSel(); } });
     bo.onclick=e=>{ if(downAt && Date.now()-downAt>450){ e.preventDefault(); downAt=0; return; } downAt=0; KB.sel=b; openReader(b); };
     el.querySelector('.pin').onclick=()=>{ b.pinned=!b.pinned; S.store.saveBook(b).catch(()=>{}); render(); };
-    el.querySelector('.more').onclick=()=>{
+    const moreB=el.querySelector('.more'), brow=el.querySelector('.brow');
+    const askDelete=()=>{
       if(el.querySelector('.confirm')) return;
       const c=document.createElement('div'); c.className='confirm';
       c.innerHTML='<span>Delete this PDF?</span><div class="row"><button type="button" class="del">Delete</button><button type="button" class="no">Cancel</button></div>';
@@ -86283,22 +86439,101 @@ const pdfjsBuild = 'ce8716743';
       c.querySelector('.del').onclick=()=>deleteWithUndo({ books:[b] });
       el.appendChild(c);
     };
+    // mudar o PDF de tópico; se não houver outro tópico, cria um novo
+    const askMove=()=>{
+      if(el.querySelector('.bmove')) return;
+      const others=S.themes.filter(t=>t.id!==b.theme);
+      const pnl=document.createElement('div'); pnl.className='bmove'; pnl.setAttribute('role','dialog'); pnl.setAttribute('aria-label','Move to');
+      const close=()=>{ pnl.remove(); document.removeEventListener('pointerdown', out, true); };
+      function out(e){ if(!pnl.contains(e.target)) close(); }
+      const moveTo=async t=>{
+        close(); if(t.id===b.theme) return;
+        b.theme=t.id; render(); toast('Moved to '+capT(t.name)+'.');
+        try{ await S.store.saveBook(b); }catch(_){ toast('Couldn’t move the PDF.', true); }
+      };
+      const ICON_OK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>';
+      const showNew=()=>{
+        const old=pnl.querySelector('.mvadd'); if(old) old.remove();
+        const f=document.createElement('form'); f.autocomplete='off';
+        f.innerHTML='<input maxlength="40" placeholder="New Topic" aria-label="New Topic name"><button type="submit" class="mvok" aria-label="Create Topic and move">'+ICON_OK+'</button>';
+        pnl.appendChild(f);
+        const inp=f.querySelector('input');
+        inp.addEventListener('keydown', e=>{ e.stopPropagation(); if(e.key==='Escape'){ e.preventDefault(); close(); } });
+        f.addEventListener('submit', async e=>{
+          e.preventDefault();
+          const nm=capT(inp.value.trim()); if(!nm){ inp.focus(); return; }
+          let t=S.themes.find(x=>x.name.toLowerCase()===nm.toLowerCase());
+          if(!t){
+            t={ id:uid(), name:nm, color:PAL[S.themes.length%PAL.length], created:Date.now(), order:S.themes.reduce((m,x)=>Math.max(m, x.order??x.created), 0)+1 };
+            S.themes.push(t);
+            try{ await S.store.putTheme(t); }catch(_){ toast('Couldn’t save the Topic.', true); }
+          }
+          moveTo(t);
+        });
+        inp.focus();
+      };
+      others.forEach(t=>{ const bt=document.createElement('button'); bt.type='button'; bt.className='mvt'; bt.textContent=capT(t.name); bt.onclick=ev=>{ ev.stopPropagation(); moveTo(t); }; pnl.appendChild(bt); });
+      if(others.length){
+        const add=document.createElement('button'); add.type='button'; add.className='mvadd'; add.setAttribute('aria-label','New Topic'); add.title='New Topic';
+        add.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
+        add.onclick=ev=>{ ev.stopPropagation(); showNew(); };
+        pnl.appendChild(add);
+      }
+      pnl.addEventListener('keydown', e=>{ if(e.key==='Escape'){ e.stopPropagation(); close(); } });
+      el.appendChild(pnl);
+      if(!others.length) showNew(); else { const f=pnl.querySelector('button'); if(f) f.focus({preventScroll:true}); }
+      setTimeout(()=>document.addEventListener('pointerdown', out, true),0);
+      pnl.scrollIntoView({block:'nearest'});
+    };
+    const startRen=()=>{
+      if(brow.querySelector('.bren')) return;
+      const f=document.createElement('form'); f.className='bren'; f.autocomplete='off';
+      f.innerHTML='<input maxlength="120" aria-label="PDF name"><button type="submit" aria-label="Save name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></button>';
+      const inp=f.querySelector('input'); inp.value=name;
+      bo.hidden=true; brow.insertBefore(f, bo);
+      let done=false;
+      const finish=async save=>{
+        if(done) return; done=true;
+        const nv=inp.value.trim();
+        if(save && nv && nv!==name){ b.title=nv; b.file=nv+'.pdf'; try{ await S.store.saveBook(b); }catch(_){ toast('Couldn’t save the new name.', true); } }
+        render();
+      };
+      f.addEventListener('submit', e=>{ e.preventDefault(); finish(true); });
+      inp.addEventListener('keydown', e=>{ e.stopPropagation(); if(e.key==='Escape'){ e.preventDefault(); finish(false); } });
+      inp.addEventListener('blur', ()=>setTimeout(()=>{ if(!f.contains(document.activeElement)) finish(true); },0));
+      inp.focus(); inp.select();
+    };
+    const closeBM=()=>{ const m=brow.querySelector('.bmenu'); if(m) m.remove(); moreB.setAttribute('aria-expanded','false'); document.removeEventListener('pointerdown', outBM, true); };
+    function outBM(e){ if(!e.target.closest || !e.target.closest('.bmenu')) closeBM(); }
+    moreB.onclick=e=>{
+      e.stopPropagation();
+      if(brow.querySelector('.bmenu')){ closeBM(); return; }
+      const m=document.createElement('div'); m.className='bmenu'; m.setAttribute('role','menu');
+      m.innerHTML='<button type="button" class="ren" role="menuitem" aria-label="Change Name" title="Change Name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></button><button type="button" class="mov" role="menuitem" aria-label="Move to" title="Move to"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M10 13h6M13.5 10.5L16 13l-2.5 2.5"/></svg></button><button type="button" class="del" role="menuitem" aria-label="Delete PDF" title="Delete PDF"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 12h10l1-12M9 7V4h6v3"/></svg></button>';
+      m.querySelector('.ren').onclick=ev=>{ ev.stopPropagation(); closeBM(); startRen(); };
+      m.querySelector('.mov').onclick=ev=>{ ev.stopPropagation(); closeBM(); askMove(); };
+      m.querySelector('.del').onclick=ev=>{ ev.stopPropagation(); closeBM(); askDelete(); };
+      m.addEventListener('keydown', ev=>{ if(ev.key==='Escape'){ ev.stopPropagation(); closeBM(); moreB.focus(); } });
+      brow.appendChild(m); moreB.setAttribute('aria-expanded','true');
+      setTimeout(()=>document.addEventListener('pointerdown', outBM, true),0);
+      m.querySelector('button').focus({preventScroll:true});
+    };
     return el;
   }
 
   $('newTh').addEventListener('submit', async e=>{
     e.preventDefault();
     await ready;
-    const name=$('thName').value.trim(); if(!name) return;
-    if(S.themes.some(t=>t.name.toLowerCase()===name.toLowerCase())){ toast('That topic already exists.', true); return; }
+    const name=capT($('thName').value.trim()); if(!name) return;
+    if(S.themes.some(t=>t.name.toLowerCase()===name.toLowerCase())){ toast('That Topic already exists.', true); return; }
     const t={ id:uid(), name, color:PAL[S.themes.length%PAL.length], created:Date.now(), order:S.themes.reduce((m,x)=>Math.max(m, x.order??x.created), 0)+1 };
     S.themes.push(t); $('thName').value=''; select(t.id);
-    try{ await S.store.putTheme(t); }catch(err){ toast('Couldn’t save the topic.', true); }
+    try{ await S.store.putTheme(t); }catch(err){ toast('Couldn’t save the Topic.', true); }
   });
-  function drawSort(){ const b=$('sortBtn'); b.innerHTML=SORT_ICON[S.sort]; b.setAttribute('aria-label', S.sort==='az'?'Sorted A to Z. Switch to Z to A':'Sorted Z to A. Switch to A to Z'); }
+  function drawSort(){ const b=$('sortBtn'); b.innerHTML=SORT_ICON[S.sort]; b.setAttribute('aria-label', S.sort==='az'?'Sorted A to Z. Switch to Z to A':(S.sort==='za'?'Sorted Z to A. Switch to manual order':'Manual order. Switch to A to Z')); }
   try{ S.pinOnly = localStorage.getItem('el-pin')==='1'; }catch(e){}
   $('pinBtn').addEventListener('click', ()=>{ S.pinOnly=!S.pinOnly; try{ localStorage.setItem('el-pin', S.pinOnly?'1':'0'); }catch(e){} render(); });
-  $('sortBtn').addEventListener('click', ()=>{ S.sort = S.sort==='az'?'za':'az'; try{ localStorage.setItem('el-sort',S.sort); }catch(e){} render(); });
+  $('sortBtn').addEventListener('click', ()=>{ S.sort = S.sort==='az'?'za':(S.sort==='za'?'p':'az'); try{ localStorage.setItem('el-sort',S.sort); }catch(e){} render(); });
   function startRename(){
     const th=S.themes.find(t=>t.id===S.sel); if(!th) return;
     closeMenu(); $('ttlBtn').hidden=true; $('renameF').hidden=false;
@@ -86309,9 +86544,9 @@ const pdfjsBuild = 'ce8716743';
   $('renameI').addEventListener('keydown', e=>{ if(e.key==='Escape'){ e.stopPropagation(); endRename(); } });
   $('renameF').addEventListener('submit', async e=>{
     e.preventDefault();
-    const th=S.themes.find(t=>t.id===S.sel); const name=$('renameI').value.trim();
+    const th=S.themes.find(t=>t.id===S.sel); const name=capT($('renameI').value.trim());
     if(!th || !name){ endRename(); return; }
-    if(S.themes.some(t=>t.id!==th.id && t.name.toLowerCase()===name.toLowerCase())){ toast('That topic already exists.', true); return; }
+    if(S.themes.some(t=>t.id!==th.id && t.name.toLowerCase()===name.toLowerCase())){ toast('That Topic already exists.', true); return; }
     th.name=name; endRename(); render();
     try{ await S.store.putTheme(th); toast('Topic renamed.'); }catch(err){ toast('Couldn’t save the new name.', true); }
   });
@@ -86365,7 +86600,7 @@ const pdfjsBuild = 'ce8716743';
     if(S.themes.length) return S.themes[0].id;
     return null;
   }
-  $('addLbl').addEventListener('click', e=>{ if(e.target.id!=='file') setTimeout(closeMenu,0); if(!pickTheme()){ e.preventDefault(); toast('Create a topic first.', true); $('thName').focus(); } });
+  $('addLbl').addEventListener('click', e=>{ if(e.target.id!=='file') setTimeout(closeMenu,0); if(!pickTheme()){ e.preventDefault(); toast('Create a Topic first.', true); $('thName').focus(); } });
   $('addLbl').addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); $('addLbl').click(); }});
   $('shelfEmpty').addEventListener('click', ()=>{ if(pickTheme()) $('file').click(); else $('thName').focus(); });
   $('file').addEventListener('change', async e=>{
@@ -86418,7 +86653,13 @@ const pdfjsBuild = 'ce8716743';
       pin.style.paddingTop=Math.max(6,(ch-h0)/2)+'px'; pin.style.paddingBottom=Math.max(6,(ch-hl)/2)+'px'; }
     else { pin.style.paddingTop=''; pin.style.paddingBottom=''; }
     $('rZoom').textContent=Math.round(R.zoom*100)+'%';
+    $('reader').classList.toggle('zoomed', R.zoom>1.001);
+    if(R.anchor && R.pages[R.anchor-1]) requestAnimationFrame(()=>{ if(R.anchor) goPage(R.anchor); });
   }
+  // limites do canvas nos browsers (sobretudo telemóveis): páginas maiores são desenhadas em faixas
+  const MAXPX=16e6, MAXSIDE=8192, TILEH=4096;
+  function sampleBg(c){ if(R.bg) return; try{ const d=c.getContext('2d').getImageData(2,2,1,1).data; R.bg='rgb('+d[0]+','+d[1]+','+d[2]+')'; $('reader').style.background=R.bg; $('pages').style.background=R.bg; }catch(e){} }
+  function clearCanvases(pg){ pg.el.querySelectorAll('canvas').forEach(c=>{ c.width=c.height=0; c.remove(); }); if(pg.tiles) pg.tiles.clear(); }
   async function renderPage(pg){
     if(pg.busy || pg.done || !R.doc) return;
     pg.busy=true;
@@ -86428,23 +86669,68 @@ const pdfjsBuild = 'ce8716743';
       const v1=p.getViewport({scale:1});
       const r=v1.height/v1.width; if(Math.abs(r-pg.ratio)>0.001){ pg.ratio=r; layout(); }
       const w=pg.el.clientWidth, dpr=Math.min(window.devicePixelRatio||1, 4);
-      const scale=Math.min((w*dpr)/v1.width, 8000/Math.max(v1.width,v1.height));
-      const v=p.getViewport({scale});
-      const c=document.createElement('canvas'); c.width=Math.floor(v.width); c.height=Math.floor(v.height);
-      await p.render({canvasContext:c.getContext('2d',{alpha:false}), viewport:v}).promise;
-      if(doc!==R.doc) return;
-      pg.el.querySelector('canvas')?.remove(); pg.el.appendChild(c);
+      // sempre à resolução real do ecrã
+      const S=(w*dpr)/v1.width, Wd=Math.floor(v1.width*S), Hd=Math.floor(v1.height*S);
+      if(Wd*Hd<=MAXPX && Hd<=MAXSIDE && Wd<=MAXSIDE){
+        const v=p.getViewport({scale:S});
+        const c=document.createElement('canvas'); c.width=Math.floor(v.width); c.height=Math.floor(v.height);
+        await p.render({canvasContext:c.getContext('2d',{alpha:false}), viewport:v}).promise;
+        if(doc!==R.doc) return;
+        clearCanvases(pg); pg.el.appendChild(c); pg.tiled=false;
+        sampleBg(c);
+      } else {
+        clearCanvases(pg);
+        pg.tiled=true; pg.page=p; pg.S=S; pg.Wd=Wd; pg.Hd=Hd; pg.k=w/Wd;
+        pg.TH=Math.max(256, Math.min(TILEH, Math.floor(MAXPX/Wd)));
+        pg.tiles=new Map();
+      }
       pg.done=true; pg.doneW=w;
-      if(!R.bg){ try{ const d=c.getContext('2d').getImageData(2,2,1,1).data; R.bg='rgb('+d[0]+','+d[1]+','+d[2]+')'; $('reader').style.background=R.bg; $('pages').style.background=R.bg; }catch(e){} }
+      // se o tamanho da página mudou durante o desenho (ex.: ao entrar em ecrã inteiro), volta a desenhar com o tamanho certo
+      if(pg.el.clientWidth!==w){ pg.done=false; setTimeout(()=>renderPage(pg),0); return; }
+      if(pg.tiled) renderTiles(pg);
     }catch(e){}
     finally{ pg.busy=false; }
   }
+  // desenha só as faixas perto do que está no ecrã e liberta as que ficaram longe
+  async function renderTiles(pg){
+    if(!pg.tiled || !pg.done || !R.doc) return;
+    if(pg.tbusy){ pg.tdirty=true; return; }
+    pg.tbusy=true; pg.tdirty=false;
+    const doc=R.doc;
+    try{
+      const box=$('pages').getBoundingClientRect(), rc=pg.el.getBoundingClientRect(), vh=box.height, k=pg.k, n=Math.ceil(pg.Hd/pg.TH);
+      const from=Math.max(0, box.top-vh*0.75-rc.top), to=Math.min(rc.height, box.bottom+vh*0.75-rc.top);
+      const i0=Math.max(0, Math.floor(from/(pg.TH*k))), i1=Math.min(n-1, Math.floor(Math.max(from,to)/(pg.TH*k)));
+      for(const [i,c] of pg.tiles){ if(to<=from || i<i0-1 || i>i1+1){ c.width=c.height=0; c.remove(); pg.tiles.delete(i); } }
+      if(to<=from) return;
+      const v=pg.page.getViewport({scale:pg.S});
+      const order=[]; for(let i=i0;i<=i1;i++) order.push(i);
+      const mid=((box.top+box.bottom)/2-rc.top)/(pg.TH*k); order.sort((a,b)=>Math.abs(a+.5-mid)-Math.abs(b+.5-mid));
+      for(const i of order){
+        if(pg.tiles.has(i)) continue;
+        const th=Math.min(pg.TH, pg.Hd-i*pg.TH); if(th<=0) continue;
+        const c=document.createElement('canvas'); c.width=pg.Wd; c.height=th;
+        c.style.inset='auto'; c.style.left='0'; c.style.width='100%'; c.style.top=(i*pg.TH*k)+'px'; c.style.height=(th*k)+'px';
+        await pg.page.render({canvasContext:c.getContext('2d',{alpha:false}), viewport:v, transform:[1,0,0,1,0,-i*pg.TH]}).promise;
+        if(doc!==R.doc || !pg.tiled || !pg.done || !pg.tiles){ c.width=c.height=0; return; }
+        pg.el.appendChild(c); pg.tiles.set(i,c); sampleBg(c);
+      }
+    }catch(e){}
+    finally{ pg.tbusy=false; if(pg.tdirty) setTimeout(()=>renderTiles(pg),0); }
+  }
+  let tileRaf=0;
+  function updateTiles(){
+    if(tileRaf) return;
+    tileRaf=requestAnimationFrame(()=>{ tileRaf=0; const h=$('pages').clientHeight;
+      R.pages.forEach(pg=>{ if(pg.tiled && pg.done){ const r=pg.el.getBoundingClientRect(); if(r.bottom>-h && r.top<h*2) renderTiles(pg); } }); });
+  }
   function release(center){
-    R.pages.forEach(pg=>{ if(Math.abs(pg.n-center)>8 && pg.el.querySelector('canvas')){ const c=pg.el.querySelector('canvas'); c.width=c.height=0; c.remove(); pg.done=false; } });
+    R.pages.forEach(pg=>{ if(Math.abs(pg.n-center)>8 && pg.el.querySelector('canvas')){ clearCanvases(pg); pg.done=false; pg.tiled=false; } });
   }
   let saveT;
   function onScroll(){
     const box=$('pages'), mid=box.scrollTop+box.clientHeight*0.5;
+    updateTiles();
     let cur=1; for(const pg of R.pages){ if(pg.el.offsetTop<=mid) cur=pg.n; else break; }
     if(cur!==R.cur){
       R.cur=cur; $('rPage').textContent=`${cur} / ${R.pages.length}`; release(cur);
@@ -86482,6 +86768,8 @@ const pdfjsBuild = 'ce8716743';
       R.io=new IntersectionObserver(es=>es.forEach(en=>{ if(en.isIntersecting){ const pg=R.pages[+en.target.dataset.n-1]; renderPage(pg); } }), { root:$('pages'), rootMargin:'120% 0px' });
       R.pages.forEach(pg=>R.io.observe(pg.el));
       const start=Math.min(b.page||1, doc.numPages);
+      // abre sempre no início da página onde ficaste; mantém essa posição enquanto o leitor acaba de se ajustar (ecrã inteiro, tamanhos)
+      R.anchor=start; clearTimeout(R.anchorT); R.anchorT=setTimeout(()=>{ R.anchor=0; },2500);
       requestAnimationFrame(()=>{ goPage(start); });
       b.opened=Date.now(); S.store.saveBook(b).catch(()=>{});
     }catch(e){
@@ -86491,15 +86779,17 @@ const pdfjsBuild = 'ce8716743';
   // ecrã inteiro: esconde a barra do browser enquanto um PDF está aberto
   function enterFull(){
     try{
-      if(document.fullscreenElement || document.webkitFullscreenElement) return;
+      if(document.fullscreenElement || document.webkitFullscreenElement){ R.fsMine=false; return; }
       if(matchMedia('(display-mode: fullscreen)').matches || matchMedia('(display-mode: standalone)').matches || navigator.standalone===true) return;
       const el=document.documentElement;
       const r = el.requestFullscreen ? el.requestFullscreen({navigationUI:'hide'}) : (el.webkitRequestFullscreen ? el.webkitRequestFullscreen() : null);
+      R.fsMine=true;
       if(r && r.catch) r.catch(()=>{});
     }catch(e){}
   }
   function exitFull(){
     try{
+      if(!R.fsMine) return; R.fsMine=false;
       if(document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(()=>{});
       else if(document.webkitFullscreenElement && document.webkitExitFullscreen) document.webkitExitFullscreen();
     }catch(e){}
@@ -86512,6 +86802,7 @@ const pdfjsBuild = 'ce8716743';
     onScroll();
   }
   function closeReader(){
+    R.anchor=0;
     exitFull();
     $('rGo').value=''; $('rGo').blur();
     if(R.book) KB.sel=R.book;
@@ -86535,6 +86826,17 @@ const pdfjsBuild = 'ce8716743';
   $('rIn').onclick=()=>setZoom(R.zoom*1.25);
   $('rOut').onclick=()=>setZoom(R.zoom/1.25);
   $('pages').addEventListener('scroll', onScroll, {passive:true});
+  // botão de ecrã inteiro (computador)
+  const FS_MAX='<path d="M4 9V5a1 1 0 0 1 1-1h4M15 4h4a1 1 0 0 1 1 1v4M20 15v4a1 1 0 0 1-1 1h-4M9 20H5a1 1 0 0 1-1-1v-4"/>', FS_MIN='<path d="M9 4v4a1 1 0 0 1-1 1H4M20 9h-4a1 1 0 0 1-1-1V4M15 20v-4a1 1 0 0 1 1-1h4M4 15h4a1 1 0 0 1 1 1v4"/>';
+  const isFull=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);
+  function drawFs(){ const on=isFull(); $('fsBtn').querySelector('svg').innerHTML=on?FS_MIN:FS_MAX; $('fsBtn').setAttribute('aria-label', on?'Sair do ecrã inteiro':'Ecrã inteiro'); }
+  $('fsBtn').addEventListener('click', ()=>{ try{
+    if(isFull()){ R.fsMine=false; (document.exitFullscreen ? document.exitFullscreen() : document.webkitExitFullscreen()); }
+    else { const el=document.documentElement; const r=el.requestFullscreen ? el.requestFullscreen({navigationUI:'hide'}) : el.webkitRequestFullscreen(); if(r && r.catch) r.catch(()=>{}); }
+  }catch(e){} $('fsBtn').blur(); });
+  document.addEventListener('fullscreenchange', drawFs); document.addEventListener('webkitfullscreenchange', drawFs);
+  ['wheel','touchstart','pointerdown','keydown'].forEach(t=>$('pages').addEventListener(t, ()=>{ R.anchor=0; }, {passive:true}));
+  document.addEventListener('keydown', ()=>{ R.anchor=0; }, true);
   // campo de página: escreve o número e carrega Enter
   const rGo=$('rGo');
   rGo.addEventListener('keydown', e=>{
@@ -86544,14 +86846,15 @@ const pdfjsBuild = 'ce8716743';
   });
   rGo.addEventListener('dblclick', e=>e.stopPropagation());
   // duplo clique (rato) ou duplo toque (dedo) no PDF: volta à biblioteca
-  $('pages').addEventListener('dblclick', e=>{ if($('reader').hidden) return; e.preventDefault(); closeReader(); });
+  $('pages').addEventListener('dblclick', e=>{ if($('reader').hidden) return; e.preventDefault(); if(Date.now()-fitAt<600) return; if(R.zoom>1.001){ fitScreen(); return; } closeReader(); });
   let tap1=null, swallowUntil=0;
   // impede que o segundo toque abra o PDF que fica por baixo depois de voltar à biblioteca
   document.addEventListener('click', e=>{ if(Date.now()<swallowUntil){ e.preventDefault(); e.stopPropagation(); } }, true);
   $('pages').addEventListener('pointerup', e=>{
     if(e.pointerType==='mouse' || !e.isPrimary || $('reader').hidden) return;
     const now=Date.now();
-    if(tap1 && now-tap1.t<320 && Math.abs(e.clientX-tap1.x)<30 && Math.abs(e.clientY-tap1.y)<30){ tap1=null; swallowUntil=now+500; closeReader(); return; }
+    if(pinch || now-pinchEnd<400){ tap1=null; return; }
+    if(tap1 && now-tap1.t<320 && Math.abs(e.clientX-tap1.x)<30 && Math.abs(e.clientY-tap1.y)<30){ tap1=null; swallowUntil=now+500; if(R.zoom>1.001){ fitScreen(); return; } closeReader(); return; }
     tap1={t:now, x:e.clientX, y:e.clientY};
   });
   // roda do rato: cada movimento muda exatamente uma página (para cima = anterior, para baixo = seguinte)
@@ -86575,6 +86878,7 @@ const pdfjsBuild = 'ce8716743';
   pg$.addEventListener('pointerup', e=>{
     if(!sw || !e.isPrimary) return;
     const dx=e.clientX-sw.x, dy=e.clientY-sw.y, dt=Date.now()-sw.t; sw=null;
+    if(R.zoom>1.001 || pinch || Date.now()-pinchEnd<400) return;
     if(Math.abs(dx)<70 || Math.abs(dx)<Math.abs(dy)*1.6 || dt>800) return;
     const d = dx<0 ? -1 : 1;
     const L=currentList(), ix=L.indexOf(R.book), nb=L[ix+d];
@@ -86583,6 +86887,53 @@ const pdfjsBuild = 'ce8716743';
     setTimeout(()=>{ el.classList.remove('swl','swr'); openReader(nb); },170);
   });
   pg$.addEventListener('pointercancel', ()=>{ sw=null; });
+  // zoom com dois dedos: a página aumenta à volta dos dedos; com zoom, arrastar move a página; duplo toque volta ao ajuste ao ecrã
+  let pinch=null, pinchEnd=0;
+  const tDist=t=>Math.hypot(t[0].clientX-t[1].clientX, t[0].clientY-t[1].clientY);
+  const tMid=t=>({x:(t[0].clientX+t[1].clientX)/2, y:(t[0].clientY+t[1].clientY)/2});
+  function pageAt(x,y){
+    let best=null, bd=Infinity;
+    for(const pg of R.pages){ const r=pg.el.getBoundingClientRect(); const d=y<r.top?r.top-y:(y>r.bottom?y-r.bottom:0); if(d<bd){ bd=d; best={pg,r}; } if(d===0) break; }
+    return best;
+  }
+  function zoomAt(z, pg, fx, fy, cx, cy){
+    const box=$('pages');
+    R.zoom=Math.max(1,Math.min(4,Math.round(z*100)/100)); layout();
+    const r=pg.el.getBoundingClientRect();
+    box.scrollLeft += r.left + fx*r.width - cx;
+    box.scrollTop += r.top + fy*r.height - cy;
+    onScroll();
+    const br=box.getBoundingClientRect();
+    R.pages.forEach(p=>{ const q=p.el.getBoundingClientRect(); if(q.bottom>br.top-br.height && q.top<br.bottom+br.height) renderPage(p); });
+  }
+  let fitAt=0;
+  function fitScreen(){ fitAt=Date.now(); setZoom(1); $('pages').scrollLeft=0; }
+  pg$.addEventListener('gesturestart', e=>e.preventDefault());
+  pg$.addEventListener('touchstart', e=>{
+    if($('reader').hidden || e.touches.length!==2 || !R.pages.length) return;
+    const m=tMid(e.touches), hit=pageAt(m.x,m.y); if(!hit) return;
+    sw=null; tap1=null;
+    const pin=$('pagesIn'), pr=pin.getBoundingClientRect();
+    pinch={ d0:tDist(e.touches)||1, m0:m, m:m, z0:R.zoom, s:1, pg:hit.pg, fx:(m.x-hit.r.left)/hit.r.width, fy:(m.y-hit.r.top)/hit.r.height };
+    pin.style.transition='none'; pin.style.transformOrigin=(m.x-pr.left)+'px '+(m.y-pr.top)+'px';
+  }, {passive:true});
+  pg$.addEventListener('touchmove', e=>{
+    if(!pinch) return;
+    e.preventDefault();
+    if(e.touches.length<2) return;
+    const m=tMid(e.touches);
+    pinch.s=Math.max(1,Math.min(4, pinch.z0*tDist(e.touches)/pinch.d0))/pinch.z0; pinch.m=m;
+    $('pagesIn').style.transform=`translate(${m.x-pinch.m0.x}px,${m.y-pinch.m0.y}px) scale(${pinch.s})`;
+  }, {passive:false});
+  function endPinch(){
+    if(!pinch) return;
+    const p=pinch; pinch=null; pinchEnd=Date.now();
+    const pin=$('pagesIn'); pin.style.transform=''; pin.style.transformOrigin='';
+    zoomAt(p.z0*p.s, p.pg, p.fx, p.fy, p.m.x, p.m.y);
+    requestAnimationFrame(()=>{ pin.style.transition=''; });
+  }
+  pg$.addEventListener('touchend', e=>{ if(pinch && e.touches.length<2) endPinch(); });
+  pg$.addEventListener('touchcancel', ()=>endPinch());
   
   document.addEventListener('keydown', e=>{
     if($('reader').hidden) return;
@@ -86650,6 +87001,29 @@ const pdfjsBuild = 'ce8716743';
     hint.hidden = false;
   });
   document.getElementById('installHintClose').addEventListener('click', () => { hint.hidden = true; });
+})();
+</script>
+<script>
+/* botão do logo: fecha a app. O browser só deixa fechar a janela em alguns casos (app instalada, ou separador aberto sem histórico); se não fechar, avisa. */
+(() => {
+  const b = document.getElementById('closeApp'); if (!b) return;
+  function closeApp(){
+    // grava já o que estiver pendente (ex.: PDF apagado à espera de «Undo»)
+    try{ window.dispatchEvent(new Event('pagehide')); }catch(e){}
+    try{ if(document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(()=>{}); }catch(e){}
+    try{ window.open('', '_self'); }catch(e){}
+    try{ window.close(); }catch(e){}
+    setTimeout(() => {
+      if (window.closed) return;
+      let el = document.querySelector('.toast');
+      if (!el) { el = document.createElement('div'); el.className = 'toast'; document.body.appendChild(el); }
+      el.textContent = 'O browser não deixou fechar esta janela. Fecha o separador ou a app manualmente.';
+      el.classList.add('err'); el.hidden = false;
+      clearTimeout(closeApp.t); closeApp.t = setTimeout(() => { el.hidden = true; el.classList.remove('err'); }, 3400);
+    }, 300);
+  }
+  b.addEventListener('click', closeApp);
+  b.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); closeApp(); } });
 })();
 </script>
 
