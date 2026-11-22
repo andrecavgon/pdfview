@@ -14,7 +14,8 @@
 <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
 <link rel="icon" type="image/png" sizes="96x96" href="favicon-96.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="PDFView">
@@ -243,9 +244,12 @@ footer{font-size:12px;color:var(--muted)}
 .bmenu button{all:unset;cursor:pointer;width:30px;height:30px;border-radius:7px;display:grid;place-items:center;color:var(--muted)}
 .bmenu button svg{width:15px;height:15px}
 .bmenu button:hover{background:var(--olive-soft);color:var(--fg)}
-.bmenu button.del:hover{color:var(--orange)}
+.bmenu button.ren{color:var(--olive-hi)}
+.bmenu button.mov{color:var(--fg)}
+.bmenu button.del{color:var(--orange)}
+.bmenu button.ren:hover,.bmenu button.mov:hover,.bmenu button.del:hover{background:var(--olive-soft)}
 .bmenu button.cls{color:#e5484d}
-.bmenu button.cls svg{transform:translateX(-1px)}
+.bmenu button.cls svg{transform:translateX(-2px)}
 .bmenu button:focus-visible{outline:2px solid var(--orange)}
 .bmove{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:2px 0 12px;padding:8px;background:var(--raise);border:1px solid var(--line);border-radius:10px}
 .bmove .mvt{all:unset;cursor:pointer;display:flex;align-items:center;gap:6px;padding:5px 10px;border:1px solid var(--line);border-radius:8px;font:500 13px var(--f-display);color:var(--muted);background:var(--panel)}
@@ -256,6 +260,12 @@ footer{font-size:12px;color:var(--muted)}
 .bmove .mvadd:hover,.bmove .mvok:hover{background:var(--olive-soft);color:var(--fg)}
 .bmove .mvadd svg,.bmove .mvok svg{width:15px;height:15px}
 .bmove .mvok{color:var(--olive-hi)}
+.bmove .mvcls{all:unset;cursor:pointer;width:30px;height:30px;border-radius:7px;display:grid;place-items:center;color:#e5484d;flex:none;margin-left:auto}
+.bmove .mvcls:hover{background:var(--olive-soft)}
+/* ✓ e X juntos */
+.bren button.bcancel{margin-right:-6px}
+.bmove form + .mvcls{margin-left:-4px}
+.bmove .mvcls svg{width:15px;height:15px}
 .bmove form{display:flex;align-items:center;gap:6px;flex:1 1 160px;min-width:0;margin:0}
 .bmove input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--olive-hi);border-radius:8px;color:var(--fg);font:500 13px var(--f-display);padding:6px 10px;outline:none;text-transform:uppercase}
 .bmove input::placeholder{text-transform:none;color:var(--muted)}
@@ -86464,7 +86474,7 @@ const pdfjsBuild = 'ce8716743';
         const old=pnl.querySelector('.mvadd'); if(old) old.remove();
         const f=document.createElement('form'); f.autocomplete='off';
         f.innerHTML='<input maxlength="40" placeholder="New Topic" aria-label="New Topic name"><button type="submit" class="mvok" aria-label="Create Topic and move">'+ICON_OK+'</button>';
-        pnl.appendChild(f);
+        pnl.insertBefore(f, pnl.querySelector('.mvcls'));
         const inp=f.querySelector('input');
         inp.addEventListener('keydown', e=>{ e.stopPropagation(); if(e.key==='Escape'){ e.preventDefault(); close(); } });
         f.addEventListener('submit', async e=>{
@@ -86487,6 +86497,10 @@ const pdfjsBuild = 'ce8716743';
         add.onclick=ev=>{ ev.stopPropagation(); showNew(); };
         pnl.appendChild(add);
       }
+      const cls=document.createElement('button'); cls.type='button'; cls.className='mvcls'; cls.setAttribute('aria-label','Close'); cls.title='Close';
+      cls.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+      cls.onclick=ev=>{ ev.stopPropagation(); close(); };
+      pnl.appendChild(cls);
       pnl.addEventListener('keydown', e=>{ if(e.key==='Escape'){ e.stopPropagation(); close(); } });
       el.appendChild(pnl);
       if(!others.length) showNew(); else { const f=pnl.querySelector('button'); if(f) f.focus({preventScroll:true}); }
@@ -86522,7 +86536,7 @@ const pdfjsBuild = 'ce8716743';
       e.stopPropagation();
       if(brow.querySelector('.bmenu')){ closeBM(); return; }
       const m=document.createElement('div'); m.className='bmenu'; m.setAttribute('role','menu');
-      m.innerHTML='<button type="button" class="ren" role="menuitem" aria-label="Change Name" title="Change Name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></button><button type="button" class="mov" role="menuitem" aria-label="Move to" title="Move to"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M10 13h6M13.5 10.5L16 13l-2.5 2.5"/></svg></button><button type="button" class="del" role="menuitem" aria-label="Delete PDF" title="Delete PDF"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 12h10l1-12M9 7V4h6v3"/></svg></button><button type="button" class="cls" role="menuitem" aria-label="Close menu" title="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4.5 4.5l15 15M19.5 4.5l-15 15"/></svg></button>';
+      m.innerHTML='<button type="button" class="ren" role="menuitem" aria-label="Change Name" title="Change Name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></button><button type="button" class="mov" role="menuitem" aria-label="Move to" title="Move to"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M10 13h6M13.5 10.5L16 13l-2.5 2.5"/></svg></button><button type="button" class="del" role="menuitem" aria-label="Delete PDF" title="Delete PDF"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 12h10l1-12M9 7V4h6v3"/></svg></button><button type="button" class="cls" role="menuitem" aria-label="Close menu" title="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>';
       m.querySelector('.ren').onclick=ev=>{ ev.stopPropagation(); closeBM(); startRen(); };
       m.querySelector('.mov').onclick=ev=>{ ev.stopPropagation(); closeBM(); askMove(); };
       m.querySelector('.del').onclick=ev=>{ ev.stopPropagation(); closeBM(); askDelete(); };
