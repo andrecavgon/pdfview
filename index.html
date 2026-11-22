@@ -86784,7 +86784,8 @@ const pdfjsBuild = 'ce8716743';
   // O browser só deixa entrar em ecrã inteiro depois de um toque, por isso entra ao primeiro toque e volta a entrar se sair.
   const TOUCH = matchMedia('(pointer:coarse)').matches;
   if(TOUCH){
-    const goFull=()=>{ if(!document.fullscreenElement && !document.webkitFullscreenElement) enterFull(); };
+    // o botão «Instalar app» (e o aviso de instalação) não pode pedir ecrã inteiro: isso gastaria o toque e o browser deixaria de mostrar a instalação
+    const goFull=e=>{ if(e && e.target && e.target.closest && e.target.closest('#installBtn,#installHint,#closeApp')) return; if(!document.fullscreenElement && !document.webkitFullscreenElement) enterFull(); };
     document.addEventListener('click', goFull, true);
     document.addEventListener('touchend', goFull, true);
   }
