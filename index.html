@@ -265,6 +265,9 @@ form.bren input{--tk:var(--olive-hi);background-color:var(--panel);background-im
 .bren input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--olive-hi);border-left:0;border-right:0;border-radius:0;color:var(--fg);font:500 15px var(--f-display);padding:7px 10px;outline:none}
 .bren button{all:unset;cursor:pointer;width:30px;height:30px;border-radius:7px;display:grid;place-items:center;color:var(--olive-hi);flex:none}
 .bren button:hover{background:var(--raise)}
+.bren button.bcancel{color:#e5484d}
+.brow:has(.bren) .pin,.brow:has(.bren) .more{display:none}
+.bren button.bcancel svg{width:14px;height:14px}
 .bren button svg{width:16px;height:16px}
 .more:focus-visible{outline:2px solid var(--orange)}
 .confirm{display:flex;flex-direction:column;gap:6px;background:var(--raise);border:1px solid var(--line);border-radius:10px;padding:10px;font-size:12px}
@@ -86491,7 +86494,7 @@ const pdfjsBuild = 'ce8716743';
     const startRen=()=>{
       if(brow.querySelector('.bren')) return;
       const f=document.createElement('form'); f.className='bren'; f.autocomplete='off';
-      f.innerHTML='<input maxlength="120" aria-label="PDF name"><button type="submit" aria-label="Save name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></button>';
+      f.innerHTML='<input maxlength="120" aria-label="PDF name"><button type="button" class="bcancel" aria-label="Cancel" title="Cancel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><button type="submit" aria-label="Save name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></button>';
       const inp=f.querySelector('input'); inp.value=name;
       bo.hidden=true; brow.insertBefore(f, bo);
       let done=false;
@@ -86502,8 +86505,13 @@ const pdfjsBuild = 'ce8716743';
         render();
       };
       f.addEventListener('submit', e=>{ e.preventDefault(); finish(true); });
+      // X vermelho: anula a alteração (ao carregar no X, o campo perder o foco não guarda o nome)
+      const cx=f.querySelector('.bcancel'); let cancelling=false;
+      cx.addEventListener('pointerdown', ()=>{ cancelling=true; });
+      cx.addEventListener('mousedown', e=>e.preventDefault());
+      cx.addEventListener('click', e=>{ e.preventDefault(); e.stopPropagation(); finish(false); });
       inp.addEventListener('keydown', e=>{ e.stopPropagation(); if(e.key==='Escape'){ e.preventDefault(); finish(false); } });
-      inp.addEventListener('blur', ()=>setTimeout(()=>{ if(!f.contains(document.activeElement)) finish(true); },0));
+      inp.addEventListener('blur', ()=>setTimeout(()=>{ if(!cancelling && !f.contains(document.activeElement)) finish(true); },0));
       inp.focus(); inp.select();
     };
     const closeBM=()=>{ const m=brow.querySelector('.bmenu'); if(m) m.remove(); moreB.setAttribute('aria-expanded','false'); document.removeEventListener('pointerdown', outBM, true); };
