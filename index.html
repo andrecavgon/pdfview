@@ -158,6 +158,33 @@ footer{font-size:12px;color:var(--muted)}
 .libgrid{display:flex;flex-direction:column;gap:16px}
 .panel.banner{padding:14px 18px;gap:12px}
 .themes{display:flex;flex-wrap:wrap;gap:8px}
+/* em toda a app não se seleciona nem copia texto (exceto dentro dos campos de escrever) */
+html,body,body *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+input,textarea{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}
+#thBanner{position:relative}
+#thBanner .themes{padding-right:24px}
+.thide{all:unset;cursor:pointer;position:absolute;right:6px;bottom:6px;width:24px;height:24px;border-radius:6px;display:grid;place-items:center;color:var(--muted);-webkit-tap-highlight-color:transparent}
+.thide:hover{background:var(--raise);color:var(--fg)}
+.thide:focus-visible{outline:2px solid var(--orange)}
+.thide svg{width:14px;height:14px}
+#thBanner.thcol{padding:0;min-height:24px;background:none;border-color:transparent;box-shadow:none}
+#thBanner.thcol{min-height:30px}
+#thBanner.thcol .thide{right:0;bottom:0;width:30px;height:30px;background:none!important}
+#thBanner.thcol .thide svg{width:20px;height:20px}
+#thBanner.thcol .thide{color:var(--muted);right:16px}
+.thcat{display:none}
+#thBanner.thcol .thcat{all:unset;cursor:pointer;position:absolute;left:16px;bottom:0;width:30px;height:30px;display:grid;place-items:center;color:var(--muted);-webkit-tap-highlight-color:transparent}
+#thBanner.thcol .thcat svg{width:20px;height:20px}
+#thBanner.thcol .thcat:focus-visible{outline:2px solid var(--orange)}
+#thBanner.thcol .thcat[aria-expanded=true]{color:var(--fg)}
+.thpop{position:absolute;left:0;top:calc(100% + 8px);z-index:8;max-width:100%;box-sizing:border-box;display:flex;flex-wrap:wrap;gap:10px;padding:12px;background:var(--bg);border:0;border-radius:12px;box-shadow:0 14px 34px rgba(0,0,0,.55)}
+.thpop[hidden]{display:none}
+.thpop .thp{all:unset;cursor:pointer;display:flex;align-items:center;gap:7px;padding:8px 13px;border-radius:9px;background:var(--panel);border:0;color:var(--muted);font:500 13px var(--f-display);white-space:nowrap;box-shadow:0 4px 10px rgba(0,0,0,.45),0 1px 2px rgba(0,0,0,.5);-webkit-tap-highlight-color:transparent}
+.thpop .thp.t::before{content:"";width:2px;height:2px;border-radius:50%;background:var(--orange)}
+.thpop .thp[aria-current=true]{background:var(--olive-soft);color:var(--fg)}
+.thpop .thp:active{box-shadow:0 1px 3px rgba(0,0,0,.5);transform:translateY(1px)}
+.thpop .thp:focus-visible{outline:2px solid var(--orange)}
+#thBanner.thcol .themes{display:none}
 .th{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:10px;padding:7px 12px;border-radius:10px;font-size:13px;font-weight:500;color:var(--muted);white-space:nowrap;min-width:0}
 .th:hover{background:var(--raise);color:var(--fg)}
 .th[aria-current=true]{background:var(--olive-soft);color:var(--fg)}
@@ -189,7 +216,16 @@ footer{font-size:12px;color:var(--muted)}
 .rename .btn{padding:8px 12px}
 .ttl{all:unset;cursor:pointer;display:flex;align-items:center;gap:8px;max-width:100%;border-radius:10px;padding:2px 6px 2px 0}
 .ttl .chev{flex:none;color:var(--muted);transition:transform .15s}
-.ttl[aria-expanded=true] .chev{transform:rotate(180deg);color:var(--orange)}
+.ttl[aria-expanded=true] .chev{color:var(--fg)}
+.tmbb{all:unset;cursor:pointer;flex:none;width:32px;height:32px;margin-left:-6px;border-radius:8px;display:grid;place-items:center;color:var(--muted);-webkit-tap-highlight-color:transparent}
+.tmbb svg{width:17px;height:17px}
+.tmbb:hover{background:var(--raise)}
+.tmbb[aria-expanded=true]{color:var(--fg)}
+.tmbb:focus-visible{outline:2px solid var(--orange)}
+.tmbb:disabled{opacity:.3;cursor:default;background:none}
+#lib .shelf-head .ttl{flex:1;min-width:0;justify-content:center;align-self:stretch;padding:0;-webkit-tap-highlight-color:transparent}
+#lib .shelf-head .ttl h2{text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#lib .shelf-head .pinf{margin-left:0}
 .ttl:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
 .tmenu{position:absolute;top:calc(100% + 8px);left:0;z-index:5;min-width:200px;display:flex;flex-direction:column;padding:6px;background:var(--raise);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 32px rgba(0,0,0,.45)}
 .mi{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;font:500 14px var(--f-display);color:var(--fg)}
@@ -302,7 +338,14 @@ form.bren input{--tk:var(--olive-hi);border-top:0;background-color:var(--panel);
 #lib .libgrid > section.shelf{flex:1;min-height:0;padding-top:10px}
 #lib .shelf .shelf-head h2{color:var(--olive);position:relative;top:1px}
 #lib .shelf .shelf-head .sortb svg{transform:translateY(-.5px)}
-#lib .shelf .shelf-head .pinf,#lib .shelf .shelf-head .sortb{color:var(--olive)}
+#lib .shelf .shelf-head .pinf,#lib .shelf .shelf-head .sortb,#lib .shelf .shelf-head .tmbb{color:var(--muted)}
+#lib .shelf .shelf-head .pinf svg{width:12px;height:12px}
+#lib .shelf .shelf-head .sortb svg{width:15px;height:15px}
+#lib .shelf .shelf-head .tmbb svg{width:16px;height:16px}
+/* fixar desligado: sem fundo cinzento (no telemóvel o «hover» ficava preso depois do toque) */
+#lib .shelf-head .pinf[aria-pressed=false]{background:none}
+@media (hover:none){#lib .shelf-head .pinf:hover,#lib .shelf-head .sortb:hover,#lib .shelf-head .tmbb:hover{background:none}#lib .shelf-head .pinf[aria-pressed=true]{background:var(--olive-soft)}}
+#lib .shelf-head .pinf,#lib .shelf-head .sortb{-webkit-tap-highlight-color:transparent}
 #lib .shelf .books{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none}
 #lib .shelf .books::-webkit-scrollbar{display:none;width:0;height:0}
 #lib .shelf .shelf-empty{flex:none}
@@ -450,13 +493,16 @@ header .brand .mark:focus-visible{outline:2px solid var(--orange);outline-offset
   </header>
 
   <div class="libgrid">
-    <section class="panel banner" aria-label="Topics">
+    <section class="panel banner" id="thBanner" aria-label="Topics">
       <nav class="themes" id="themes" aria-label="Topics"></nav>
+      <button type="button" class="thcat" id="thCat" aria-haspopup="menu" aria-expanded="false" aria-label="Topics" title="Topics"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/></svg></button>
+      <div class="thpop" id="thPop" role="menu" hidden></div>
+      <button type="button" class="thide" id="thHide" aria-pressed="false" aria-label="Hide Topics" title="Hide Topics"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"/><path d="M10.6 5.1A10 10 0 0 1 12 5c6 0 9.5 7 9.5 7a17 17 0 0 1-3 3.8M6.6 6.6C3.9 8.4 2.5 12 2.5 12S6 19 12 19c1.9 0 3.6-.6 5-1.5"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg></button>
     </section>
 
     <section class="panel shelf" aria-label="Shelf">
       <div class="shelf-head">
-        <button class="ttl" id="ttlBtn" type="button" aria-haspopup="menu" aria-expanded="false"><h2 id="shelfTitle">All</h2><svg class="chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+        <button class="tmbb" id="tmBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Topic menu" title="Topic menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><button class="ttl" id="ttlBtn" type="button" aria-label="Next Topic"><h2 id="shelfTitle">All</h2></button>
         <form class="rename" id="renameF" hidden autocomplete="off"><input id="renameI" maxlength="40" aria-label="Topic name"><button class="btn olive" type="submit" aria-label="Save name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></button></form>
         <button class="pinf" id="pinBtn" type="button" aria-pressed="false" aria-label="Mostrar só os PDF fixados"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg></button>
         <button class="sortb" id="sortBtn" type="button" aria-label="Sort A to Z"></button>
@@ -86434,7 +86480,9 @@ const pdfjsBuild = 'ce8716743';
     markSel(); markTh();
     $('shelfEmpty').hidden = list.length>0;
     $('shelfEmpty').classList.toggle('noth', !S.themes.length);
-    $('emptyTitle').textContent = !S.themes.length ? 'Create a Topic' : (S.pinOnly ? 'No pinned PDFs' : 'Upload');
+    $('emptyTitle').textContent = !S.themes.length ? 'Create a Topic' : (S.pinOnly ? 'No pinned PDFs' : (th ? 'Upload' : 'Choose a Topic'));
+    $('addLbl').hidden = !th;
+    $('tmBtn').disabled = !th; if(!th) closeMenu();
   }
   function bookCard(b){
     const el=document.createElement('div'); el.className='book';
@@ -86558,6 +86606,27 @@ const pdfjsBuild = 'ce8716743';
     S.themes.push(t); $('thName').value=''; select(t.id);
     try{ await S.store.putTheme(t); }catch(err){ toast('Couldn’t save the Topic.', true); }
   });
+  const EYE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5 12 5s9.5 7 9.5 7-3.5 7-9.5 7-9.5-7-9.5-7z"/><circle cx="12" cy="12" r="3"/></svg>';
+  const EYE_OFF=$('thHide').innerHTML;
+  function drawThHide(){ const h=$('thBanner').classList.contains('thcol'); $('thHide').innerHTML=h?EYE:EYE_OFF; $('thHide').setAttribute('aria-pressed',String(h)); $('thHide').setAttribute('aria-label',h?'Show Topics':'Hide Topics'); $('thHide').title=h?'Show Topics':'Hide Topics'; }
+  try{ if(localStorage.getItem('el-thhide')==='1') $('thBanner').classList.add('thcol'); }catch(e){}
+  drawThHide();
+  // modo escondido: o ícone de categorias abre um menu com todos os tópicos em botões
+  function closeThPop(){ $('thPop').hidden=true; $('thCat').setAttribute('aria-expanded','false'); document.removeEventListener('pointerdown', outThPop, true); }
+  function outThPop(e){ if(!e.target.closest('#thPop') && !e.target.closest('#thCat')) closeThPop(); }
+  $('thCat').addEventListener('click', e=>{
+    e.stopPropagation();
+    if(!$('thPop').hidden){ closeThPop(); return; }
+    const pop=$('thPop'); pop.innerHTML='';
+    const mk=(id,name,isT)=>{ const b=document.createElement('button'); b.type='button'; b.className='thp'+(isT?' t':''); b.setAttribute('role','menuitem'); b.setAttribute('aria-current', String(S.sel===id)); b.textContent=name; b.onclick=ev=>{ ev.stopPropagation(); closeThPop(); select(id); }; pop.appendChild(b); };
+    mk('all','All',false);
+    S.themes.forEach(t=>mk(t.id, capT(t.name), true));
+    pop.hidden=false; $('thCat').setAttribute('aria-expanded','true');
+    setTimeout(()=>document.addEventListener('pointerdown', outThPop, true),0);
+  });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape' && !$('thPop').hidden) closeThPop(); });
+  $('thHide').addEventListener('click', ()=>{
+    closeThPop(); const h=$('thBanner').classList.toggle('thcol'); try{ localStorage.setItem('el-thhide', h?'1':'0'); }catch(e){} drawThHide(); });
   function drawSort(){ const b=$('sortBtn'); b.innerHTML=SORT_ICON[S.sort]; b.setAttribute('aria-label', S.sort==='az'?'Sorted A to Z. Switch to Z to A':(S.sort==='za'?'Sorted Z to A. Switch to manual order':'Manual order. Switch to A to Z')); }
   try{ S.pinOnly = localStorage.getItem('el-pin')==='1'; }catch(e){}
   $('pinBtn').addEventListener('click', ()=>{ S.pinOnly=!S.pinOnly; try{ localStorage.setItem('el-pin', S.pinOnly?'1':'0'); }catch(e){} render(); });
@@ -86578,9 +86647,16 @@ const pdfjsBuild = 'ce8716743';
     th.name=name; endRename(); render();
     try{ await S.store.putTheme(th); toast('Topic renamed.'); }catch(err){ toast('Couldn’t save the new name.', true); }
   });
-  function closeMenu(){ $('tmenu').hidden=true; $('ttlBtn').setAttribute('aria-expanded','false'); }
-  $('ttlBtn').addEventListener('click', e=>{ e.stopPropagation(); const open=$('tmenu').hidden; $('tmenu').hidden=!open; $('ttlBtn').setAttribute('aria-expanded', String(open)); });
-  document.addEventListener('click', e=>{ if(!e.target.closest('#tmenu') && !e.target.closest('#ttlBtn')) closeMenu(); });
+  function closeMenu(){ $('tmenu').hidden=true; $('tmBtn').setAttribute('aria-expanded','false'); }
+  $('tmBtn').addEventListener('click', e=>{ e.stopPropagation(); const open=$('tmenu').hidden; $('tmenu').hidden=!open; $('tmBtn').setAttribute('aria-expanded', String(open)); });
+  $('ttlBtn').addEventListener('click', e=>{
+    e.stopPropagation();
+    // nome do tópico: passa para o tópico seguinte (All → 1.º → 2.º … → All)
+    const ids=['all', ...S.themes.map(t=>t.id)];
+    if(ids.length<2) return;
+    select(ids[(ids.indexOf(S.sel)+1)%ids.length]);
+  });
+  document.addEventListener('click', e=>{ if(!e.target.closest('#tmenu') && !e.target.closest('#tmBtn')) closeMenu(); });
   document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeMenu(); });
   $('delTh').addEventListener('click', ()=>{
     closeMenu();
@@ -86623,14 +86699,14 @@ const pdfjsBuild = 'ce8716743';
   window.addEventListener('pagehide', commitPending);
 
   // ---------- adicionar PDFs ----------
+  // em «All» não se adicionam PDF: só dentro de um tópico
   function pickTheme(){
     if(S.themes.find(t=>t.id===S.sel)) return S.sel;
-    if(S.themes.length) return S.themes[0].id;
     return null;
   }
   $('addLbl').addEventListener('click', e=>{ if(e.target.id!=='file') setTimeout(closeMenu,0); if(!pickTheme()){ e.preventDefault(); toast('Create a Topic first.', true); $('thName').focus(); } });
   $('addLbl').addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); $('addLbl').click(); }});
-  $('shelfEmpty').addEventListener('click', ()=>{ if(pickTheme()) $('file').click(); else $('thName').focus(); });
+  $('shelfEmpty').addEventListener('click', ()=>{ if(pickTheme()) $('file').click(); else if(!S.themes.length) $('thName').focus(); });
   $('file').addEventListener('change', async e=>{
     const files=[...e.target.files]; e.target.value='';
     await ready;
