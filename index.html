@@ -173,10 +173,21 @@ input,textarea{-webkit-user-select:text;user-select:text;-webkit-touch-callout:d
 #thBanner.thcol .thide svg{width:20px;height:20px}
 #thBanner.thcol .thide{color:var(--muted);right:16px}
 .thcat{display:none}
-#thBanner.thcol .thcat{all:unset;cursor:pointer;position:absolute;left:16px;bottom:0;width:30px;height:30px;display:grid;place-items:center;color:var(--muted);-webkit-tap-highlight-color:transparent}
+#thBanner.thcol .thcat{all:unset;cursor:pointer;position:absolute;left:calc(50% - 15px);bottom:0;width:30px;height:30px;display:grid;place-items:center;color:var(--muted);-webkit-tap-highlight-color:transparent}
 #thBanner.thcol .thcat svg{width:20px;height:20px}
 #thBanner.thcol .thcat:focus-visible{outline:2px solid var(--orange)}
 #thBanner.thcol .thcat[aria-expanded=true]{color:var(--fg)}
+.thspace{display:none}
+#thBanner.thcol .thspace{all:unset;cursor:pointer;position:absolute;left:16px;bottom:0;width:30px;height:30px;display:grid;place-items:center;color:var(--muted);-webkit-tap-highlight-color:transparent}
+#thBanner.thcol .thspace svg{width:20px;height:20px}
+#thBanner.thcol .thspace:focus-visible{outline:2px solid var(--orange)}
+#thBanner.thcol .thspace[aria-expanded=true]{color:var(--fg)}
+#spaceName{display:inline-block;transform:translateX(var(--shift,0px));transition:opacity .18s ease;cursor:pointer!important;-webkit-tap-highlight-color:transparent}
+#spaceName:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+/* área invisível do nome do espaço: estende-se até ao campo New Topic (o texto não muda de tamanho nem de sítio) */
+header .brand #spaceHit{position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent}
+header .brand #spaceHit::after{content:"";position:absolute;left:0;top:-10px;bottom:-10px;width:var(--hitw,100%)}
+#spaceName.sw{opacity:0}
 .thpop{position:absolute;left:0;top:calc(100% + 8px);z-index:8;max-width:100%;box-sizing:border-box;display:flex;flex-wrap:wrap;gap:10px;padding:12px;background:var(--bg);border:0;border-radius:12px;box-shadow:0 14px 34px rgba(0,0,0,.55)}
 .thpop[hidden]{display:none}
 .thpop .thp{all:unset;cursor:pointer;display:flex;align-items:center;gap:7px;padding:8px 13px;border-radius:9px;background:var(--panel);border:0;color:var(--muted);font:500 13px var(--f-display);white-space:nowrap;box-shadow:0 4px 10px rgba(0,0,0,.45),0 1px 2px rgba(0,0,0,.5);-webkit-tap-highlight-color:transparent}
@@ -214,6 +225,17 @@ input,textarea{-webkit-user-select:text;user-select:text;-webkit-touch-callout:d
 .rename{display:flex;gap:8px;flex:1;min-width:0;margin:0}
 .rename input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--olive-hi);border-radius:10px;color:var(--fg);font:700 18px var(--f-display);padding:8px 12px;outline:none}
 .rename .btn{padding:8px 12px}
+/* editar o nome do tópico: só a linha verde em baixo, a curvar ligeiramente nas pontas */
+#lib .shelf-head .rename{align-items:center;gap:2px}
+#lib .shelf-head .rename input{background:transparent;border:1.5px solid transparent;border-bottom-color:var(--olive-hi);border-radius:0 0 12px 12px;padding:4px 10px 5px;font-size:13.5px}
+#lib .shelf-head .rename .rnx,#lib .shelf-head .rename .rnok{all:unset;cursor:pointer;flex:none;width:30px;height:30px;border-radius:6px;display:grid;place-items:center;-webkit-tap-highlight-color:transparent}
+#lib .shelf-head .rename .rnx{color:#e5484d}
+#lib .shelf-head .rename .rnok{color:var(--olive-hi)}
+#lib .shelf-head .rename .rnok svg{width:16px;height:16px}
+#lib .shelf-head .rename .rnx svg{width:14px;height:14px}
+#lib .shelf-head .rename .rnx:focus-visible,#lib .shelf-head .rename .rnok:focus-visible{outline:2px solid var(--orange)}
+/* enquanto se edita, saem o fixar e a ordem */
+#lib .shelf-head:has(#renameF:not([hidden])) .pinf,#lib .shelf-head:has(#renameF:not([hidden])) .sortb{display:none}
 .ttl{all:unset;cursor:pointer;display:flex;align-items:center;gap:8px;max-width:100%;border-radius:10px;padding:2px 6px 2px 0}
 .ttl .chev{flex:none;color:var(--muted);transition:transform .15s}
 .ttl[aria-expanded=true] .chev{color:var(--fg)}
@@ -231,6 +253,27 @@ input,textarea{-webkit-user-select:text;user-select:text;-webkit-touch-callout:d
 .mi{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;font:500 14px var(--f-display);color:var(--fg)}
 .mi:hover,.mi:focus-visible{background:var(--olive-soft)}
 .mi.del{color:var(--fg)}
+/* menu do tópico: ícone de Edit verde, de Delete vermelho; o texto fica branco */
+#editTh{color:var(--fg)}
+#editTh svg{color:var(--olive-hi)}
+#delTh svg{color:#e5484d}
+/* Edit e Delete na mesma linha, só com ícone */
+.tmenu .mrow{display:flex;gap:4px;margin-top:2px;padding-top:4px;border-top:1px solid var(--line)}
+.tmenu .mrow:not(:has(> :not([hidden]))){display:none}
+.tmenu .mrow .mi{flex:1;justify-content:center;padding:10px 0}
+.tmenu{min-width:0;width:120px;padding:4px}
+.tmenu #addLbl{justify-content:center;font-size:12px;gap:7px;padding:7px 8px}
+.tmenu #addLbl svg{width:15px;height:15px}
+.tmenu .mrow{margin-top:2px;padding-top:3px;gap:0}
+.tmenu .mrow .mi{padding:7px 0}
+.tmenu .mrow .mi svg{width:16px;height:16px}
+/* separador entre o lápis e o lixo */
+.tmenu .mrow{position:relative}
+.tmenu .mrow:has(#editTh:not([hidden])):has(#delTh:not([hidden]))::after{content:"";position:absolute;left:50%;top:calc(50% + 1.5px);width:1px;height:16px;transform:translate(-50%,-50%);background:var(--line);pointer-events:none}
+.tmenu .mrow #delTh{border-radius:0 8px 8px 0}
+/* banner do menu: sem linha, cor do fundo da lista de PDF, com sombra */
+#lib .tmenu{background:var(--panel);border:0;box-shadow:0 10px 26px rgba(0,0,0,.55),0 2px 6px rgba(0,0,0,.45)}
+.tmenu .mrow #editTh{border-radius:8px 0 0 8px}
 #addLbl{color:var(--orange)}
 .mark{width:42px;height:42px;box-sizing:border-box;flex:none;border-radius:10px;background:var(--panel);border:1px solid var(--line)}
 .mark svg{width:26px;height:26px}
@@ -285,6 +328,7 @@ input,textarea{-webkit-user-select:text;user-select:text;-webkit-touch-callout:d
 .bmenu button.del{color:var(--orange)}
 .bmenu button.ren:hover,.bmenu button.mov:hover,.bmenu button.del:hover{background:var(--olive-soft)}
 .bmenu button.cls{color:#e5484d}
+.bmenu button:disabled,.tmenu .mi:disabled{opacity:.3;cursor:default;background:none}
 .bmenu button.cls svg{transform:translateX(-2px)}
 .bmenu button:focus-visible{outline:2px solid var(--orange)}
 .bmove{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:2px 0 12px;padding:8px;background:var(--raise);border:1px solid var(--line);border-radius:10px}
@@ -341,7 +385,7 @@ form.bren input{--tk:var(--olive-hi);border-top:0;background-color:var(--panel);
 #lib .shelf .shelf-head .pinf,#lib .shelf .shelf-head .sortb,#lib .shelf .shelf-head .tmbb{color:var(--muted)}
 #lib .shelf .shelf-head .pinf svg{width:12px;height:12px}
 #lib .shelf .shelf-head .sortb svg{width:15px;height:15px}
-#lib .shelf .shelf-head .tmbb svg{width:16px;height:16px}
+#lib .shelf .shelf-head .tmbb svg{width:18px;height:18px}
 /* fixar desligado: sem fundo cinzento (no telemóvel o «hover» ficava preso depois do toque) */
 #lib .shelf-head .pinf[aria-pressed=false]{background:none}
 @media (hover:none){#lib .shelf-head .pinf:hover,#lib .shelf-head .sortb:hover,#lib .shelf-head .tmbb:hover{background:none}#lib .shelf-head .pinf[aria-pressed=true]{background:var(--olive-soft)}}
@@ -434,10 +478,15 @@ header .fsbtn{width:38px;height:38px}
 header .fsbtn svg{width:16px;height:16px}
 /* banner dos tópicos: mesma distância para cima e para baixo */
 #lib .libgrid{margin-top:-4px}
+/* cabeçalho: os 3 banners (X, New Topic, +) mais baixos */
+header .brand .mark{height:32px}
+header .newtop .newth,header .newtop .newth input{height:32px}
+header .newtop .newth .btn{height:32px}
 .brand h1{font-size:13.5px;color:var(--muted)}
 header .brand{gap:9px}
 header .brand .mark{cursor:pointer;-webkit-tap-highlight-color:transparent}
 header .brand .mark svg{stroke:var(--muted)}
+header .brand .mark svg.xart{stroke:none;fill:var(--muted);width:20px;height:20px}
 header .newtop .newth .btn.olive{color:var(--muted)}
 header .brand .mark:hover{background:var(--raise)}
 header .brand .mark:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
@@ -478,8 +527,8 @@ header .brand .mark:focus-visible{outline:2px solid var(--orange);outline-offset
 <div class="wrap" id="lib">
   <header>
     <div class="brand">
-      <div class="mark" id="closeApp" role="button" tabindex="0" aria-label="Fechar a app" title="Fechar a app"><svg viewBox="0 0 24 24" fill="none" stroke="#e7e8e2" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5V19c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5Z"/><path d="M12 6v13.5"/></svg></div>
-      <div><h1><span class="e">PDF</span>View</h1></div>
+      <div class="mark" id="closeApp" role="button" tabindex="0" aria-label="Fechar a app" title="Fechar a app"><svg class="xart" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.9 3.7Q13.6 10.4 20.3 20.1Q10.5 13.7 3.9 3.7Z"/><path d="M19.7 4.1Q13.3 13.4 4.4 20.2Q10.7 10.8 19.7 4.1Z"/><circle cx="21" cy="21" r=".75"/></svg></div>
+      <div id="spaceHit"><h1><span class="e" id="spaceName" role="button" tabindex="0" aria-label="Change space" title="Change space">NOTES</span></h1></div>
     </div>
   <section class="panel banner newtop" aria-label="New Topic">
     <form class="newth" id="newTh" autocomplete="off">
@@ -495,6 +544,7 @@ header .brand .mark:focus-visible{outline:2px solid var(--orange);outline-offset
   <div class="libgrid">
     <section class="panel banner" id="thBanner" aria-label="Topics">
       <nav class="themes" id="themes" aria-label="Topics"></nav>
+      <button type="button" class="thspace" id="thSpace" aria-haspopup="menu" aria-expanded="false" aria-label="Change space" title="Change space"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg></button>
       <button type="button" class="thcat" id="thCat" aria-haspopup="menu" aria-expanded="false" aria-label="Topics" title="Topics"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/></svg></button>
       <div class="thpop" id="thPop" role="menu" hidden></div>
       <button type="button" class="thide" id="thHide" aria-pressed="false" aria-label="Hide Topics" title="Hide Topics"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"/><path d="M10.6 5.1A10 10 0 0 1 12 5c6 0 9.5 7 9.5 7a17 17 0 0 1-3 3.8M6.6 6.6C3.9 8.4 2.5 12 2.5 12S6 19 12 19c1.9 0 3.6-.6 5-1.5"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg></button>
@@ -503,13 +553,15 @@ header .brand .mark:focus-visible{outline:2px solid var(--orange);outline-offset
     <section class="panel shelf" aria-label="Shelf">
       <div class="shelf-head">
         <button class="tmbb" id="tmBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Topic menu" title="Topic menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><button class="ttl" id="ttlBtn" type="button" aria-label="Next Topic"><h2 id="shelfTitle">All</h2></button>
-        <form class="rename" id="renameF" hidden autocomplete="off"><input id="renameI" maxlength="40" aria-label="Topic name"><button class="btn olive" type="submit" aria-label="Save name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></button></form>
+        <form class="rename" id="renameF" hidden autocomplete="off"><input id="renameI" maxlength="40" aria-label="Topic name"><button class="rnx" id="renameX" type="button" aria-label="Cancel" title="Cancel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><button class="rnok" type="submit" aria-label="Save name" title="Save"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></button></form>
         <button class="pinf" id="pinBtn" type="button" aria-pressed="false" aria-label="Mostrar só os PDF fixados"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg></button>
         <button class="sortb" id="sortBtn" type="button" aria-label="Sort A to Z"></button>
         <div class="tmenu" id="tmenu" role="menu" hidden>
-          <button class="mi" id="editTh" role="menuitem" type="button" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg>Edit</button>
           <label class="mi" id="addLbl" role="menuitem" tabindex="0"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg>Add PDF<input type="file" id="file" class="vh" accept="application/pdf,.pdf" multiple></label>
-          <button class="mi del" id="delTh" role="menuitem" type="button" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 12h10l1-12M9 7V4h6v3"/></svg>Delete Topic</button>
+          <div class="mrow">
+            <button class="mi" id="editTh" role="menuitem" type="button" aria-label="Edit" title="Edit" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></button>
+            <button class="mi del" id="delTh" role="menuitem" type="button" aria-label="Delete Topic" title="Delete Topic" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 12h10l1-12M9 7V4h6v3"/></svg></button>
+          </div>
         </div>
       </div>
       <div class="confirm" id="thConfirm" hidden><span id="thConfirmTxt"></span><div class="row"><button type="button" class="del" id="thYes">Delete</button><button type="button" class="no" id="thNo">Cancel</button></div></div>
@@ -86199,7 +86251,7 @@ const pdfjsBuild = 'ce8716743';
     clearTimeout(tt); tt=setTimeout(()=>{ el.hidden=true; },ms||3400);
   }
   const statusEl=$('status'), statusText=$('statusText');
-  const setBusy=(b,t)=>{ statusEl.classList.toggle('busy',b); statusText.textContent=t||''; statusEl.hidden=!b; };
+  const setBusy=(b,t)=>{ statusEl.classList.toggle('busy',b); statusText.textContent=t||''; statusEl.hidden=!b; if(typeof sizeHit==='function') requestAnimationFrame(sizeHit); };
 
   // ---------- pdf.js ----------
   const PDFJS = window.pdfjsLib || null;
@@ -86289,7 +86341,7 @@ const pdfjsBuild = 'ce8716743';
     try{ const d=await S.store.list(); S.themes=d.themes||[]; S.books=d.books||[]; }catch(e){ toast('Couldn’t load the library.', true); }
     S.themes.sort((a,b)=>((a.order??a.created)-(b.order??b.created)));
     readyRes();
-    try{ const s=localStorage.getItem('el-sel'); if(s && (s==='all' || S.themes.some(t=>t.id===s))) S.sel=s; }catch(e){}
+    try{ const s=localStorage.getItem('el-sel'); if(s && (s==='all' || ST().some(t=>t.id===s))) S.sel=s; }catch(e){}
     render();
   }
   function memStore(){
@@ -86331,7 +86383,9 @@ const pdfjsBuild = 'ce8716743';
     const ids=[...navEl.querySelectorAll('.th')].map(x=>x.dataset.id).filter(id=>id!=='all');
     const byId=new Map(S.themes.map(t=>[t.id,t]));
     const changed=[];
-    S.themes=ids.map((id,i)=>{ const t=byId.get(id); if(t.order!==i){ t.order=i; changed.push(t); } return t; });
+    const moved=ids.map(id=>byId.get(id)).filter(Boolean), rest=S.themes.filter(t=>!ids.includes(t.id));
+    S.themes=rest.concat(moved);
+    S.themes.forEach((t,i)=>{ if(t.order!==i){ t.order=i; changed.push(t); } });
     for(const t of changed){ try{ await S.store.putTheme(t); }catch(_){} }
   }
   window.addEventListener('pointerup', endDrag);
@@ -86413,7 +86467,7 @@ const pdfjsBuild = 'ce8716743';
   const KB={ sel:null, th:null };
   function markTh(){ document.querySelectorAll('#themes .th').forEach(b=>b.classList.toggle('kbth', b.dataset.id===KB.th)); }
   function moveTh(){
-    const ids=['all', ...S.themes.map(t=>t.id)];
+    const ids=['all', ...ST().map(t=>t.id)];
     const from = KB.th!==null ? ids.indexOf(KB.th) : ids.indexOf(S.sel);
     KB.th = ids[(from+1+ids.length)%ids.length];
     markTh(); const b=document.querySelector('#themes .th.kbth'); if(b) b.scrollIntoView({block:'nearest',inline:'nearest'});
@@ -86456,10 +86510,15 @@ const pdfjsBuild = 'ce8716743';
   });
   // nomes de tópicos sempre em maiúsculas
   const capT=s=>String(s||'').toLocaleUpperCase();
+  // três espaços (STUDY, FINANCE, SELF); cada tópico pertence a um espaço (os antigos ficam em STUDY)
+  const SPACES=['notes','study','finance','self'];
+  S.space='notes'; // a app começa sempre em NOTES
+  const ST=()=>S.themes.filter(t=>(t.space||'study')===S.space);
   const bKey=b=>(b.order ?? b.created ?? 0);
   function currentList(){
     const th=S.themes.find(t=>t.id===S.sel), nm=b=>(b.file||b.title||'').replace(/\.pdf$/i,'');
-    const L=(th ? S.books.filter(b=>b.theme===th.id) : S.books.slice()).filter(b=>!S.pinOnly || b.pinned);
+    const inSpace=new Set(ST().map(t=>t.id));
+    const L=(th ? S.books.filter(b=>b.theme===th.id) : S.books.filter(b=>inSpace.has(b.theme))).filter(b=>!S.pinOnly || b.pinned);
     if(S.sort==='p') return L.sort((a,b)=>bKey(a)-bKey(b));
     return L.sort((a,b)=>COLL.compare(nm(a),nm(b))*(S.sort==='za'?-1:1));
   }
@@ -86468,7 +86527,7 @@ const pdfjsBuild = 'ce8716743';
     const mk=(id,name,color,count)=>{ const b=document.createElement('button'); b.className='th'; b.type='button'; b.setAttribute('aria-current', S.sel===id);
       b.dataset.id=id; b.innerHTML=`<span>${esc(id==='all'?name:capT(name))}</span>`; b.onclick=()=>{ if(dragJustEnded) return; select(id); }; nav.appendChild(b); };
     mk('all','All','var(--fg)',S.books.length);
-    S.themes.forEach(t=>mk(t.id,t.name,t.color,S.books.filter(b=>b.theme===t.id).length));
+    ST().forEach(t=>mk(t.id,t.name,t.color,S.books.filter(b=>b.theme===t.id).length));
     const th=S.themes.find(t=>t.id===S.sel);
     $('shelfTitle').innerHTML = th ? esc(capT(th.name)) : 'All';
     $('delTh').hidden = !th; $('editTh').hidden = !th;
@@ -86479,8 +86538,8 @@ const pdfjsBuild = 'ce8716743';
     list.forEach(b=>grid.appendChild(bookCard(b)));
     markSel(); markTh();
     $('shelfEmpty').hidden = list.length>0;
-    $('shelfEmpty').classList.toggle('noth', !S.themes.length);
-    $('emptyTitle').textContent = !S.themes.length ? 'Create a Topic' : (S.pinOnly ? 'No pinned PDFs' : (th ? 'Upload' : 'Choose a Topic'));
+    $('shelfEmpty').classList.toggle('noth', !ST().length);
+    $('emptyTitle').textContent = !ST().length ? 'Create a Topic' : (S.pinOnly ? 'No pinned PDFs' : (th ? 'Upload' : 'Choose a Topic'));
     $('addLbl').hidden = !th;
     $('tmBtn').disabled = !th; if(!th) closeMenu();
   }
@@ -86508,7 +86567,7 @@ const pdfjsBuild = 'ce8716743';
     // mudar o PDF de tópico; se não houver outro tópico, cria um novo
     const askMove=()=>{
       if(el.querySelector('.bmove')) return;
-      const others=S.themes.filter(t=>t.id!==b.theme);
+      const others=ST().filter(t=>t.id!==b.theme);
       const pnl=document.createElement('div'); pnl.className='bmove'; pnl.setAttribute('role','dialog'); pnl.setAttribute('aria-label','Move to');
       const close=()=>{ pnl.remove(); document.removeEventListener('pointerdown', out, true); };
       function out(e){ if(!pnl.contains(e.target)) close(); }
@@ -86528,9 +86587,9 @@ const pdfjsBuild = 'ce8716743';
         f.addEventListener('submit', async e=>{
           e.preventDefault();
           const nm=capT(inp.value.trim()); if(!nm){ inp.focus(); return; }
-          let t=S.themes.find(x=>x.name.toLowerCase()===nm.toLowerCase());
+          let t=ST().find(x=>x.name.toLowerCase()===nm.toLowerCase());
           if(!t){
-            t={ id:uid(), name:nm, color:PAL[S.themes.length%PAL.length], created:Date.now(), order:S.themes.reduce((m,x)=>Math.max(m, x.order??x.created), 0)+1 };
+            t={ id:uid(), name:nm, space:S.space, color:PAL[S.themes.length%PAL.length], created:Date.now(), order:S.themes.reduce((m,x)=>Math.max(m, x.order??x.created), 0)+1 };
             S.themes.push(t);
             try{ await S.store.putTheme(t); }catch(_){ toast('Couldn’t save the Topic.', true); }
           }
@@ -86556,7 +86615,7 @@ const pdfjsBuild = 'ce8716743';
       pnl.scrollIntoView({block:'nearest'});
     };
     const startRen=()=>{
-      if(brow.querySelector('.bren')) return;
+      if(brow.querySelector('.bren') || document.querySelector('.bren') || !$('renameF').hidden) return;
       const f=document.createElement('form'); f.className='bren'; f.autocomplete='off';
       f.innerHTML='<input maxlength="120" aria-label="PDF name"><button type="button" class="bcancel" aria-label="Cancel" title="Cancel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><button type="submit" aria-label="Save name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></button>';
       const inp=f.querySelector('input'); inp.value=name;
@@ -86585,6 +86644,7 @@ const pdfjsBuild = 'ce8716743';
       if(brow.querySelector('.bmenu')){ closeBM(); return; }
       const m=document.createElement('div'); m.className='bmenu'; m.setAttribute('role','menu');
       m.innerHTML='<button type="button" class="ren" role="menuitem" aria-label="Change Name" title="Change Name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></button><button type="button" class="mov" role="menuitem" aria-label="Move to" title="Move to"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M10 13h6M13.5 10.5L16 13l-2.5 2.5"/></svg></button><button type="button" class="del" role="menuitem" aria-label="Delete PDF" title="Delete PDF"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 12h10l1-12M9 7V4h6v3"/></svg></button><button type="button" class="cls" role="menuitem" aria-label="Close menu" title="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>';
+      if(document.querySelector('.bren') || !$('renameF').hidden) m.querySelector('.ren').disabled=true;
       m.querySelector('.ren').onclick=ev=>{ ev.stopPropagation(); closeBM(); startRen(); };
       m.querySelector('.mov').onclick=ev=>{ ev.stopPropagation(); closeBM(); askMove(); };
       m.querySelector('.del').onclick=ev=>{ ev.stopPropagation(); closeBM(); askDelete(); };
@@ -86601,26 +86661,61 @@ const pdfjsBuild = 'ce8716743';
     e.preventDefault();
     await ready;
     const name=capT($('thName').value.trim()); if(!name) return;
-    if(S.themes.some(t=>t.name.toLowerCase()===name.toLowerCase())){ toast('That Topic already exists.', true); return; }
-    const t={ id:uid(), name, color:PAL[S.themes.length%PAL.length], created:Date.now(), order:S.themes.reduce((m,x)=>Math.max(m, x.order??x.created), 0)+1 };
+    if(ST().some(t=>t.name.toLowerCase()===name.toLowerCase())){ toast('That Topic already exists.', true); return; }
+    const t={ id:uid(), name, space:S.space, color:PAL[S.themes.length%PAL.length], created:Date.now(), order:S.themes.reduce((m,x)=>Math.max(m, x.order??x.created), 0)+1 };
     S.themes.push(t); $('thName').value=''; select(t.id);
     try{ await S.store.putTheme(t); }catch(err){ toast('Couldn’t save the Topic.', true); }
   });
   const EYE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5 12 5s9.5 7 9.5 7-3.5 7-9.5 7-9.5-7-9.5-7z"/><circle cx="12" cy="12" r="3"/></svg>';
   const EYE_OFF=$('thHide').innerHTML;
   function drawThHide(){ const h=$('thBanner').classList.contains('thcol'); $('thHide').innerHTML=h?EYE:EYE_OFF; $('thHide').setAttribute('aria-pressed',String(h)); $('thHide').setAttribute('aria-label',h?'Show Topics':'Hide Topics'); $('thHide').title=h?'Show Topics':'Hide Topics'; }
-  try{ if(localStorage.getItem('el-thhide')==='1') $('thBanner').classList.add('thcol'); }catch(e){}
+  $('thBanner').classList.add('thcol'); // a app começa sempre com os tópicos escondidos
   drawThHide();
+  // espaços: o ícone à esquerda passa STUDY → FINANCE → SELF; o nome da app mostra o espaço atual
+  function drawSpace(anim){
+    const el=$('spaceName'), txt=S.space.toUpperCase();
+    if(!anim){ el.textContent=txt; return; }
+    el.classList.add('sw'); setTimeout(()=>{ el.textContent=txt; el.classList.remove('sw'); if(typeof sizeHit==='function') sizeHit(); },180);
+  }
+  drawSpace(false);
+  // a área invisível vai do início do nome até ao campo New Topic (não mexe na disposição)
+  function sizeHit(){ try{ const h=$('spaceHit').getBoundingClientRect(), n=document.querySelector('header .newtop').getBoundingClientRect(); const w=Math.max(h.width, n.left-10-h.left); $('spaceHit').style.setProperty('--hitw', w+'px'); $('spaceHit').style.setProperty('--shift', Math.max(0,(w-h.width)/2)+'px'); }catch(e){} }
+  sizeHit(); addEventListener('resize', sizeHit); addEventListener('load', sizeHit);
+  try{ const ro=new ResizeObserver(sizeHit); ['header','header .brand','header .newtop','#installBtn','#fsBtn','#status','header .hdr-r'].forEach(q=>{ const el=document.querySelector(q); if(el) ro.observe(el); }); }catch(e){}
+  try{ document.fonts.ready.then(sizeHit); }catch(e){}
+  try{ new MutationObserver(()=>requestAnimationFrame(sizeHit)).observe(document.querySelector('header'),{subtree:true,attributes:true,attributeFilter:['hidden','class','style'],childList:true}); }catch(e){}
+  function setSpace(sp){
+    closeThPop(); closeMenu();
+    if(sp===S.space) return;
+    S.space=sp;
+    drawSpace(true);
+    select('all');
+  }
+  function nextSpace(){ setSpace(SPACES[(SPACES.indexOf(S.space)+1)%SPACES.length]); }
+  // ícone de espaços: abre um menu com NOTES / STUDY / FINANCE / SELF (igual ao dos tópicos)
+  $('thSpace').addEventListener('click', e=>{
+    e.stopPropagation();
+    const open=!$('thPop').hidden && $('thPop').dataset.kind==='space';
+    closeThPop(); if(open) return;
+    const pop=$('thPop'); pop.innerHTML=''; pop.dataset.kind='space';
+    SPACES.forEach(sp=>{ const b=document.createElement('button'); b.type='button'; b.className='thp'; b.setAttribute('role','menuitem'); b.setAttribute('aria-current', String(S.space===sp)); b.textContent=sp.toUpperCase(); b.onclick=ev=>{ ev.stopPropagation(); setSpace(sp); }; pop.appendChild(b); });
+    pop.hidden=false; $('thSpace').setAttribute('aria-expanded','true');
+    setTimeout(()=>document.addEventListener('pointerdown', outThPop, true),0);
+  });
+  // tocar no nome (STUDY / FINANCE / SELF) também muda de espaço
+  $('spaceHit').addEventListener('click', nextSpace);
+  $('spaceName').addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); e.stopPropagation(); nextSpace(); } });
   // modo escondido: o ícone de categorias abre um menu com todos os tópicos em botões
-  function closeThPop(){ $('thPop').hidden=true; $('thCat').setAttribute('aria-expanded','false'); document.removeEventListener('pointerdown', outThPop, true); }
-  function outThPop(e){ if(!e.target.closest('#thPop') && !e.target.closest('#thCat')) closeThPop(); }
+  function closeThPop(){ $('thPop').hidden=true; $('thCat').setAttribute('aria-expanded','false'); $('thSpace').setAttribute('aria-expanded','false'); document.removeEventListener('pointerdown', outThPop, true); }
+  function outThPop(e){ if(!e.target.closest('#thPop') && !e.target.closest('#thCat') && !e.target.closest('#thSpace')) closeThPop(); }
   $('thCat').addEventListener('click', e=>{
     e.stopPropagation();
-    if(!$('thPop').hidden){ closeThPop(); return; }
-    const pop=$('thPop'); pop.innerHTML='';
+    const open=!$('thPop').hidden && $('thPop').dataset.kind==='topics';
+    closeThPop(); if(open) return;
+    const pop=$('thPop'); pop.innerHTML=''; pop.dataset.kind='topics';
     const mk=(id,name,isT)=>{ const b=document.createElement('button'); b.type='button'; b.className='thp'+(isT?' t':''); b.setAttribute('role','menuitem'); b.setAttribute('aria-current', String(S.sel===id)); b.textContent=name; b.onclick=ev=>{ ev.stopPropagation(); closeThPop(); select(id); }; pop.appendChild(b); };
     mk('all','All',false);
-    S.themes.forEach(t=>mk(t.id, capT(t.name), true));
+    ST().forEach(t=>mk(t.id, capT(t.name), true));
     pop.hidden=false; $('thCat').setAttribute('aria-expanded','true');
     setTimeout(()=>document.addEventListener('pointerdown', outThPop, true),0);
   });
@@ -86632,27 +86727,30 @@ const pdfjsBuild = 'ce8716743';
   $('pinBtn').addEventListener('click', ()=>{ S.pinOnly=!S.pinOnly; try{ localStorage.setItem('el-pin', S.pinOnly?'1':'0'); }catch(e){} render(); });
   $('sortBtn').addEventListener('click', ()=>{ S.sort = S.sort==='az'?'za':(S.sort==='za'?'p':'az'); try{ localStorage.setItem('el-sort',S.sort); }catch(e){} render(); });
   function startRename(){
+    if(document.querySelector('.bren')) return;
     const th=S.themes.find(t=>t.id===S.sel); if(!th) return;
     closeMenu(); $('ttlBtn').hidden=true; $('renameF').hidden=false;
-    const i=$('renameI'); i.value=th.name; i.focus(); i.select();
+    // campo pronto a editar, com o cursor no fim (sem texto selecionado a azul)
+    const i=$('renameI'); i.value=capT(th.name); i.focus(); try{ const n=i.value.length; i.setSelectionRange(n,n); }catch(e){}
   }
   function endRename(){ $('renameF').hidden=true; $('ttlBtn').hidden=false; }
   $('editTh').addEventListener('click', startRename);
+  $('renameX').addEventListener('click', e=>{ e.preventDefault(); e.stopPropagation(); endRename(); });
   $('renameI').addEventListener('keydown', e=>{ if(e.key==='Escape'){ e.stopPropagation(); endRename(); } });
   $('renameF').addEventListener('submit', async e=>{
     e.preventDefault();
     const th=S.themes.find(t=>t.id===S.sel); const name=capT($('renameI').value.trim());
     if(!th || !name){ endRename(); return; }
-    if(S.themes.some(t=>t.id!==th.id && t.name.toLowerCase()===name.toLowerCase())){ toast('That Topic already exists.', true); return; }
+    if(ST().some(t=>t.id!==th.id && t.name.toLowerCase()===name.toLowerCase())){ toast('That Topic already exists.', true); return; }
     th.name=name; endRename(); render();
     try{ await S.store.putTheme(th); toast('Topic renamed.'); }catch(err){ toast('Couldn’t save the new name.', true); }
   });
   function closeMenu(){ $('tmenu').hidden=true; $('tmBtn').setAttribute('aria-expanded','false'); }
-  $('tmBtn').addEventListener('click', e=>{ e.stopPropagation(); const open=$('tmenu').hidden; $('tmenu').hidden=!open; $('tmBtn').setAttribute('aria-expanded', String(open)); });
+  $('tmBtn').addEventListener('click', e=>{ e.stopPropagation(); $('editTh').disabled=!!document.querySelector('.bren'); const open=$('tmenu').hidden; $('tmenu').hidden=!open; $('tmBtn').setAttribute('aria-expanded', String(open)); });
   $('ttlBtn').addEventListener('click', e=>{
     e.stopPropagation();
     // nome do tópico: passa para o tópico seguinte (All → 1.º → 2.º … → All)
-    const ids=['all', ...S.themes.map(t=>t.id)];
+    const ids=['all', ...ST().map(t=>t.id)];
     if(ids.length<2) return;
     select(ids[(ids.indexOf(S.sel)+1)%ids.length]);
   });
@@ -86706,7 +86804,7 @@ const pdfjsBuild = 'ce8716743';
   }
   $('addLbl').addEventListener('click', e=>{ if(e.target.id!=='file') setTimeout(closeMenu,0); if(!pickTheme()){ e.preventDefault(); toast('Create a Topic first.', true); $('thName').focus(); } });
   $('addLbl').addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); $('addLbl').click(); }});
-  $('shelfEmpty').addEventListener('click', ()=>{ if(pickTheme()) $('file').click(); else if(!S.themes.length) $('thName').focus(); });
+  $('shelfEmpty').addEventListener('click', ()=>{ if(pickTheme()) $('file').click(); else if(!ST().length) $('thName').focus(); });
   $('file').addEventListener('change', async e=>{
     const files=[...e.target.files]; e.target.value='';
     await ready;
