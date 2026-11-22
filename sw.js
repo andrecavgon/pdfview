@@ -1,12 +1,12 @@
-/* MyBook — service worker
+/* MyNotes — service worker
    - a página (index.html) vem primeiro da rede, para as atualizações chegarem logo; sem rede usa a cópia guardada
    - ícones e manifest vêm da cópia guardada e são atualizados em segundo plano
    Ao mudar a app, aumenta o número da versão abaixo. */
-const VERSION = 'mybook-v15';
+const VERSION = 'mynotes-v17';
 const SHELL = [
   './',
   'index.html',
-  'manifest.webmanifest',
+  'mynotes.webmanifest',
   'icon.svg',
   'favicon.ico',
   'favicon-16.png',
@@ -43,11 +43,11 @@ self.addEventListener('fetch', e => {
   if (url.origin !== location.origin) return;
 
   // página: rede primeiro, cópia guardada se estiver offline
-  if (req.mode === 'navigate') {
+  if (req.mode === 'navigate' || url.pathname.endsWith('.webmanifest')) {
     e.respondWith(
       fetch(req)
-        .then(res => { const copy = res.clone(); caches.open(VERSION).then(c => c.put('index.html', copy)); return res; })
-        .catch(() => caches.match('index.html').then(r => r || caches.match('./')))
+        .then(res => { const copy = res.clone(); const key = req.mode === 'navigate' ? 'index.html' : req; caches.open(VERSION).then(c => c.put(key, copy)); return res; })
+        .catch(() => req.mode === 'navigate' ? caches.match('index.html').then(r => r || caches.match('./')) : caches.match(req))
     );
     return;
   }
