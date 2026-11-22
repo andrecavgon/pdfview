@@ -8,7 +8,7 @@
 <meta name="description" content="Biblioteca de PDF por tópicos, com leitor em ecrã inteiro. Funciona offline.">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect x='11' y='11' width='490' height='490' rx='120' fill='%23181a16' stroke='%232b2f28' stroke-width='18'/><g transform='translate%28256 256%29 scale%2816%29 translate%28-12 -12.6%29' fill='none' stroke='%239a9e92' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5V19c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5Z'/><path d='M12 6v13.5'/></g></svg>">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect x='.5' y='.5' width='15' height='15' rx='3.5' fill='%23181a16' stroke='%232b2f28'/><g fill='none' stroke='%23b9bcb2' stroke-linejoin='round' stroke-linecap='round'><path stroke-width='1' d='M3.5 4.5H6.5L8 5.5L9.5 4.5H12.5V11.5H9.5L8 12.5L6.5 11.5H3.5Z'/><path stroke-width='1' stroke-linecap='butt' d='M8 5.5V12'/></g></svg>">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
@@ -244,6 +244,8 @@ footer{font-size:12px;color:var(--muted)}
 .bmenu button svg{width:15px;height:15px}
 .bmenu button:hover{background:var(--olive-soft);color:var(--fg)}
 .bmenu button.del:hover{color:var(--orange)}
+.bmenu button.cls{color:#e5484d}
+.bmenu button.cls svg{transform:translateX(-1px)}
 .bmenu button:focus-visible{outline:2px solid var(--orange)}
 .bmove{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:2px 0 12px;padding:8px;background:var(--raise);border:1px solid var(--line);border-radius:10px}
 .bmove .mvt{all:unset;cursor:pointer;display:flex;align-items:center;gap:6px;padding:5px 10px;border:1px solid var(--line);border-radius:8px;font:500 13px var(--f-display);color:var(--muted);background:var(--panel)}
@@ -260,7 +262,7 @@ footer{font-size:12px;color:var(--muted)}
 .bren{flex:1;min-width:0;display:flex;align-items:center;gap:8px;padding:8px 0}
 /* pequenos traços nas pontas das linhas de cima e de baixo (cantos) */
 .books.bsorting .book.bdrag{--tk:var(--olive-hi);background-image:linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk));background-size:10px 1px,1px 10px,10px 1px,1px 10px,10px 1px,1px 10px,10px 1px,1px 10px;background-repeat:no-repeat;background-position:left top,left top,right top,right top,left bottom,left bottom,right bottom,right bottom}
-form.bren input{--tk:var(--olive-hi);background-color:var(--panel);background-image:linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk));background-size:1px 5px;background-repeat:no-repeat;background-position:left top,right top,left bottom,right bottom}
+form.bren input{--tk:var(--olive-hi);border-top:0;background-color:var(--panel);background-image:linear-gradient(var(--tk),var(--tk)),linear-gradient(var(--tk),var(--tk));background-size:1px 5px;background-repeat:no-repeat;background-position:left bottom,right bottom}
 .book.kbsel:has(.bren) .brow{box-shadow:none}
 .bren input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--olive-hi);border-left:0;border-right:0;border-radius:0;color:var(--fg);font:500 15px var(--f-display);padding:7px 10px;outline:none}
 .bren button{all:unset;cursor:pointer;width:30px;height:30px;border-radius:7px;display:grid;place-items:center;color:var(--olive-hi);flex:none}
@@ -86520,10 +86522,11 @@ const pdfjsBuild = 'ce8716743';
       e.stopPropagation();
       if(brow.querySelector('.bmenu')){ closeBM(); return; }
       const m=document.createElement('div'); m.className='bmenu'; m.setAttribute('role','menu');
-      m.innerHTML='<button type="button" class="ren" role="menuitem" aria-label="Change Name" title="Change Name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></button><button type="button" class="mov" role="menuitem" aria-label="Move to" title="Move to"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M10 13h6M13.5 10.5L16 13l-2.5 2.5"/></svg></button><button type="button" class="del" role="menuitem" aria-label="Delete PDF" title="Delete PDF"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 12h10l1-12M9 7V4h6v3"/></svg></button>';
+      m.innerHTML='<button type="button" class="ren" role="menuitem" aria-label="Change Name" title="Change Name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></button><button type="button" class="mov" role="menuitem" aria-label="Move to" title="Move to"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M10 13h6M13.5 10.5L16 13l-2.5 2.5"/></svg></button><button type="button" class="del" role="menuitem" aria-label="Delete PDF" title="Delete PDF"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 12h10l1-12M9 7V4h6v3"/></svg></button><button type="button" class="cls" role="menuitem" aria-label="Close menu" title="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4.5 4.5l15 15M19.5 4.5l-15 15"/></svg></button>';
       m.querySelector('.ren').onclick=ev=>{ ev.stopPropagation(); closeBM(); startRen(); };
       m.querySelector('.mov').onclick=ev=>{ ev.stopPropagation(); closeBM(); askMove(); };
       m.querySelector('.del').onclick=ev=>{ ev.stopPropagation(); closeBM(); askDelete(); };
+      m.querySelector('.cls').onclick=ev=>{ ev.stopPropagation(); closeBM(); };
       m.addEventListener('keydown', ev=>{ if(ev.key==='Escape'){ ev.stopPropagation(); closeBM(); moreB.focus(); } });
       brow.appendChild(m); moreB.setAttribute('aria-expanded','true');
       setTimeout(()=>document.addEventListener('pointerdown', outBM, true),0);
