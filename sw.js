@@ -1,8 +1,8 @@
-/* PDFView — service worker
+/* MyBook — service worker
    - a página (index.html) vem primeiro da rede, para as atualizações chegarem logo; sem rede usa a cópia guardada
    - ícones e manifest vêm da cópia guardada e são atualizados em segundo plano
    Ao mudar a app, aumenta o número da versão abaixo. */
-const VERSION = 'pdfview-v14';
+const VERSION = 'mybook-v15';
 const SHELL = [
   './',
   'index.html',

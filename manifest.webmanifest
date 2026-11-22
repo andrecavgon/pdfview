@@ -1,6 +1,6 @@
 {
-  "name": "PDFView",
-  "short_name": "PDFView",
+  "name": "MyBook",
+  "short_name": "MyBook",
   "description": "Biblioteca de PDF por tópicos, com leitor em ecrã inteiro. Funciona offline.",
   "lang": "pt",
   "id": "./",
