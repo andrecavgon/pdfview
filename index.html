@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#111310">
+<meta name="theme-color" content="#2b2d29">
+<script>document.documentElement.dataset.theme="mid"; /* a app começa sempre no modo intermédio */</script>
 <title>MyNotes</title>
 <meta name="description" content="Biblioteca de PDF por tópicos, com leitor em ecrã inteiro. Funciona offline.">
 <link rel="manifest" href="mynotes.webmanifest">
@@ -161,6 +162,40 @@ footer{font-size:12px;color:var(--muted)}
 /* em toda a app não se seleciona nem copia texto (exceto dentro dos campos de escrever) */
 html,body,body *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 input,textarea{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}
+/* ---------- modo claro ---------- */
+:root[data-theme=light]{
+  /* modo claro: 100% preto e branco */
+  --bg:#ffffff; --panel:#ffffff; --raise:#f0f0f0; --line:#d4d4d4;
+  --stage:#f4f4f4; --fg:#000000; --muted:#555555;
+  --olive:#000000; --olive-hi:#000000; --olive-soft:rgba(0,0,0,.08);
+  --orange:#000000; --orange-hi:#000000; --on-orange:#ffffff;
+  color-scheme:light;
+}
+:root[data-theme=mid]{
+  --bg:#2b2d29; --panel:#34372f; --raise:#3d4038; --line:#4a4e44;
+  --stage:#31342e; --fg:#eeefe9; --muted:#a6aa9e;
+  --olive:#8f9f5f; --olive-hi:#adbe7b; --olive-soft:rgba(154,171,106,.22);
+  color-scheme:dark;
+}
+:root[data-theme=mid] .fsbtn{background:var(--panel)}
+:root[data-theme=light] header .newtop .newth .btn.olive:hover{background:var(--raise)}
+/* tudo o resto que tem cor (vermelhos, azul, laranja fixos) fica em tons de cinzento na biblioteca; o leitor de PDF não muda */
+:root[data-theme=light] #lib,:root[data-theme=light] .toast,:root[data-theme=light] .undo{filter:grayscale(1)}
+:root[data-theme=light] .fsbtn{background:var(--panel);color:var(--fg)}
+:root[data-theme=light] .fsbtn:hover{background:var(--raise)}
+:root[data-theme=light] .thpop,:root[data-theme=light] #lib .tmenu,:root[data-theme=light] .bmenu,:root[data-theme=light] .appmenu{box-shadow:0 10px 24px rgba(0,0,0,.14),0 2px 6px rgba(0,0,0,.1)}
+:root[data-theme=light] .thpop .thp{box-shadow:0 3px 8px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.1)}
+/* menu do logo (modo claro/escuro e fechar): só ícones grandes */
+header .brand{position:relative}
+.appmenu{position:absolute;left:0;top:calc(100% + 8px);z-index:30;display:flex;gap:2px;padding:3px 4px;background:var(--panel);border-radius:12px;box-shadow:0 10px 26px rgba(0,0,0,.55),0 2px 6px rgba(0,0,0,.45)}
+.appmenu[hidden]{display:none}
+.appmenu button{all:unset;cursor:pointer;width:38px;height:36px;display:grid;place-items:center;color:var(--fg);-webkit-tap-highlight-color:transparent}
+.appmenu button svg{width:19px;height:19px}
+.appmenu .amtheme{width:34px}
+.appmenu .amtheme[aria-pressed=true]{color:var(--olive-hi)}
+.appmenu .amclose{width:auto;min-width:max-content;padding:0 10px 0 8px;font:700 11px/1.15 var(--f-display);letter-spacing:.08em;white-space:nowrap;flex:none;text-align:center}
+.appmenu .amclose{color:#e5484d}
+.appmenu button:focus-visible{outline:2px solid var(--orange);border-radius:8px}
 #thBanner{position:relative}
 #thBanner .themes{padding-right:24px}
 .thide{all:unset;cursor:pointer;position:absolute;right:6px;bottom:6px;width:24px;height:24px;border-radius:6px;display:grid;place-items:center;color:var(--muted);-webkit-tap-highlight-color:transparent}
@@ -190,6 +225,10 @@ header .brand #spaceHit::after{content:"";position:absolute;left:0;top:-10px;bot
 #spaceName.sw{opacity:0}
 .thpop{position:absolute;left:0;top:calc(100% + 8px);z-index:8;max-width:100%;box-sizing:border-box;display:flex;flex-wrap:wrap;gap:10px;padding:12px;background:var(--bg);border:0;border-radius:12px;box-shadow:0 14px 34px rgba(0,0,0,.55)}
 .thpop[hidden]{display:none}
+/* menu dos tópicos/espaços: abre centrado no banner */
+#thBanner .thpop{left:50%;transform:translateX(-50%);width:max-content;max-width:100%;justify-content:center}
+/* menu de espaços: alinhado à esquerda (do lado do ícone das camadas) */
+#thBanner .thpop[data-kind=space]{left:0;transform:none;justify-content:flex-start}
 .thpop .thp{all:unset;cursor:pointer;display:flex;align-items:center;gap:7px;padding:8px 13px;border-radius:9px;background:var(--panel);border:0;color:var(--muted);font:500 13px var(--f-display);white-space:nowrap;box-shadow:0 4px 10px rgba(0,0,0,.45),0 1px 2px rgba(0,0,0,.5);-webkit-tap-highlight-color:transparent}
 .thpop .thp.t::before{content:"";width:2px;height:2px;border-radius:50%;background:var(--orange)}
 .thpop .thp[aria-current=true]{background:var(--olive-soft);color:var(--fg)}
@@ -229,7 +268,7 @@ header .brand #spaceHit::after{content:"";position:absolute;left:0;top:-10px;bot
 #lib .shelf-head .rename{align-items:center;gap:2px}
 #lib .shelf-head .rename input{background:transparent;border:1.5px solid transparent;border-bottom-color:var(--olive-hi);border-radius:0 0 12px 12px;padding:4px 10px 5px;font-size:13.5px}
 #lib .shelf-head .rename .rnx,#lib .shelf-head .rename .rnok{all:unset;cursor:pointer;flex:none;width:30px;height:30px;border-radius:6px;display:grid;place-items:center;-webkit-tap-highlight-color:transparent}
-#lib .shelf-head .rename .rnx{color:#e5484d}
+#lib .shelf-head .rename .rnx{color:var(--orange)}
 #lib .shelf-head .rename .rnok{color:var(--olive-hi)}
 #lib .shelf-head .rename .rnok svg{width:16px;height:16px}
 #lib .shelf-head .rename .rnx svg{width:14px;height:14px}
@@ -269,10 +308,16 @@ header .brand #spaceHit::after{content:"";position:absolute;left:0;top:-10px;bot
 .tmenu .mrow .mi svg{width:16px;height:16px}
 /* separador entre o lápis e o lixo */
 .tmenu .mrow{position:relative}
-.tmenu .mrow:has(#editTh:not([hidden])):has(#delTh:not([hidden]))::after{content:"";position:absolute;left:50%;top:calc(50% + 1.5px);width:1px;height:16px;transform:translate(-50%,-50%);background:var(--line);pointer-events:none}
+.tmenu .mrow:has(#editTh:not([hidden])):has(#delTh:not([hidden]))::after{content:"";position:absolute;left:50%;top:50%;width:1px;height:16px;transform:translate(-50%,-50%);background:var(--line);pointer-events:none}
 .tmenu .mrow #delTh{border-radius:0 8px 8px 0}
 /* banner do menu: sem linha, cor do fundo da lista de PDF, com sombra */
 #lib .tmenu{background:var(--panel);border:0;box-shadow:0 10px 26px rgba(0,0,0,.55),0 2px 6px rgba(0,0,0,.45)}
+/* separador mais abaixo, mesmo tamanho total; Add PDF centrado na parte de cima */
+.tmenu #addLbl{margin:1.5px 0 5.5px}
+.tmenu .mrow{margin-top:0;padding-top:0}
+.tmenu .mrow .mi{padding:6px 0}
+#lib .tmenu{width:96px}
+.tmenu #addLbl{padding-left:2px;padding-right:2px;white-space:nowrap}
 .tmenu .mrow #editTh{border-radius:8px 0 0 8px}
 #addLbl{color:var(--orange)}
 .mark{width:42px;height:42px;box-sizing:border-box;flex:none;border-radius:10px;background:var(--panel);border:1px solid var(--line)}
@@ -299,6 +344,8 @@ header .brand #spaceHit::after{content:"";position:absolute;left:0;top:-10px;bot
 .bopen .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .bopen svg{flex:none;color:var(--muted)}
 .book .confirm{margin-bottom:12px;width:50%;align-self:flex-end;box-sizing:border-box}
+/* confirmar apagar tópico: metade da largura, do lado do menu (esquerda) */
+#thConfirm{width:50%;align-self:flex-start;box-sizing:border-box}
 .cover{all:unset;box-sizing:border-box;cursor:pointer;display:block;aspect-ratio:3/4;max-width:100%;border-radius:8px;overflow:hidden;background:var(--raise);border:1px solid var(--line);box-shadow:0 8px 24px rgba(0,0,0,.35);transition:transform .15s}
 .cover:hover{transform:translateY(-2px)}
 .cover:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
@@ -324,10 +371,10 @@ header .brand #spaceHit::after{content:"";position:absolute;left:0;top:-10px;bot
 .bmenu button svg{width:15px;height:15px}
 .bmenu button:hover{background:var(--olive-soft);color:var(--fg)}
 .bmenu button.ren{color:var(--olive-hi)}
-.bmenu button.mov{color:#3a8fa0}
+.bmenu button.mov{color:#22707e}
 .bmenu button.del{color:#e5484d}
 .bmenu button.ren:hover,.bmenu button.mov:hover,.bmenu button.del:hover{background:var(--olive-soft)}
-.bmenu button.cls{color:#e5484d}
+.bmenu button.cls{color:var(--orange)}
 .bmenu button:disabled,.tmenu .mi:disabled{opacity:.3;cursor:default;background:none}
 .bmenu button.cls svg{transform:translateX(-2px)}
 .bmenu button:focus-visible{outline:2px solid var(--orange)}
@@ -340,7 +387,7 @@ header .brand #spaceHit::after{content:"";position:absolute;left:0;top:-10px;bot
 .bmove .mvadd:hover,.bmove .mvok:hover{background:var(--olive-soft);color:var(--fg)}
 .bmove .mvadd svg,.bmove .mvok svg{width:15px;height:15px}
 .bmove .mvok{color:var(--olive-hi)}
-.bmove .mvcls{all:unset;cursor:pointer;width:30px;height:30px;border-radius:7px;display:grid;place-items:center;color:#e5484d;flex:none;margin-left:auto}
+.bmove .mvcls{all:unset;cursor:pointer;width:30px;height:30px;border-radius:7px;display:grid;place-items:center;color:var(--orange);flex:none;margin-left:auto}
 .bmove .mvcls:hover{background:var(--olive-soft)}
 /* ✓ e X juntos */
 .bren button.bcancel{margin-right:-6px}
@@ -357,7 +404,7 @@ form.bren input{--tk:var(--olive-hi);border-top:0;background-color:var(--panel);
 .bren input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--olive-hi);border-left:0;border-right:0;border-radius:0;color:var(--fg);font:500 15px var(--f-display);padding:7px 10px;outline:none}
 .bren button{all:unset;cursor:pointer;width:30px;height:30px;border-radius:7px;display:grid;place-items:center;color:var(--olive-hi);flex:none}
 .bren button:hover{background:var(--raise)}
-.bren button.bcancel{color:#e5484d}
+.bren button.bcancel{color:var(--orange)}
 .brow:has(.bren) .pin,.brow:has(.bren) .more{display:none}
 .bren button.bcancel svg{width:14px;height:14px}
 .bren button svg{width:16px;height:16px}
@@ -527,7 +574,8 @@ header .brand .mark:focus-visible{outline:2px solid var(--orange);outline-offset
 <div class="wrap" id="lib">
   <header>
     <div class="brand">
-      <div class="mark" id="closeApp" role="button" tabindex="0" aria-label="Fechar a app" title="Fechar a app"><svg class="xart" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.9 3.7Q13.6 10.4 20.3 20.1Q10.5 13.7 3.9 3.7Z"/><path d="M19.7 4.1Q13.3 13.4 4.4 20.2Q10.7 10.8 19.7 4.1Z"/><circle cx="21" cy="21" r=".75"/></svg></div>
+      <div class="mark" id="closeApp" role="button" tabindex="0" aria-haspopup="menu" aria-label="Menu" title="Menu"><svg class="xart" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.9 3.7Q13.6 10.4 20.3 20.1Q10.5 13.7 3.9 3.7Z"/><path d="M19.7 4.1Q13.3 13.4 4.4 20.2Q10.7 10.8 19.7 4.1Z"/><circle cx="21" cy="21" r=".75"/></svg></div>
+      <div class="appmenu" id="appMenu" role="menu" hidden><button type="button" class="amclose" id="amClose" role="menuitem" aria-label="Close app" title="Close app">CLOSE<br>APP</button><button type="button" class="amtheme" data-t="dark" role="menuitem" aria-label="Dark mode" title="Dark mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button><button type="button" class="amtheme" data-t="mid" role="menuitem" aria-label="Grey mode" title="Grey mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor" stroke="none"/></svg></button><button type="button" class="amtheme" data-t="light" role="menuitem" aria-label="Light mode" title="Light mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg></button></div>
       <div id="spaceHit"><h1><span class="e" id="spaceName" role="button" tabindex="0" aria-label="Change space" title="Change space">NOTES</span></h1></div>
     </div>
   <section class="panel banner newtop" aria-label="New Topic">
@@ -86512,6 +86560,8 @@ const pdfjsBuild = 'ce8716743';
   const capT=s=>String(s||'').toLocaleUpperCase();
   // três espaços (STUDY, FINANCE, SELF); cada tópico pertence a um espaço (os antigos ficam em STUDY)
   const SPACES=['notes','study','finance','self'];
+  // nome mostrado de cada espaço (o identificador interno 'finance' mantém-se, para não perder os tópicos)
+  const spaceLabel=sp=>({notes:'NOTES',study:'STUDY',finance:'FINANCES',self:'SELF'})[sp]||sp.toUpperCase();
   S.space='notes'; // a app começa sempre em NOTES
   const ST=()=>S.themes.filter(t=>(t.space||'study')===S.space);
   const bKey=b=>(b.order ?? b.created ?? 0);
@@ -86673,7 +86723,7 @@ const pdfjsBuild = 'ce8716743';
   drawThHide();
   // espaços: o ícone à esquerda passa STUDY → FINANCE → SELF; o nome da app mostra o espaço atual
   function drawSpace(anim){
-    const el=$('spaceName'), txt=S.space.toUpperCase();
+    const el=$('spaceName'), txt=spaceLabel(S.space);
     if(!anim){ el.textContent=txt; return; }
     el.classList.add('sw'); setTimeout(()=>{ el.textContent=txt; el.classList.remove('sw'); if(typeof sizeHit==='function') sizeHit(); },180);
   }
@@ -86698,7 +86748,7 @@ const pdfjsBuild = 'ce8716743';
     const open=!$('thPop').hidden && $('thPop').dataset.kind==='space';
     closeThPop(); if(open) return;
     const pop=$('thPop'); pop.innerHTML=''; pop.dataset.kind='space';
-    SPACES.forEach(sp=>{ const b=document.createElement('button'); b.type='button'; b.className='thp'; b.setAttribute('role','menuitem'); b.setAttribute('aria-current', String(S.space===sp)); b.textContent=sp.toUpperCase(); b.onclick=ev=>{ ev.stopPropagation(); setSpace(sp); }; pop.appendChild(b); });
+    SPACES.forEach(sp=>{ const b=document.createElement('button'); b.type='button'; b.className='thp'; b.setAttribute('role','menuitem'); b.setAttribute('aria-current', String(S.space===sp)); b.textContent=spaceLabel(sp); b.onclick=ev=>{ ev.stopPropagation(); setSpace(sp); }; pop.appendChild(b); });
     pop.hidden=false; $('thSpace').setAttribute('aria-expanded','true');
     setTimeout(()=>document.addEventListener('pointerdown', outThPop, true),0);
   });
@@ -86984,7 +87034,7 @@ const pdfjsBuild = 'ce8716743';
   const TOUCH = matchMedia('(pointer:coarse)').matches;
   if(TOUCH){
     // o botão «Instalar app» (e o aviso de instalação) não pode pedir ecrã inteiro: isso gastaria o toque e o browser deixaria de mostrar a instalação
-    const goFull=e=>{ if(e && e.target && e.target.closest && e.target.closest('#installBtn,#installHint,#closeApp')) return; if(!document.fullscreenElement && !document.webkitFullscreenElement) enterFull(); };
+    const goFull=e=>{ if(e && e.target && e.target.closest && e.target.closest('#installBtn,#installHint,#closeApp,#appMenu')) return; if(!document.fullscreenElement && !document.webkitFullscreenElement) enterFull(); };
     document.addEventListener('click', goFull, true);
     document.addEventListener('touchend', goFull, true);
   }
@@ -87233,8 +87283,24 @@ const pdfjsBuild = 'ce8716743';
       clearTimeout(closeApp.t); closeApp.t = setTimeout(() => { el.hidden = true; el.classList.remove('err'); }, 3400);
     }, 300);
   }
-  b.addEventListener('click', closeApp);
-  b.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); closeApp(); } });
+  // o logo abre um menu: modo claro/escuro e fechar
+  const menu = document.getElementById('appMenu');
+  const tBtns = [...menu.querySelectorAll('.amtheme')];
+  const theme = () => document.documentElement.dataset.theme || 'dark';
+  function setTheme(t){ if (t === 'dark') delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = t; try { localStorage.setItem('el-theme', t); } catch(e) {} drawTheme(); }
+  // o tema ativo fica realçado
+  function drawTheme(){ tBtns.forEach(x => x.setAttribute('aria-pressed', String(x.dataset.t === theme())));
+    const m = document.querySelector('meta[name=theme-color]'); if (m) m.setAttribute('content', ({light:'#ffffff', mid:'#2b2d29'})[theme()] || '#111310'); }
+  drawTheme();
+  const closeMenu = () => { menu.hidden = true; document.removeEventListener('pointerdown', out, true); };
+  function out(e){ if (!e.target.closest('#appMenu') && !e.target.closest('#closeApp')) closeMenu(); }
+  function toggleMenu(){ if (!menu.hidden) { closeMenu(); return; } menu.hidden = false; setTimeout(() => document.addEventListener('pointerdown', out, true), 0); }
+  b.addEventListener('click', toggleMenu);
+  b.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); toggleMenu(); } });
+  // ordem: CLOSE APP · escuro · intermédio · claro
+  tBtns.forEach(x => x.addEventListener('click', () => { setTheme(x.dataset.t); closeMenu(); }));
+  document.getElementById('amClose').addEventListener('click', () => { closeMenu(); closeApp(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !menu.hidden) closeMenu(); });
 })();
 </script>
 
