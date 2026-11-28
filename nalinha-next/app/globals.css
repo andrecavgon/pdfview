@@ -126,7 +126,7 @@ nav button:focus:not(:focus-visible){outline:none}
 .duo .more{position:absolute;left:36px;bottom:28px}
 .d1{background-image:linear-gradient(90deg,rgba(20,12,6,.88),rgba(20,12,6,.35)),url(/img/sugestoes.jpg)}
 .d2{background-image:linear-gradient(90deg,rgba(20,12,6,.88),rgba(20,12,6,.35)),url(/img/noticias.jpg)}
-footer{margin-top:6px}
+footer{margin-top:44px}
 footer .rules i{display:block;height:1px;background:var(--ink)}
 footer .rules i+i{margin-top:5px}
 .foot{padding:12px 0 0;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px}
@@ -348,6 +348,7 @@ nav .top.active,nav .top.active:hover,nav .top.act-d{color:#fff}
   .foot small{grid-column:1/-1;grid-row:2;order:0;margin-top:2px}
 }
 @media (max-width:760px){.foot-links .foot-texts button{font-size:10px;letter-spacing:1.2px;height:18px;padding:0 5.5px 0 7px}.foot-texts{gap:8px 6px}}
+@media (max-width:760px){footer{margin-top:32px}}
 /* Linha fina por cima do rodapé */
 footer::before{content:"";display:block;height:1px;background:#fffae8;mix-blend-mode:difference;opacity:.35}
 /* Logótipo em texto: Herr Von Muellerhoff */
