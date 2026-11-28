@@ -41,7 +41,7 @@ header{position:sticky;top:0;z-index:20;background:var(--bg);margin:0 -40px;padd
 nav{display:flex;align-items:stretch;margin:5px 0 0;height:25px;justify-content:center;gap:8px}
 nav .item{position:relative;display:flex}
 nav .ic,.nav-cap{display:none}
-nav .top{appearance:none;border:0;background:none;color:inherit;cursor:pointer;font-family:'Marcellus',serif;font-size:15.5px;font-weight:400;letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;flex:0 0 auto;padding:0 11.5px 0 14px;line-height:1}
+nav .top{appearance:none;border:0;background:none;color:inherit;cursor:pointer;font-family:'Marcellus',serif;font-size:15.5px;font-weight:400;letter-spacing:2.5px;text-transform:uppercase;display:flex;align-items:center;justify-content:center;flex:0 0 auto;padding:0 11.5px 0 14px;line-height:1}
 nav .item:hover .top,nav .top:hover{background:rgba(14,68,82,.1);box-shadow:0 3px 8px rgba(40,24,12,.22)}
 nav .top.active,nav .top.active:hover{background:#5C4033;color:#fff;box-shadow:0 3px 8px rgba(40,24,12,.35)}
 nav button:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
@@ -324,8 +324,7 @@ body,body *:not(.wordmark){font-weight:400!important}
 /* Reserva sempre o espaço da barra de scroll: o conteúdo não encolhe quando ela aparece */
 html{scrollbar-gutter:stable}
 /* Menus: mais definição */
-nav .top,nav .sub button,nav .sub a,nav .lbl{text-rendering:geometricPrecision;-webkit-font-smoothing:antialiased;}
-nav .top,nav .sub button,nav .sub a{color:var(--ink)}
+nav .top,nav .lbl{text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
 nav .top.active,nav .top.active:hover,nav .top.act-d{color:#fff}
 /* Logótipo em texto: Herr Von Muellerhoff */
 .wordmark{display:block;font-family:'Herr Von Muellerhoff',cursive;font-weight:400;line-height:1;color:#fffae8;white-space:nowrap;mix-blend-mode:difference;letter-spacing:6px;text-rendering:geometricPrecision;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-kerning:normal;width:auto;aspect-ratio:auto}
