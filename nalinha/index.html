@@ -349,6 +349,9 @@ nav .top.active,nav .top.active:hover,nav .top.act-d{color:#fff}
 @media (max-width:760px){.foot-links .foot-texts button{font-size:10px;letter-spacing:1.2px;height:18px;padding:0 5.5px 0 7px}.foot-texts{gap:8px 6px}}
 /* Linha separadora muito fina por cima do rodapé */
 footer::before{content:"";display:block;height:1px;background:#fffae8;mix-blend-mode:difference;opacity:.35}
+/* Linha muito fina por baixo dos menus do cabeçalho */
+header::after{content:"";position:absolute;left:40px;right:40px;bottom:5px;height:1px;background:#fffae8;mix-blend-mode:difference;opacity:.35;pointer-events:none}
+@media (max-width:760px){header::after{left:16px;right:16px;bottom:0}}
 /* Logótipo em texto: Herr Von Muellerhoff */
 .wordmark{display:block;font-family:'Herr Von Muellerhoff',cursive;font-weight:400;line-height:1;color:#fffae8;white-space:nowrap;mix-blend-mode:difference;letter-spacing:3px;text-rendering:geometricPrecision;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-kerning:normal;width:auto;aspect-ratio:auto}
 .masthead .wordmark{font-size:54px;margin:0 26px;position:relative;top:9px;width:auto}
