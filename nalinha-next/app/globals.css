@@ -58,7 +58,7 @@ nav button:focus:not(:focus-visible){outline:none}
 .hero{margin-top:16px;grid-template-columns:476fr 472fr}
 .hero .card{height:440px;color:#fff;padding:58px 36px 0}
 .hero .tag{display:block;margin-bottom:12px}
-.hero h2{font-size:45px;line-height:1.08}
+.hero h2{font-size:40px;line-height:1.08}
 .hero p{font-size:19px;line-height:1.25;margin-top:20px;max-width:250px;color:#f1e8dc}
 .hero .more{position:absolute;left:36px;bottom:30px}
 .hero .c1{background-image:url(/img/hero-livrarias.jpg)}
@@ -71,7 +71,7 @@ nav button:focus:not(:focus-visible){outline:none}
 .small{height:260px;background:var(--paper);box-shadow:0 1px 3px rgba(60,40,20,.12);display:flex}
 .small .txt{flex:1;padding:24px 2px 0 21px;position:relative;min-width:0}
 .small .tag{font-size:9.5px;display:block;margin-bottom:11px;color:#333}
-.small h2{font-size:22.5px;line-height:1.08;margin-bottom:14px}
+.small h2{font-size:20.5px;line-height:1.08;margin-bottom:14px}
 .small p{font-size:14.5px;line-height:1.25;color:#2b2724}
 .small .more{position:absolute;left:21px;bottom:19px;font-size:9.5px}
 .small .pic{flex:0 0 auto;height:100%;background-size:cover;background-position:center}
@@ -83,7 +83,7 @@ nav button:focus:not(:focus-visible){outline:none}
 .row3 .card{height:330px;padding:0 0 0 38px}
 .big{background-image:url(/img/historia.jpg);color:#fff;padding-top:40px!important}
 .big .tag{display:block;margin-bottom:10px;font-size:10.5px}
-.big h2{font-size:46px;line-height:1.05}
+.big h2{font-size:41px;line-height:1.05}
 .big p{font-size:18.5px;line-height:1.25;margin-top:16px;color:#f1e8dc;max-width:260px}
 .big .more{position:absolute;left:38px;bottom:42px}
 .kids{background-image:url(/img/infantil.jpg);padding:34px 0 0 22px!important}
@@ -163,7 +163,7 @@ footer .rules i+i{margin-top:5px}
 .art-voltar{display:inline-block;font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);text-decoration:none;padding:8px 0}
 .art-voltar:hover,.art-voltar:focus-visible{text-decoration:underline}
 .art-tag{font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6a5f3f;margin-top:18px}
-.artigo h1{font-family:var(--display);font-weight:600;font-size:54px;line-height:1.02;margin-top:12px;text-wrap:balance}
+.artigo h1{font-family:var(--display);font-weight:600;font-size:46px;line-height:1.02;margin-top:12px;text-wrap:balance}
 .art-sub{font-family:var(--serif);font-size:23px;line-height:1.35;color:#3b3322;margin-top:16px}
 .art-meta{font-family:var(--sans);font-size:12px;letter-spacing:.06em;color:#6a5f3f;margin-top:16px}
 .art-fig{margin:26px 0 8px}
@@ -179,7 +179,7 @@ footer .rules i+i{margin-top:5px}
 .art-catalogo:hover,.art-catalogo:focus-visible{background:#0a323d}
 @media (max-width:760px){
   .artigo{padding:20px 16px 10px}
-  .artigo h1{font-size:38px}
+  .artigo h1{font-size:33px}
   .art-sub{font-size:20px}
   .art-img{height:220px}
   .art-corpo p{font-size:19px}
@@ -273,19 +273,19 @@ footer .rules i+i{margin-top:5px}
   .small{height:220px}
   .s1 .pic,.s2 .pic,.s3 .pic{width:42%}
   .row3 .card{height:280px}
-  .big h2{font-size:38px}
+  .big h2{font-size:34px}
   .thumbs{grid-template-columns:repeat(2,1fr)}
   .emais,footer{padding:0 16px}
   /* texto maior */
   .tag{font-size:13px!important}
   .more{font-size:13px!important}
-  .hero h2,.big h2,.duo h2{font-size:38px}
+  .hero h2,.big h2,.duo h2{font-size:34px}
   .hero p,.big p,.duo p{font-size:20px;max-width:58%}
   .hero .c2 p{max-width:55%}
   .hero .c2 h2{font-size:34px}
   .duo p{max-width:none;font-size:19px}
   .small{height:270px}
-  .small h2{font-size:27px}
+  .small h2{font-size:24px}
   .small p{font-size:18px}
   .small .tag{font-size:12px!important}
   .kids h2{font-size:38px}
