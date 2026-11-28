@@ -14,10 +14,10 @@
 <style>
 :root{
   --bg:#f6f0df; --paper:#fbf7ea; --ink:#1c1912; --rust:#0e4452; --line:#d8ceb3;
-  --serif:"Newsreader","Cormorant Garamond",Georgia,serif;
-  --display:"Cormorant Garamond","Garamond",Georgia,serif;
+  --serif:"Marcellus",Georgia,serif;
+  --display:"Marcellus",Georgia,serif;
   --script:"Herr Von Muellerhoff","Snell Roundhand","Apple Chancery",cursive;
-  --sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --sans:"Marcellus",Georgia,serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--ink);font-family:var(--serif);-webkit-font-smoothing:antialiased}
@@ -318,6 +318,9 @@ footer .rules i+i{margin-top:5px}
               .foot small{font-size:11px}
 }
 
+
+/* Marcellus só tem um peso: evita negrito sintético */
+body,body *:not(.wordmark){font-weight:400!important}
 /* Logótipo em texto: Herr Von Muellerhoff */
 .wordmark{display:block;font-family:'Herr Von Muellerhoff',cursive;font-weight:400;line-height:1;color:#fffae8;white-space:nowrap;mix-blend-mode:difference;letter-spacing:6px;filter:url(#afina);width:auto;aspect-ratio:auto}
 .masthead .wordmark{font-size:62px;margin:0 26px;position:relative;top:10px;width:auto}
