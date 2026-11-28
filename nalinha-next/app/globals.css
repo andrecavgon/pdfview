@@ -318,3 +318,12 @@ a.livro{color:var(--ink)}
 .livro-pag dd a{color:inherit}
 
 .cat-chips a{display:inline-block;text-decoration:none}
+
+/* Logótipo em texto: Herr Von Muellerhoff */
+.wordmark{display:block;font-family:'Herr Von Muellerhoff',cursive;font-weight:400;line-height:1;color:#fffae8;white-space:nowrap;mix-blend-mode:difference;letter-spacing:6px;filter:url(#afina);width:auto;aspect-ratio:auto}
+.masthead .wordmark{font-size:62px;margin:0 26px;position:relative;top:10px;width:auto}
+.foot .wordmark{font-size:50px;width:auto}
+@media (max-width:760px){
+  .masthead .wordmark{font-size:29px;letter-spacing:3px;margin:0 12px;top:5px}
+  .foot .wordmark{font-size:29px;letter-spacing:3px}
+}
