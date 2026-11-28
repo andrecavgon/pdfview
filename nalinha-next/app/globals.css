@@ -362,8 +362,8 @@ footer::after{content:"";position:absolute;left:50%;width:100vw;transform:transl
 .page>main{flex:1 0 auto}
 /* Botão de ecrã inteiro (só ícone), alinhado com o fim da linha do logo */
 nav{position:relative}
-.fs-btn{display:none;position:absolute;right:0;top:0;height:100%;width:30px;padding:0;margin:0;border:0;border-radius:8px;background:none;color:var(--ink);cursor:pointer;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent}
-.fs-btn svg{position:relative;top:-.6px}
+.fs-btn{display:none;position:absolute;right:0;top:0;height:100%;width:30px;padding:0;margin:0;border:0;border-radius:8px;background:none;color:#8c8c8c;cursor:pointer;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent}
+.fs-btn svg{position:relative;top:-.2px}
 .fs-btn .i-in{display:none}
 .fs-btn.on .i-out{display:none}
 .fs-btn.on .i-in{display:block}
