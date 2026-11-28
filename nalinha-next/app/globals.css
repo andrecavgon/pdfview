@@ -335,6 +335,7 @@ nav .top.active,nav .top.active:hover,nav .top.act-d{color:#fff}
 .foot-links .foot-texts button{background:#5C4033;color:#fff;font-family:'Marcellus',serif;font-size:15.5px;font-weight:400;letter-spacing:2.5px;text-transform:uppercase;height:27px;padding:0 12.5px 0 15px;display:flex;align-items:center;border-radius:8px;box-shadow:0 3px 8px rgba(40,24,12,.35);text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
 .foot-links .foot-texts button:hover{background:#4a3228;color:#fff}
 .foot-brand{order:2;align-self:center;position:relative;top:10px;align-items:flex-start;text-align:left;margin:0;flex:1 1 0;min-width:0}
+.foot-brand > span{position:relative;top:-8px}
 .redes{order:3;flex:0 0 auto;flex-direction:row-reverse}
 .foot small{order:4;flex:0 0 100%;text-align:center}
 @media (max-width:760px){.foot-links .foot-texts button{font-size:12.5px;letter-spacing:1.5px;padding:0 8px 0 9.5px}.foot-texts{gap:8px 6px}}
