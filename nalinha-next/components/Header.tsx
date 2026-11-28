@@ -8,7 +8,7 @@ import { MENU } from "@/lib/menu";
 
 const REGRA = (
   <svg className="rule" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0 1H100" fill="none" stroke="#fffae8" strokeWidth=".5" vectorEffect="non-scaling-stroke" />
+    <path d="M0 1H100" fill="none" stroke="#fffae8" strokeWidth="1" vectorEffect="non-scaling-stroke" />
   </svg>
 );
 
