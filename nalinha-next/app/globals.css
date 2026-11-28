@@ -343,8 +343,8 @@ nav .top.active,nav .top.active:hover,nav .top.act-d{color:#fff}
 @media (min-width:761px){
   .foot{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:0 16px}
   .foot-brand{grid-column:1;grid-row:1;order:0}
-  .foot-texts{grid-column:2;grid-row:1;order:0;flex:none;align-self:start;margin-top:16px}
-  .redes{grid-column:3;grid-row:1;order:0;justify-self:end;align-self:start;margin-top:7px}
+  .foot-texts{grid-column:2;grid-row:1;order:0;flex:none;align-self:start;margin-top:14.5px}
+  .redes{grid-column:3;grid-row:1;order:0;justify-self:end;align-self:start;margin-top:5.5px}
   .foot small{grid-column:1/-1;grid-row:2;order:0;margin-top:2px}
 }
 @media (max-width:760px){.foot-links .foot-texts button{font-size:10px;letter-spacing:1.2px;height:18px;padding:0 5.5px 0 7px}.foot-texts{gap:8px 6px}}
@@ -353,8 +353,8 @@ footer::before{content:"";display:block;height:1px;background:#fffae8;mix-blend-
 /* Logótipo em texto: Herr Von Muellerhoff */
 .wordmark{display:block;font-family:'Herr Von Muellerhoff',cursive;font-weight:400;line-height:1;color:#fffae8;white-space:nowrap;mix-blend-mode:difference;letter-spacing:3px;text-rendering:geometricPrecision;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-kerning:normal;width:auto;aspect-ratio:auto}
 .masthead .wordmark{font-size:54px;margin:0 26px;position:relative;top:9px;width:auto}
-.foot .wordmark{font-size:38px;width:auto}
+.foot .wordmark{font-size:35px;width:auto}
 @media (max-width:760px){
   .masthead .wordmark{font-size:26px;letter-spacing:1.5px;margin:0 12px;top:5px}
-  .foot .wordmark{font-size:23px;letter-spacing:1.5px}
+  .foot .wordmark{font-size:21px;letter-spacing:1.5px}
 }
