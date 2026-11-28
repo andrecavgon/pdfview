@@ -332,8 +332,8 @@ nav .top.active,nav .top.active:hover,nav .top.act-d{color:#fff}
 .foot{flex-direction:row;flex-wrap:wrap;justify-content:space-between;align-items:center;text-align:left;gap:18px 16px}
 .foot-links{display:contents}
 .foot-texts{order:1;flex:0 0 100%;display:flex;justify-content:center;gap:10px 14px}
-.foot-links .foot-texts button{background:#5C4033;color:#fff;font-family:'Marcellus',serif;font-size:13.5px;font-weight:400;letter-spacing:2.2px;text-transform:uppercase;height:24px;padding:0 10px 0 12px;display:flex;align-items:center;border-radius:8px;box-shadow:0 3px 8px rgba(40,24,12,.35);text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
-.foot-links .foot-texts button:hover{background:#4a3228;color:#fff}
+.foot-links .foot-texts button{background:#7B5B4C;color:#fff;font-family:'Marcellus',serif;font-size:13.5px;font-weight:400;letter-spacing:2.2px;text-transform:uppercase;height:24px;padding:0 10px 0 12px;display:flex;align-items:center;border-radius:8px;box-shadow:0 3px 8px rgba(40,24,12,.35);text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+.foot-links .foot-texts button:hover{background:#6a4b3d;color:#fff}
 .foot-brand{order:2;align-self:center;position:relative;top:10px;align-items:flex-start;text-align:left;margin:0;flex:1 1 0;min-width:0}
 .foot-brand > span{position:relative;top:-8px}
 .redes{order:3;flex:0 0 auto;flex-direction:row-reverse}
