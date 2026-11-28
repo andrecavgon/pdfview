@@ -326,9 +326,9 @@ body,body *:not(.wordmark){font-weight:400!important}
 html{scrollbar-gutter:stable}
 /* Logótipo em texto: Herr Von Muellerhoff */
 .wordmark{display:block;font-family:'Herr Von Muellerhoff',cursive;font-weight:400;line-height:1;color:#fffae8;white-space:nowrap;mix-blend-mode:difference;letter-spacing:6px;filter:url(#afina);width:auto;aspect-ratio:auto}
-.masthead .wordmark{font-size:62px;margin:0 26px;position:relative;top:10px;width:auto}
-.foot .wordmark{font-size:50px;width:auto}
+.masthead .wordmark{font-size:54px;margin:0 26px;position:relative;top:9px;width:auto}
+.foot .wordmark{font-size:44px;width:auto}
 @media (max-width:760px){
-  .masthead .wordmark{font-size:29px;letter-spacing:3px;margin:0 12px;top:5px}
-  .foot .wordmark{font-size:29px;letter-spacing:3px}
+  .masthead .wordmark{font-size:26px;letter-spacing:3px;margin:0 12px;top:5px}
+  .foot .wordmark{font-size:26px;letter-spacing:3px}
 }
