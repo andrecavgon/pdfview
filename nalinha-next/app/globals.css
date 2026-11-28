@@ -25,12 +25,12 @@ header{position:sticky;top:0;z-index:20;background:var(--bg);margin:0 -40px;padd
 .logo-btn:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
 .logo-btn svg{pointer-events:none}
 .logo{display:block;width:200px;aspect-ratio:2556/696;height:auto}
-nav{display:flex;align-items:stretch;margin:4px 0 0;height:43px;justify-content:center;gap:8px}
+nav{display:flex;align-items:stretch;margin:4px 0 0;height:34px;justify-content:center;gap:8px}
 nav .item{position:relative;display:flex}
 nav .ic,.nav-cap{display:none}
-nav .top{text-decoration:none;appearance:none;border:0;background:none;color:inherit;cursor:pointer;font-family:var(--display);font-size:18px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;flex:0 0 auto;padding:0 30px 4px}
+nav .top{text-decoration:none;appearance:none;border:0;background:none;color:inherit;cursor:pointer;font-family:var(--display);font-size:18px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;flex:0 0 auto;padding:0 22px 3px}
 nav .item:hover .top,nav .top:hover{background:rgba(14,68,82,.1)}
-nav .top.active,nav .top.active:hover{background:var(--rust);color:#fff}
+nav .top.active,nav .top.active:hover{background:#5C4033;color:#fff}
 nav a:focus-visible,nav button:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
 nav .sub{display:none;list-style:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);min-width:100%;width:max-content;max-width:300px;background:var(--paper);box-shadow:0 12px 30px rgba(40,28,10,.18);border-radius:0 0 6px 6px;padding:6px 0;z-index:30}
 nav .item.open .sub{display:block}
@@ -172,7 +172,7 @@ footer .rules i+i{margin-top:5px}
 .art-corpo{margin-top:20px}
 .art-corpo p{font-family:var(--serif);font-size:21px;line-height:1.6;margin-top:18px}
 .art-corpo h2{font-family:var(--display);font-weight:600;font-size:32px;line-height:1.1;margin-top:34px}
-.art-corpo blockquote{font-family:var(--display);font-weight:500;font-size:28px;line-height:1.25;margin:28px 0;padding:4px 0 4px 22px;border-left:3px solid #7a4a2e;color:#2c2417}
+.art-corpo blockquote{font-family:var(--display);font-weight:500;font-size:28px;line-height:1.25;margin:28px 0;padding:4px 0 4px 22px;border-left:3px solid #5C4033;color:#2c2417}
 .art-corpo .art-nota{font-family:var(--sans);font-size:12px;color:#6a5f3f;border-top:1px solid var(--line);padding-top:16px;margin-top:34px}
 .art-fim{margin-top:22px;padding-top:6px}
 .art-catalogo{display:inline-block;font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:#0e4452;padding:14px 20px;text-decoration:none;border-radius:4px}
@@ -261,13 +261,13 @@ footer .rules i+i{margin-top:5px}
   nav .ic{display:none}
   nav .lbl{display:block;font-family:var(--sans);font-size:9.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;line-height:1.1;color:var(--ink);white-space:nowrap;padding-bottom:2px;border-bottom:2px solid transparent}
   nav .item:hover .top,nav .top:hover,nav .top.active,nav .top.active:hover{background:none;color:var(--ink)}
-  nav .top.active .lbl{font-weight:700;color:#7a4a2e;border-bottom-color:#7a4a2e}
+  nav .top.active .lbl{font-weight:700;color:#5C4033;border-bottom-color:#5C4033}
   nav a:focus-visible,nav button:focus-visible{outline:2px solid var(--ink);outline-offset:1px;border-radius:4px}
   .nav-cap{display:none}
   nav .sub{position:absolute;top:100%;left:0;right:0;z-index:30;display:none;transform:none;width:auto;max-width:none;min-width:0;padding:4px 16px 8px;background:var(--bg);border-radius:0;box-shadow:0 14px 24px rgba(0,0,0,.16);text-align:center}
   nav .item.open .sub{display:block}
   nav .sub a{width:100%;text-align:center;padding:11px 12px;font-family:var(--sans);font-size:10.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;line-height:1.1}
-  nav .sub a.active{box-shadow:none;color:#7a4a2e;font-weight:700}
+  nav .sub a.active{box-shadow:none;color:#5C4033;font-weight:700}
   .hero{margin-top:0;grid-template-columns:1fr}
   .row2,.row3{grid-template-columns:1fr}
   .small{height:220px}
@@ -306,7 +306,7 @@ footer .rules i+i{margin-top:5px}
 }
 
 /* Next.js: estado "activo" só no computador na página inicial */
-@media (min-width:761px){nav .top.act-d,nav .top.act-d:hover{background:var(--rust);color:#fff}}
+@media (min-width:761px){nav .top.act-d,nav .top.act-d:hover{background:#5C4033;color:#fff}}
 .card-link,.sec-card,.livro,.lb-item,.art-voltar,.art-catalogo{text-decoration:none}
 a.livro{color:var(--ink)}
 .livro-pag{max-width:900px;margin:0 auto;padding:30px 0 20px}
