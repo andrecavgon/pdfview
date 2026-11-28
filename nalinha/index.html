@@ -142,7 +142,7 @@ nav button:focus:not(:focus-visible){outline:none}
 footer{margin-top:6px}
 footer .rules i{display:block;height:1px;background:var(--ink)}
 footer .rules i+i{margin-top:5px}
-.foot{padding:12px 0 8px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px}
+.foot{padding:12px 0 0;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px}
 .foot-brand{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:10px}
 .foot strong{line-height:0}
 .foot .logo{width:165px}
@@ -328,7 +328,7 @@ html{scrollbar-gutter:stable}
 nav .top,nav .lbl{text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
 nav .top.active,nav .top.active:hover,nav .top.act-d{color:#fff}
 /* Rodapé: links em cima (banners), logo e redes na linha de baixo */
-.foot{flex-direction:row;flex-wrap:wrap;justify-content:space-between;align-items:center;text-align:left;gap:18px 16px}
+.foot{flex-direction:row;flex-wrap:wrap;justify-content:space-between;align-items:center;text-align:left;gap:12px 16px}
 .foot-links{display:contents}
 .foot-texts{order:1;flex:0 0 100%;display:flex;justify-content:center;gap:10px 14px}
 .foot-links .foot-texts button{background:#D9D6CE;color:var(--ink);font-family:'Marcellus',serif;font-size:11.5px;font-weight:400;letter-spacing:1.8px;text-transform:uppercase;height:20px;padding:0 8px 0 10px;display:flex;align-items:center;border-radius:8px;box-shadow:0 3px 8px rgba(40,24,12,.35);text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
@@ -344,7 +344,7 @@ nav .top.active,nav .top.active:hover,nav .top.act-d{color:#fff}
   .foot-brand{grid-column:1;grid-row:1;order:0}
   .foot-texts{grid-column:2;grid-row:1;order:0;flex:none;align-self:start;margin-top:16px}
   .redes{grid-column:3;grid-row:1;order:0;justify-self:end;align-self:start;margin-top:7px}
-  .foot small{grid-column:1/-1;grid-row:2;order:0;margin-top:14px}
+  .foot small{grid-column:1/-1;grid-row:2;order:0;margin-top:2px}
 }
 @media (max-width:760px){.foot-links .foot-texts button{font-size:10px;letter-spacing:1.2px;height:18px;padding:0 5.5px 0 7px}.foot-texts{gap:8px 6px}}
 /* Logótipo em texto: Herr Von Muellerhoff */
