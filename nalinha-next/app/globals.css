@@ -28,16 +28,16 @@ header{position:sticky;top:0;z-index:20;background:var(--bg);margin:0 -40px;padd
 nav{display:flex;align-items:stretch;margin:9px 0 0;height:30px;justify-content:center;gap:8px}
 nav .item{position:relative;display:flex}
 nav .ic,.nav-cap{display:none}
-nav .top{text-decoration:none;appearance:none;border:0;background:none;color:inherit;cursor:pointer;font-family:var(--display);font-size:16.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;flex:0 0 auto;padding:0 15.5px 0 18px;line-height:1}
+nav .top{text-decoration:none;appearance:none;border:0;background:none;color:inherit;cursor:pointer;font-family:'Marcellus',serif;font-size:16.5px;font-weight:400;letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;flex:0 0 auto;padding:0 15.5px 0 18px;line-height:1}
 nav .item:hover .top,nav .top:hover{background:rgba(14,68,82,.1)}
 nav .top.active,nav .top.active:hover{background:#5C4033;color:#fff}
 nav a:focus-visible,nav button:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
 nav .sub{display:none;list-style:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);min-width:100%;width:max-content;max-width:300px;background:var(--paper);box-shadow:0 12px 30px rgba(40,28,10,.18);border-radius:0 0 6px 6px;padding:6px 0;z-index:30}
 nav .item.open .sub{display:block}
 @media (hover:hover) and (min-width:761px){nav .item:hover .sub{display:block}}
-nav .sub a{appearance:none;border:0;background:none;color:var(--ink);cursor:pointer;display:block;width:100%;text-align:left;font-family:var(--sans);font-size:13px;font-weight:500;letter-spacing:.05em;padding:10px 20px}
+nav .sub a{appearance:none;border:0;background:none;color:var(--ink);cursor:pointer;display:block;width:100%;text-align:left;font-family:'Marcellus',serif;font-size:13px;font-weight:400;letter-spacing:.05em;padding:10px 20px}
 nav .sub a:hover{background:rgba(14,68,82,.08)}
-nav .sub a.active{color:var(--rust);font-weight:600;box-shadow:inset 3px 0 0 var(--rust)}
+nav .sub a.active{color:var(--rust);font-weight:400;box-shadow:inset 3px 0 0 var(--rust)}
 
 /* Botão de menu (só em telemóvel) */
 .menu-toggle{display:none;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;user-select:none;-webkit-user-select:none}
@@ -259,15 +259,15 @@ footer .rules i+i{margin-top:5px}
   nav .top{flex:0 0 auto;padding:6px 3px 0;height:auto;gap:0;background:none;color:var(--ink);-webkit-tap-highlight-color:transparent;border-radius:0}
   nav .top::after{content:none}
   nav .ic{display:none}
-  nav .lbl{display:block;font-family:var(--sans);font-size:9.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;line-height:1.1;color:var(--ink);white-space:nowrap;padding-bottom:2px;border-bottom:2px solid transparent}
+  nav .lbl{display:block;font-family:'Marcellus',serif;font-size:9.5px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;line-height:1.1;color:var(--ink);white-space:nowrap;padding-bottom:2px;border-bottom:2px solid transparent}
   nav .item:hover .top,nav .top:hover,nav .top.active,nav .top.active:hover{background:none;color:var(--ink)}
-  nav .top.active .lbl{font-weight:700;color:#5C4033;border-bottom-color:#5C4033}
+  nav .top.active .lbl{font-weight:400;color:#5C4033;border-bottom-color:#5C4033}
   nav a:focus-visible,nav button:focus-visible{outline:2px solid var(--ink);outline-offset:1px;border-radius:4px}
   .nav-cap{display:none}
   nav .sub{position:absolute;top:100%;left:0;right:0;z-index:30;display:none;transform:none;width:auto;max-width:none;min-width:0;padding:4px 16px 8px;background:var(--bg);border-radius:0;box-shadow:0 14px 24px rgba(0,0,0,.16);text-align:center}
   nav .item.open .sub{display:block}
-  nav .sub a{width:100%;text-align:center;padding:11px 12px;font-family:var(--sans);font-size:10.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;line-height:1.1}
-  nav .sub a.active{box-shadow:none;color:#5C4033;font-weight:700}
+  nav .sub a{width:100%;text-align:center;padding:11px 12px;font-family:'Marcellus',serif;font-size:10.5px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;line-height:1.1}
+  nav .sub a.active{box-shadow:none;color:#5C4033;font-weight:400}
   .hero{margin-top:0;grid-template-columns:1fr}
   .row2,.row3{grid-template-columns:1fr}
   .small{height:220px}
