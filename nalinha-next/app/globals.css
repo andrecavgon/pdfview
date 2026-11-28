@@ -12,7 +12,7 @@ a{color:inherit;text-decoration:none}
 .page{max-width:1280px;margin:0 auto;padding:0 40px 4px}
 
 /* Cabeçalho (fixo ao fazer scroll) */
-header{position:sticky;top:0;z-index:20;background:var(--bg);margin:0 -40px;padding:0 40px 12px}
+header{position:sticky;top:0;z-index:20;background:var(--bg);margin:0 -40px;padding:0 40px 24px}
 .masthead{--lw:clamp(190px,18.5vw,250px);--ly:calc(var(--lw)*.2723*.64);position:relative;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 0 4px;margin-left:-5px}
 /* Tons complementares + mix-blend-mode:difference: escuro no fundo marfim, claro quando o browser força o modo escuro */
 .masthead .rule{flex:1;min-width:0;height:2px;display:block;overflow:visible;mix-blend-mode:difference}
@@ -25,10 +25,10 @@ header{position:sticky;top:0;z-index:20;background:var(--bg);margin:0 -40px;padd
 .logo-btn:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
 .logo-btn svg{pointer-events:none}
 .logo{display:block;width:200px;aspect-ratio:2556/696;height:auto}
-nav{display:flex;align-items:stretch;margin:5px 0 0;height:23px;justify-content:center;gap:8px}
+nav{display:flex;align-items:stretch;margin:5px 0 0;height:21px;justify-content:center;gap:8px}
 nav .item{position:relative;display:flex}
 nav .ic,.nav-cap{display:none}
-nav .top{text-decoration:none;appearance:none;border:0;background:none;color:inherit;cursor:pointer;font-family:'Marcellus',serif;font-size:14.5px;font-weight:400;letter-spacing:2.3px;text-transform:uppercase;display:flex;align-items:center;justify-content:center;flex:0 0 auto;padding:0 10.5px 0 13px;line-height:1}
+nav .top{text-decoration:none;appearance:none;border:0;background:none;color:inherit;cursor:pointer;font-family:'Marcellus',serif;font-size:13.5px;font-weight:400;letter-spacing:2.1px;text-transform:uppercase;display:flex;align-items:center;justify-content:center;flex:0 0 auto;padding:0 9.5px 0 12px;line-height:1}
 nav .item:hover .top,nav .top:hover{background:rgba(14,68,82,.1);box-shadow:0 3px 8px rgba(40,24,12,.22)}
 nav .top.active,nav .top.active:hover{background:#5C4033;color:#fff;box-shadow:0 3px 8px rgba(40,24,12,.35)}
 nav a:focus-visible,nav button:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
@@ -353,9 +353,9 @@ nav .top.active,nav .top.active:hover,nav .top.act-d{color:#fff}
 footer::before{content:"";display:block;height:1px;background:#fffae8;mix-blend-mode:difference;opacity:.35}
 /* Logótipo em texto: Herr Von Muellerhoff */
 .wordmark{display:block;font-family:'Herr Von Muellerhoff',cursive;font-weight:400;line-height:1;color:#fffae8;white-space:nowrap;mix-blend-mode:difference;letter-spacing:3px;text-rendering:geometricPrecision;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-kerning:normal;width:auto;aspect-ratio:auto}
-.masthead .wordmark{font-size:54px;margin:0 26px;position:relative;top:9px;width:auto}
+.masthead .wordmark{font-size:50px;margin:0 26px;position:relative;top:8px;width:auto}
 .foot .wordmark{font-size:35px;width:auto}
 @media (max-width:760px){
-  .masthead .wordmark{font-size:26px;letter-spacing:1.5px;margin:0 12px;top:5px}
+  .masthead .wordmark{font-size:24px;letter-spacing:1.5px;margin:0 12px;top:5px}
   .foot .wordmark{font-size:21px;letter-spacing:1.5px}
 }
