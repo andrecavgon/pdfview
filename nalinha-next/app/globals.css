@@ -328,6 +328,7 @@ html{scrollbar-gutter:stable}
 /* Menus: mais definição */
 nav .top,nav .lbl{text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
 nav .top.active,nav .top.active:hover,nav .top.act-d{color:#fff}
+.foot-brand{align-self:flex-start;align-items:flex-start;text-align:left}
 /* Logótipo em texto: Herr Von Muellerhoff */
 .wordmark{display:block;font-family:'Herr Von Muellerhoff',cursive;font-weight:400;line-height:1;color:#fffae8;white-space:nowrap;mix-blend-mode:difference;letter-spacing:6px;text-rendering:geometricPrecision;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-kerning:normal;width:auto;aspect-ratio:auto}
 .masthead .wordmark{font-size:54px;margin:0 26px;position:relative;top:9px;width:auto}

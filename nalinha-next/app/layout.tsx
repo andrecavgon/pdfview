@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 
 const SITE = process.env.SITE_URL || "https://example.com";
@@ -28,6 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="page">
           <Header />
           <main>{children}</main>
+          <Footer />
         </div>
       </body>
     </html>

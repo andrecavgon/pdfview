@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { BookBanners } from "@/components/BookBanners";
-import { Footer } from "@/components/Footer";
 import { getLivros } from "@/lib/livros";
 
 export default async function Home() {
@@ -89,7 +88,6 @@ export default async function Home() {
           <BookBanners livros={livros} />
         </section>
       </div>
-      <Footer />
     </>
   );
 }
