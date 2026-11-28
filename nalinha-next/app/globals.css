@@ -324,6 +324,10 @@ a.livro{color:var(--ink)}
 body,body *:not(.wordmark){font-weight:400!important}
 /* Reserva sempre o espaço da barra de scroll: o conteúdo não encolhe quando ela aparece */
 html{scrollbar-gutter:stable}
+/* Menus: mais definição */
+nav .top,nav .sub button,nav .sub a,nav .lbl{text-rendering:geometricPrecision;-webkit-font-smoothing:antialiased;-webkit-text-stroke:.3px currentColor}
+nav .top,nav .sub button,nav .sub a{color:#000}
+nav .top.active,nav .top.active:hover,nav .top.act-d{color:#fff}
 /* Logótipo em texto: Herr Von Muellerhoff */
 .wordmark{display:block;font-family:'Herr Von Muellerhoff',cursive;font-weight:400;line-height:1;color:#fffae8;white-space:nowrap;mix-blend-mode:difference;letter-spacing:6px;text-rendering:geometricPrecision;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-kerning:normal;width:auto;aspect-ratio:auto}
 .masthead .wordmark{font-size:54px;margin:0 26px;position:relative;top:9px;width:auto}
