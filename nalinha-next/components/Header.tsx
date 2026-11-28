@@ -33,6 +33,12 @@ export function Header() {
   const [aberto, setAberto] = useState(false);
   const [esconde, setEsconde] = useState(false);
   const [subAberto, setSubAberto] = useState<number | null>(null);
+  const [ecra, setEcra] = useState(false);
+  useEffect(() => {
+    const f = () => setEcra(!!document.fullscreenElement);
+    document.addEventListener("fullscreenchange", f);
+    return () => document.removeEventListener("fullscreenchange", f);
+  }, []);
   const ref = useRef<HTMLElement>(null);
   const ult = useRef(0);
   const { top, sub } = activo(pathname);
@@ -116,6 +122,18 @@ export function Header() {
             </ul>
           </div>
         ))}
+        <button
+          type="button"
+          className={"fs-btn" + (ecra ? " on" : "")}
+          aria-label="Ecrã inteiro"
+          title="Ecrã inteiro"
+          onClick={() => {
+            if (document.fullscreenElement) document.exitFullscreen();
+            else document.documentElement.requestFullscreen?.()?.catch(() => {});
+          }}
+        >
+          <svg className="i-out" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg><svg className="i-in" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 4v5H4M20 9h-5V4M15 20v-5h5M4 15h5v5"/></svg>
+        </button>
       </nav>
     </header>
   );
